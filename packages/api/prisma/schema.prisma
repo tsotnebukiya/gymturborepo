@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+enum GenerationStatus {
+    PENDING
+    COMPLETED
+    FAILED
+}
+
+enum SubscriptionStatus {
+    INACTIVE
+    ACTIVE
+}
+
+enum Category {
+    SHOULDERS
+    CHEST
+    BACK
+    ARMS
+    CORE
+    LEGS
+}
+
+enum Subcategory {
+    // Shoulders
+    UPPER_SHOULDER
+    REAR_SHOULDER
+    FRONT_SHOULDER
+    SIDE_SHOULDER
+
+    // Chest
+    UPPER_CHEST
+    MIDDLE_CHEST
+    LOWER_CHEST
+
+    // Back
+    UPPER_BACK
+    MIDDLE_BACK
+    LOWER_BACK
+    LOWER_LATS
+
+    // Arms
+    BICEPS
+    TRICEPS
+    FOREARMS
+
+    // Core
+    UPPER_ABS
+    LOWER_ABS
+    OBLIQUES
+    TRANSVERSE_ABDOMINIS
+
+    // Legs
+    QUADRICEPS
+    HAMSTRINGS
+    CALVES
+    GLUTES
+    INNER_THIGHS
+    OUTER_THIGHS
+}
+
+model User {
+    id                 String             @unique
+    name               String?
+    lastName           String?
+    email              String             @unique
+    subscriptionStatus SubscriptionStatus @default(INACTIVE)
+    createdAt          DateTime           @default(now())
+    updatedAt          DateTime           @updatedAt
+    Exercise           Exercise[]
+    Generation         Generation[]
+
+    @@index([name])
+}
+
+model Exercise {
+    id           Int         @id @default(autoincrement())
+    name         String
+    description  String
+    category     Category
+    subcategory  Subcategory
+    user         User        @relation(fields: [userId], references: [id])
+    userId       String
+    generation   Generation  @relation(fields: [generationId], references: [id])
+    generationId Int
+    createdAt    DateTime    @default(now())
+}
+
+model Generation {
+    id          Int              @id @default(autoincrement())
+    name        String?
+    description String?
+    status      GenerationStatus @default(PENDING)
+    image       String?
+    exercise    Exercise[]
+    user        User             @relation(fields: [userId], references: [id])
+    userId      String
+    createdAt   DateTime         @default(now())
+    updatedAt   DateTime         @updatedAt // New field
+}
