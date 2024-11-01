@@ -15,13 +15,9 @@ void SplashScreen.preventAutoHideAsync();
 function InitialLayout() {
   const pathname = usePathname();
   const [loaded, error] = useFonts({
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     SpaceMono: require('~/assets/fonts/SpaceMono-Regular.ttf'),
   });
   const { isLoaded, isSignedIn } = useAuth();
-  if (isLoaded) {
-    console.log('ISLOADED');
-  }
   const segments = useSegments();
   const router = useRouter();
   useEffect(() => {

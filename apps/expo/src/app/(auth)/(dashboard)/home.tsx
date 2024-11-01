@@ -1,18 +1,21 @@
-import { Link } from 'expo-router';
-import React from 'react';
-import GradientLayout from '~/components/GradientLayout';
+import React, { useEffect } from 'react';
+import { View } from 'react-native';
+import Homepage from '~/components/Homepage/Homepage';
 import { api } from '~/utils/api';
 
 export default function HomeScreen() {
-  // const { data } = api.post.all.useQuery();
-  return (
-    <GradientLayout>
-      <Link href={{ pathname: '/generated/[id]', params: { id: '1' } }}>
-        First One
-      </Link>
-      <Link href={{ pathname: '/generated/[id]', params: { id: '2' } }}>
-        Second One
-      </Link>
-    </GradientLayout>
-  );
+  const { data, isLoading, isFetching } = api.generation.getAll.useQuery();
+
+  useEffect(() => {
+    const startTime = performance.now();
+
+    if (!isLoading && data) {
+      const endTime = performance.now();
+      console.log(`Data fetch took ${endTime - startTime}ms`);
+    }
+  }, [isLoading, data]);
+
+  if (isLoading || !data) return <View />;
+
+  return <Homepage data={data} />;
 }

@@ -1,17 +1,13 @@
 import { uploadImageToBlob } from './utils';
 import { generateGymResponse } from './openai';
 import { db } from '../db';
-
-export interface UploadImageToBlobProps {
-  image: string;
-  imageType: string;
-}
-
-interface CreateGenerationProps {
-  validated: UploadImageToBlobProps;
+import { type CreateGenerationSchema } from './schemas';
+export interface CreateGenerationProps {
+  validated: CreateGenerationSchema;
   generatedId: number;
   userId: string;
 }
+
 export async function createGeneration({
   validated,
   generatedId,
@@ -41,9 +37,9 @@ export async function createGeneration({
         },
         name,
         description,
+        image: blob.url,
       },
     });
-    console.log('COMPLETED');
   } catch (error) {
     console.error(error);
     await db.generation.update({

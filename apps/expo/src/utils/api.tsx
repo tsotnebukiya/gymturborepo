@@ -17,16 +17,10 @@ const getBaseUrl = () => {
   return `http://${localhost}:3000`;
 };
 
-/**
- * A set of typesafe hooks for consuming your API.
- */
 export const api = createTRPCReact<AppRouter>();
+
 export { type RouterInputs, type RouterOutputs } from '@acme/api';
 
-/**
- * A wrapper for your app that provides the TRPC context.
- * Use only in _app.tsx
- */
 export function TRPCProvider(props: { children: React.ReactNode }) {
   const { getToken } = useAuth();
   const [queryClient] = useState(() => new QueryClient());
@@ -34,9 +28,10 @@ export function TRPCProvider(props: { children: React.ReactNode }) {
     api.createClient({
       links: [
         loggerLink({
-          enabled: (opts) =>
-            process.env.NODE_ENV === 'development' ||
-            (opts.direction === 'down' && opts.result instanceof Error),
+          // enabled: (opts) =>
+          //   process.env.NODE_ENV === 'development' ||
+          //   (opts.direction === 'down' && opts.result instanceof Error),
+          enabled: () => false,
           colorMode: 'ansi',
         }),
         httpBatchLink({

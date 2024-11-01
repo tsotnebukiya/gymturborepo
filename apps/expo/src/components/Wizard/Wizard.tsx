@@ -1,6 +1,8 @@
 import { Alert, Linking, StyleSheet } from 'react-native';
 import { AnimatedFAB, Card, IconButton, Modal, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
+import { api } from '~/utils/api';
+import { useState } from 'react';
 
 interface Props {
   showModal: () => void;
@@ -13,6 +15,24 @@ export default function WizardComponent({
   hideModal,
   visible,
 }: Props) {
+  const [startTime, setStartTime] = useState<number | null>(null);
+
+  const { mutate } = api.generation.create.useMutation({
+    onMutate: () => {
+      setStartTime(Date.now());
+    },
+    onSuccess: (data) => {
+      const endTime = Date.now();
+      const duration = startTime ? endTime - startTime : 0;
+      console.log('success - duration:', duration, 'ms');
+      console.log('data', data);
+    },
+    onError: (error) => {
+      const endTime = Date.now();
+      const duration = startTime ? endTime - startTime : 0;
+      console.log('error', error, '- duration:', duration, 'ms');
+    },
+  });
   const [cameraPermission, requestCameraPermission] =
     ImagePicker.useCameraPermissions();
   const [permissionLibrary, requestPermissionLibrary] =
@@ -22,29 +42,14 @@ export default function WizardComponent({
   const openAppSettings = () => {
     void Linking.openSettings();
   };
-  // const { mutate } = useMutation({
-  //   mutationFn: uploadImage,
-  //   onSuccess: () => {
-  //     console.log('success');
-  //   },
-  //   onError: (error: any) => {
-  //     console.log('Upload error:', {
-  //       message: error.message,
-  //       response: error.response?.data,
-  //       status: error.response?.status,
-  //     });
-  //   },
-  // });
   const handleImagePicked = (pickerResult: ImagePicker.ImagePickerResult) => {
     if (pickerResult.canceled) {
       return;
     }
     const imageType = pickerResult.assets[0]?.mimeType;
     const imageBase64 = pickerResult.assets[0]?.base64;
-    const formData = new FormData();
-    formData.append('image', imageBase64);
-    formData.append('imageType', imageType);
-    // mutate(formData);
+    if (!imageBase64 || !imageType) return;
+    mutate({ image: imageBase64, imageType });
   };
   const handleGallery = async () => {
     if (!libraryPermissionedGranted) {
