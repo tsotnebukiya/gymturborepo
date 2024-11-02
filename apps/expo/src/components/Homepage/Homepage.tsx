@@ -5,8 +5,10 @@ import { ScrollView, StyleSheet } from 'react-native';
 
 export default function Homepage({
   data,
+  loading,
 }: {
-  data: RouterOutputs['generation']['getAll'];
+  data?: RouterOutputs['generation']['getAll'];
+  loading: boolean;
 }) {
   return (
     <GradientLayout>
@@ -14,7 +16,7 @@ export default function Homepage({
         showsVerticalScrollIndicator={false}
         style={[styles.scrollContainer]}
       >
-        <LatestGenerations data={data} />
+        <LatestGenerations data={data} loading={loading} />
       </ScrollView>
     </GradientLayout>
   );

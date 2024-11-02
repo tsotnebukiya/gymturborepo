@@ -1,7 +1,7 @@
 import { Alert, Linking, StyleSheet } from 'react-native';
 import { AnimatedFAB, Card, IconButton, Modal, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-import { api } from '~/utils/api';
+import { api, type RouterOutputs } from '~/utils/api';
 import { useState } from 'react';
 
 interface Props {
@@ -10,27 +10,44 @@ interface Props {
   visible: boolean;
 }
 
+type PreviousData = RouterOutputs['generation']['getAll'];
+
 export default function WizardComponent({
   showModal,
   hideModal,
   visible,
 }: Props) {
-  const [startTime, setStartTime] = useState<number | null>(null);
-
+  const [image, setImage] = useState<string>();
+  const utils = api.useUtils();
   const { mutate } = api.generation.create.useMutation({
-    onMutate: () => {
-      setStartTime(Date.now());
+    onMutate: async () => {
+      await utils.generation.getAll.cancel();
+      const previousData = utils.generation.getAll.getData();
+      utils.generation.getAll.setData(
+        undefined,
+        (oldQueryData: PreviousData | undefined) =>
+          [
+            {
+              createdAt: new Date(),
+              description: null,
+              id: 'placeholder',
+              image,
+              name: 'Pending?',
+              status: 'PENDING',
+            },
+            ...(oldQueryData ?? []),
+          ] as PreviousData
+      );
+      return { previousData };
     },
-    onSuccess: (data) => {
-      const endTime = Date.now();
-      const duration = startTime ? endTime - startTime : 0;
-      console.log('success - duration:', duration, 'ms');
-      console.log('data', data);
+    onError: (err, newTodo, context) => {
+      utils.generation.getAll.setData(undefined, context?.previousData);
     },
-    onError: (error) => {
-      const endTime = Date.now();
-      const duration = startTime ? endTime - startTime : 0;
-      console.log('error', error, '- duration:', duration, 'ms');
+    onSuccess: () => {
+      console.log('success');
+    },
+    onSettled: () => {
+      void utils.generation.getAll.invalidate();
     },
   });
   const [cameraPermission, requestCameraPermission] =
@@ -46,6 +63,7 @@ export default function WizardComponent({
     if (pickerResult.canceled) {
       return;
     }
+    setImage(pickerResult.assets[0]?.uri);
     const imageType = pickerResult.assets[0]?.mimeType;
     const imageBase64 = pickerResult.assets[0]?.base64;
     if (!imageBase64 || !imageType) return;

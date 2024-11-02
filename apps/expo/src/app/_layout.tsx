@@ -7,8 +7,9 @@ import { Stack, usePathname, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { PaperProvider } from 'react-native-paper';
+import { ActivityIndicator, PaperProvider } from 'react-native-paper';
 import { TRPCProvider } from '~/utils/api';
+import { View } from 'react-native';
 
 void SplashScreen.preventAutoHideAsync();
 
@@ -39,6 +40,13 @@ function InitialLayout() {
       router.navigate('/');
     }
   }, [isSignedIn]);
+
+  if (!isLoaded)
+    return (
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <ActivityIndicator size={'large'} />
+      </View>
+    );
 
   return (
     <Stack screenOptions={{ headerShown: false }}>

@@ -1,5 +1,5 @@
 import { Image, StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { ActivityIndicator, Text } from 'react-native-paper';
 import { type RouterOutputs } from '~/utils/api';
 
 export default function GenerationItem({
@@ -13,12 +13,19 @@ export default function GenerationItem({
         <Image source={{ uri: data.image! }} style={styles.image} />
       </View>
       <View style={styles.contentContainer}>
-        <Text variant="titleLarge" numberOfLines={1} ellipsizeMode="tail">
-          {data.name}
-        </Text>
-        <Text variant="bodyMedium" numberOfLines={2} ellipsizeMode="middle">
-          {data.description}
-        </Text>
+        {data.status === 'FAILED' ? <Text>fail</Text> : null}
+        {data.status === 'PENDING' ? (
+          <ActivityIndicator />
+        ) : (
+          <>
+            <Text variant="titleLarge" numberOfLines={1} ellipsizeMode="tail">
+              {data.name}
+            </Text>
+            <Text variant="bodyMedium" numberOfLines={2} ellipsizeMode="middle">
+              {data.description}
+            </Text>
+          </>
+        )}
       </View>
     </View>
   );
@@ -60,3 +67,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export { styles as generationItemStyles };

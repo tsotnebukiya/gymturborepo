@@ -34,8 +34,8 @@
   "devDependencies": {
     "@acme/eslint-config": "workspace:*",
     "@acme/tsconfig": "workspace:*",
-    "eslint": "catalog:",
     "dotenv-cli": "^7.4.2",
+    "eslint": "catalog:",
     "prettier": "catalog:",
     "prisma": "^5.14.0",
     "typescript": "catalog:"
