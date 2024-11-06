@@ -4,6 +4,7 @@ import { protectedProcedure } from '../trpc';
 import { createGenerationSchema } from '../../functions/schemas';
 import { generateGymResponse } from '../../functions/openai';
 import { uploadImageToBlob } from '../../functions/utils';
+import { z } from 'zod';
 
 export const generationRouter = {
   create: protectedProcedure
@@ -40,6 +41,22 @@ export const generationRouter = {
           },
         },
       });
+      const exercisesCreated = await db.exercise.findMany({
+        where: {
+          generationId: generation.id,
+        },
+      });
+      const muscleData = exercisesCreated.flatMap((exercise, index) => {
+        const currentExercises = exercises[index]?.muscles;
+        if (!currentExercises) return [];
+        return currentExercises.map((muscle) => ({
+          ...muscle,
+          exerciseId: exercise.id,
+        }));
+      });
+      await db.musclePercentage.createMany({
+        data: muscleData,
+      });
       return generation.id;
     }),
   getAll: protectedProcedure.query(async ({ ctx: { db, session } }) => {
@@ -54,4 +71,15 @@ export const generationRouter = {
     });
     return generations;
   }),
+  getOne: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ ctx: { db, session }, input }) => {
+      const generation = await db.generation.findUnique({
+        where: { id: input.id, user: { id: session.userId } },
+        include: {
+          exercise: true,
+        },
+      });
+      return generation;
+    }),
 } satisfies TRPCRouterRecord;

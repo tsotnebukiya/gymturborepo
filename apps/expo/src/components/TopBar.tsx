@@ -3,6 +3,7 @@ import { Appbar, IconButton } from 'react-native-paper';
 
 interface Props {
   title?: string;
+  statusBarHeight?: number;
   actions?: {
     icon: string;
     onPress: () => void;
@@ -12,10 +13,29 @@ interface Props {
     onPress: () => void;
     mode?: 'contained-tonal' | 'contained' | 'outlined';
   };
+  borderBottomColor?: string;
 }
 
-const TopBar = ({ title, actions, backAction }: Props) => (
-  <Appbar.Header mode="center-aligned" style={styles.header}>
+const TopBar = ({
+  title,
+  actions,
+  backAction,
+  statusBarHeight,
+  borderBottomColor,
+}: Props) => (
+  <Appbar.Header
+    mode="center-aligned"
+    style={[
+      styles.header,
+      {
+        borderBottomColor: borderBottomColor
+          ? borderBottomColor
+          : 'transparent',
+        borderBottomWidth: 1,
+      },
+    ]}
+    statusBarHeight={statusBarHeight}
+  >
     {backAction && (
       <IconButton
         icon="arrow-left"

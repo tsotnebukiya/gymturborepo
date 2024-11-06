@@ -1,20 +1,16 @@
-import TopBar from '~/components/TopBar';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Text } from 'react-native-paper';
+import { router, useLocalSearchParams } from 'expo-router';
+import { api } from '~/utils/api';
+import Generation from '~/components/Generation/Generation';
 
-export default function GeneratedScreen() {
+export default function GeneratedItemScreen() {
   const { id } = useLocalSearchParams();
-  const router = useRouter();
+  const { data } = api.generation.getOne.useQuery({
+    id: Number(id),
+  });
   const handleBack = () => {
     router.back();
   };
-  return (
-    <>
-      <TopBar
-        title="Generated"
-        backAction={{ icon: 'arrow-left', onPress: handleBack }}
-      />
-      <Text>{id}</Text>
-    </>
-  );
+  if (!data) return null;
+
+  return <Generation data={data} handleBack={handleBack} />;
 }
