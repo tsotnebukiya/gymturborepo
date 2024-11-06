@@ -11,7 +11,7 @@ export default function GenerationItem({
   data: RouterOutputs['generation']['getAll'][number];
 }) {
   const router = useRouter();
-  const completed = data.status === 'COMPLETED';
+  const completed = data.status === 'COMPLETED' && data.name !== null;
   const onPress = () => {
     if (completed) {
       router.push(`/generated/${data.id}`);

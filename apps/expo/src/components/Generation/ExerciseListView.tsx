@@ -1,36 +1,56 @@
-import { ScrollView, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { type RouterOutputs } from '~/utils/api';
 import TopBar from '~/components/TopBar';
+import { router } from 'expo-router';
+import { musclesConstants } from '~/utils/constants';
+import { PrismaTypes } from '@acme/api';
 
 type GenerationData = RouterOutputs['generation']['getOne'];
 
 interface Props {
   data: NonNullable<GenerationData>;
-  handleBack: () => void;
+  subcategory: string;
+  id: string;
 }
 
-export default function ExerciseListView({ data, handleBack }: Props) {
+export default function ExerciseListView({ data, subcategory, id }: Props) {
+  const subcategoryTyped = subcategory as PrismaTypes.$Enums.Subcategory;
+  const subcategoryName = musclesConstants[subcategoryTyped].label;
+  const exercises = data.exercise.filter(
+    (el) => el.subcategory === subcategoryTyped
+  );
+  const handleBack = () => {
+    router.back();
+  };
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <TopBar
         statusBarHeight={0}
-        title={data.name!}
+        title={`${subcategoryName} Exercises`}
+        borderBottomColor="#E0E0E0"
         backAction={{
           icon: 'arrow-left',
           onPress: handleBack,
         }}
       />
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
-        {data.exercise.map((el, i) => (
-          <View key={i} style={{ marginBottom: 100 }}>
-            <Text>{el.category}</Text>
-            <Text>{el.subcategory}</Text>
-            <Text>{el.name}</Text>
-            <Text>{el.description}</Text>
-          </View>
-        ))}
-      </ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollViewContent}
+        style={styles.scrollView}
+      ></ScrollView>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollViewContent: {
+    padding: 16,
+  },
+});

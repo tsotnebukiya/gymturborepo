@@ -2,15 +2,18 @@ import { ScrollView, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { type RouterOutputs } from '~/utils/api';
 import TopBar from '~/components/TopBar';
+import { router } from 'expo-router';
 
 type GenerationData = RouterOutputs['generation']['getOne'];
 
 interface Props {
   data: NonNullable<GenerationData>;
-  handleBack: () => void;
 }
 
-export default function ExerciseView({ data, handleBack }: Props) {
+export default function ExerciseView({ data }: Props) {
+  const handleBack = () => {
+    router.back();
+  };
   return (
     <View style={{ flex: 1 }}>
       <TopBar

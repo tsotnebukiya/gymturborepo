@@ -20,8 +20,8 @@ const exerciseValidator = z.object({
 });
 
 const generationOutputValidator = z.object({
-  name: z.string(),
-  description: z.string(),
+  name: z.string().nullable(),
+  description: z.string().nullable(),
   exercises: z.array(exerciseValidator),
 });
 

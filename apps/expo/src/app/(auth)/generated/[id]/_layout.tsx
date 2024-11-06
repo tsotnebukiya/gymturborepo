@@ -15,10 +15,14 @@ export default function GenerationLayout() {
   return (
     <GenerationContext.Provider value={{ generationData: data }}>
       <Generation data={data}>
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
           <Stack.Screen name="index" />
-          <Stack.Screen name="[subcategory]/subcategory" />
-          <Stack.Screen name="[subcategory]/[exerciseId]/exercise" />
+          <Stack.Screen name="[subcategory]/index" />
+          <Stack.Screen name="[subcategory]/[exerciseId]/index" />
         </Stack>
       </Generation>
     </GenerationContext.Provider>

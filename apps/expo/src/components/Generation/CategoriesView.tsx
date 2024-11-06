@@ -5,6 +5,7 @@ import TopBar from '~/components/TopBar';
 import { useMemo } from 'react';
 import { musclesConstants } from '~/utils/constants';
 import { type PrismaTypes } from '@acme/api';
+import { router } from 'expo-router';
 
 type Category = PrismaTypes.$Enums.Category;
 type Subcategory = PrismaTypes.$Enums.Subcategory;
@@ -13,14 +14,14 @@ type GenerationData = RouterOutputs['generation']['getOne'];
 
 interface Props {
   data: NonNullable<GenerationData>;
-  handleBack: () => void;
+  id: string;
 }
 
 interface SubcategoryInfo {
   name: Subcategory;
 }
 
-export default function CategoriesView({ data, handleBack }: Props) {
+export default function CategoriesView({ data, id }: Props) {
   const organizedCategories = useMemo(() => {
     const categoriesMap = new Map<Category, Set<Subcategory>>();
 
@@ -39,6 +40,15 @@ export default function CategoriesView({ data, handleBack }: Props) {
     }));
   }, [data.exercise]);
 
+  const handlePress = (subcategory: Subcategory) => {
+    router.push({
+      pathname: '/(auth)/generated/[id]/[subcategory]',
+      params: { id, subcategory },
+    });
+  };
+  const handleBack = () => {
+    router.back();
+  };
   return (
     <View style={styles.container}>
       <TopBar
@@ -65,20 +75,19 @@ export default function CategoriesView({ data, handleBack }: Props) {
                 return (
                   <Pressable
                     key={subIndex}
+                    onPress={() => handlePress(subcategory.name)}
                     style={({ pressed }) => [
                       styles.subcategoryItem,
                       pressed && styles.subcategoryItemPressed,
+                      { width: '100%' },
                     ]}
-                    onPress={() => {
-                      console.log('Pressed:', subcategory.name);
-                    }}
                   >
                     <Image
                       source={musclesConstants[subcategory.name].icon}
                       style={styles.subcategoryImage}
                     />
                     <Text variant="bodyLarge" style={styles.subcategoryName}>
-                      {subcategory.name}
+                      {musclesConstants[subcategory.name].label}
                     </Text>
                   </Pressable>
                 );
