@@ -1,16 +1,12 @@
-import { router, useLocalSearchParams } from 'expo-router';
-import { api } from '~/utils/api';
-import Generation from '~/components/Generation/Generation';
+import { router } from 'expo-router';
+import { useGenerationContext } from '~/components/GenerationContext';
+import CategoriesView from '~/components/Generation/CategoriesView';
 
 export default function GeneratedItemScreen() {
-  const { id } = useLocalSearchParams();
-  const { data } = api.generation.getOne.useQuery({
-    id: Number(id),
-  });
+  const { generationData } = useGenerationContext();
   const handleBack = () => {
     router.back();
   };
-  if (!data) return null;
 
-  return <Generation data={data} handleBack={handleBack} />;
+  return <CategoriesView data={generationData} handleBack={handleBack} />;
 }

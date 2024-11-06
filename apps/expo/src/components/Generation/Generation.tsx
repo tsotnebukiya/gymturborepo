@@ -1,10 +1,6 @@
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import { type RouterOutputs } from '~/utils/api';
 import Gradient from '~/components/Gradient';
-import { useState } from 'react';
-import CategoriesView from './CategoriesView';
-import ExerciseListView from './ExerciseListView';
-import ExerciseView from './ExerciseView';
 
 const { height } = Dimensions.get('window');
 
@@ -12,23 +8,22 @@ type GenerationData = RouterOutputs['generation']['getOne'];
 
 interface Props {
   data: NonNullable<GenerationData>;
-  handleBack: () => void;
+  children: React.ReactNode;
 }
 
-export default function Generation({ data, handleBack }: Props) {
-  const [steps] = useState(0);
-  const renderStep = () => {
-    switch (steps) {
-      case 0:
-        return <CategoriesView data={data} handleBack={handleBack} />;
-      case 1:
-        return <ExerciseListView data={data} handleBack={handleBack} />;
-      case 2:
-        return <ExerciseView data={data} handleBack={handleBack} />;
-      default:
-        return <CategoriesView data={data} handleBack={handleBack} />;
-    }
-  };
+export default function Generation({ data, children }: Props) {
+  // const renderStep = () => {
+  //   switch (steps) {
+  //     case 0:
+  //       return <CategoriesView data={data} handleBack={handleBack} />;
+  //     case 1:
+  //       return <ExerciseListView data={data} handleBack={handleBack} />;
+  //     case 2:
+  //       return <ExerciseView data={data} handleBack={handleBack} />;
+  //     default:
+  //       return <CategoriesView data={data} handleBack={handleBack} />;
+  //   }
+  // };
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -38,9 +33,11 @@ export default function Generation({ data, handleBack }: Props) {
           resizeMode="contain"
         />
       </View>
-
       <View style={[styles.contentOuter]}>
-        <Gradient>{renderStep()}</Gradient>
+        <Gradient>
+          {/* {renderStep()} */}
+          {children}
+        </Gradient>
       </View>
     </View>
   );
