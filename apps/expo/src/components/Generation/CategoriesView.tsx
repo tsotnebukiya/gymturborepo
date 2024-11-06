@@ -3,6 +3,11 @@ import { Text } from 'react-native-paper';
 import { type RouterOutputs } from '~/utils/api';
 import TopBar from '~/components/TopBar';
 import { useMemo } from 'react';
+import { musclesConstants } from '~/utils/constants';
+import { type PrismaTypes } from '@acme/api';
+
+type Category = PrismaTypes.$Enums.Category;
+type Subcategory = PrismaTypes.$Enums.Subcategory;
 
 type GenerationData = RouterOutputs['generation']['getOne'];
 
@@ -11,9 +16,13 @@ interface Props {
   handleBack: () => void;
 }
 
+interface SubcategoryInfo {
+  name: Subcategory;
+}
+
 export default function CategoriesView({ data, handleBack }: Props) {
   const organizedCategories = useMemo(() => {
-    const categoriesMap = new Map<string, Set<string>>();
+    const categoriesMap = new Map<Category, Set<Subcategory>>();
 
     data.exercise.forEach((exercise) => {
       if (!categoriesMap.has(exercise.category)) {
@@ -24,7 +33,9 @@ export default function CategoriesView({ data, handleBack }: Props) {
 
     return Array.from(categoriesMap).map(([category, subcategories]) => ({
       category,
-      subcategories: Array.from(subcategories).map((name) => ({ name })),
+      subcategories: Array.from(subcategories).map((name) => ({
+        name,
+      })) as SubcategoryInfo[],
     }));
   }, [data.exercise]);
 
@@ -50,26 +61,28 @@ export default function CategoriesView({ data, handleBack }: Props) {
               {category.category}
             </Text>
             <View style={styles.subcategoriesList}>
-              {category.subcategories.map((subcategory, subIndex) => (
-                <Pressable
-                  key={subIndex}
-                  style={({ pressed }) => [
-                    styles.subcategoryItem,
-                    pressed && styles.subcategoryItemPressed,
-                  ]}
-                  onPress={() => {
-                    console.log('Pressed:', subcategory.name);
-                  }}
-                >
-                  <Image
-                    source={require('~/assets/images/placeholder.png')}
-                    style={styles.subcategoryImage}
-                  />
-                  <Text variant="bodyLarge" style={styles.subcategoryName}>
-                    {subcategory.name}
-                  </Text>
-                </Pressable>
-              ))}
+              {category.subcategories.map((subcategory, subIndex) => {
+                return (
+                  <Pressable
+                    key={subIndex}
+                    style={({ pressed }) => [
+                      styles.subcategoryItem,
+                      pressed && styles.subcategoryItemPressed,
+                    ]}
+                    onPress={() => {
+                      console.log('Pressed:', subcategory.name);
+                    }}
+                  >
+                    <Image
+                      source={musclesConstants[subcategory.name].icon}
+                      style={styles.subcategoryImage}
+                    />
+                    <Text variant="bodyLarge" style={styles.subcategoryName}>
+                      {subcategory.name}
+                    </Text>
+                  </Pressable>
+                );
+              })}
             </View>
           </View>
         ))}

@@ -18,7 +18,7 @@ function InitialLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require('~/assets/fonts/SpaceMono-Regular.ttf'),
   });
-  const { isLoaded, isSignedIn } = useAuth();
+  const { isLoaded, isSignedIn, userId } = useAuth();
   const segments = useSegments();
   const router = useRouter();
   useEffect(() => {
@@ -30,7 +30,7 @@ function InitialLayout() {
       void SplashScreen.hideAsync();
     }
   }, [loaded]);
-
+  console.log(userId);
   useEffect(() => {
     if (!isLoaded) return;
     const inAuthGroup = segments[0] === '(auth)';

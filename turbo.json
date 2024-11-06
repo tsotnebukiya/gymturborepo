@@ -11,6 +11,9 @@
     "db:studio": {
       "cache": false
     },
+    "db:reset": {
+      "cache": false
+    },
     "topo": {
       "dependsOn": ["^topo"]
     },

@@ -22,42 +22,39 @@ enum SubscriptionStatus {
 }
 
 enum Category {
-    SHOULDERS
-    CHEST
+    CORE
     BACK
     ARMS
-    CORE
+    CHEST
+    SHOULDERS
     LEGS
 }
 
 enum Subcategory {
-    // Shoulders
-    UPPER_SHOULDER
-    REAR_SHOULDER
-    FRONT_SHOULDER
-    SIDE_SHOULDER
-
-    // Chest
-    UPPER_CHEST
-    MIDDLE_CHEST
-    LOWER_CHEST
+    // Core
+    UPPER_ABS
+    LOWER_ABS
+    SIDE_ABS
+    ABDOMINALS
 
     // Back
     UPPER_BACK
     MIDDLE_BACK
     LOWER_BACK
-    LOWER_LATS
 
     // Arms
     BICEPS
     TRICEPS
-    FOREARMS
+    WRIST_EXTENSORS
+    WRIST_FLEXORS
 
-    // Core
-    UPPER_ABS
-    LOWER_ABS
-    OBLIQUES
-    TRANSVERSE_ABDOMINIS
+    // Chest
+    CHEST
+
+    // Shoulders
+    REAR_SHOULDER
+    FRONT_SHOULDER
+    SIDE_SHOULDER
 
     // Legs
     QUADRICEPS

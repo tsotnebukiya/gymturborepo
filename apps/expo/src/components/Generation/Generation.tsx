@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function Generation({ data, handleBack }: Props) {
-  const [steps, setSteps] = useState(0);
+  const [steps] = useState(0);
   const renderStep = () => {
     switch (steps) {
       case 0:

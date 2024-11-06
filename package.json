@@ -13,6 +13,7 @@
     "dev": "turbo dev",
     "db:generate": "turbo db:generate",
     "db:push": "turbo db:push",
+    "db:reset": "turbo db:reset",
     "db:studio": "turbo db:studio",
     "dev:next": "turbo watch dev -F @acme/nextjs...",
     "format": "turbo run format --continue -- --cache --cache-location .cache/.prettiercache",

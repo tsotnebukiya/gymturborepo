@@ -1,4 +1,4 @@
-import { db } from './db';
+import { db, type PrismaTypes } from './db';
 import type { AppRouter } from './server';
 import {
   appRouter,
@@ -9,4 +9,4 @@ import {
 } from './server';
 
 export { createTRPCContext, appRouter, createCaller, db };
-export type { AppRouter, RouterInputs, RouterOutputs };
+export type { AppRouter, RouterInputs, RouterOutputs, PrismaTypes };
