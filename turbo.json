@@ -58,6 +58,10 @@
     }
   },
   "globalEnv": [
+    "DATABASE_URL",
+    "CLERK_SECRET_KEY",
+    "BLOB_READ_WRITE_TOKEN",
+    "OPENAI_API_KEY",
     "AUTH_REDIRECT_PROXY_URL",
     "AUTH_SECRET",
     "PORT",
