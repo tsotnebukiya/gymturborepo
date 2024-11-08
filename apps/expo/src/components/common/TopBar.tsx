@@ -7,6 +7,8 @@ interface Props {
   actions?: {
     icon: string;
     onPress: () => void;
+    mode?: 'contained-tonal' | 'contained' | 'outlined';
+    loading?: boolean;
   }[];
   backAction?: {
     icon: string;
@@ -40,12 +42,17 @@ const TopBar = ({
       <IconButton
         icon="arrow-left"
         onPress={backAction.onPress}
-        mode="contained"
+        mode={backAction.mode ?? 'contained'}
       />
     )}
     {title && <Appbar.Content title={title} />}
     {actions?.map((action) => (
-      <IconButton icon="arrow-left" onPress={action.onPress} mode="contained" />
+      <IconButton
+        icon={action.icon}
+        onPress={action.onPress}
+        mode={action.mode}
+        loading={action.loading}
+      />
     ))}
   </Appbar.Header>
 );

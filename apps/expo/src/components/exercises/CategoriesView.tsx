@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, View, Image, Pressable } from 'react-native';
 import { Text } from 'react-native-paper';
 import { type RouterOutputs } from '~/utils/api';
-import TopBar from '~/components/TopBar';
+import TopBar from '~/components/common/TopBar';
 import { useMemo } from 'react';
 import { musclesConstants } from '~/utils/constants';
 import { type PrismaTypes } from '@acme/api';

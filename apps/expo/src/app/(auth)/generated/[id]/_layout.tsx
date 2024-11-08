@@ -1,8 +1,7 @@
 import { Stack } from 'expo-router';
 import { useLocalSearchParams } from 'expo-router';
 import { api } from '~/utils/api';
-import { GenerationContext } from '~/components/GenerationContext';
-import Generation from '~/components/Generation/Generation';
+import ImageLayout from '~/components/generation/ImageLayout';
 
 export default function GenerationLayout() {
   const { id } = useLocalSearchParams();
@@ -10,21 +9,16 @@ export default function GenerationLayout() {
     id: Number(id),
   });
 
-  if (!data) return null;
-
   return (
-    <GenerationContext.Provider value={{ generationData: data }}>
-      <Generation data={data}>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="index" />
-          <Stack.Screen name="[subcategory]/index" />
-          <Stack.Screen name="[subcategory]/[exerciseId]/index" />
-        </Stack>
-      </Generation>
-    </GenerationContext.Provider>
+    <ImageLayout data={data}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="[exercise]/index" />
+      </Stack>
+    </ImageLayout>
   );
 }

@@ -1,4 +1,4 @@
-import Homepage from '~/components/Homepage/Homepage';
+import Homepage from '~/components/homepage/Homepage';
 import { api } from '~/utils/api';
 
 export default function HomeScreen() {

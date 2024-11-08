@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import TopBar from '~/components/TopBar';
+import TopBar from '~/components/common/TopBar';
 import { useRouter } from 'expo-router';
 import SocialIcon from './SocialButton';
 import { Text } from 'react-native-paper';

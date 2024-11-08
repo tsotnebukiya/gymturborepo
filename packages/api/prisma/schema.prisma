@@ -94,6 +94,7 @@ model Exercise {
     description       String
     category          Category
     subcategory       Subcategory
+    saved             Boolean            @default(false)
     user              User               @relation(fields: [userId], references: [id])
     userId            String
     generation        Generation         @relation(fields: [generationId], references: [id])

@@ -1,7 +1,7 @@
 import { useAuth } from '@clerk/clerk-expo';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import GradientLayout from '../GradientLayout';
+import GradientLayout from '../common/GradientLayout';
 
 export default function Settings() {
   const { signOut } = useAuth();

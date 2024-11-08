@@ -1,5 +1,5 @@
 import { type RouterOutputs } from '~/utils/api';
-import GradientLayout from '../GradientLayout';
+import GradientLayout from '../common/GradientLayout';
 import LatestGenerations from './LatestGenerations';
 import { ScrollView, StyleSheet } from 'react-native';
 

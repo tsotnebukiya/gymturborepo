@@ -77,7 +77,7 @@ export const generationRouter = {
       const generation = await db.generation.findUnique({
         where: { id: input.id, user: { id: session.userId } },
         include: {
-          exercise: true,
+          exercise: { select: { id: true, name: true, subcategory: true } },
         },
       });
       return generation;

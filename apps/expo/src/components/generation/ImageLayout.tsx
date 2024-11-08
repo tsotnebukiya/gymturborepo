@@ -1,25 +1,35 @@
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import { type RouterOutputs } from '~/utils/api';
-import Gradient from '~/components/Gradient';
+import Gradient from '~/components/common/Gradient';
+import { Skeleton } from 'moti/skeleton';
+import { useState } from 'react';
 
 const { height } = Dimensions.get('window');
 
 type GenerationData = RouterOutputs['generation']['getOne'];
 
 interface Props {
-  data: NonNullable<GenerationData>;
+  data?: GenerationData;
   children: React.ReactNode;
 }
 
-export default function Generation({ data, children }: Props) {
+export default function ImageLayout({ data, children }: Props) {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
-          source={{ uri: data.image }}
-          style={styles.image}
-          resizeMode="cover"
-        />
+        {!data ? (
+          <Skeleton width="100%" height="100%" colorMode={'light'} />
+        ) : (
+          <Image
+            source={{ uri: data.image }}
+            style={[styles.image, isLoading && styles.hidden]}
+            resizeMode="cover"
+            onLoadStart={() => setIsLoading(true)}
+            onLoadEnd={() => setIsLoading(false)}
+          />
+        )}
       </View>
       <View style={[styles.contentOuter]}>
         <Gradient>{children}</Gradient>
@@ -43,5 +53,8 @@ const styles = StyleSheet.create({
   },
   contentOuter: {
     flex: 1,
+  },
+  hidden: {
+    opacity: 0,
   },
 });
