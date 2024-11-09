@@ -23,7 +23,12 @@ export { type RouterInputs, type RouterOutputs } from '@acme/api';
 
 export function TRPCProvider(props: { children: React.ReactNode }) {
   const { getToken } = useAuth();
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: { queries: { gcTime: 1000 * 60 * 30 } },
+      })
+  );
   const [trpcClient] = useState(() =>
     api.createClient({
       links: [

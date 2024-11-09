@@ -1,59 +1,32 @@
 import { ScrollView, StyleSheet, View, Image, Pressable } from 'react-native';
 import { Text } from 'react-native-paper';
-import { type RouterOutputs } from '~/utils/api';
 import TopBar from '~/components/common/TopBar';
-import { useMemo } from 'react';
-import { musclesConstants } from '~/utils/constants';
+import { muscleCategories, musclesConstants } from '~/utils/constants';
 import { type PrismaTypes } from '@acme/api';
-import { router } from 'expo-router';
 
-type Category = PrismaTypes.$Enums.Category;
 type Subcategory = PrismaTypes.$Enums.Subcategory;
 
-type GenerationData = RouterOutputs['generation']['getOne'];
-
-interface Props {
-  data: NonNullable<GenerationData>;
-  id: string;
-}
-
-interface SubcategoryInfo {
-  name: Subcategory;
-}
-
-export default function CategoriesView({ data, id }: Props) {
-  const organizedCategories = useMemo(() => {
-    const categoriesMap = new Map<Category, Set<Subcategory>>();
-
-    data.exercise.forEach((exercise) => {
-      if (!categoriesMap.has(exercise.category)) {
-        categoriesMap.set(exercise.category, new Set());
-      }
-      categoriesMap.get(exercise.category)?.add(exercise.subcategory);
-    });
-
-    return Array.from(categoriesMap).map(([category, subcategories]) => ({
-      category,
-      subcategories: Array.from(subcategories).map((name) => ({
-        name,
-      })) as SubcategoryInfo[],
-    }));
-  }, [data.exercise]);
-
+export default function CategoriesView({
+  hideModal,
+  subcategory: activeSubcategory,
+  setSubcategory,
+}: {
+  hideModal: () => void;
+  subcategory?: Subcategory;
+  setSubcategory: (subcategory: Subcategory) => void;
+}) {
   const handlePress = (subcategory: Subcategory) => {
-    router.push({
-      pathname: '/(auth)/generated/[id]/[subcategory]',
-      params: { id, subcategory },
-    });
+    setSubcategory(subcategory);
+    hideModal();
   };
   const handleBack = () => {
-    router.back();
+    hideModal();
   };
   return (
     <View style={styles.container}>
       <TopBar
         statusBarHeight={0}
-        title={data.name!}
+        title={'Categories'}
         borderBottomColor="#E0E0E0"
         backAction={{
           icon: 'arrow-left',
@@ -65,7 +38,7 @@ export default function CategoriesView({ data, id }: Props) {
         contentContainerStyle={styles.scrollViewContent}
         style={styles.scrollView}
       >
-        {organizedCategories.map((category, index) => (
+        {muscleCategories.map((category, index) => (
           <View key={index} style={styles.categoryContainer}>
             <Text variant="titleMedium" style={styles.categoryTitle}>
               {category.category}
@@ -79,6 +52,8 @@ export default function CategoriesView({ data, id }: Props) {
                     style={({ pressed }) => [
                       styles.subcategoryItem,
                       pressed && styles.subcategoryItemPressed,
+                      activeSubcategory === subcategory.name &&
+                        styles.subcategoryItemPressed,
                       { width: '100%' },
                     ]}
                   >
@@ -103,7 +78,8 @@ export default function CategoriesView({ data, id }: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    height: '100%',
+    backgroundColor: 'white',
   },
   scrollView: {
     flex: 1,

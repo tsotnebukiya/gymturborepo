@@ -46,8 +46,9 @@ const TopBar = ({
       />
     )}
     {title && <Appbar.Content title={title} />}
-    {actions?.map((action) => (
+    {actions?.map((action, index) => (
       <IconButton
+        key={index}
         icon={action.icon}
         onPress={action.onPress}
         mode={action.mode}

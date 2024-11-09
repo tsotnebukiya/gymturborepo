@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
-import ExerciseList from '~/components/exercises/ExerciseList';
+import ExerciseList from '~/components/generation/ExerciseList';
 import { api } from '~/utils/api';
 
 export default function GeneratedItemScreen() {

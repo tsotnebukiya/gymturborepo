@@ -2,6 +2,7 @@ import type { TRPCRouterRecord } from '@trpc/server';
 
 import { protectedProcedure } from '../trpc';
 import { z } from 'zod';
+import { Subcategory } from '@prisma/client';
 
 export const exerciseRouter = {
   getOne: protectedProcedure
@@ -11,6 +12,9 @@ export const exerciseRouter = {
         where: { id: input.id, user: { id: session.userId } },
         include: {
           musclePercentages: true,
+          generation: {
+            select: { image: true },
+          },
         },
       });
       return exercise;
@@ -26,5 +30,33 @@ export const exerciseRouter = {
         data: { saved: !exercise.saved },
       });
       return exercise;
+    }),
+  getAll: protectedProcedure
+    .input(
+      z
+        .object({
+          subcategory: z.nativeEnum(Subcategory).optional(),
+          searchName: z.string().optional(),
+        })
+        .optional()
+    )
+    .query(async ({ ctx: { db, session }, input }) => {
+      const exercises = await db.exercise.findMany({
+        where: {
+          user: { id: session.userId },
+          ...(input?.subcategory && { subcategory: input.subcategory }),
+          ...(input?.searchName && {
+            name: { contains: input.searchName, mode: 'insensitive' },
+          }),
+        },
+        orderBy: { createdAt: 'desc' },
+        select: {
+          id: true,
+          name: true,
+          subcategory: true,
+          category: true,
+        },
+      });
+      return exercises;
     }),
 } satisfies TRPCRouterRecord;

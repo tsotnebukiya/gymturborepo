@@ -25,6 +25,7 @@
     "@trpc/server": "catalog:",
     "expo": "~51.0.38",
     "expo-av": "^14.0.7",
+    "expo-blur": "~13.0.2",
     "expo-camera": "^15.0.16",
     "expo-constants": "~16.0.2",
     "expo-dev-client": "~4.0.28",
@@ -52,7 +53,8 @@
     "react-native-screens": "~3.34.0",
     "react-native-webview": "13.8.6",
     "react-native-youtube-iframe": "^2.3.0",
-    "superjson": "2.2.1"
+    "superjson": "2.2.1",
+    "use-debounce": "^10.0.4"
   },
   "devDependencies": {
     "@acme/api": "workspace:*",

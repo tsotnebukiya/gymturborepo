@@ -10,16 +10,24 @@ type GenerationData = NonNullable<
 
 interface Props {
   data: GenerationData;
+  fullPath: boolean;
 }
 
-export default function ExerciseItem({ data }: Props) {
+export default function ExerciseItem({ data, fullPath }: Props) {
   api.exercise.getOne.usePrefetchQuery({ id: data.id });
   const exercise = data;
   const handlePress = (exerciseId: string) => {
-    router.push({
-      pathname: '/(auth)/generated/[id]/[exercise]',
-      params: { exercise: exerciseId, id: data.id },
-    });
+    router.push(
+      fullPath
+        ? {
+            pathname: `/(auth)/exercise/[id]`,
+            params: { id: exerciseId },
+          }
+        : {
+            pathname: '/(auth)/generated/[id]/[exercise]',
+            params: { exercise: exerciseId, id: data.id },
+          }
+    );
   };
   return (
     <Pressable

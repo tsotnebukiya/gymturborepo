@@ -1,22 +1,22 @@
-import { ScrollView, StyleSheet, View, Image, Dimensions } from 'react-native';
+import { ScrollView, StyleSheet, View, Image } from 'react-native';
 import { api, type RouterOutputs } from '~/utils/api';
 import TopBar from '~/components/common/TopBar';
 import { router } from 'expo-router';
 import { musclesConstants } from '~/utils/constants';
 import { Text } from 'react-native-paper';
-import YoutubePlayer from 'react-native-youtube-iframe';
-
-const horizontalPadding = 32; // 16px on each side
-const containerWidth = Dimensions.get('window').width - horizontalPadding;
-const videoHeight = (containerWidth / 16) * 9;
+import ExerciseSkeleton from './ExerciseSkeleton';
+import VideoPlayer from './VideoPlayer';
 
 type GenerationData = RouterOutputs['exercise']['getOne'];
 
 interface Props {
-  data: NonNullable<GenerationData>;
+  data?: GenerationData;
 }
 
 export default function ExerciseView({ data }: Props) {
+  if (!data) {
+    return <ExerciseSkeleton />;
+  }
   const utils = api.useUtils();
   const { mutate: bookmark, isPending } = api.exercise.bookmark.useMutation({
     onSettled: async () => {
@@ -30,6 +30,7 @@ export default function ExerciseView({ data }: Props) {
   const handleBack = () => {
     router.back();
   };
+
   return (
     <View style={styles.container}>
       <TopBar
@@ -74,14 +75,7 @@ export default function ExerciseView({ data }: Props) {
             </View>
           </View>
         </View>
-        <View style={[styles.videoContainer, { height: videoHeight }]}>
-          <YoutubePlayer
-            height={videoHeight}
-            videoId="T3N-TO4reLQ"
-            webViewStyle={{ flex: 1 }}
-            initialPlayerParams={{ start: 100, end: 105 }}
-          />
-        </View>
+        <VideoPlayer />
       </ScrollView>
     </View>
   );
@@ -143,11 +137,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666666',
     fontWeight: '600',
-  },
-  videoContainer: {
-    borderRadius: 16,
-    overflow: 'hidden',
-    backgroundColor: '#000',
   },
   divider: {
     width: 1,

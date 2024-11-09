@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { type RouterOutputs } from '~/utils/api';
 import TopBar from '~/components/common/TopBar';
 import { router } from 'expo-router';
-import ExerciseItem from './ExerciseItem';
+import ExerciseItem from '../exercises/ExerciseItem';
 import { Skeleton } from 'moti/skeleton';
 
 type GenerationData = RouterOutputs['generation']['getOne'];
@@ -53,7 +53,7 @@ export default function ExerciseList({ data }: Props) {
           <ExerciseListSkeleton />
         ) : (
           data.exercise.map((exercise, index) => (
-            <ExerciseItem data={exercise} key={index} />
+            <ExerciseItem data={exercise} key={index} fullPath={false} />
           ))
         )}
       </ScrollView>

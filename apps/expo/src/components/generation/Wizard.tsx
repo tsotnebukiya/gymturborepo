@@ -19,7 +19,7 @@ export default function WizardComponent({
 }: Props) {
   const [image, setImage] = useState<string>();
   const utils = api.useUtils();
-  const { mutate } = api.generation.create.useMutation({
+  const { mutate, isPending } = api.generation.create.useMutation({
     onMutate: async () => {
       await utils.generation.getAll.cancel();
       const previousData = utils.generation.getAll.getData();
@@ -137,6 +137,17 @@ export default function WizardComponent({
     });
     handleImagePicked(result);
   };
+  const handleFAB = () => {
+    if (isPending) {
+      Alert.alert(
+        'Generation in Progress',
+        'Please wait for the current generation to complete.',
+        [{ text: 'OK' }]
+      );
+      return;
+    }
+    showModal();
+  };
   return (
     <>
       <AnimatedFAB
@@ -144,7 +155,7 @@ export default function WizardComponent({
         icon={'plus'}
         label={'Label'}
         extended={false}
-        onPress={showModal}
+        onPress={handleFAB}
         visible={true}
         animateFrom={'right'}
         iconMode={'dynamic'}
@@ -186,7 +197,6 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     position: 'relative',
-
     display: 'flex',
     flexDirection: 'row',
     width: '100%',

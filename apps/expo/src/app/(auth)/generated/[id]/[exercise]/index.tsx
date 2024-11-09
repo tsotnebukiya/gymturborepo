@@ -1,7 +1,6 @@
 import ExerciseView from '~/components/exercises/ExerciseScreen';
 import { useLocalSearchParams } from 'expo-router';
 import { api } from '~/utils/api';
-import ExerciseSkeleton from '~/components/exercises/ExerciseSkeleton';
 
 export default function ExerciseScreen() {
   const { exercise } = useLocalSearchParams();
@@ -11,5 +10,5 @@ export default function ExerciseScreen() {
   if (!data && !isLoading) {
     return null;
   }
-  return !data ? <ExerciseSkeleton /> : <ExerciseView data={data} />;
+  return <ExerciseView data={data} />;
 }

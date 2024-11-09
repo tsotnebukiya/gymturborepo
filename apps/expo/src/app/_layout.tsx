@@ -1,7 +1,6 @@
 import { CLERK_PUBLISHABLE_KEY, tokenCache } from '~/utils/auth';
 import theme from '~/utils/theme';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { Stack, usePathname, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -58,21 +57,18 @@ function InitialLayout() {
 }
 
 export default function RootLayoutNav() {
-  const queryClient = new QueryClient();
   return (
     <ClerkProvider
       publishableKey={CLERK_PUBLISHABLE_KEY!}
       tokenCache={tokenCache}
     >
-      <QueryClientProvider client={queryClient}>
-        <TRPCProvider>
-          <PaperProvider theme={theme}>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-              <InitialLayout />
-            </GestureHandlerRootView>
-          </PaperProvider>
-        </TRPCProvider>
-      </QueryClientProvider>
+      <TRPCProvider>
+        <PaperProvider theme={theme}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <InitialLayout />
+          </GestureHandlerRootView>
+        </PaperProvider>
+      </TRPCProvider>
     </ClerkProvider>
   );
 }

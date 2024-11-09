@@ -10,7 +10,7 @@ export default function GenerationLayout() {
   });
 
   return (
-    <ImageLayout data={data}>
+    <ImageLayout image={data?.image}>
       <Stack
         screenOptions={{
           headerShown: false,
