@@ -35,7 +35,7 @@ export default function DashboardLayout() {
         <Tabs.Screen
           name="bookmarks"
           options={{
-            title: 'Bookmarks',
+            title: 'Saved',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? 'bookmarks' : 'bookmarks-outline'}
