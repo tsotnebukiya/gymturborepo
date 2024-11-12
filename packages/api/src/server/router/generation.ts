@@ -16,13 +16,12 @@ export const generationRouter = {
       const timings: Record<string, number> = {};
       const userId = session.userId;
 
-      const startUpload = performance.now();
-      const blob = await uploadImageToBlob(input);
-      timings.uploadImageToBlob = performance.now() - startUpload;
-
-      const startGymResponse = performance.now();
-      const gymEquipmentResponse = await generateGymResponse(input.image);
-      timings.generateGymResponse = performance.now() - startGymResponse;
+      const startParallel = performance.now();
+      const [blob, gymEquipmentResponse] = await Promise.all([
+        uploadImageToBlob(input),
+        generateGymResponse(input.image),
+      ]);
+      timings.parallelOperations = performance.now() - startParallel;
 
       const name = gymEquipmentResponse?.name ?? null;
       const description = gymEquipmentResponse?.description ?? null;
@@ -80,7 +79,7 @@ export const generationRouter = {
       timings.createMusclePercentages =
         performance.now() - startMusclePercentages;
 
-      console.log('Operation timings (ms):', timings);
+      console.info('Operation timings (ms):', timings);
 
       return generation.id;
     }),
@@ -112,14 +111,12 @@ export const generationRouter = {
     .mutation(async ({ ctx: { db, session }, input }) => {
       const timings: Record<string, number> = {};
       const userId = session.userId;
-
       const startExerciseDetails = performance.now();
       const { exercise, imageUrl } = await generateExerciseDetails(
         input.exerciseName
       );
       timings.generateExerciseDetails =
         performance.now() - startExerciseDetails;
-
       const startGeneration = performance.now();
       const generation = await db.generation.create({
         data: {
@@ -165,7 +162,7 @@ export const generationRouter = {
       timings.createMusclePercentages =
         performance.now() - startMusclePercentages;
 
-      console.log('Operation timings (ms):', timings);
+      console.info('Operation timings (ms):', timings);
 
       return generation.id;
     }),

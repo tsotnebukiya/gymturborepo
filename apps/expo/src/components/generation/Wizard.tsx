@@ -20,8 +20,12 @@ export default function WizardComponent({
 }: Props) {
   const [image, setImage] = useState<string>();
   const utils = api.useUtils();
+  const [startTime, setStartTime] = useState<number>();
   const { mutate, isPending } = api.generation.create.useMutation({
     onMutate: async () => {
+      setStartTime(Date.now());
+      console.log('Starting mutation at:', new Date().toISOString());
+
       await utils.generation.getAll.cancel();
       const previousData = utils.generation.getAll.getData();
       utils.generation.getAll.setData(
@@ -42,10 +46,13 @@ export default function WizardComponent({
       return { previousData };
     },
     onError: (err, newTodo, context) => {
+      const duration = startTime ? Date.now() - startTime : 0;
+      console.log(`Error after ${duration}ms:`, err);
       utils.generation.getAll.setData(undefined, context?.previousData);
     },
     onSuccess: () => {
-      console.log('success');
+      const duration = startTime ? Date.now() - startTime : 0;
+      console.log(`Success after ${duration}ms`);
     },
     onSettled: () => {
       void utils.generation.getAll.invalidate();
