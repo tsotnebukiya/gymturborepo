@@ -3,6 +3,7 @@ import { AnimatedFAB, Card, IconButton, Modal, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { api, type RouterOutputs } from '~/utils/api';
 import { useState } from 'react';
+import * as ImageManipulator from 'expo-image-manipulator';
 
 interface Props {
   showModal: () => void;
@@ -59,15 +60,32 @@ export default function WizardComponent({
   const openAppSettings = () => {
     void Linking.openSettings();
   };
-  const handleImagePicked = (pickerResult: ImagePicker.ImagePickerResult) => {
+  const handleImagePicked = async (
+    pickerResult: ImagePicker.ImagePickerResult
+  ) => {
     if (pickerResult.canceled) {
       return;
     }
-    setImage(pickerResult.assets[0]?.uri);
-    const imageType = pickerResult.assets[0]?.mimeType;
-    const imageBase64 = pickerResult.assets[0]?.base64;
-    if (!imageBase64 || !imageType) return;
-    mutate({ image: imageBase64, imageType });
+    const originalUri = pickerResult.assets[0]?.uri;
+    if (!originalUri) return;
+    const manipulatedImage = await ImageManipulator.manipulateAsync(
+      originalUri,
+      [{ resize: { width: 1024 } }], // Resize maintaining aspect ratio
+      {
+        compress: 0.3,
+        format: ImageManipulator.SaveFormat.JPEG,
+        base64: true,
+      }
+    );
+
+    setImage(manipulatedImage.uri);
+    const imageBase64 = manipulatedImage.base64;
+
+    if (!imageBase64) return;
+    const sizeInBytes = (imageBase64.length * 3) / 4;
+    const sizeInMB = sizeInBytes / (1024 * 1024);
+    console.log(`Compressed image size: ${sizeInMB.toFixed(2)} MB`);
+    mutate({ image: imageBase64, imageType: 'image/jpeg' });
   };
   const handleGallery = async () => {
     if (!libraryPermissionedGranted) {
@@ -96,11 +114,9 @@ export default function WizardComponent({
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: false,
-      aspect: [4, 3],
       quality: 1,
-      base64: true,
     });
-    handleImagePicked(result);
+    await handleImagePicked(result);
   };
   const handleCamera = async () => {
     if (!cameraPermissionGranted) {
@@ -129,13 +145,10 @@ export default function WizardComponent({
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: false,
-      aspect: [4, 3],
       quality: 1,
-      cameraType: ImagePicker.CameraType.back,
-      base64: true,
       presentationStyle: ImagePicker.UIImagePickerPresentationStyle.FORM_SHEET,
     });
-    handleImagePicked(result);
+    await handleImagePicked(result);
   };
   const handleFAB = () => {
     if (isPending) {

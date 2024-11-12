@@ -2,7 +2,10 @@ import type { TRPCRouterRecord } from '@trpc/server';
 
 import { protectedProcedure } from '../trpc';
 import { createGenerationSchema } from '../../functions/schemas';
-import { generateGymResponse } from '../../functions/openai';
+import {
+  generateGymResponse,
+  generateExerciseDetails,
+} from '../../functions/openai';
 import { uploadImageToBlob } from '../../functions/utils';
 import { z } from 'zod';
 
@@ -10,13 +13,23 @@ export const generationRouter = {
   create: protectedProcedure
     .input(createGenerationSchema)
     .mutation(async ({ ctx: { db, session }, input }) => {
+      const timings: Record<string, number> = {};
       const userId = session.userId;
+
+      const startUpload = performance.now();
       const blob = await uploadImageToBlob(input);
+      timings.uploadImageToBlob = performance.now() - startUpload;
+
+      const startGymResponse = performance.now();
       const gymEquipmentResponse = await generateGymResponse(input.image);
+      timings.generateGymResponse = performance.now() - startGymResponse;
+
       const name = gymEquipmentResponse?.name ?? null;
       const description = gymEquipmentResponse?.description ?? null;
       const exercises = gymEquipmentResponse?.exercises ?? [];
       const status = name && description ? 'COMPLETED' : 'FAILED';
+
+      const startGeneration = performance.now();
       const generation = await db.generation.create({
         data: {
           status,
@@ -41,11 +54,16 @@ export const generationRouter = {
           },
         },
       });
+      timings.createGeneration = performance.now() - startGeneration;
+
+      const startFindExercises = performance.now();
       const exercisesCreated = await db.exercise.findMany({
         where: {
           generationId: generation.id,
         },
       });
+      timings.findExercises = performance.now() - startFindExercises;
+
       const muscleData = exercisesCreated.flatMap((exercise, index) => {
         const currentExercises = exercises[index]?.muscles;
         if (!currentExercises) return [];
@@ -54,9 +72,16 @@ export const generationRouter = {
           exerciseId: exercise.id,
         }));
       });
+
+      const startMusclePercentages = performance.now();
       await db.musclePercentage.createMany({
         data: muscleData,
       });
+      timings.createMusclePercentages =
+        performance.now() - startMusclePercentages;
+
+      console.log('Operation timings (ms):', timings);
+
       return generation.id;
     }),
   getAll: protectedProcedure.query(async ({ ctx: { db, session } }) => {
@@ -81,5 +106,67 @@ export const generationRouter = {
         },
       });
       return generation;
+    }),
+  createFromExercise: protectedProcedure
+    .input(z.object({ exerciseName: z.string() }))
+    .mutation(async ({ ctx: { db, session }, input }) => {
+      const timings: Record<string, number> = {};
+      const userId = session.userId;
+
+      const startExerciseDetails = performance.now();
+      const { exercise, imageUrl } = await generateExerciseDetails(
+        input.exerciseName
+      );
+      timings.generateExerciseDetails =
+        performance.now() - startExerciseDetails;
+
+      const startGeneration = performance.now();
+      const generation = await db.generation.create({
+        data: {
+          status: 'COMPLETED',
+          exercise: {
+            create: {
+              name: exercise.name,
+              description: exercise.description,
+              category: exercise.category,
+              subcategory: exercise.subcategory,
+              userId,
+            },
+          },
+          name: exercise.name,
+          description: exercise.description,
+          image: imageUrl,
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
+        },
+      });
+      timings.createGeneration = performance.now() - startGeneration;
+
+      const startFindExercise = performance.now();
+      const exerciseCreated = await db.exercise.findFirst({
+        where: {
+          generationId: generation.id,
+        },
+      });
+      timings.findExercise = performance.now() - startFindExercise;
+
+      if (!exerciseCreated) throw new Error('Exercise not created');
+
+      const startMusclePercentages = performance.now();
+      await db.musclePercentage.createMany({
+        data: exercise.muscles.map((muscle) => ({
+          ...muscle,
+          exerciseId: exerciseCreated.id,
+        })),
+      });
+      timings.createMusclePercentages =
+        performance.now() - startMusclePercentages;
+
+      console.log('Operation timings (ms):', timings);
+
+      return generation.id;
     }),
 } satisfies TRPCRouterRecord;

@@ -92,3 +92,64 @@ If no gym equipment is clearly visible, respond with null.`,
   const generation = response.choices[0]?.message.parsed;
   return generation ?? null;
 }
+
+export async function generateExerciseDetails(
+  exerciseName: string
+): Promise<{ exercise: z.infer<typeof exerciseValidator>; imageUrl: string }> {
+  // First get exercise details
+  const detailsResponse = await openai.beta.chat.completions.parse({
+    model: 'gpt-4o',
+    messages: [
+      {
+        role: 'system',
+        content:
+          'You are a professional fitness expert. Provide detailed information about specific exercises, including proper form, target muscles, and equipment needed.',
+      },
+      {
+        role: 'user',
+        content: `Provide detailed information about the exercise "${exerciseName}". Include:
+1. A detailed description of how to perform it
+2. The primary muscle group targeted
+3. A complete breakdown of all muscles activated
+
+Format your response as a JSON object matching this structure:
+{
+  "name": "${exerciseName}",
+  "description": "detailed exercise description",
+  "category": "primary target muscle category",
+  "subcategory": "primary target muscle subcategory",
+  "muscles": [
+    {
+      "category": "muscle category",
+      "subcategory": "muscle subcategory",
+      "percentage": "activation percentage (1-100)"
+    }
+  ]
+}`,
+      },
+    ],
+    response_format: zodResponseFormat(exerciseValidator, 'exercise'),
+  });
+
+  const exercise = detailsResponse.choices[0]?.message.parsed;
+
+  // Then generate an image of the equipment/exercise
+  const imageResponse = await openai.images.generate({
+    model: 'dall-e-3',
+    prompt: `Professional gym equipment photography: Equipment needed for ${exerciseName}. Show the equipment in a well-lit gym setting with proper perspective and detail. Clean, professional composition.`,
+    n: 1,
+    size: '1024x1024',
+    quality: 'standard',
+  });
+
+  const imageUrl = imageResponse.data[0]?.url;
+
+  if (!exercise || !imageUrl) {
+    throw new Error('Failed to generate exercise details or image');
+  }
+
+  return {
+    exercise,
+    imageUrl,
+  };
+}
