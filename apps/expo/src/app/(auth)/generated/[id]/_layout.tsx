@@ -8,7 +8,6 @@ export default function GenerationLayout() {
   const { data } = api.generation.getOne.useQuery({
     id: Number(id),
   });
-
   return (
     <ImageLayout image={data?.image}>
       <Stack

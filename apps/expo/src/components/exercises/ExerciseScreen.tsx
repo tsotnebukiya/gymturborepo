@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { api, type RouterOutputs } from '~/utils/api';
 import TopBar from '~/components/common/TopBar';
 import { router } from 'expo-router';
@@ -6,6 +6,7 @@ import { musclesConstants } from '~/utils/constants';
 import { Text } from 'react-native-paper';
 import ExerciseSkeleton from './ExerciseSkeleton';
 import VideoPlayer from './VideoPlayer';
+import ScrollView from '../common/ScrollView';
 
 type GenerationData = RouterOutputs['exercise']['getOne'];
 
@@ -49,11 +50,7 @@ export default function ExerciseView({ data }: Props) {
           },
         ]}
       />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollViewContent}
-        style={styles.scrollView}
-      >
+      <ScrollView>
         <View style={styles.rowContainer}>
           <View style={styles.infoContainer}>
             <Text style={styles.description}>{data.description}</Text>
@@ -85,13 +82,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollViewContent: {
-    padding: 16,
-    gap: 16,
   },
   rowContainer: {
     flexDirection: 'row',

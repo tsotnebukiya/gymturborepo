@@ -1,11 +1,22 @@
-import Homepage from '~/components/homepage/Homepage';
+import GradientLayout from '~/components/common/GradientLayout';
+import ScrollView from '~/components/common/ScrollView';
+import LatestGenerations from '~/components/homepage/LatestGenerations';
 import { api } from '~/utils/api';
 
 export default function HomeScreen() {
-  const { data, isLoading } = api.generation.getAll.useQuery();
+  const { data, isLoading, refetch } = api.generation.getAll.useQuery();
   api.exercise.getAll.usePrefetchQuery({
     searchName: undefined,
     subcategory: undefined,
   });
-  return <Homepage data={data} loading={isLoading} />;
+  const handleRefresh = async () => {
+    await refetch();
+  };
+  return (
+    <GradientLayout>
+      <ScrollView onRefresh={handleRefresh}>
+        <LatestGenerations data={data} loading={isLoading} />
+      </ScrollView>
+    </GradientLayout>
+  );
 }

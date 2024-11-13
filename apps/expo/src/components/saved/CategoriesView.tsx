@@ -1,8 +1,9 @@
-import { ScrollView, StyleSheet, View, Image, Pressable } from 'react-native';
+import { StyleSheet, View, Image, Pressable } from 'react-native';
 import { Text } from 'react-native-paper';
 import TopBar from '~/components/common/TopBar';
 import { muscleCategories, musclesConstants } from '~/utils/constants';
 import { type PrismaTypes } from '@acme/api';
+import ScrollView from '../common/ScrollView';
 
 type Subcategory = PrismaTypes.$Enums.Subcategory;
 
@@ -33,11 +34,7 @@ export default function CategoriesView({
           onPress: handleBack,
         }}
       />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollViewContent}
-        style={styles.scrollView}
-      >
+      <ScrollView>
         {muscleCategories.map((category, index) => (
           <View key={index} style={styles.categoryContainer}>
             <Text variant="titleMedium" style={styles.categoryTitle}>
@@ -80,12 +77,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     backgroundColor: 'white',
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollViewContent: {
-    padding: 16,
   },
   categoryContainer: {
     marginBottom: 24,

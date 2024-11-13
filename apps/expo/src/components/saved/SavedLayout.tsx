@@ -65,6 +65,7 @@ export default function SavedLayout() {
         style={styles.listContainer}
         contentContainerStyle={[styles.contentContainer]}
         data={exercises}
+        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => <ExerciseItem data={item} fullPath={true} />}
         ListEmptyComponent={() => (
           <Text style={styles.emptyText}>No exercises found</Text>

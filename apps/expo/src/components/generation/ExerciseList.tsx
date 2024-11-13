@@ -1,9 +1,10 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { type RouterOutputs } from '~/utils/api';
 import TopBar from '~/components/common/TopBar';
 import { router } from 'expo-router';
 import ExerciseItem from '../exercises/ExerciseItem';
 import { Skeleton } from 'moti/skeleton';
+import ScrollView from '../common/ScrollView';
 
 type GenerationData = RouterOutputs['generation']['getOne'];
 
@@ -44,11 +45,7 @@ export default function ExerciseList({ data }: Props) {
           onPress: handleBack,
         }}
       />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollViewContent}
-        style={styles.scrollView}
-      >
+      <ScrollView>
         {!data ? (
           <ExerciseListSkeleton />
         ) : (
@@ -65,13 +62,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollViewContent: {
-    padding: 16,
-    gap: 16,
   },
   video: {
     alignSelf: 'center',

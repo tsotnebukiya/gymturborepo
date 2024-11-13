@@ -33,6 +33,13 @@ const handler = async (req: Request) => {
     onError({ error, path }) {
       console.error(`>>> tRPC Error on '${path}'`, error);
     },
+    responseMeta({ paths, type, errors }) {
+      console.log(`>>> tRPC ${type} on paths: ${paths?.join(', ')}`);
+      if (errors.length) {
+        console.error('>>> Errors:', errors);
+      }
+      return {};
+    },
   });
 
   setCorsHeaders(response);

@@ -10,7 +10,14 @@ export default function GradientLayout({
   const insets = useSafeAreaInsets();
   return (
     <Gradient>
-      <View style={[styles.container, { paddingTop: insets.top }]}>
+      <View
+        style={[
+          styles.container,
+          {
+            paddingTop: insets.top,
+          },
+        ]}
+      >
         {children}
       </View>
     </Gradient>
