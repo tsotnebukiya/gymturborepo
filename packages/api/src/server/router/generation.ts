@@ -8,6 +8,7 @@ import {
 } from '../../functions/openai';
 import { uploadImageToBlob } from '../../functions/utils';
 import { z } from 'zod';
+import { log } from 'next-axiom';
 
 export const generationRouter = {
   create: protectedProcedure
@@ -79,8 +80,8 @@ export const generationRouter = {
       timings.createMusclePercentages =
         performance.now() - startMusclePercentages;
 
-      console.info('Operation timings (ms):', timings);
-
+      // const log = new Logger();
+      log.info('Operation timings (ms):', timings);
       return generation.id;
     }),
   getAll: protectedProcedure.query(async ({ ctx: { db, session } }) => {
@@ -162,7 +163,7 @@ export const generationRouter = {
       timings.createMusclePercentages =
         performance.now() - startMusclePercentages;
 
-      console.info('Operation timings (ms):', timings);
+      log.info('Operation timings (ms):', timings);
 
       return generation.id;
     }),
