@@ -33,17 +33,6 @@ export const generationRouter = {
       const generation = await db.generation.create({
         data: {
           status,
-          exercise: {
-            createMany: {
-              data: exercises.map((ex) => ({
-                name: ex.name,
-                description: ex.description,
-                category: ex.category,
-                subcategory: ex.subcategory,
-                userId,
-              })),
-            },
-          },
           name,
           description,
           image: blob.url,
@@ -53,6 +42,18 @@ export const generationRouter = {
             },
           },
         },
+      });
+      timings.createGeneration = performance.now() - startGeneration;
+
+      await db.exercise.createMany({
+        data: exercises.map((ex) => ({
+          name: ex.name,
+          description: ex.description,
+          category: ex.category,
+          subcategory: ex.subcategory,
+          userId,
+          generationId: generation.id,
+        })),
       });
       timings.createGeneration = performance.now() - startGeneration;
 
