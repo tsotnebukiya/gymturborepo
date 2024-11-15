@@ -1,33 +1,61 @@
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, RefreshControl } from 'react-native';
 import { api } from '~/utils/api';
 import ExerciseItem from '../exercises/ExerciseItem';
 import { useState } from 'react';
-import { IconButton, Modal, Text, TextInput } from 'react-native-paper';
-import { type Subcategory } from '@prisma/client';
+import { IconButton, Text, TextInput } from 'react-native-paper';
 import { keepPreviousData } from '@tanstack/react-query';
-import CategoriesView from './CategoriesView';
 import { useDebounce } from 'use-debounce';
+import { router } from 'expo-router';
+import ExerciseListSkeleton from '../exercises/ExerciseSkeletonList';
+import { useAppContext } from '../context/AppContext';
 
 export default function SavedLayout() {
   const [searchInput, setSearchInput] = useState<string | undefined>(undefined);
   const [debouncedSearch] = useDebounce(searchInput, 1000);
-  const [subcategory, setSubcategory] = useState<Subcategory | undefined>();
-  const [visible, setVisible] = useState(false);
-  const { data: exercises } = api.exercise.getAll.useQuery(
+  const { subcategory, setSubcategory } = useAppContext();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = api.exercise.getAll.useInfiniteQuery(
     {
       searchName: debouncedSearch,
       subcategory,
     },
     {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
       placeholderData: keepPreviousData,
     }
   );
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
 
+  const exercises = data?.pages.flatMap((page) => page.exercises) || [];
+  const loadMore = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      void fetchNextPage();
+    }
+  };
+
+  const handleFilter = () => {
+    router.push({
+      pathname: '/(auth)/category',
+      params: { type: 'bookmarks' },
+    });
+  };
   const clearFilters = () => {
-    setSearchInput(undefined);
+    setSearchInput('');
     setSubcategory(undefined);
+  };
+  console.log(subcategory);
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
   };
 
   return (
@@ -45,7 +73,7 @@ export default function SavedLayout() {
           onChangeText={setSearchInput}
         />
         <View style={styles.iconContainer}>
-          {(searchInput ?? subcategory) && (
+          {(searchInput || subcategory) && (
             <IconButton
               icon="close"
               mode="contained"
@@ -57,7 +85,7 @@ export default function SavedLayout() {
             icon={subcategory ? 'filter' : 'filter-plus-outline'}
             mode="contained"
             style={styles.filterIcon}
-            onPress={showModal}
+            onPress={handleFilter}
           />
         </View>
       </View>
@@ -66,24 +94,28 @@ export default function SavedLayout() {
         contentContainerStyle={[styles.contentContainer]}
         data={exercises}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => <ExerciseItem data={item} fullPath={true} />}
-        ListEmptyComponent={() => (
-          <Text style={styles.emptyText}>No exercises found</Text>
+        renderItem={({ item }) => (
+          <ExerciseItem data={item} exercisePath={true} />
         )}
+        keyExtractor={(item, index) => String(index)}
+        onEndReached={loadMore}
+        onEndReachedThreshold={0.5}
+        ListEmptyComponent={() => (
+          <>
+            {isLoading ? (
+              <ExerciseListSkeleton />
+            ) : (
+              <Text style={styles.emptyText}>No exercises found</Text>
+            )}
+          </>
+        )}
+        ListFooterComponent={() => (
+          <>{isFetchingNextPage && <ExerciseListSkeleton />}</>
+        )}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
       />
-      <Modal
-        visible={visible}
-        onDismiss={hideModal}
-        dismissableBackButton={true}
-        style={styles.modal}
-        contentContainerStyle={styles.modalContainer}
-      >
-        <CategoriesView
-          hideModal={hideModal}
-          subcategory={subcategory}
-          setSubcategory={setSubcategory}
-        />
-      </Modal>
     </View>
   );
 }

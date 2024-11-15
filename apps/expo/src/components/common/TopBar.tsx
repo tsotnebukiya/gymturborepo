@@ -42,7 +42,7 @@ const TopBar = ({
       <IconButton
         icon="arrow-left"
         onPress={backAction.onPress}
-        mode={backAction.mode ?? 'contained'}
+        mode={backAction.mode || 'contained'}
       />
     )}
     {title && <Appbar.Content title={title} />}

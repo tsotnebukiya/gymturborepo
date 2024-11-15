@@ -1,11 +1,18 @@
 import { useLocalSearchParams } from 'expo-router';
-import ExerciseList from '~/components/generation/ExerciseList';
+import ExerciseList from '~/components/exercises/ExerciseList';
 import { api } from '~/utils/api';
 
 export default function GeneratedItemScreen() {
   const { id } = useLocalSearchParams();
-  const { data } = api.generation.getOne.useQuery({
+  const { data, isLoading } = api.generation.getOne.useQuery({
     id: Number(id),
   });
-  return <ExerciseList data={data} />;
+  return (
+    <ExerciseList
+      exercisePath={false}
+      data={data?.exercise}
+      name={data?.name || undefined}
+      loading={isLoading}
+    />
+  );
 }

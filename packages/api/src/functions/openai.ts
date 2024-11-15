@@ -27,8 +27,16 @@ const generationOutputValidator = z.object({
 
 type GenerationOutput = z.infer<typeof generationOutputValidator>;
 
+const exerciseArrayValidator = z.array(exerciseValidator);
+type ExerciseArray = z.infer<typeof exerciseArrayValidator>;
+
+const exerciseDetailsValidator = z.object({
+  exercises: exerciseArrayValidator,
+});
+
 export async function generateGymResponse(
-  base64Image: string
+  base64Image: string,
+  language = 'english'
 ): Promise<GenerationOutput | null> {
   const response = await openai.beta.chat.completions.parse({
     model: 'gpt-4o',
@@ -43,7 +51,7 @@ export async function generateGymResponse(
         content: [
           {
             type: 'text',
-            text: `Analyze this gym equipment image and provide:
+            text: `Analyze this gym equipment image and provide the following information in ${language}:
 1. The name of the equipment
 2. A detailed description of the equipment
 3. A comprehensive list of possible exercises, including:
@@ -90,66 +98,55 @@ If no gym equipment is clearly visible, respond with null.`,
   });
 
   const generation = response.choices[0]?.message.parsed;
-  return generation ?? null;
+  if (!generation) {
+    throw new Error('Failed to generate exercise details or image');
+  }
+  return generation;
 }
 
 export async function generateExerciseDetails(
-  exerciseName: string
-): Promise<{ exercise: z.infer<typeof exerciseValidator>; imageUrl: string }> {
-  // First get exercise details
+  subcategory: Subcategory,
+  language = 'english'
+): Promise<ExerciseArray> {
   const detailsResponse = await openai.beta.chat.completions.parse({
-    model: 'gpt-4o',
+    model: 'gpt-4o-mini',
     messages: [
       {
         role: 'system',
         content:
-          'You are a professional fitness expert. Provide detailed information about specific exercises, including proper form, target muscles, and equipment needed.',
+          'You are a professional fitness expert. Generate a comprehensive list of exercises for specific muscle groups, including proper form, target muscles, and equipment needed.',
       },
       {
         role: 'user',
-        content: `Provide detailed information about the exercise "${exerciseName}". Include:
-1. A detailed description of how to perform it
-2. The primary muscle group targeted
-3. A complete breakdown of all muscles activated
+        content: `Generate a list of effective exercises targeting the ${subcategory} muscle group in ${language}. For each exercise, include:
+1. The exercise name
+2. A detailed description of how to perform it
+3. A complete breakdown of all muscles activated during the movement
 
-Format your response as a JSON object matching this structure:
+Format your response as a JSON object:
 {
-  "name": "${exerciseName}",
-  "description": "detailed exercise description",
-  "category": "primary target muscle category",
-  "subcategory": "primary target muscle subcategory",
-  "muscles": [
+  "exercises": [
     {
-      "category": "muscle category",
-      "subcategory": "muscle subcategory",
-      "percentage": "activation percentage (1-100)"
+      "name": "exercise name",
+      "description": "detailed exercise description",
+      "category": "primary target muscle category",
+      "subcategory": "primary target muscle subcategory",
+      "muscles": [
+        {
+          "category": "muscle category",
+          "subcategory": "muscle subcategory",
+          "percentage": "activation percentage (1-100)"
+        }
+      ]
     }
   ]
 }`,
       },
     ],
-    response_format: zodResponseFormat(exerciseValidator, 'exercise'),
+    response_format: zodResponseFormat(exerciseDetailsValidator, 'generation'),
+    max_tokens: 4096,
   });
 
-  const exercise = detailsResponse.choices[0]?.message.parsed;
-
-  // Then generate an image of the equipment/exercise
-  const imageResponse = await openai.images.generate({
-    model: 'dall-e-3',
-    prompt: `Professional gym equipment photography: Equipment needed for ${exerciseName}. Show the equipment in a well-lit gym setting with proper perspective and detail. Clean, professional composition.`,
-    n: 1,
-    size: '1024x1024',
-    quality: 'standard',
-  });
-
-  const imageUrl = imageResponse.data[0]?.url;
-
-  if (!exercise || !imageUrl) {
-    throw new Error('Failed to generate exercise details or image');
-  }
-
-  return {
-    exercise,
-    imageUrl,
-  };
+  const result = detailsResponse.choices[0]?.message.parsed;
+  return result?.exercises ?? [];
 }

@@ -1,14 +1,10 @@
 import { TabBarIcon } from '~/components/common/TabBarIcon';
 import WizardComponent from '~/components/generation/Wizard';
 import { Tabs } from 'expo-router';
-import { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function DashboardLayout() {
   const insets = useSafeAreaInsets();
-  const [visible, setVisible] = useState(false);
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
   return (
     <>
       <Tabs
@@ -45,6 +41,18 @@ export default function DashboardLayout() {
           }}
         />
         <Tabs.Screen
+          name="split"
+          options={{
+            title: 'Splits',
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                name={focused ? 'grid' : 'grid-outline'}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
           name="settings"
           options={{
             title: 'Settings',
@@ -57,11 +65,7 @@ export default function DashboardLayout() {
           }}
         />
       </Tabs>
-      <WizardComponent
-        showModal={showModal}
-        hideModal={hideModal}
-        visible={visible}
-      />
+      <WizardComponent />
     </>
   );
 }

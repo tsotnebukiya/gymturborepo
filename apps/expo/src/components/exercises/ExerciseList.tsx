@@ -2,34 +2,34 @@ import { StyleSheet, View } from 'react-native';
 import { type RouterOutputs } from '~/utils/api';
 import TopBar from '~/components/common/TopBar';
 import { router } from 'expo-router';
-import ExerciseItem from '../exercises/ExerciseItem';
-import { Skeleton } from 'moti/skeleton';
+import ExerciseItem from './ExerciseItem';
 import ScrollView from '../common/ScrollView';
+import { Text } from 'react-native-paper';
+import ExerciseListSkeleton from './ExerciseSkeletonList';
 
-type GenerationData = RouterOutputs['generation']['getOne'];
-
-function ExerciseListSkeleton() {
-  return Array(4)
-    .fill(0)
-    .map((_, index) => (
-      <View key={index} style={styles.exerciseItem}>
-        <Skeleton width={140} height={90} radius={12} colorMode="light" />
-        <View style={styles.exerciseContent}>
-          <Skeleton width={160} height={20} radius={4} colorMode="light" />
-          <View style={styles.muscleGroup}>
-            <Skeleton width={48} height={48} radius={24} colorMode="light" />
-            <Skeleton width={100} height={15} radius={4} colorMode="light" />
-          </View>
-        </View>
-      </View>
-    ));
+function NoExercises() {
+  return (
+    <View style={styles.emptyContainer}>
+      <Text style={styles.emptyText}>No exercises generated</Text>
+    </View>
+  );
 }
 
 interface Props {
-  data?: GenerationData;
+  data?: NonNullable<RouterOutputs['generation']['getOne']>['exercise'];
+  name?: string;
+  loading: boolean;
+  exercisePath: boolean;
+  type?: 'default' | 'ai-generating';
 }
 
-export default function ExerciseList({ data }: Props) {
+export default function ExerciseList({
+  data,
+  name,
+  loading,
+  exercisePath,
+  type = 'default',
+}: Props) {
   const handleBack = () => {
     router.back();
   };
@@ -38,7 +38,7 @@ export default function ExerciseList({ data }: Props) {
     <View style={styles.container}>
       <TopBar
         statusBarHeight={0}
-        title={data ? `${data.name}` : ''}
+        title={name ? `${name}` : ''}
         borderBottomColor="#E0E0E0"
         backAction={{
           icon: 'arrow-left',
@@ -46,13 +46,21 @@ export default function ExerciseList({ data }: Props) {
         }}
       />
       <ScrollView>
-        {!data ? (
-          <ExerciseListSkeleton />
-        ) : (
-          data.exercise.map((exercise, index) => (
-            <ExerciseItem data={exercise} key={index} fullPath={false} />
-          ))
-        )}
+        <View style={styles.exercisesContainer}>
+          {loading ? (
+            <ExerciseListSkeleton type={type} />
+          ) : !data?.length ? (
+            <NoExercises />
+          ) : (
+            data.map((exercise, index) => (
+              <ExerciseItem
+                data={exercise}
+                key={index}
+                exercisePath={exercisePath}
+              />
+            ))
+          )}
+        </View>
       </ScrollView>
     </View>
   );
@@ -62,11 +70,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+    // gap: 32,
   },
   video: {
     alignSelf: 'center',
     width: 320,
     height: 200,
+  },
+  exercisesContainer: {
+    marginTop: 32,
+    gap: 16,
   },
   exerciseItem: {
     flexDirection: 'row',
@@ -116,5 +129,15 @@ const styles = StyleSheet.create({
   muscleText: {
     color: '#666666',
     fontSize: 15,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#666666',
   },
 });

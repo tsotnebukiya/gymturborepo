@@ -1,23 +1,19 @@
-import { Alert, Linking, StyleSheet } from 'react-native';
+import { Alert, Linking, StyleSheet, View } from 'react-native';
 import { AnimatedFAB, Card, IconButton, Modal, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { api, type RouterOutputs } from '~/utils/api';
 import { useState } from 'react';
 import * as ImageManipulator from 'expo-image-manipulator';
-
-interface Props {
-  showModal: () => void;
-  hideModal: () => void;
-  visible: boolean;
-}
+import { useRouter } from 'expo-router';
+import { useAppContext } from '../context/AppContext';
 
 type PreviousData = RouterOutputs['generation']['getAll'];
 
-export default function WizardComponent({
-  showModal,
-  hideModal,
-  visible,
-}: Props) {
+export default function WizardComponent() {
+  const { wizardVisible, setWizardVisible } = useAppContext();
+  const showModal = () => setWizardVisible(true);
+  const hideModal = () => setWizardVisible(false);
+  const router = useRouter();
   const [image, setImage] = useState<string>();
   const utils = api.useUtils();
   const [startTime, setStartTime] = useState<number>();
@@ -40,7 +36,7 @@ export default function WizardComponent({
               name: 'Pending?',
               status: 'PENDING',
             },
-            ...(oldQueryData ?? []),
+            ...(oldQueryData || []),
           ] as PreviousData
       );
       return { previousData };
@@ -93,6 +89,7 @@ export default function WizardComponent({
     const sizeInMB = sizeInBytes / (1024 * 1024);
     console.log(`Compressed image size: ${sizeInMB.toFixed(2)} MB`);
     mutate({ image: imageBase64, imageType: 'image/jpeg' });
+    router.push('/(auth)/home');
   };
   const handleGallery = async () => {
     if (!libraryPermissionedGranted) {
@@ -123,6 +120,7 @@ export default function WizardComponent({
       allowsEditing: false,
       quality: 1,
     });
+    console.log('WEAREHERE2');
     await handleImagePicked(result);
   };
   const handleCamera = async () => {
@@ -157,6 +155,10 @@ export default function WizardComponent({
     });
     await handleImagePicked(result);
   };
+  const handleCategory = () => {
+    hideModal();
+    router.push({ pathname: '/(auth)/category', params: { type: 'new' } });
+  };
   const handleFAB = () => {
     if (isPending) {
       Alert.alert(
@@ -168,6 +170,7 @@ export default function WizardComponent({
     }
     showModal();
   };
+
   return (
     <>
       <AnimatedFAB
@@ -182,24 +185,39 @@ export default function WizardComponent({
         style={styles.fabStyle}
       />
       <Modal
-        visible={visible}
+        visible={wizardVisible}
         onDismiss={hideModal}
         style={styles.modal}
         contentContainerStyle={styles.modalContainer}
       >
-        <Card onPress={handleGallery} style={styles.card}>
-          <IconButton icon="folder-multiple-image" size={36} />
-          <Text variant="labelLarge" style={styles.text}>
-            Gallery
-          </Text>
-        </Card>
-        <Card style={styles.card} onPress={handleCamera}>
-          <IconButton icon="camera" size={36} />
+        <View style={styles.topRow}>
+          <Card onPress={handleGallery} style={styles.card}>
+            <IconButton
+              icon={'folder-multiple-image'}
+              size={36}
+              style={styles.icon}
+            />
+            <Text variant="labelLarge" style={styles.text}>
+              Gallery
+            </Text>
+          </Card>
 
-          <Text variant="labelLarge" style={styles.text}>
-            Take Photo
-          </Text>
-        </Card>
+          <Card style={styles.card} onPress={handleCamera}>
+            <IconButton icon="camera" size={36} style={styles.icon} />
+            <Text variant="labelLarge" style={styles.text}>
+              Take Photo
+            </Text>
+          </Card>
+        </View>
+
+        <View style={styles.bottomRow}>
+          <Card style={styles.card} onPress={handleCategory}>
+            <IconButton icon="human-handsdown" size={36} style={styles.icon} />
+            <Text variant="labelLarge" style={styles.text}>
+              Choose Muscle
+            </Text>
+          </Card>
+        </View>
       </Modal>
     </>
   );
@@ -216,21 +234,32 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContainer: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'row',
     width: '100%',
-    gap: 20,
     marginBottom: 140,
+    padding: 20,
   },
   card: {
-    width: 130,
+    width: 160,
     height: 100,
-    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
     textAlign: 'center',
+  },
+  icon: {
+    width: 36,
+    height: 36,
+    borderRadius: 0,
+    alignSelf: 'center',
+  },
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 20,
+    marginBottom: 20,
+  },
+  bottomRow: {
+    alignItems: 'center',
   },
 });

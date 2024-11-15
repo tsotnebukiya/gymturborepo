@@ -37,19 +37,25 @@ export const exerciseRouter = {
         .object({
           subcategory: z.nativeEnum(Subcategory).optional(),
           searchName: z.string().optional(),
+          cursor: z.number().optional(),
         })
         .optional()
     )
     .query(async ({ ctx: { db, session }, input }) => {
+      const take = 5;
       const exercises = await db.exercise.findMany({
         where: {
           user: { id: session.userId },
+          saved: true,
           ...(input?.subcategory && { subcategory: input.subcategory }),
           ...(input?.searchName && {
             name: { contains: input.searchName, mode: 'insensitive' },
           }),
         },
         orderBy: { createdAt: 'desc' },
+        take,
+        skip: input?.cursor ? 1 : 0,
+        ...(input?.cursor && { cursor: { id: input.cursor } }),
         select: {
           id: true,
           name: true,
@@ -57,6 +63,9 @@ export const exerciseRouter = {
           category: true,
         },
       });
-      return exercises;
+      return {
+        exercises,
+        nextCursor: exercises[take - 1]?.id,
+      };
     }),
 } satisfies TRPCRouterRecord;

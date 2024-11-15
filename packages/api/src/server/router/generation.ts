@@ -3,12 +3,13 @@ import type { TRPCRouterRecord } from '@trpc/server';
 import { protectedProcedure } from '../trpc';
 import { createGenerationSchema } from '../../functions/schemas';
 import {
-  generateGymResponse,
   generateExerciseDetails,
+  generateGymResponse,
 } from '../../functions/openai';
 import { uploadImageToBlob } from '../../functions/utils';
 import { z } from 'zod';
 import { log } from 'next-axiom';
+import { Subcategory } from '@prisma/client';
 
 export const generationRouter = {
   create: protectedProcedure
@@ -33,6 +34,17 @@ export const generationRouter = {
       const generation = await db.generation.create({
         data: {
           status,
+          exercise: {
+            createMany: {
+              data: exercises.map((ex) => ({
+                name: ex.name,
+                description: ex.description,
+                category: ex.category,
+                subcategory: ex.subcategory,
+                userId,
+              })),
+            },
+          },
           name,
           description,
           image: blob.url,
@@ -42,18 +54,6 @@ export const generationRouter = {
             },
           },
         },
-      });
-      timings.createGeneration = performance.now() - startGeneration;
-
-      await db.exercise.createMany({
-        data: exercises.map((ex) => ({
-          name: ex.name,
-          description: ex.description,
-          category: ex.category,
-          subcategory: ex.subcategory,
-          userId,
-          generationId: generation.id,
-        })),
       });
       timings.createGeneration = performance.now() - startGeneration;
 
@@ -80,10 +80,60 @@ export const generationRouter = {
       });
       timings.createMusclePercentages =
         performance.now() - startMusclePercentages;
-
-      // const log = new Logger();
       log.info('Operation timings (ms):', timings);
       return generation.id;
+    }),
+  createByCategory: protectedProcedure
+    .input(z.object({ subcategory: z.nativeEnum(Subcategory) }))
+    .mutation(async ({ ctx: { db, session }, input }) => {
+      const timings: Record<string, number> = {};
+      const userId = session.userId;
+
+      const startGeneration = performance.now();
+      const exercises = await generateExerciseDetails(input.subcategory);
+      timings.generateExercises = performance.now() - startGeneration;
+      const startCreateExercises = performance.now();
+      await db.exercise.createMany({
+        data: exercises.map((ex) => ({
+          name: ex.name,
+          description: ex.description,
+          category: ex.category,
+          subcategory: ex.subcategory,
+          userId,
+        })),
+      });
+      timings.createExercises = performance.now() - startCreateExercises;
+
+      const startFindExercises = performance.now();
+      const exercisesCreated = await db.exercise.findMany({
+        where: {
+          userId,
+          subcategory: input.subcategory,
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        take: exercises.length,
+      });
+      timings.findExercises = performance.now() - startFindExercises;
+      const muscleData = exercisesCreated.flatMap((exercise, index) => {
+        const currentExercises = exercises[index]?.muscles;
+        if (!currentExercises) return [];
+        return currentExercises.map((muscle) => ({
+          ...muscle,
+          exerciseId: exercise.id,
+        }));
+      });
+
+      const startMusclePercentages = performance.now();
+      await db.musclePercentage.createMany({
+        data: muscleData,
+      });
+      timings.createMusclePercentages =
+        performance.now() - startMusclePercentages;
+
+      log.info('Operation timings (ms):', timings);
+      return exercisesCreated;
     }),
   getAll: protectedProcedure.query(async ({ ctx: { db, session } }) => {
     const generations = await db.generation.findMany({
@@ -107,65 +157,5 @@ export const generationRouter = {
         },
       });
       return generation;
-    }),
-  createFromExercise: protectedProcedure
-    .input(z.object({ exerciseName: z.string() }))
-    .mutation(async ({ ctx: { db, session }, input }) => {
-      const timings: Record<string, number> = {};
-      const userId = session.userId;
-      const startExerciseDetails = performance.now();
-      const { exercise, imageUrl } = await generateExerciseDetails(
-        input.exerciseName
-      );
-      timings.generateExerciseDetails =
-        performance.now() - startExerciseDetails;
-      const startGeneration = performance.now();
-      const generation = await db.generation.create({
-        data: {
-          status: 'COMPLETED',
-          exercise: {
-            create: {
-              name: exercise.name,
-              description: exercise.description,
-              category: exercise.category,
-              subcategory: exercise.subcategory,
-              userId,
-            },
-          },
-          name: exercise.name,
-          description: exercise.description,
-          image: imageUrl,
-          user: {
-            connect: {
-              id: userId,
-            },
-          },
-        },
-      });
-      timings.createGeneration = performance.now() - startGeneration;
-
-      const startFindExercise = performance.now();
-      const exerciseCreated = await db.exercise.findFirst({
-        where: {
-          generationId: generation.id,
-        },
-      });
-      timings.findExercise = performance.now() - startFindExercise;
-
-      if (!exerciseCreated) throw new Error('Exercise not created');
-
-      const startMusclePercentages = performance.now();
-      await db.musclePercentage.createMany({
-        data: exercise.muscles.map((muscle) => ({
-          ...muscle,
-          exerciseId: exerciseCreated.id,
-        })),
-      });
-      timings.createMusclePercentages =
-        performance.now() - startMusclePercentages;
-
-      log.info('Operation timings (ms):', timings);
-
-      return generation.id;
     }),
 } satisfies TRPCRouterRecord;

@@ -65,6 +65,11 @@ enum Subcategory {
     OUTER_THIGHS
 }
 
+enum GenerationType {
+    IMAGE_BASED
+    EXERCISE_BASED
+}
+
 model User {
     id                 String             @unique
     name               String?
@@ -97,8 +102,8 @@ model Exercise {
     saved             Boolean            @default(false)
     user              User               @relation(fields: [userId], references: [id])
     userId            String
-    generation        Generation         @relation(fields: [generationId], references: [id])
-    generationId      Int
+    generation        Generation?        @relation(fields: [generationId], references: [id])
+    generationId      Int?
     createdAt         DateTime           @default(now())
     musclePercentages MusclePercentage[]
 }

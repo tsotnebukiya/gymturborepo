@@ -5,10 +5,13 @@ import { api } from '~/utils/api';
 
 export default function HomeScreen() {
   const { data, isLoading, refetch } = api.generation.getAll.useQuery();
-  api.exercise.getAll.usePrefetchQuery({
-    searchName: undefined,
-    subcategory: undefined,
-  });
+  api.exercise.getAll.usePrefetchInfiniteQuery(
+    {
+      searchName: undefined,
+      subcategory: undefined,
+    },
+    {}
+  );
   const handleRefresh = async () => {
     await refetch();
   };

@@ -4,24 +4,21 @@ import TopBar from '~/components/common/TopBar';
 import { muscleCategories, musclesConstants } from '~/utils/constants';
 import { type PrismaTypes } from '@acme/api';
 import ScrollView from '../common/ScrollView';
+import { useRouter } from 'expo-router';
 
 type Subcategory = PrismaTypes.$Enums.Subcategory;
 
 export default function CategoriesView({
-  hideModal,
-  subcategory: activeSubcategory,
-  setSubcategory,
+  handleCategory,
 }: {
-  hideModal: () => void;
-  subcategory?: Subcategory;
-  setSubcategory: (subcategory: Subcategory) => void;
+  handleCategory: (subcategory: Subcategory) => void;
 }) {
+  const router = useRouter();
   const handlePress = (subcategory: Subcategory) => {
-    setSubcategory(subcategory);
-    hideModal();
+    handleCategory(subcategory);
   };
   const handleBack = () => {
-    hideModal();
+    router.back();
   };
   return (
     <View style={styles.container}>
@@ -49,8 +46,8 @@ export default function CategoriesView({
                     style={({ pressed }) => [
                       styles.subcategoryItem,
                       pressed && styles.subcategoryItemPressed,
-                      activeSubcategory === subcategory.name &&
-                        styles.subcategoryItemPressed,
+                      // activeSubcategory === subcategory.name &&
+                      //   styles.subcategoryItemPressed,
                       { width: '100%' },
                     ]}
                   >
@@ -77,6 +74,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     backgroundColor: 'white',
+    gap: 24,
   },
   categoryContainer: {
     marginBottom: 24,

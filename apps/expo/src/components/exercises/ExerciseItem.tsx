@@ -10,15 +10,15 @@ type GenerationData = NonNullable<
 
 interface Props {
   data: GenerationData;
-  fullPath: boolean;
+  exercisePath: boolean;
 }
 
-export default function ExerciseItem({ data, fullPath }: Props) {
+export default function ExerciseItem({ data, exercisePath }: Props) {
   api.exercise.getOne.usePrefetchQuery({ id: data.id });
   const exercise = data;
   const handlePress = (exerciseId: string) => {
     router.push(
-      fullPath
+      exercisePath
         ? {
             pathname: `/(auth)/exercise/[id]`,
             params: { id: exerciseId },

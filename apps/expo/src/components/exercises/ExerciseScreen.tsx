@@ -51,28 +51,30 @@ export default function ExerciseView({ data }: Props) {
         ]}
       />
       <ScrollView>
-        <View style={styles.rowContainer}>
-          <View style={styles.infoContainer}>
-            <Text style={styles.description}>{data.description}</Text>
-          </View>
-          <View style={styles.divider} />
-          <View style={styles.percentagesContainer}>
-            <View style={styles.percentagesGrid}>
-              {data.musclePercentages.map((muscle, index) => (
-                <View key={index} style={styles.percentageItem}>
-                  <Image
-                    source={musclesConstants[muscle.subcategory].icon}
-                    style={styles.muscleIcon}
-                  />
-                  <Text style={styles.percentageText}>
-                    {muscle.percentage}%
-                  </Text>
-                </View>
-              ))}
+        <View style={styles.contentContainer}>
+          <View style={styles.rowContainer}>
+            <View style={styles.infoContainer}>
+              <Text style={styles.description}>{data.description}</Text>
+            </View>
+            <View style={styles.divider} />
+            <View style={styles.percentagesContainer}>
+              <View style={styles.percentagesGrid}>
+                {data.musclePercentages.map((muscle, index) => (
+                  <View key={index} style={styles.percentageItem}>
+                    <Image
+                      source={musclesConstants[muscle.subcategory].icon}
+                      style={styles.muscleIcon}
+                    />
+                    <Text style={styles.percentageText}>
+                      {muscle.percentage}%
+                    </Text>
+                  </View>
+                ))}
+              </View>
             </View>
           </View>
+          <VideoPlayer />
         </View>
-        <VideoPlayer />
       </ScrollView>
     </View>
   );
@@ -82,6 +84,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+  },
+  contentContainer: {
+    gap: 32,
+    marginTop: 32,
   },
   rowContainer: {
     flexDirection: 'row',

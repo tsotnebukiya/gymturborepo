@@ -10,8 +10,14 @@ interface Props {
 
 export default function FullExerciseView({ data }: Props) {
   return (
-    <ImageLayout image={data?.generation.image}>
-      <ExerciseView data={data} />
-    </ImageLayout>
+    <>
+      {data?.generation ? (
+        <ImageLayout image={data.generation.image}>
+          <ExerciseView data={data} />
+        </ImageLayout>
+      ) : (
+        <ExerciseView data={data} />
+      )}
+    </>
   );
 }
