@@ -150,7 +150,7 @@ export const generationRouter = {
   getOne: protectedProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ ctx: { db, session }, input }) => {
-      const generation = await db.generation.findUnique({
+      const generation = await db.generation.findFirstOrThrow({
         where: { id: input.id, user: { id: session.userId } },
         include: {
           exercise: { select: { id: true, name: true, subcategory: true } },

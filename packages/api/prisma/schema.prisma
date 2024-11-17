@@ -70,6 +70,16 @@ enum GenerationType {
     EXERCISE_BASED
 }
 
+enum SplitDay {
+    MONDAY
+    TUESDAY
+    WEDNESDAY
+    THURSDAY
+    FRIDAY
+    SATURDAY
+    SUNDAY
+}
+
 model User {
     id                 String             @unique
     name               String?
@@ -80,6 +90,7 @@ model User {
     updatedAt          DateTime           @updatedAt
     Exercise           Exercise[]
     Generation         Generation[]
+    Split              Split[]
 
     @@index([name])
 }
@@ -106,6 +117,7 @@ model Exercise {
     generationId      Int?
     createdAt         DateTime           @default(now())
     musclePercentages MusclePercentage[]
+    splits            Split[]
 }
 
 model Generation {
@@ -119,4 +131,15 @@ model Generation {
     userId      String
     createdAt   DateTime         @default(now())
     updatedAt   DateTime         @updatedAt // New field
+}
+
+model Split {
+    id        Int        @id @default(autoincrement())
+    name      String
+    day       SplitDay?
+    exercises Exercise[]
+    user      User       @relation(fields: [userId], references: [id])
+    userId    String
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
 }
