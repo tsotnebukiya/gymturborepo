@@ -9,6 +9,13 @@
     "checkJs": false,
     "moduleSuffixes": [".ios", ".android", ".native", ""]
   },
-  "include": ["src", "*.ts", "*.js", ".expo/types/**/*.ts", "expo-env.d.ts"],
+  "include": [
+    "src",
+    "*.ts",
+    "*.js",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "src/components/exercises/ListFilter.tsx"
+  ],
   "exclude": ["node_modules"]
 }

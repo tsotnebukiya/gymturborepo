@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
-import ExerciseList from '~/components/exercises/ExerciseList';
+import ExerciseList from '~/components/exercises/List';
 import { useCategoryContext } from '~/components/context/CategoryContext';
 import { musclesConstants } from '~/utils/constants';
 
@@ -11,7 +11,7 @@ export default function ExerciseScreen() {
   return (
     <ExerciseList
       type={isGenerating ? 'ai-generating' : 'default'}
-      exercisePath={true}
+      itemType="saved"
       data={exercises}
       name={name}
       loading={isGenerating}

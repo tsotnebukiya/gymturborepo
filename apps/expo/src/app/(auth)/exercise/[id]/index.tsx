@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
-import FullExerciseView from '~/components/exercises/FullExerciseView';
+import FullExerciseView from '~/components/exercises/ScreenWrapper';
 import { api } from '~/utils/api';
 
 export default function ExerciseView() {

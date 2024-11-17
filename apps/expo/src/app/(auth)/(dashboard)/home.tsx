@@ -12,6 +12,7 @@ export default function HomeScreen() {
     },
     {}
   );
+  api.split.getAll.usePrefetchInfiniteQuery({}, {});
   const handleRefresh = async () => {
     await refetch();
   };

@@ -9,6 +9,8 @@ export default function SplitLayout() {
     >
       <Stack.Screen name="index" />
       <Stack.Screen name="new" />
+      <Stack.Screen name="exercises" />
+      <Stack.Screen name="[splitId]/index" />
     </Stack>
   );
 }

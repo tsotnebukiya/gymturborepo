@@ -161,3 +161,15 @@ export const muscleCategories = Object.entries(musclesConstants).reduce<
 }, []);
 
 export type MuscleKey = keyof typeof musclesConstants;
+
+export const splitDayConstants: Record<PrismaTypes.$Enums.SplitDay, string> = {
+  MONDAY: 'Monday',
+  TUESDAY: 'Tuesday',
+  WEDNESDAY: 'Wednesday',
+  THURSDAY: 'Thursday',
+  FRIDAY: 'Friday',
+  SATURDAY: 'Saturday',
+  SUNDAY: 'Sunday',
+} as const;
+
+export type SplitDayKey = keyof typeof splitDayConstants;

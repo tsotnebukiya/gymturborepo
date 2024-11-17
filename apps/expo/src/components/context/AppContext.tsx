@@ -1,11 +1,35 @@
-import { createContext, type ReactNode, useContext, useState } from 'react';
+import {
+  createContext,
+  Dispatch,
+  type ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from 'react';
 import { type Subcategory } from '@prisma/client';
+import { type GenerationData } from '../exercises/Item';
 
 interface AppContextType {
   wizardVisible: boolean;
   setWizardVisible: (visible: boolean) => void;
+
+  // Saved Exercises Context
   subcategory: Subcategory | undefined;
   setSubcategory: (subcategory: Subcategory | undefined) => void;
+
+  // Split New Context
+  splitSubcategory: Subcategory | undefined;
+  setSplitSubcategory: (subcategory: Subcategory | undefined) => void;
+  splitExercises: GenerationData[];
+  setSplitExercises: Dispatch<
+    SetStateAction<
+      {
+        name: string;
+        subcategory: Subcategory;
+        id: number;
+      }[]
+    >
+  >;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -14,14 +38,22 @@ export function AppContextProvider({ children }: { children: ReactNode }) {
   const [subcategory, setSubcategory] = useState<Subcategory | undefined>(
     undefined
   );
+  const [splitSubcategory, setSplitSubcategory] = useState<
+    Subcategory | undefined
+  >(undefined);
+  const [splitExercises, setSplitExercises] = useState<GenerationData[]>([]);
   const [wizardVisible, setWizardVisible] = useState(false);
   return (
     <AppContext.Provider
       value={{
+        splitSubcategory,
+        setSplitSubcategory,
         subcategory,
         setSubcategory,
         wizardVisible,
         setWizardVisible,
+        splitExercises,
+        setSplitExercises,
       }}
     >
       {children}

@@ -1,24 +1,30 @@
 import { StyleSheet, View, Pressable } from 'react-native';
-import { Badge, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
+import { type RouterOutputs } from '@acme/api';
+import { musclesConstants, splitDayConstants } from '~/utils/constants';
+import { router } from 'expo-router';
+import { api } from '~/utils/api';
 
 export default function SplitItem({
   item,
 }: {
-  item: {
-    name: string;
-    id: number;
-    day?: string;
-    exerciseCount: number;
-    targetMuscles: string[];
-  };
+  item: RouterOutputs['split']['getAll']['splits'][number];
 }) {
+  api.split.getOne.usePrefetchQuery({ id: item.id });
+  const handlePress = () => {
+    router.push({
+      pathname: '/(auth)/(dashboard)/split/[splitId]',
+      params: { splitId: item.id },
+    });
+  };
   return (
     <Pressable
       style={({ pressed }) => [
         styles.splitItem,
         pressed && styles.splitItemPressed,
       ]}
+      onPress={handlePress}
     >
       <View style={styles.splitContent}>
         <View style={styles.row}>
@@ -29,7 +35,7 @@ export default function SplitItem({
             <View style={styles.dayContainer}>
               <Ionicons name="calendar-outline" size={14} color="#666666" />
               <Text style={styles.splitDay} variant="bodyMedium">
-                {item.day}
+                {splitDayConstants[item.day]}
               </Text>
             </View>
           )}
@@ -39,15 +45,17 @@ export default function SplitItem({
           <View style={styles.detail}>
             <Ionicons name="barbell-outline" size={14} color="#666666" />
             <Text style={styles.detailText}>
-              {item.exerciseCount} exercises
+              {item.exercisesCount} exercises
             </Text>
           </View>
         </View>
 
         <View style={styles.muscleGroups}>
-          {item.targetMuscles.map((muscle, index) => (
+          {item.subcategories.map((muscle, index) => (
             <View key={index} style={styles.muscleTag}>
-              <Text style={styles.muscleText}>{muscle}</Text>
+              <Text style={styles.muscleText}>
+                {musclesConstants[muscle].label}
+              </Text>
             </View>
           ))}
         </View>

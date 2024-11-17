@@ -1,20 +1,33 @@
 import { View, StyleSheet, FlatList, RefreshControl } from 'react-native';
 import { api } from '~/utils/api';
-import ExerciseItem from '../exercises/ExerciseItem';
+import ExerciseItem from './Item';
 import { useState } from 'react';
 import { IconButton, Text, TextInput } from 'react-native-paper';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
 import { router } from 'expo-router';
-import ExerciseListSkeleton from '../exercises/ExerciseSkeletonList';
+import ExerciseListSkeleton from './SkeletonList';
 import { useAppContext } from '../context/AppContext';
+import CTABox from '../common/CTABox';
+import { type Subcategory } from '@prisma/client';
 
-export default function SavedLayout() {
+interface Props {
+  backAction?: boolean;
+  subcategory?: Subcategory;
+  setSubcategory: (subcategory: Subcategory | undefined) => void;
+  categoryFilterType: 'saved' | 'split';
+}
+
+export default function ListFilter({
+  subcategory,
+  setSubcategory,
+  categoryFilterType,
+  backAction,
+}: Props) {
   const [searchInput, setSearchInput] = useState<string | undefined>(undefined);
   const [debouncedSearch] = useDebounce(searchInput, 1000);
-  const { subcategory, setSubcategory } = useAppContext();
   const [refreshing, setRefreshing] = useState(false);
-
+  const { setWizardVisible } = useAppContext();
   const {
     data,
     isLoading,
@@ -43,14 +56,13 @@ export default function SavedLayout() {
   const handleFilter = () => {
     router.push({
       pathname: '/(auth)/category',
-      params: { type: 'bookmarks' },
+      params: { type: categoryFilterType },
     });
   };
   const clearFilters = () => {
     setSearchInput('');
     setSubcategory(undefined);
   };
-  console.log(subcategory);
 
   const handleRefresh = async () => {
     setRefreshing(true);
@@ -61,6 +73,13 @@ export default function SavedLayout() {
   return (
     <View style={styles.container}>
       <View style={styles.filterContainer}>
+        {backAction && (
+          <IconButton
+            icon={'arrow-left'}
+            mode="contained"
+            onPress={() => router.back()}
+          />
+        )}
         <TextInput
           label="Exercise Name"
           value={searchInput}
@@ -95,7 +114,7 @@ export default function SavedLayout() {
         data={exercises}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <ExerciseItem data={item} exercisePath={true} />
+          <ExerciseItem data={item} type={categoryFilterType} />
         )}
         keyExtractor={(item, index) => String(index)}
         onEndReached={loadMore}
@@ -104,8 +123,15 @@ export default function SavedLayout() {
           <>
             {isLoading ? (
               <ExerciseListSkeleton />
-            ) : (
+            ) : searchInput || subcategory ? (
               <Text style={styles.emptyText}>No exercises found</Text>
+            ) : (
+              <CTABox
+                buttonText="Generate Exercises"
+                description="Generate and save exercises to start building your collection"
+                title="Start Generating Exercises"
+                onPress={() => setWizardVisible(true)}
+              />
             )}
           </>
         )}
@@ -124,17 +150,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 16,
-    gap: 16,
+    // gap: 16,
   },
   filterContainer: {
     paddingHorizontal: 16,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
     gap: 16,
   },
   searchOutline: {
-    borderRadius: 100,
+    borderRadius: 16,
   },
   searchInput: {
     flex: 1,
@@ -154,6 +180,7 @@ const styles = StyleSheet.create({
   listContainer: {
     width: '100%',
     paddingHorizontal: 16,
+    paddingTop: 16,
   },
   contentContainer: {
     gap: 16,
@@ -161,6 +188,8 @@ const styles = StyleSheet.create({
   iconContainer: {
     flexDirection: 'row',
     gap: 8,
+    height: 'auto',
+    alignItems: 'center',
   },
   emptyText: {
     fontSize: 16,

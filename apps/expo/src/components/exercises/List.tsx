@@ -2,10 +2,10 @@ import { StyleSheet, View } from 'react-native';
 import { type RouterOutputs } from '~/utils/api';
 import TopBar from '~/components/common/TopBar';
 import { router } from 'expo-router';
-import ExerciseItem from './ExerciseItem';
+import ExerciseItem from './Item';
 import ScrollView from '../common/ScrollView';
 import { Text } from 'react-native-paper';
-import ExerciseListSkeleton from './ExerciseSkeletonList';
+import ExerciseListSkeleton from './SkeletonList';
 
 function NoExercises() {
   return (
@@ -19,16 +19,16 @@ interface Props {
   data?: NonNullable<RouterOutputs['generation']['getOne']>['exercise'];
   name?: string;
   loading: boolean;
-  exercisePath: boolean;
   type?: 'default' | 'ai-generating';
+  itemType: 'generation' | 'saved';
 }
 
 export default function ExerciseList({
   data,
   name,
   loading,
-  exercisePath,
   type = 'default',
+  itemType,
 }: Props) {
   const handleBack = () => {
     router.back();
@@ -53,11 +53,7 @@ export default function ExerciseList({
             <NoExercises />
           ) : (
             data.map((exercise, index) => (
-              <ExerciseItem
-                data={exercise}
-                key={index}
-                exercisePath={exercisePath}
-              />
+              <ExerciseItem data={exercise} key={index} type={itemType} />
             ))
           )}
         </View>

@@ -1,43 +1,45 @@
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
 import GradientLayout from '~/components/common/GradientLayout';
 import TopBar from '~/components/common/TopBar';
 import SplitItem from './SplitItem';
 import CTABox from '../common/CTABox';
 import { router } from 'expo-router';
-
-const splits = [
-  {
-    id: 1,
-    name: 'Push/Pull/Legs',
-    exerciseCount: 10,
-    targetMuscles: ['Chest', 'Back', 'Legs'],
-    duration: 60,
-  },
-  {
-    id: 2,
-    name: 'Upper/Lower',
-    day: 'Tuesday',
-    exerciseCount: 10,
-    targetMuscles: ['Chest', 'Back', 'Legs'],
-    duration: 60,
-  },
-  {
-    id: 3,
-    name: 'Full Body',
-    day: 'Friday',
-    exerciseCount: 10,
-    targetMuscles: ['Chest', 'Back', 'Legs'],
-    duration: 60,
-  },
-];
+import { api } from '~/utils/api';
+import { keepPreviousData } from '@tanstack/react-query';
+import { useState } from 'react';
+import SplitSkeleton from './SplitSkeleton';
 
 export default function SplitsHome() {
-  const handleCreateNew = () => {
-    router.navigate('/(auth)/split/new');
-  };
-  const renderItem = ({ item }: { item: { id: number; name: string } }) => (
-    <SplitItem item={item} />
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = api.split.getAll.useInfiniteQuery(
+    {},
+    {
+      getNextPageParam: (lastPage) => lastPage.nextCursor,
+      placeholderData: keepPreviousData,
+    }
   );
+  const [refreshing, setRefreshing] = useState(false);
+  const splits = data?.pages.flatMap((page) => page.splits) || [];
+  const loadMore = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      void fetchNextPage();
+    }
+  };
+  const handleCreateNew = () => {
+    router.push('/(auth)/(dashboard)/split/new');
+  };
+
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
   return (
     <GradientLayout>
       <View style={styles.container}>
@@ -55,16 +57,31 @@ export default function SplitsHome() {
         />
         <FlatList
           data={splits}
-          renderItem={renderItem}
+          renderItem={({ item }) => <SplitItem item={item} />}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={styles.listContainer}
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.5}
           ListEmptyComponent={() => (
-            <CTABox
-              buttonText="Create Split"
-              description="Create a new split to start training with AI"
-              title="No splits yet"
-              onPress={handleCreateNew}
-            />
+            <>
+              {isLoading ? (
+                <SplitSkeleton />
+              ) : (
+                <CTABox
+                  buttonText="Create Split"
+                  description="Create a new split to start training with AI"
+                  title="No splits yet"
+                  onPress={handleCreateNew}
+                />
+              )}
+            </>
+          )}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          }
+          ListFooterComponent={() => (
+            <>{isFetchingNextPage && <SplitSkeleton />}</>
           )}
         />
       </View>
@@ -75,7 +92,6 @@ export default function SplitsHome() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 16,
   },
   listContainer: {
     padding: 16,

@@ -4,7 +4,7 @@ import TopBar from '~/components/common/TopBar';
 import { router } from 'expo-router';
 import { musclesConstants } from '~/utils/constants';
 import { Text } from 'react-native-paper';
-import ExerciseSkeleton from './ExerciseSkeleton';
+import ExerciseSkeleton from './SkeletonItem';
 import VideoPlayer from './VideoPlayer';
 import ScrollView from '../common/ScrollView';
 
@@ -21,6 +21,7 @@ export default function ExerciseView({ data }: Props) {
   const utils = api.useUtils();
   const { mutate: bookmark, isPending } = api.exercise.bookmark.useMutation({
     onSettled: async () => {
+      void utils.exercise.getAll.invalidate({});
       await utils.exercise.getOne.invalidate({ id: data.id });
     },
   });
