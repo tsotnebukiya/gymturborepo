@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 4.1.2"
+    "version": ">= 4.1.2",
+    "appVersionSource": "remote"
   },
   "build": {
     "base": {
@@ -8,6 +9,11 @@
       "pnpm": "9.7.0",
       "ios": {
         "resourceClass": "m-medium"
+      },
+      "env": {
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_Y2FzdWFsLWhvdW5kLTcyLmNsZXJrLmFjY291bnRzLmRldiQ",
+        "EXPO_PUBLIC_API_URL": "https://gymleadai.app/api",
+        "API_ORIGIN": "https://gymleadai.app/"
       }
     },
     "development": {
@@ -23,7 +29,8 @@
       }
     },
     "production": {
-      "extends": "base"
+      "extends": "base",
+      "autoIncrement": true
     }
   },
   "submit": {
