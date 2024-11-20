@@ -136,6 +136,7 @@ export const generationRouter = {
       return exercisesCreated;
     }),
   getAll: protectedProcedure.query(async ({ ctx: { db, session } }) => {
+    const startTime = performance.now();
     const generations = await db.generation.findMany({
       where: {
         user: { id: session.userId },
@@ -144,6 +145,12 @@ export const generationRouter = {
         createdAt: 'desc',
       },
       take: 5,
+    });
+    const endTime = performance.now();
+    log.info('Generation getAll query executed', {
+      duration: Math.round(endTime - startTime),
+      userId: session.userId,
+      resultCount: generations.length,
     });
     return generations;
   }),

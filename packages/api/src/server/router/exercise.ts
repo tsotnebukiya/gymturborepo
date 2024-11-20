@@ -1,5 +1,4 @@
 import type { TRPCRouterRecord } from '@trpc/server';
-import { log } from 'next-axiom';
 import { protectedProcedure } from '../trpc';
 import { z } from 'zod';
 import { Subcategory } from '@prisma/client';
@@ -42,7 +41,6 @@ export const exerciseRouter = {
         .optional()
     )
     .query(async ({ ctx: { db, session }, input }) => {
-      const startTime = performance.now();
       const take = 5;
 
       const exercises = await db.exercise.findMany({
@@ -63,18 +61,6 @@ export const exerciseRouter = {
           name: true,
           subcategory: true,
           category: true,
-        },
-      });
-
-      const endTime = performance.now();
-      log.info('Exercise getAll query executed', {
-        duration: Math.round(endTime - startTime),
-        userId: session.userId,
-        resultCount: exercises.length,
-        filters: {
-          subcategory: input?.subcategory ?? null,
-          hasSearchTerm: !!input?.searchName,
-          hasCursor: !!input?.cursor,
         },
       });
 

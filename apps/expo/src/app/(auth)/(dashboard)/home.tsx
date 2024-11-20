@@ -1,4 +1,3 @@
-import { Text } from 'react-native-paper';
 import GradientLayout from '~/components/common/GradientLayout';
 import ScrollView from '~/components/common/ScrollView';
 import LatestGenerations from '~/components/homepage/LatestGenerations';
@@ -20,8 +19,7 @@ export default function HomeScreen() {
   return (
     <GradientLayout>
       <ScrollView onRefresh={handleRefresh}>
-        <Text>{process.env.EXPO_PUBLIC_API_URL!}</Text>
-        {/* <LatestGenerations data={data} loading={isLoading} /> */}
+        <LatestGenerations data={data} loading={isLoading} />
       </ScrollView>
     </GradientLayout>
   );

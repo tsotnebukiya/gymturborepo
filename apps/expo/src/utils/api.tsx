@@ -10,11 +10,10 @@ import { useAuth } from '@clerk/clerk-expo';
 const getBaseUrl = () => {
   const debuggerHost = Constants.expoConfig?.hostUri;
   const localhost = debuggerHost?.split(':')[0];
-
-  if (!localhost) {
-    return process.env.API_ORIGIN;
+  if (localhost && process.env.ENVIRONMENT !== 'development') {
+    return `http://${localhost}:3000`;
   }
-  return `http://${localhost}:3000`;
+  return process.env.API_ORIGIN;
 };
 
 export const api = createTRPCReact<AppRouter>();
