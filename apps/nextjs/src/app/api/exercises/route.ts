@@ -4,7 +4,12 @@ import { z } from 'zod';
 import { env } from '~/env';
 import { redis, type PrismaTypes } from '@acme/api';
 
+let isWarmStart = false;
+
 export async function GET(req: NextRequest) {
+  const isColdStart = !isWarmStart;
+  isWarmStart = true;
+
   const type = req.nextUrl.searchParams.get('type');
   if (type === 'database') {
     const start = performance.now();
@@ -24,6 +29,7 @@ export async function GET(req: NextRequest) {
         status: 'success',
         dataSizeInKB,
         time: end - start,
+        coldStart: `[${new Date().toISOString()}] Cold Start: ${isColdStart}`,
       }),
       { status: 200 }
     );
@@ -43,6 +49,7 @@ export async function GET(req: NextRequest) {
         status: 'success',
         dataSizeInKB,
         time: end - start,
+        coldStart: `[${new Date().toISOString()}] Cold Start: ${isColdStart}`,
       }),
       { status: 200 }
     );
