@@ -65,12 +65,7 @@ enum Subcategory {
     OUTER_THIGHS
 }
 
-enum GenerationType {
-    IMAGE_BASED
-    EXERCISE_BASED
-}
-
-enum SplitDay {
+enum SplitWeekDay {
     MONDAY
     TUESDAY
     WEDNESDAY
@@ -78,6 +73,17 @@ enum SplitDay {
     FRIDAY
     SATURDAY
     SUNDAY
+}
+
+enum Language {
+    ENGLISH
+    SPANISH
+    FRENCH
+    GERMAN
+    CHINESE
+    RUSSIAN
+    ITALIAN
+    PORTUGUESE
 }
 
 model User {
@@ -88,9 +94,10 @@ model User {
     subscriptionStatus SubscriptionStatus @default(INACTIVE)
     createdAt          DateTime           @default(now())
     updatedAt          DateTime           @updatedAt
-    Exercise           Exercise[]
-    Generation         Generation[]
-    Split              Split[]
+    generation         Generation[]
+    splitDay           SplitDay[]
+    splitExercise      SplitExercise[]
+    savedExercise      SavedExercise[]
 
     @@index([name])
 }
@@ -104,20 +111,61 @@ model MusclePercentage {
     exerciseId  Int
 }
 
+model ExerciseTranslation {
+    id          Int      @id @default(autoincrement())
+    exercise    Exercise @relation(fields: [exerciseId], references: [id])
+    exerciseId  Int
+    language    Language @default(ENGLISH)
+    name        String
+    description String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    @@unique([exerciseId, language])
+}
+
 model Exercise {
-    id                Int                @id @default(autoincrement())
+    id                Int                   @id @default(autoincrement())
+    videoId           String
+    videoStart        Int
+    videoEnd          Int
     name              String
     description       String
     category          Category
     subcategory       Subcategory
-    saved             Boolean            @default(false)
-    user              User               @relation(fields: [userId], references: [id])
-    userId            String
-    generation        Generation?        @relation(fields: [generationId], references: [id])
-    generationId      Int?
-    createdAt         DateTime           @default(now())
+    translations      ExerciseTranslation[]
     musclePercentages MusclePercentage[]
-    splits            Split[]
+    savedExercise     SavedExercise[]
+    splitExercise     SplitExercise[]
+    generation        Generation[]
+    createdAt         DateTime              @default(now())
+    updatedAt         DateTime              @updatedAt
+}
+
+model SavedExercise {
+    id         Int      @id @default(autoincrement())
+    user       User     @relation(fields: [userId], references: [id])
+    userId     String
+    exercise   Exercise @relation(fields: [exerciseId], references: [id])
+    exerciseId Int
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    @@unique([userId, exerciseId])
+}
+
+model SplitExercise {
+    id         Int      @id @default(autoincrement())
+    exercise   Exercise @relation(fields: [exerciseId], references: [id])
+    exerciseId Int
+    user       User     @relation(fields: [userId], references: [id])
+    userId     String
+    sets       Int      @default(3)
+    reps       Int      @default(12)
+    splitDay   SplitDay @relation(fields: [splitDayId], references: [id])
+    splitDayId Int
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
 }
 
 model Generation {
@@ -130,16 +178,16 @@ model Generation {
     user        User             @relation(fields: [userId], references: [id])
     userId      String
     createdAt   DateTime         @default(now())
-    updatedAt   DateTime         @updatedAt // New field
+    updatedAt   DateTime         @updatedAt
 }
 
-model Split {
-    id        Int        @id @default(autoincrement())
-    name      String
-    day       SplitDay?
-    exercises Exercise[]
-    user      User       @relation(fields: [userId], references: [id])
-    userId    String
-    createdAt DateTime   @default(now())
-    updatedAt DateTime   @updatedAt
+model SplitDay {
+    id            Int             @id @default(autoincrement())
+    name          String
+    day           SplitWeekDay
+    splitExercise SplitExercise[]
+    user          User            @relation(fields: [userId], references: [id])
+    userId        String
+    createdAt     DateTime        @default(now())
+    updatedAt     DateTime        @updatedAt
 }

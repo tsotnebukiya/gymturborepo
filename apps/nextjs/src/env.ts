@@ -16,9 +16,12 @@ export const env = createEnv({
   server: {
     DATABASE_URL: z.string(),
     CLERK_SECRET_KEY: z.string(),
+    API_PASSWORD: z.string(),
     BLOB_READ_WRITE_TOKEN: z.string(),
     OPENAI_API_KEY: z.string(),
     WEBHOOK_SECRET: z.string(),
+    UPSTASH_REDIS_URL: z.string(),
+    UPSTASH_REDIS_TOKEN: z.string(),
   },
 
   /**

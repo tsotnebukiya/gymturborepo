@@ -2,6 +2,7 @@ import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import Gradient from '~/components/common/Gradient';
 import { Skeleton } from 'moti/skeleton';
 import { useState } from 'react';
+import { Text } from 'react-native-paper';
 
 const { height } = Dimensions.get('window');
 interface Props {
@@ -26,6 +27,7 @@ export default function ImageLayout({ children, image }: Props) {
             onLoadEnd={() => setIsLoading(false)}
           />
         )}
+        <Text>{image}</Text>
       </View>
       <View style={[styles.contentOuter]}>
         <Gradient>{children}</Gradient>

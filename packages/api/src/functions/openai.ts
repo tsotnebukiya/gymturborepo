@@ -2,84 +2,108 @@ import { Category, Subcategory } from '@prisma/client';
 import OpenAI from 'openai';
 import { zodResponseFormat } from 'openai/helpers/zod.mjs';
 import { z } from 'zod';
+import { Language } from '@prisma/client';
+import { exercisesDummyData } from './dummyData';
 
-const openai = new OpenAI();
+export const openai = new OpenAI();
 
-const exerciseValidator = z.object({
-  name: z.string(),
-  description: z.string(),
+const muscleDetailsValidator = z.object({
   category: z.nativeEnum(Category),
   subcategory: z.nativeEnum(Subcategory),
-  muscles: z.array(
+  percentage: z.string(),
+});
+
+const translationValidator = z.object({
+  language: z.nativeEnum(Language),
+  name: z.string(),
+  description: z.string(),
+});
+
+const exerciseDetailsValidator = z.object({
+  exercises: z.array(
     z.object({
+      name: z.string(),
+      videoId: z.string(),
+      videoStart: z.number(),
+      videoEnd: z.number(),
       category: z.nativeEnum(Category),
       subcategory: z.nativeEnum(Subcategory),
-      percentage: z.string(),
+      muscles: z.array(muscleDetailsValidator),
+      translations: z.array(translationValidator),
     })
   ),
 });
 
-const generationOutputValidator = z.object({
-  name: z.string().nullable(),
-  description: z.string().nullable(),
-  exercises: z.array(exerciseValidator),
-});
-
-type GenerationOutput = z.infer<typeof generationOutputValidator>;
-
-const exerciseArrayValidator = z.array(exerciseValidator);
-type ExerciseArray = z.infer<typeof exerciseArrayValidator>;
-
-const exerciseDetailsValidator = z.object({
-  exercises: exerciseArrayValidator,
-});
-
-export async function generateGymResponse(
-  base64Image: string,
-  language = 'english'
-): Promise<GenerationOutput | null> {
+export async function generateExercisesDetails() {
+  const data = exercisesDummyData.slice(90, 100);
+  // const data = exercisesDummyData;
   const response = await openai.beta.chat.completions.parse({
     model: 'gpt-4o',
     messages: [
       {
         role: 'system',
         content:
-          'You are a professional fitness expert. Analyze gym equipment images and provide detailed information about the equipment and possible exercises. For each exercise, specify its primary target muscle group and provide a comprehensive breakdown of all muscles activated during the movement. If no gym equipment is clearly visible, respond with null.',
+          'You are a professional fitness expert and translator. Analyze exercises and provide detailed information in multiple languages.',
+      },
+      {
+        role: 'user',
+        content: `Analyze these exercises and provide complete details for each:
+
+Exercises: ${JSON.stringify(data)}
+
+For each exercise provide:
+1. The primary muscle category and subcategory
+2. A complete breakdown of all muscles activated during the movement
+3. Translations in all languages (${Object.values(Language).join(', ')})
+
+Each translation should include:
+- A natural name in that language
+- A detailed description of proper form and execution
+
+Format as JSON matching the validator schema.`,
+      },
+    ],
+    response_format: zodResponseFormat(exerciseDetailsValidator, 'exercises'),
+    max_completion_tokens: 16384,
+  });
+
+  return {
+    array: response.choices[0]?.message.parsed?.exercises ?? [],
+    usage: response.usage,
+  };
+}
+
+const gymEquipmentValidator = z.object({
+  name: z.string().nullable(),
+  description: z.string().nullable(),
+  exerciseIds: z.array(z.number()),
+});
+
+export async function generateGymResponse(
+  base64Image: string,
+  availableExercises: { id: number; name: string }[],
+  language = 'english'
+) {
+  const response = await openai.beta.chat.completions.parse({
+    model: 'gpt-4o',
+    messages: [
+      {
+        role: 'system',
+        content:
+          'You are a professional fitness expert. Analyze gym equipment images and identify which exercises from the provided list can be performed on this equipment.',
       },
       {
         role: 'user',
         content: [
           {
             type: 'text',
-            text: `Analyze this gym equipment image and provide the following information in ${language}:
-1. The name of the equipment
-2. A detailed description of the equipment
-3. A comprehensive list of possible exercises, including:
-   - The primary muscle group targeted
-   - A complete breakdown of all muscles activated
+            text: `Analyze this gym equipment image and identify which exercises from this list can be performed on it:
+${JSON.stringify(availableExercises)}
 
-Format your response as a JSON object with the following structure:
-{
-  "name": "equipment name",
-  "description": "detailed equipment description",
-  "exercises": [
-    {
-      "name": "exercise name",
-      "description": "exercise description",
-      "category": "primary target muscle category",
-      "subcategory": "primary target muscle subcategory",
-      "muscles": [
-        {
-          "category": "muscle category",
-          "subcategory": "muscle subcategory",
-          "percentage": "activation percentage (1-100)"
-        }
-      ]
-    }
-  ]
-}
-
-Note: The category/subcategory at the exercise level should indicate the primary muscle group targeted, while the muscles array should list ALL muscle groups involved, including the primary one, with their respective activation percentages.
+Provide:
+1. The name of the equipment ${language}
+2. A detailed description of the equipment in ${language}
+3. The IDs of all exercises from the provided list that can be performed on this equipment
 
 If no gym equipment is clearly visible, respond with null.`,
           },
@@ -93,60 +117,13 @@ If no gym equipment is clearly visible, respond with null.`,
         ],
       },
     ],
-    response_format: zodResponseFormat(generationOutputValidator, 'generation'),
+    response_format: zodResponseFormat(gymEquipmentValidator, 'generation'),
     max_tokens: 4096,
   });
 
   const generation = response.choices[0]?.message.parsed;
   if (!generation) {
-    throw new Error('Failed to generate exercise details or image');
+    throw new Error('Failed to generate equipment details or image');
   }
   return generation;
-}
-
-export async function generateExerciseDetails(
-  subcategory: Subcategory,
-  language = 'english'
-): Promise<ExerciseArray> {
-  const detailsResponse = await openai.beta.chat.completions.parse({
-    model: 'gpt-4o-mini',
-    messages: [
-      {
-        role: 'system',
-        content:
-          'You are a professional fitness expert. Generate a comprehensive list of exercises for specific muscle groups, including proper form, target muscles, and equipment needed.',
-      },
-      {
-        role: 'user',
-        content: `Generate a list of effective exercises targeting the ${subcategory} muscle group in ${language}. For each exercise, include:
-1. The exercise name
-2. A detailed description of how to perform it
-3. A complete breakdown of all muscles activated during the movement
-
-Format your response as a JSON object:
-{
-  "exercises": [
-    {
-      "name": "exercise name",
-      "description": "detailed exercise description",
-      "category": "primary target muscle category",
-      "subcategory": "primary target muscle subcategory",
-      "muscles": [
-        {
-          "category": "muscle category",
-          "subcategory": "muscle subcategory",
-          "percentage": "activation percentage (1-100)"
-        }
-      ]
-    }
-  ]
-}`,
-      },
-    ],
-    response_format: zodResponseFormat(exerciseDetailsValidator, 'generation'),
-    max_tokens: 4096,
-  });
-
-  const result = detailsResponse.choices[0]?.message.parsed;
-  return result?.exercises ?? [];
 }

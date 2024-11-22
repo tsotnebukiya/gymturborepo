@@ -1,4 +1,5 @@
 import { db, type PrismaTypes } from './db';
+import redis from './db/redis';
 import type { AppRouter } from './server';
 import {
   appRouter,
@@ -8,5 +9,6 @@ import {
   type RouterOutputs,
 } from './server';
 
-export { createTRPCContext, appRouter, createCaller, db };
+export { generateExercisesDetails } from './functions/openai';
+export { createTRPCContext, appRouter, createCaller, db, redis };
 export type { AppRouter, RouterInputs, RouterOutputs, PrismaTypes };

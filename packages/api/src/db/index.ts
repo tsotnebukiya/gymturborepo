@@ -10,7 +10,7 @@ const createPrismaClient = () => {
   });
 
   const initDuration = performance.now() - startTime;
-  log.info('Prisma Client initialization', {
+  log.debug('Prisma Client initialization', {
     duration: Math.round(initDuration),
     environment: process.env.NODE_ENV,
   });
