@@ -4,36 +4,52 @@ import { z } from 'zod';
 import { env } from '~/env';
 import { redis, type PrismaTypes } from '@acme/api';
 
-export async function GET() {
-  const start = performance.now();
-  // const exercises = await db.exercise.findMany({
-  //   include: {
-  //     translations: true,
-  //     musclePercentages: true,
-  //   },
-  // });
-  // await redis.set('exercises', JSON.stringify(exercises));
-  const pingStart = performance.now();
-  await redis.ping();
-  console.log(`Redis ping time: ${performance.now() - pingStart}ms`);
-  const cachedExercises =
-    (await redis.get<NonNullable<PrismaTypes.Exercise>[]>('exercises')) ?? [];
-  const finalExerfcises = cachedExercises;
-  const end = performance.now();
-  const dataSizeInBytes = new TextEncoder().encode(
-    JSON.stringify(finalExerfcises)
-  ).length;
-  const dataSizeInKB = dataSizeInBytes / 1024;
-  const dataSizeInMB = dataSizeInKB / 1024;
-
-  console.log({
-    totalExercises: finalExerfcises.length,
-    dataSizeInBytes,
-    dataSizeInKB: dataSizeInKB.toFixed(2) + ' KB',
-    dataSizeInMB: dataSizeInMB.toFixed(2) + ' MB',
+export async function GET(req: NextRequest) {
+  const type = req.nextUrl.searchParams.get('type');
+  if (type === 'database') {
+    const start = performance.now();
+    const exercises = await db.exercise.findMany({
+      include: {
+        translations: true,
+        musclePercentages: true,
+      },
+    });
+    const end = performance.now();
+    const dataSizeInBytes = new TextEncoder().encode(
+      JSON.stringify(exercises)
+    ).length;
+    const dataSizeInKB = dataSizeInBytes / 1024;
+    return new Response(
+      JSON.stringify({
+        status: 'success',
+        dataSizeInKB,
+        time: end - start,
+      }),
+      { status: 200 }
+    );
+  }
+  if (type === 'redis') {
+    const start = performance.now();
+    const cachedExercises =
+      (await redis.get<NonNullable<PrismaTypes.Exercise>[]>('exercises')) ?? [];
+    const finalExerfcises = cachedExercises;
+    const end = performance.now();
+    const dataSizeInBytes = new TextEncoder().encode(
+      JSON.stringify(finalExerfcises)
+    ).length;
+    const dataSizeInKB = dataSizeInBytes / 1024;
+    return new Response(
+      JSON.stringify({
+        status: 'success',
+        dataSizeInKB,
+        time: end - start,
+      }),
+      { status: 200 }
+    );
+  }
+  return new Response(JSON.stringify({ status: 'Incorrect Type' }), {
+    status: 400,
   });
-  console.log(`Time taken: ${end - start}ms`);
-  return new Response(JSON.stringify({ status: 'success' }), { status: 200 });
 }
 
 const passwordSchema = z.object({
