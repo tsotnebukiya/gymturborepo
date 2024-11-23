@@ -1,4 +1,4 @@
-import { Alert, Linking, StyleSheet, View } from 'react-native';
+import { Alert, Linking, Pressable, StyleSheet, View } from 'react-native';
 import { AnimatedFAB, Card, IconButton, Modal, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
 import { api, type RouterOutputs } from '~/utils/api';
@@ -7,7 +7,7 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import { useRouter } from 'expo-router';
 import { useAppContext } from '../context/AppContext';
 
-// type PreviousData = RouterOutputs['generation']['getAll'];
+type PreviousData = RouterOutputs['generation']['getAll'];
 
 export default function WizardComponent() {
   const { wizardVisible, setWizardVisible } = useAppContext();
@@ -18,40 +18,40 @@ export default function WizardComponent() {
   const utils = api.useUtils();
   const [startTime, setStartTime] = useState<number>();
   const { mutate, isPending } = api.generation.create.useMutation({
-    // onMutate: async () => {
-    //   setStartTime(Date.now());
-    //   console.log('Starting mutation at:', new Date().toISOString());
-    //   await utils.generation.getAll.cancel();
-    //   const previousData = utils.generation.getAll.getData();
-    //   utils.generation.getAll.setData(
-    //     undefined,
-    //     (oldQueryData: PreviousData | undefined) =>
-    //       [
-    //         {
-    //           createdAt: new Date(),
-    //           description: null,
-    //           id: 'placeholder',
-    //           image,
-    //           name: 'Pending?',
-    //           status: 'PENDING',
-    //         },
-    //         ...(oldQueryData || []),
-    //       ] as PreviousData
-    //   );
-    //   return { previousData };
-    // },
-    // onError: (err, newTodo, context) => {
-    //   const duration = startTime ? Date.now() - startTime : 0;
-    //   console.log(`Error after ${duration}ms:`, err);
-    //   utils.generation.getAll.setData(undefined, context?.previousData);
-    // },
-    // onSuccess: () => {
-    //   const duration = startTime ? Date.now() - startTime : 0;
-    //   console.log(`Success after ${duration}ms`);
-    // },
-    // onSettled: () => {
-    //   void utils.generation.getAll.invalidate();
-    // },
+    onMutate: async () => {
+      setStartTime(Date.now());
+      console.log('Starting mutation at:', new Date().toISOString());
+      await utils.generation.getAll.cancel();
+      const previousData = utils.generation.getAll.getData();
+      utils.generation.getAll.setData(
+        undefined,
+        (oldQueryData: PreviousData | undefined) =>
+          [
+            {
+              createdAt: new Date(),
+              description: null,
+              id: 'placeholder',
+              image,
+              name: 'Pending?',
+              status: 'PENDING',
+            },
+            ...(oldQueryData || []),
+          ] as PreviousData
+      );
+      return { previousData };
+    },
+    onError: (err, newTodo, context) => {
+      const duration = startTime ? Date.now() - startTime : 0;
+      console.log(`Error after ${duration}ms:`, err);
+      utils.generation.getAll.setData(undefined, context?.previousData);
+    },
+    onSuccess: () => {
+      const duration = startTime ? Date.now() - startTime : 0;
+      console.log(`Success after ${duration}ms`);
+    },
+    onSettled: () => {
+      void utils.generation.getAll.invalidate();
+    },
   });
   const [cameraPermission, requestCameraPermission] =
     ImagePicker.useCameraPermissions();
@@ -90,6 +90,7 @@ export default function WizardComponent() {
     mutate({ image: imageBase64, imageType: 'image/jpeg' });
     router.push('/(auth)/(dashboard)/home');
   };
+
   const handleGallery = async () => {
     if (!libraryPermissionedGranted) {
       const { granted, canAskAgain } = await requestPermissionLibrary();
@@ -190,32 +191,41 @@ export default function WizardComponent() {
         contentContainerStyle={styles.modalContainer}
       >
         <View style={styles.topRow}>
-          <Card onPress={handleGallery} style={styles.card}>
-            <IconButton
-              icon={'folder-multiple-image'}
-              size={36}
-              style={styles.icon}
-            />
-            <Text variant="labelLarge" style={styles.text}>
-              Gallery
-            </Text>
-          </Card>
-
-          <Card style={styles.card} onPress={handleCamera}>
-            <IconButton icon="camera" size={36} style={styles.icon} />
-            <Text variant="labelLarge" style={styles.text}>
-              Take Photo
-            </Text>
-          </Card>
+          <Pressable onPress={handleGallery}>
+            <Card style={styles.card}>
+              <IconButton
+                icon={'folder-multiple-image'}
+                size={36}
+                style={styles.icon}
+              />
+              <Text variant="labelLarge" style={styles.text}>
+                Gallery
+              </Text>
+            </Card>
+          </Pressable>
+          <Pressable onPress={handleCamera}>
+            <Card style={styles.card}>
+              <IconButton icon="camera" size={36} style={styles.icon} />
+              <Text variant="labelLarge" style={styles.text}>
+                Take Photo
+              </Text>
+            </Card>
+          </Pressable>
         </View>
 
         <View style={styles.bottomRow}>
-          <Card style={styles.card} onPress={handleCategory}>
-            <IconButton icon="human-handsdown" size={36} style={styles.icon} />
-            <Text variant="labelLarge" style={styles.text}>
-              Choose Muscle
-            </Text>
-          </Card>
+          <Pressable onPress={handleCategory}>
+            <Card style={styles.card}>
+              <IconButton
+                icon="human-handsdown"
+                size={36}
+                style={styles.icon}
+              />
+              <Text variant="labelLarge" style={styles.text}>
+                Choose Muscle
+              </Text>
+            </Card>
+          </Pressable>
         </View>
       </Modal>
     </>

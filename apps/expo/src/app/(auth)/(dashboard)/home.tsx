@@ -6,7 +6,7 @@ import LatestGenerations from '~/components/homepage/LatestGenerations';
 import { api } from '~/utils/api';
 
 export default function HomeScreen() {
-  // const { data, isLoading, refetch } = api.generation.getAll.useQuery();
+  const { data, isLoading, refetch } = api.generation.getAll.useQuery();
   // api.exercise.getAll.usePrefetchInfiniteQuery(
   //   {
   //     searchName: undefined,
@@ -15,17 +15,17 @@ export default function HomeScreen() {
   //   {}
   // );
   // api.split.getAll.usePrefetchInfiniteQuery({}, {});
-  // const handleRefresh = async () => {
-  //   await refetch();
-  // };
+  const handleRefresh = async () => {
+    await refetch();
+  };
   return (
     <GradientLayout>
       <View>
         <Text>Home</Text>
       </View>
-      {/* <ScrollView onRefresh={handleRefresh}>
+      <ScrollView onRefresh={handleRefresh}>
         <LatestGenerations data={data} loading={isLoading} />
-      </ScrollView> */}
+      </ScrollView>
     </GradientLayout>
   );
 }
