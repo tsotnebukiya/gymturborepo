@@ -52,73 +52,25 @@ export const generationRouter = {
       log.debug('Operation timings (ms):', timings);
       return generation.id;
     }),
-  // createByCategory: protectedProcedure
-  //   .input(z.object({ subcategory: z.nativeEnum(Subcategory) }))
-  //   .mutation(async ({ ctx: { db, session }, input }) => {
-  //     const timings: Record<string, number> = {};
-  //     const userId = session.userId;
-  //     const startGeneration = performance.now();
-  //     const exercises = await generateExerciseDetails(input.subcategory);
-  //     timings.generateExercises = performance.now() - startGeneration;
-  //     const startCreateExercises = performance.now();
-  //     await db.exercise.createMany({
-  //       data: exercises.map((ex) => ({
-  //         name: ex.name,
-  //         description: ex.description,
-  //         category: ex.category,
-  //         subcategory: ex.subcategory,
-  //         userId,
-  //       })),
-  //     });
-  //     timings.createExercises = performance.now() - startCreateExercises;
-  //     const startFindExercises = performance.now();
-  //     const exercisesCreated = await db.exercise.findMany({
-  //       where: {
-  //         userId,
-  //         subcategory: input.subcategory,
-  //       },
-  //       orderBy: {
-  //         createdAt: 'desc',
-  //       },
-  //       take: exercises.length,
-  //     });
-  //     timings.findExercises = performance.now() - startFindExercises;
-  //     const muscleData = exercisesCreated.flatMap((exercise, index) => {
-  //       const currentExercises = exercises[index]?.muscles;
-  //       if (!currentExercises) return [];
-  //       return currentExercises.map((muscle) => ({
-  //         ...muscle,
-  //         exerciseId: exercise.id,
-  //       }));
-  //     });
-  //     const startMusclePercentages = performance.now();
-  //     await db.musclePercentage.createMany({
-  //       data: muscleData,
-  //     });
-  //     timings.createMusclePercentages =
-  //       performance.now() - startMusclePercentages;
-  //     log.debug('Operation timings (ms):', timings);
-  //     return exercisesCreated;
-  //   }),
-  // getAll: protectedProcedure.query(async ({ ctx: { db, session } }) => {
-  //   const startTime = performance.now();
-  //   const generations = await db.generation.findMany({
-  //     where: {
-  //       user: { id: session.userId },
-  //     },
-  //     orderBy: {
-  //       createdAt: 'desc',
-  //     },
-  //     take: 5,
-  //   });
-  //   const endTime = performance.now();
-  //   log.debug('Generation getAll query executed', {
-  //     duration: Math.round(endTime - startTime),
-  //     userId: session.userId,
-  //     resultCount: generations.length,
-  //   });
-  //   return generations;
-  // }),
+  getAll: protectedProcedure.query(async ({ ctx: { db, session } }) => {
+    const startTime = performance.now();
+    const generations = await db.generation.findMany({
+      where: {
+        user: { id: session.userId },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      take: 5,
+    });
+    const endTime = performance.now();
+    log.debug('Generation getAll query executed', {
+      duration: Math.round(endTime - startTime),
+      userId: session.userId,
+      resultCount: generations.length,
+    });
+    return generations;
+  }),
   // getOne: protectedProcedure
   //   .input(z.object({ id: z.number() }))
   //   .query(async ({ ctx: { db, session }, input }) => {
