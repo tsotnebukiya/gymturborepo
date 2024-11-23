@@ -7,7 +7,7 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import { useRouter } from 'expo-router';
 import { useAppContext } from '../context/AppContext';
 
-type PreviousData = RouterOutputs['generation']['getAll'];
+// type PreviousData = RouterOutputs['generation']['getAll'];
 
 export default function WizardComponent() {
   const { wizardVisible, setWizardVisible } = useAppContext();
@@ -18,41 +18,40 @@ export default function WizardComponent() {
   const utils = api.useUtils();
   const [startTime, setStartTime] = useState<number>();
   const { mutate, isPending } = api.generation.create.useMutation({
-    onMutate: async () => {
-      setStartTime(Date.now());
-      console.log('Starting mutation at:', new Date().toISOString());
-
-      await utils.generation.getAll.cancel();
-      const previousData = utils.generation.getAll.getData();
-      utils.generation.getAll.setData(
-        undefined,
-        (oldQueryData: PreviousData | undefined) =>
-          [
-            {
-              createdAt: new Date(),
-              description: null,
-              id: 'placeholder',
-              image,
-              name: 'Pending?',
-              status: 'PENDING',
-            },
-            ...(oldQueryData || []),
-          ] as PreviousData
-      );
-      return { previousData };
-    },
-    onError: (err, newTodo, context) => {
-      const duration = startTime ? Date.now() - startTime : 0;
-      console.log(`Error after ${duration}ms:`, err);
-      utils.generation.getAll.setData(undefined, context?.previousData);
-    },
-    onSuccess: () => {
-      const duration = startTime ? Date.now() - startTime : 0;
-      console.log(`Success after ${duration}ms`);
-    },
-    onSettled: () => {
-      void utils.generation.getAll.invalidate();
-    },
+    // onMutate: async () => {
+    //   setStartTime(Date.now());
+    //   console.log('Starting mutation at:', new Date().toISOString());
+    //   await utils.generation.getAll.cancel();
+    //   const previousData = utils.generation.getAll.getData();
+    //   utils.generation.getAll.setData(
+    //     undefined,
+    //     (oldQueryData: PreviousData | undefined) =>
+    //       [
+    //         {
+    //           createdAt: new Date(),
+    //           description: null,
+    //           id: 'placeholder',
+    //           image,
+    //           name: 'Pending?',
+    //           status: 'PENDING',
+    //         },
+    //         ...(oldQueryData || []),
+    //       ] as PreviousData
+    //   );
+    //   return { previousData };
+    // },
+    // onError: (err, newTodo, context) => {
+    //   const duration = startTime ? Date.now() - startTime : 0;
+    //   console.log(`Error after ${duration}ms:`, err);
+    //   utils.generation.getAll.setData(undefined, context?.previousData);
+    // },
+    // onSuccess: () => {
+    //   const duration = startTime ? Date.now() - startTime : 0;
+    //   console.log(`Success after ${duration}ms`);
+    // },
+    // onSettled: () => {
+    //   void utils.generation.getAll.invalidate();
+    // },
   });
   const [cameraPermission, requestCameraPermission] =
     ImagePicker.useCameraPermissions();
@@ -89,7 +88,7 @@ export default function WizardComponent() {
     const sizeInMB = sizeInBytes / (1024 * 1024);
     console.log(`Compressed image size: ${sizeInMB.toFixed(2)} MB`);
     mutate({ image: imageBase64, imageType: 'image/jpeg' });
-    router.push('/(auth)/home');
+    router.push('/(auth)/(dashboard)/home');
   };
   const handleGallery = async () => {
     if (!libraryPermissionedGranted) {

@@ -1,71 +1,57 @@
 import type { TRPCRouterRecord } from '@trpc/server';
+import { protectedProcedure } from '../trpc';
+import { createGenerationSchema } from '../../functions/schemas';
+import { uploadImageToBlob } from '../../functions/utils';
+import { generateGymResponse } from '../../functions/openai';
+import { log } from 'next-axiom';
 
 export const generationRouter = {
-  // create: protectedProcedure
-  //   .input(createGenerationSchema)
-  //   .mutation(async ({ ctx: { db, session }, input }) => {
-  //     const timings: Record<string, number> = {};
-  //     const userId = session.userId;
-  //     const startParallel = performance.now();
-  //     const [blob, gymEquipmentResponse] = await Promise.all([
-  //       uploadImageToBlob(input),
-  //       generateGymResponse(input.image),
-  //     ]);
-  //     timings.parallelOperations = performance.now() - startParallel;
-  //     const name = gymEquipmentResponse?.name ?? null;
-  //     const description = gymEquipmentResponse?.description ?? null;
-  //     const exercises = gymEquipmentResponse?.exercises ?? [];
-  //     const status = name && description ? 'COMPLETED' : 'FAILED';
-  //     const startGeneration = performance.now();
-  //     const generation = await db.generation.create({
-  //       data: {
-  //         status,
-  //         exercise: {
-  //           createMany: {
-  //             data: exercises.map((ex) => ({
-  //               name: ex.name,
-  //               description: ex.description,
-  //               category: ex.category,
-  //               subcategory: ex.subcategory,
-  //               userId,
-  //             })),
-  //           },
-  //         },
-  //         name,
-  //         description,
-  //         image: blob.url,
-  //         user: {
-  //           connect: {
-  //             id: userId,
-  //           },
-  //         },
-  //       },
-  //     });
-  //     timings.createGeneration = performance.now() - startGeneration;
-  //     const startFindExercises = performance.now();
-  //     const exercisesCreated = await db.exercise.findMany({
-  //       where: {
-  //         generationId: generation.id,
-  //       },
-  //     });
-  //     timings.findExercises = performance.now() - startFindExercises;
-  //     const muscleData = exercisesCreated.flatMap((exercise, index) => {
-  //       const currentExercises = exercises[index]?.muscles;
-  //       if (!currentExercises) return [];
-  //       return currentExercises.map((muscle) => ({
-  //         ...muscle,
-  //         exerciseId: exercise.id,
-  //       }));
-  //     });
-  //     const startMusclePercentages = performance.now();
-  //     await db.musclePercentage.createMany({
-  //       data: muscleData,
-  //     });
-  //     timings.createMusclePercentages =
-  //       performance.now() - startMusclePercentages;
-  //     log.debug('Operation timings (ms):', timings);
-  //     return generation.id;
-  //   }),
+  create: protectedProcedure
+    .input(createGenerationSchema)
+    .mutation(async ({ ctx: { db, session }, input }) => {
+      const timings: Record<string, number> = {};
+      const userId = session.userId;
+      const startParallel = performance.now();
+      const startFindExercises = performance.now();
+      const availableExercises = await db.exercise.findMany({
+        select: {
+          id: true,
+          name: true,
+        },
+      });
+      timings.findExercises = performance.now() - startFindExercises;
+      const [blob, gymEquipmentResponse] = await Promise.all([
+        uploadImageToBlob(input),
+        generateGymResponse(input.image, availableExercises),
+      ]);
+      timings.parallelOperations = performance.now() - startParallel;
+      const name = gymEquipmentResponse.name ?? null;
+      const description = gymEquipmentResponse.description ?? null;
+      const exercises = gymEquipmentResponse.exerciseIds;
+      const status = name && description ? 'COMPLETED' : 'FAILED';
+      const startGeneration = performance.now();
+      const generation = await db.generation.create({
+        data: {
+          status,
+          exercise: {
+            connect: exercises.map((ex) => ({
+              id: ex,
+            })),
+          },
+          name,
+          description,
+          image: blob.url,
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
+        },
+      });
+      timings.generation = performance.now() - startGeneration;
+      log.debug('Operation timings (ms):', timings);
+      return generation.id;
+    }),
   // createByCategory: protectedProcedure
   //   .input(z.object({ subcategory: z.nativeEnum(Subcategory) }))
   //   .mutation(async ({ ctx: { db, session }, input }) => {
