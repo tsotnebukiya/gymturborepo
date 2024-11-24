@@ -10,6 +10,7 @@ import ExerciseListSkeleton from './SkeletonList';
 import { useAppContext } from '../context/AppContext';
 import CTABox from '../common/CTABox';
 import { type Subcategory } from '@prisma/client';
+import { useCurrentLanguageEnum } from '~/i18n';
 
 interface Props {
   backAction?: boolean;
@@ -24,6 +25,7 @@ export default function ListFilter({
   categoryFilterType,
   backAction,
 }: Props) {
+  const language = useCurrentLanguageEnum();
   const [searchInput, setSearchInput] = useState<string | undefined>(undefined);
   const [debouncedSearch] = useDebounce(searchInput, 1000);
   const [refreshing, setRefreshing] = useState(false);
@@ -35,10 +37,11 @@ export default function ListFilter({
     hasNextPage,
     isFetchingNextPage,
     refetch,
-  } = api.exercise.getAll.useInfiniteQuery(
+  } = api.bookmark.getAll.useInfiniteQuery(
     {
       searchName: debouncedSearch,
       subcategory,
+      language,
     },
     {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
@@ -46,7 +49,7 @@ export default function ListFilter({
     }
   );
 
-  const exercises = data?.pages.flatMap((page) => page.exercises) || [];
+  const exercises = data?.pages.flatMap((page) => page.result) || [];
   const loadMore = () => {
     if (hasNextPage && !isFetchingNextPage) {
       void fetchNextPage();

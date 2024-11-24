@@ -168,17 +168,29 @@ model SplitExercise {
     updatedAt  DateTime @updatedAt
 }
 
+model GenerationTranslation {
+    id           Int        @id @default(autoincrement())
+    generation   Generation @relation(fields: [generationId], references: [id])
+    generationId Int
+    language     Language   @default(ENGLISH)
+    name         String
+    description  String
+    createdAt    DateTime   @default(now())
+    updatedAt    DateTime   @updatedAt
+
+    @@unique([generationId, language])
+}
+
 model Generation {
-    id          Int              @id @default(autoincrement())
-    name        String?
-    description String?
-    status      GenerationStatus @default(PENDING)
-    image       String
-    exercise    Exercise[]
-    user        User             @relation(fields: [userId], references: [id])
-    userId      String
-    createdAt   DateTime         @default(now())
-    updatedAt   DateTime         @updatedAt
+    id           Int                     @id @default(autoincrement())
+    status       GenerationStatus        @default(PENDING)
+    image        String
+    exercise     Exercise[]
+    user         User                    @relation(fields: [userId], references: [id])
+    userId       String
+    createdAt    DateTime                @default(now())
+    updatedAt    DateTime                @updatedAt
+    translations GenerationTranslation[]
 }
 
 model SplitDay {

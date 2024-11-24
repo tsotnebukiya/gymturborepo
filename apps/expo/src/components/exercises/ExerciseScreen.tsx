@@ -7,6 +7,7 @@ import { Text } from 'react-native-paper';
 import ExerciseSkeleton from './SkeletonItem';
 import VideoPlayer from './VideoPlayer';
 import ScrollView from '../common/ScrollView';
+import { useCurrentLanguageEnum } from '~/i18n';
 
 type GenerationData = RouterOutputs['exercise']['getOne'];
 
@@ -15,19 +16,23 @@ interface Props {
 }
 
 export default function ExerciseView({ data }: Props) {
+  const language = useCurrentLanguageEnum();
   if (!data) {
     return <ExerciseSkeleton />;
   }
   const utils = api.useUtils();
-  const { mutate: bookmark, isPending } = api.exercise.bookmark.useMutation({
+  const { mutate: bookmark, isPending } = api.bookmark.bookmark.useMutation({
     onSettled: async () => {
-      void utils.exercise.getAll.invalidate({});
-      await utils.exercise.getOne.invalidate({ id: data.id });
+      void utils.bookmark.getAll.invalidate({});
+      await utils.exercise.getOne.invalidate({
+        id: data.exerciseId,
+        language,
+      });
     },
   });
 
   const handleBookmark = () => {
-    bookmark({ id: data.id });
+    bookmark({ exerciseId: data.exerciseId });
   };
   const handleBack = () => {
     router.back();
@@ -45,7 +50,7 @@ export default function ExerciseView({ data }: Props) {
         }}
         actions={[
           {
-            icon: data.saved ? 'bookmark' : 'bookmark-outline',
+            icon: data.isSaved ? 'bookmark' : 'bookmark-outline',
             onPress: handleBookmark,
             loading: isPending,
           },

@@ -9,6 +9,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ActivityIndicator, PaperProvider } from 'react-native-paper';
 import { TRPCProvider } from '~/utils/api';
 import { View } from 'react-native';
+import '~/i18n';
 
 void SplashScreen.preventAutoHideAsync();
 

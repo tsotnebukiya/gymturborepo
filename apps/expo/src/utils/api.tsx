@@ -4,16 +4,14 @@ import { httpBatchLink, loggerLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
 import superjson from 'superjson';
 import type { AppRouter } from '@acme/api';
-import Constants from 'expo-constants';
 import { useAuth } from '@clerk/clerk-expo';
 
 const getBaseUrl = () => {
-  const debuggerHost = Constants.expoConfig?.hostUri;
-  const localhost = debuggerHost?.split(':')[0];
-  if (localhost && process.env.ENVIRONMENT === 'development') {
-    return `http://${localhost}:3000`;
-  }
-  return process.env.EXPO_PUBLIC_API_ORIGIN;
+  // if (process.env.ENVIRONMENT === 'development') {
+  //   return `http://localhost:3000`;
+  // }
+  // return process.env.EXPO_PUBLIC_API_ORIGIN;
+  return 'http://localhost:3000';
 };
 
 export const api = createTRPCReact<AppRouter>();

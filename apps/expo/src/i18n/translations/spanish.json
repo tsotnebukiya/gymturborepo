@@ -1,0 +1,30 @@
+{
+  "language": {
+    "en": "Inglés",
+    "es": "Español",
+    "fr": "Francés",
+    "de": "Alemán",
+    "it": "Italiano",
+    "pt": "Portugués",
+    "ru": "Ruso",
+    "zh": "Chino"
+  },
+  "intro": {
+    "title": "Intro",
+    "start": "Inicio"
+  },
+  "tabs": {
+    "home": "Inicio",
+    "bookmarks": "Guardados",
+    "settings": "Configuración",
+    "splits": "Divisiones"
+  },
+  "some": {
+    "home": "Inicio"
+  },
+  "settings": {
+    "selectLanguage": "Seleccionar idioma",
+    "changeLanguage": "Cambiar idioma",
+    "signOut": "Cerrar sesión"
+  }
+}

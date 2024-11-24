@@ -6,10 +6,12 @@ import { useState } from 'react';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { useRouter } from 'expo-router';
 import { useAppContext } from '../context/AppContext';
+import { useCurrentLanguageEnum } from '~/i18n';
 
 type PreviousData = RouterOutputs['generation']['getAll'];
 
 export default function WizardComponent() {
+  const language = useCurrentLanguageEnum();
   const { wizardVisible, setWizardVisible } = useAppContext();
   const showModal = () => setWizardVisible(true);
   const hideModal = () => setWizardVisible(false);
@@ -24,7 +26,7 @@ export default function WizardComponent() {
       await utils.generation.getAll.cancel();
       const previousData = utils.generation.getAll.getData();
       utils.generation.getAll.setData(
-        undefined,
+        { language },
         (oldQueryData: PreviousData | undefined) =>
           [
             {
@@ -43,7 +45,7 @@ export default function WizardComponent() {
     onError: (err, newTodo, context) => {
       const duration = startTime ? Date.now() - startTime : 0;
       console.log(`Error after ${duration}ms:`, err);
-      utils.generation.getAll.setData(undefined, context?.previousData);
+      utils.generation.getAll.setData({ language }, context?.previousData);
     },
     onSuccess: () => {
       const duration = startTime ? Date.now() - startTime : 0;

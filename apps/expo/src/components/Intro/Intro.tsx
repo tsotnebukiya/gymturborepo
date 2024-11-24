@@ -9,11 +9,13 @@ import {
 } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 
 const { height } = Dimensions.get('window');
 
 export default function IntroComponent() {
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -25,12 +27,12 @@ export default function IntroComponent() {
       </View>
       <View style={[styles.content, { paddingBottom: insets.bottom }]}>
         <Text variant="headlineLarge" style={styles.title}>
-          Intro
+          {t('intro.title')}
         </Text>
         <Link href="/sign-in" style={styles.link} asChild>
           <Button mode="contained" style={styles.button}>
             <Text variant="headlineSmall" style={styles.buttonText}>
-              Start
+              {t('intro.start')}
             </Text>
           </Button>
         </Link>

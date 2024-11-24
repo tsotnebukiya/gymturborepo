@@ -1,0 +1,30 @@
+{
+  "language": {
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French",
+    "de": "German",
+    "it": "Italian",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "zh": "Chinese"
+  },
+  "intro": {
+    "title": "Intro",
+    "start": "Start"
+  },
+  "tabs": {
+    "home": "Home",
+    "bookmarks": "Saved",
+    "settings": "Settings",
+    "splits": "Splits"
+  },
+  "some": {
+    "home": "Home"
+  },
+  "settings": {
+    "selectLanguage": "Select Language",
+    "changeLanguage": "Change Language",
+    "signOut": "Sign Out"
+  }
+}

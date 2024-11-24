@@ -76,6 +76,7 @@ export default tseslint.config(
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-require-imports': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/prefer-nullish-coalescing': 'off',
       // 'import/consistent-type-specifier-style': [''],
     },
   },

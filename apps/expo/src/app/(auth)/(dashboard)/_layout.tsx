@@ -2,9 +2,11 @@ import { TabBarIcon } from '~/components/common/TabBarIcon';
 import WizardComponent from '~/components/generation/Wizard';
 import { Tabs } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 
 export default function DashboardLayout() {
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
   return (
     <>
       <Tabs
@@ -19,7 +21,7 @@ export default function DashboardLayout() {
         <Tabs.Screen
           name="home"
           options={{
-            title: 'Home',
+            title: t('tabs.home'),
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? 'home' : 'home-outline'}
@@ -31,7 +33,7 @@ export default function DashboardLayout() {
         <Tabs.Screen
           name="bookmarks"
           options={{
-            title: 'Saved',
+            title: t('tabs.bookmarks'),
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? 'bookmarks' : 'bookmarks-outline'}
@@ -43,7 +45,7 @@ export default function DashboardLayout() {
         <Tabs.Screen
           name="split"
           options={{
-            title: 'Splits',
+            title: t('tabs.splits'),
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? 'grid' : 'grid-outline'}
@@ -55,7 +57,7 @@ export default function DashboardLayout() {
         <Tabs.Screen
           name="settings"
           options={{
-            title: 'Settings',
+            title: t('tabs.settings'),
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? 'settings' : 'settings-outline'}

@@ -8,8 +8,10 @@ import { api } from '~/utils/api';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useState } from 'react';
 import SplitSkeleton from './SplitSkeleton';
+import { useCurrentLanguageEnum } from '~/i18n';
 
 export default function SplitsHome() {
+  const language = useCurrentLanguageEnum();
   const {
     data,
     isLoading,
@@ -18,7 +20,9 @@ export default function SplitsHome() {
     isFetchingNextPage,
     refetch,
   } = api.split.getAll.useInfiniteQuery(
-    {},
+    {
+      language,
+    },
     {
       getNextPageParam: (lastPage) => lastPage.nextCursor,
       placeholderData: keepPreviousData,

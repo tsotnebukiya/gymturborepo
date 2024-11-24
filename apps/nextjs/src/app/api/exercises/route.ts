@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
   if (type === 'redis') {
     const start = performance.now();
     const cachedExercises =
-      (await redis.get<NonNullable<PrismaTypes.Exercise>[]>('exercises')) ?? [];
+      (await redis.get<NonNullable<PrismaTypes.Exercise>[]>('exercises')) || [];
     const finalExerfcises = cachedExercises;
     const end = performance.now();
     const dataSizeInBytes = new TextEncoder().encode(

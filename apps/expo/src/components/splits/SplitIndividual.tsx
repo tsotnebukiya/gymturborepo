@@ -139,15 +139,13 @@ export default function SplitIndividual({
                 color="rgb(0, 104, 116)"
               />
               <Text style={styles.daySelectorText}>
-                {selectedDay
-                  ? splitDayConstants[selectedDay]
-                  : 'Select Weekday'}
+                {splitDayConstants[selectedDay]}
               </Text>
             </Pressable>
 
             <DayPickerModal
               visible={isDayPickerVisible}
-              selectedDay={selectedDay || undefined}
+              selectedDay={selectedDay}
               onSelectDay={handleDayChange}
               loading={isPendingDay}
             />

@@ -68,21 +68,23 @@ Format as JSON matching the validator schema.`,
   });
 
   return {
-    array: response.choices[0]?.message.parsed?.exercises ?? [],
+    array: response.choices[0]?.message.parsed?.exercises || [],
     usage: response.usage,
   };
 }
 
 const gymEquipmentValidator = z.object({
-  name: z.string().nullable(),
-  description: z.string().nullable(),
-  exerciseIds: z.array(z.number()),
+  equipment: z
+    .object({
+      translations: z.array(translationValidator),
+      exerciseIds: z.array(z.number()),
+    })
+    .nullable(),
 });
 
 export async function generateGymResponse(
   base64Image: string,
-  availableExercises: { id: number; name: string }[],
-  language = 'english'
+  availableExercises: { id: number; name: string }[]
 ) {
   const response = await openai.beta.chat.completions.parse({
     model: 'gpt-4o',
@@ -90,7 +92,7 @@ export async function generateGymResponse(
       {
         role: 'system',
         content:
-          'You are a professional fitness expert. Analyze gym equipment images and identify which exercises from the provided list can be performed on this equipment.',
+          'You are a professional fitness expert and translator. Analyze gym equipment images and identify which exercises from the provided list can be performed on this equipment.',
       },
       {
         role: 'user',
@@ -101,11 +103,12 @@ export async function generateGymResponse(
 ${JSON.stringify(availableExercises)}
 
 Provide:
-1. The name of the equipment ${language}
-2. A detailed description of the equipment in ${language}
-3. The IDs of all exercises from the provided list that can be performed on this equipment
+1. For each language (${Object.values(Language).join(', ')}):
+   - The name of the equipment in that language
+   - A detailed description of the equipment in that language
+2. The IDs of all exercises from the provided list that can be performed on this equipment
 
-If no gym equipment is clearly visible, respond with null.`,
+If no gym equipment is clearly visible in the image, respond with null.`,
           },
           {
             type: 'image_url',
@@ -117,13 +120,9 @@ If no gym equipment is clearly visible, respond with null.`,
         ],
       },
     ],
-    response_format: zodResponseFormat(gymEquipmentValidator, 'generation'),
+    response_format: zodResponseFormat(gymEquipmentValidator, 'equipment'),
     max_tokens: 4096,
   });
 
-  const generation = response.choices[0]?.message.parsed;
-  if (!generation) {
-    throw new Error('Failed to generate equipment details or image');
-  }
-  return generation;
+  return response.choices[0]?.message.parsed?.equipment;
 }

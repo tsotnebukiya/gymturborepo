@@ -9,6 +9,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
+import { useCurrentLanguageEnum } from '~/i18n';
 
 export type GenerationData = NonNullable<
   RouterOutputs['generation']['getOne']
@@ -22,7 +23,8 @@ interface Props {
 
 export default function ExerciseItem({ data, type, onSwipe }: Props) {
   const { setSplitExercises } = useAppContext();
-  api.exercise.getOne.usePrefetchQuery({ id: data.id });
+  const language = useCurrentLanguageEnum();
+  api.exercise.getOne.usePrefetchQuery({ id: data.id, language });
   const exercise = data;
 
   const animatedStyle = useAnimatedStyle(() => ({

@@ -4,6 +4,8 @@ import { createGenerationSchema } from '../../functions/schemas';
 import { uploadImageToBlob } from '../../functions/utils';
 import { generateGymResponse } from '../../functions/openai';
 import { log } from 'next-axiom';
+import { z } from 'zod';
+import { Language } from '@prisma/client';
 
 export const generationRouter = {
   create: protectedProcedure
@@ -25,21 +27,19 @@ export const generationRouter = {
         generateGymResponse(input.image, availableExercises),
       ]);
       timings.parallelOperations = performance.now() - startParallel;
-      const name = gymEquipmentResponse.name ?? null;
-      const description = gymEquipmentResponse.description ?? null;
-      const exercises = gymEquipmentResponse.exerciseIds;
-      const status = name && description ? 'COMPLETED' : 'FAILED';
+
+      const status = gymEquipmentResponse ? 'COMPLETED' : 'FAILED';
       const startGeneration = performance.now();
       const generation = await db.generation.create({
         data: {
           status,
           exercise: {
-            connect: exercises.map((ex) => ({
-              id: ex,
-            })),
+            connect:
+              gymEquipmentResponse?.exerciseIds.map((id) => ({ id })) || [],
           },
-          name,
-          description,
+          translations: {
+            create: gymEquipmentResponse?.translations || [],
+          },
           image: blob.url,
           user: {
             connect: {
@@ -52,34 +52,102 @@ export const generationRouter = {
       log.debug('Operation timings (ms):', timings);
       return generation.id;
     }),
-  getAll: protectedProcedure.query(async ({ ctx: { db, session } }) => {
-    const startTime = performance.now();
-    const generations = await db.generation.findMany({
-      where: {
-        user: { id: session.userId },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      take: 5,
-    });
-    const endTime = performance.now();
-    log.debug('Generation getAll query executed', {
-      duration: Math.round(endTime - startTime),
-      userId: session.userId,
-      resultCount: generations.length,
-    });
-    return generations;
-  }),
-  // getOne: protectedProcedure
-  //   .input(z.object({ id: z.number() }))
-  //   .query(async ({ ctx: { db, session }, input }) => {
-  //     const generation = await db.generation.findFirstOrThrow({
-  //       where: { id: input.id, user: { id: session.userId } },
-  //       include: {
-  //         exercise: { select: { id: true, name: true, subcategory: true } },
-  //       },
-  //     });
-  //     return generation;
-  //   }),
+  getAll: protectedProcedure
+    .input(z.object({ language: z.nativeEnum(Language) }))
+    .query(async ({ ctx: { db, session }, input }) => {
+      const language = input.language;
+      const startTime = performance.now();
+      const generations = await db.generation.findMany({
+        where: {
+          user: { id: session.userId },
+        },
+        select: {
+          id: true,
+          image: true,
+          status: true,
+          translations: {
+            where: {
+              language,
+            },
+            select: {
+              name: true,
+              description: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        take: 5,
+      });
+      const endTime = performance.now();
+      log.debug('Generation getAll query executed', {
+        duration: Math.round(endTime - startTime),
+        userId: session.userId,
+        resultCount: generations.length,
+      });
+      const result = generations.map((gen) => {
+        const { id, image, status, translations } = gen;
+        const name = translations[0]!.name;
+        const description = translations[0]!.description;
+        return {
+          id,
+          image,
+          status,
+          name,
+          description,
+        };
+      });
+      return result;
+    }),
+  getOne: protectedProcedure
+    .input(z.object({ id: z.number(), language: z.nativeEnum(Language) }))
+    .query(async ({ ctx: { db, session }, input }) => {
+      const language = input.language;
+      const generationResponse = await db.generation.findFirstOrThrow({
+        where: { id: input.id, user: { id: session.userId } },
+        include: {
+          exercise: {
+            select: {
+              id: true,
+              subcategory: true,
+              translations: {
+                where: {
+                  language,
+                },
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
+          translations: {
+            where: {
+              language,
+            },
+            select: {
+              name: true,
+              description: true,
+            },
+          },
+        },
+      });
+      const { id, image, translations, status, exercise } = generationResponse;
+      const name = translations[0]!.name;
+      const description = translations[0]!.description;
+      const formattedExercise = exercise.map((ex) => {
+        const { id, subcategory, translations } = ex;
+        const name = translations[0]!.name;
+        return { id, subcategory, name };
+      });
+      const generation = {
+        id,
+        image,
+        status,
+        name,
+        description,
+        exercise: formattedExercise,
+      };
+      return generation;
+    }),
 } satisfies TRPCRouterRecord;

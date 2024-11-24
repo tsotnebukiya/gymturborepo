@@ -5,13 +5,15 @@ import { type RouterOutputs } from '@acme/api';
 import { musclesConstants, splitDayConstants } from '~/utils/constants';
 import { router } from 'expo-router';
 import { api } from '~/utils/api';
+import { useCurrentLanguageEnum } from '~/i18n';
 
 export default function SplitItem({
   item,
 }: {
   item: RouterOutputs['split']['getAll']['splits'][number];
 }) {
-  api.split.getOne.usePrefetchQuery({ id: item.id });
+  const language = useCurrentLanguageEnum();
+  api.split.getOne.usePrefetchQuery({ id: item.id, language });
   const handlePress = () => {
     router.push({
       pathname: '/(auth)/(dashboard)/split/[splitId]',
@@ -31,14 +33,13 @@ export default function SplitItem({
           <Text style={styles.splitTitle} variant="titleMedium">
             {item.name}
           </Text>
-          {item.day && (
-            <View style={styles.dayContainer}>
-              <Ionicons name="calendar-outline" size={14} color="#666666" />
-              <Text style={styles.splitDay} variant="bodyMedium">
-                {splitDayConstants[item.day]}
-              </Text>
-            </View>
-          )}
+
+          <View style={styles.dayContainer}>
+            <Ionicons name="calendar-outline" size={14} color="#666666" />
+            <Text style={styles.splitDay} variant="bodyMedium">
+              {splitDayConstants[item.day]}
+            </Text>
+          </View>
         </View>
 
         <View style={styles.detailsRow}>

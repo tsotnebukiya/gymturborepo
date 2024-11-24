@@ -614,7 +614,7 @@ videoEnd: 50, /static
   });
 
   return {
-    array: response.choices[0]?.message.parsed?.exercises ?? [],
+    array: response.choices[0]?.message.parsed?.exercises || [],
     usage: response.usage,
   };
 }

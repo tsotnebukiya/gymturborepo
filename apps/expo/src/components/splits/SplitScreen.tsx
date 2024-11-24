@@ -16,9 +16,7 @@ export default function SplitScreen() {
   const utils = api.useUtils();
   const [name, setName] = useState<string | undefined>();
   const { splitExercises, setSplitExercises } = useAppContext();
-  const [selectedDay, setSelectedDay] = useState<SplitDayKey | undefined>(
-    undefined
-  );
+  const [selectedDay, setSelectedDay] = useState<SplitDayKey>('MONDAY');
   const [isDayPickerVisible, setIsDayPickerVisible] = useState(false);
   const { mutate, isPending } = api.split.createOne.useMutation({
     onSuccess: () => {
@@ -97,9 +95,7 @@ export default function SplitScreen() {
                 color="rgb(0, 104, 116)"
               />
               <Text style={styles.daySelectorText}>
-                {selectedDay
-                  ? splitDayConstants[selectedDay]
-                  : 'Select Weekday'}
+                {splitDayConstants[selectedDay]}
               </Text>
             </Pressable>
 

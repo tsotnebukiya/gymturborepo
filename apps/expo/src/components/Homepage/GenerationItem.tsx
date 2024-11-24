@@ -4,6 +4,7 @@ import { api, type RouterOutputs } from '~/utils/api';
 import LottieView from 'lottie-react-native';
 import { Skeleton } from 'moti/skeleton';
 import { useRouter } from 'expo-router';
+import { useCurrentLanguageEnum } from '~/i18n';
 
 export default function GenerationItem({
   data,
@@ -11,14 +12,15 @@ export default function GenerationItem({
   data: RouterOutputs['generation']['getAll'][number];
 }) {
   const router = useRouter();
-  const completed = data.status === 'COMPLETED' && data.name !== null;
+  const language = useCurrentLanguageEnum();
+  const completed = data.status === 'COMPLETED';
   const onPress = () => {
     if (completed) {
       router.push(`/generated/${data.id}`);
     }
   };
   if (completed) {
-    api.generation.getOne.usePrefetchQuery({ id: data.id });
+    api.generation.getOne.usePrefetchQuery({ id: data.id, language });
   }
   return (
     <Pressable style={styles.container} onPress={onPress}>
