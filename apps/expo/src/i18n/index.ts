@@ -50,14 +50,14 @@ const initI18n = async () => {
   let savedLanguage = await AsyncStorage.getItem('language');
 
   if (!savedLanguage) {
-    savedLanguage = Localization.locale;
+    savedLanguage = Localization.getLocales()[0]?.languageCode ?? 'en';
   }
 
   void i18n.use(initReactI18next).init({
     compatibilityJSON: 'v3',
     resources,
     lng: savedLanguage,
-    fallbackLng: 'pt-BR',
+    fallbackLng: 'en-US',
     interpolation: {
       escapeValue: false,
     },

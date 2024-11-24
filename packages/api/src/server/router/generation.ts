@@ -88,8 +88,8 @@ export const generationRouter = {
       });
       const result = generations.map((gen) => {
         const { id, image, status, translations } = gen;
-        const name = translations[0]!.name;
-        const description = translations[0]!.description;
+        const name = translations[0]?.name;
+        const description = translations[0]?.description;
         return {
           id,
           image,

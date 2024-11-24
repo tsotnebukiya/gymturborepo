@@ -1,5 +1,4 @@
 import { keepPreviousData } from '@tanstack/react-query';
-import { Button } from 'react-native-paper';
 import GradientLayout from '~/components/common/GradientLayout';
 import ScrollView from '~/components/common/ScrollView';
 import LatestGenerations from '~/components/homepage/LatestGenerations';
@@ -31,7 +30,6 @@ export default function HomeScreen() {
   return (
     <GradientLayout>
       <ScrollView onRefresh={handleRefresh}>
-        <Button onPress={() => refetch()}>Refetch</Button>
         <LatestGenerations data={data} loading={isLoading} />
       </ScrollView>
     </GradientLayout>
