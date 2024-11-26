@@ -46,12 +46,14 @@ export default function SplitExercisesList({
   );
 
   const exercises = data?.pages.flatMap((page) => page.result) || [];
+  console.log(exercises.length);
   const loadMore = () => {
-    console.log('Fetching next page1');
-    // if (data && hasNextPage && !isFetchingNextPage) {
-    //   void fetchNextPage();
-    // }
+    console.log('hey');
+    if (hasNextPage && !isFetchingNextPage) {
+      void fetchNextPage();
+    }
   };
+
   const handleFilter = () => {
     router.push({
       pathname: '/(auth)/category',
@@ -144,7 +146,7 @@ export default function SplitExercisesList({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 16,
+    // paddingVertical: 16,
     // gap: 16,
   },
   filterContainer: {
