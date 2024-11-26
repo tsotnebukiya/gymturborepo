@@ -10,6 +10,15 @@ import { ActivityIndicator, PaperProvider } from 'react-native-paper';
 import { TRPCProvider } from '~/utils/api';
 import { View } from 'react-native';
 import '~/i18n';
+import {
+  configureReanimatedLogger,
+  ReanimatedLogLevel,
+} from 'react-native-reanimated';
+
+configureReanimatedLogger({
+  level: ReanimatedLogLevel.warn,
+  strict: false,
+});
 
 void SplashScreen.preventAutoHideAsync();
 

@@ -16,6 +16,5 @@ export default function ExerciseView() {
       placeholderData: keepPreviousData,
     }
   );
-  console.log(id);
   return <FullExerciseView data={data} />;
 }

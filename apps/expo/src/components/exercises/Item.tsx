@@ -17,7 +17,7 @@ export type GenerationData = NonNullable<
 
 interface Props {
   data: GenerationData;
-  type: 'generation' | 'saved' | 'split';
+  type: 'generation' | 'saved' | 'split' | 'by-muscle';
   onSwipe?: (id: number) => void;
 }
 

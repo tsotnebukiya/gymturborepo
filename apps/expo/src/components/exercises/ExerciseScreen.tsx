@@ -17,19 +17,20 @@ interface Props {
 
 export default function ExerciseView({ data }: Props) {
   const language = useCurrentLanguageEnum();
-  if (!data) {
-    return <ExerciseSkeleton />;
-  }
   const utils = api.useUtils();
   const { mutate: bookmark, isPending } = api.bookmark.bookmark.useMutation({
     onSettled: async () => {
       void utils.bookmark.getAll.invalidate({});
       await utils.exercise.getOne.invalidate({
-        id: data.exerciseId,
+        id: data?.exerciseId,
         language,
       });
     },
   });
+
+  if (!data) {
+    return <ExerciseSkeleton />;
+  }
 
   const handleBookmark = () => {
     bookmark({ exerciseId: data.exerciseId });

@@ -28,6 +28,7 @@ export const OPTIONS = () => {
 const handler = async (req: Request) => {
   const isColdStart = !isWarmStart;
   isWarmStart = true;
+  console.log('isWarmStart', isWarmStart);
   const authObject = await auth();
   const response = await fetchRequestHandler({
     endpoint: '/api/trpc',

@@ -1,20 +1,13 @@
 import { useLocalSearchParams } from 'expo-router';
-import ExerciseList from '~/components/exercises/List';
-import { useCategoryContext } from '~/components/context/CategoryContext';
-import { musclesConstants } from '~/utils/constants';
+import { type Subcategory } from '@prisma/client';
+import GradientLayout from '~/components/common/GradientLayout';
+import ByMuscleList from '~/components/generation/ByMuscle';
 
 export default function ExerciseScreen() {
   const { subcategory } = useLocalSearchParams();
-  const { isGenerating, exercises } = useCategoryContext();
-  const name =
-    musclesConstants[subcategory as keyof typeof musclesConstants].label;
   return (
-    <ExerciseList
-      type={isGenerating ? 'ai-generating' : 'default'}
-      itemType="saved"
-      data={exercises}
-      name={name}
-      loading={isGenerating}
-    />
+    <GradientLayout>
+      <ByMuscleList subcategory={subcategory as Subcategory} />
+    </GradientLayout>
   );
 }

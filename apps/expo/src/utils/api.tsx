@@ -7,10 +7,8 @@ import type { AppRouter } from '@acme/api';
 import { useAuth } from '@clerk/clerk-expo';
 
 const getBaseUrl = () => {
-  if (process.env.EXPO_PUBLIC_ENVIRONMENT === 'development') {
-    return `http://localhost:3000`;
-  }
-  return process.env.EXPO_PUBLIC_API_ORIGIN;
+  // return process.env.EXPO_PUBLIC_API_ORIGIN;
+  return 'https://gymleadai.app';
 };
 
 export const api = createTRPCReact<AppRouter>();

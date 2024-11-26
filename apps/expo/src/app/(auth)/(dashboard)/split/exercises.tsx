@@ -1,16 +1,14 @@
 import GradientLayout from '~/components/common/GradientLayout';
 import { useAppContext } from '~/components/context/AppContext';
-import ListFilter from '~/components/exercises/ListFilter';
+import SplitExercisesList from '~/components/splits/ExercisesList';
 
 export default function SplitExercisesScreen() {
   const { setSplitSubcategory, splitSubcategory } = useAppContext();
   return (
     <GradientLayout>
-      <ListFilter
+      <SplitExercisesList
         subcategory={splitSubcategory}
         setSubcategory={setSplitSubcategory}
-        categoryFilterType="split"
-        backAction={true}
       />
     </GradientLayout>
   );

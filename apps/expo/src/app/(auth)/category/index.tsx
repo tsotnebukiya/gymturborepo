@@ -9,22 +9,9 @@ export default function CategoryListScreen() {
   const { type } = useLocalSearchParams<{
     type: 'new' | 'saved' | 'split';
   }>();
-  const { setIsGenerating, setExercises } = useCategoryContext();
   const { setSubcategory, setSplitSubcategory } = useAppContext();
   const router = useRouter();
-  const { mutate } = api.generation.createByCategory.useMutation({
-    onMutate: () => {
-      setIsGenerating(true);
-    },
-    onSuccess: (exercises) => {
-      setExercises(exercises);
-      setIsGenerating(false);
-    },
-    onError: () => {
-      setIsGenerating(false);
-    },
-  });
-  console.log(type);
+
   const handleCategory = (subcategory: Subcategory) => {
     if (type === 'saved') {
       setSubcategory(subcategory);
@@ -34,7 +21,7 @@ export default function CategoryListScreen() {
         pathname: '/(auth)/category/[subcategory]',
         params: { subcategory },
       });
-      mutate({ subcategory });
+      // WEAREHERE
     } else {
       setSplitSubcategory(subcategory);
       router.back();
