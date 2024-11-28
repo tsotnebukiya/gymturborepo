@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import { TextInput, Button, Text, ActivityIndicator } from 'react-native-paper';
 import GradientLayout from '~/components/shared/GradientLayout';
@@ -8,12 +8,15 @@ import { splitDayConstants, type SplitDayKey } from '~/lib/utils/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import DayPickerModal from '~/components/splits/DayPickerModal';
 import { useAppContext } from '~/lib/contexts/AppContext';
-import ExerciseItem, { GenerationData } from '~/components/exercises/Item';
+import ExerciseItem, { type GenerationData } from '~/components/exercises/Item';
 import ScrollView from '~/components/shared/ScrollView';
 import { api, type RouterOutputs } from '~/lib/utils/api';
 import { useCurrentLanguageEnum } from '~/i18n';
 import { keepPreviousData } from '@tanstack/react-query';
 import SplitIndividualSkeleton from '~/components/splits/IndividualSkeleton';
+import ExerciseBottomSheet from '~/components/splits/BottomExerciseModal';
+import { type BottomSheetModal } from '@gorhom/bottom-sheet';
+import RepsSetsModal from '~/components/splits/RepsSetsModal';
 
 export default function SplitIndividualScreen() {
   const language = useCurrentLanguageEnum();
@@ -40,11 +43,15 @@ function LoadedSplitIndividual({
   split: RouterOutputs['split']['getOne'];
 }) {
   const utils = api.useUtils();
+  const [repsSetsModalVisible, setRepsSetsModalVisible] = useState(false);
+
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { setSplitExercises, splitExercises } = useAppContext();
   const [isNameInputVisible, setIsNameInputVisible] = useState(false);
   const [name, setName] = useState<string>(split.name);
   const [isDayPickerVisible, setIsDayPickerVisible] = useState(false);
-
+  const [selectedExercise, setSelectedExercise] =
+    useState<GenerationData | null>(null);
   const selectedDay = split.day;
 
   const { mutate: mutateDay, isPending: isPendingDay } =
@@ -70,6 +77,13 @@ function LoadedSplitIndividual({
         await utils.split.getOne.invalidate({ id: split.id });
       },
     });
+  const { mutate: mutateExercise, isPending: isUpdatingExercise } =
+    api.split.updateExercise.useMutation({
+      onSettled: async () => {
+        setRepsSetsModalVisible(false);
+        await utils.split.getOne.invalidate({ id: split.id });
+      },
+    });
 
   const handleDayChange = (day: SplitDayKey) => {
     mutateDay({ id: split.id, day });
@@ -91,6 +105,10 @@ function LoadedSplitIndividual({
   const handleSelectExercise = () => {
     router.push('/(auth)/(dashboard)/split/exercises');
   };
+  const handleChangeSetRep = () => {
+    setRepsSetsModalVisible(true);
+    bottomSheetRef.current?.close();
+  };
   const handleDelete = (id: number) => {
     mutateExercises({
       splitId: split.id,
@@ -98,11 +116,36 @@ function LoadedSplitIndividual({
       type: 'remove',
     });
   };
+  const handleBottomSheetClose = () => {
+    bottomSheetRef.current?.close();
+  };
+  const handleSheetDelete = (id: number) => {
+    deleteExercise(id);
+    handleBottomSheetClose();
+  };
   const handleRefresh = async () => {
     await utils.split.getOne.invalidate({ id: split.id });
   };
+  const changeSetRep = (reps: number, sets: number) => {
+    mutateExercise({
+      exerciseId: selectedExercise!.id,
+      reps,
+      sets,
+    });
+  };
+  const deleteExercise = (id: number) => {
+    mutateExercises({
+      splitId: split.id,
+      exerciseId: id,
+      type: 'remove',
+    });
+  };
   const handleMoreOptions = (id: number, exercise: GenerationData) => {
-    console.log(id, exercise);
+    setSelectedExercise(exercise);
+    setTimeout(() => {
+      bottomSheetRef.current?.present();
+      bottomSheetRef.current?.snapToIndex(0); // Changed from 1 to 0 since snapPoints only has ['50%']
+    }, 0);
   };
   useEffect(() => {
     if (splitExercises.length > 0) {
@@ -207,6 +250,23 @@ function LoadedSplitIndividual({
           </View>
         </ScrollView>
       </View>
+      {selectedExercise && (
+        <ExerciseBottomSheet
+          sheetRef={bottomSheetRef}
+          handleChangeSetRep={handleChangeSetRep}
+          handleDelete={() => handleSheetDelete(selectedExercise.id)}
+        />
+      )}
+      {selectedExercise && (
+        <RepsSetsModal
+          visible={repsSetsModalVisible}
+          onClose={() => setRepsSetsModalVisible(false)}
+          initialReps={selectedExercise.reps}
+          initialSets={selectedExercise.sets}
+          onConfirm={changeSetRep}
+          isLoading={isUpdatingExercise}
+        />
+      )}
     </GradientLayout>
   );
 }

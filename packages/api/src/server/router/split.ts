@@ -6,13 +6,27 @@ import { Language, SplitWeekDay } from '@prisma/client';
 const createSplitSchema = z.object({
   name: z.string().min(1, 'Split name is required'),
   day: z.nativeEnum(SplitWeekDay),
-  exerciseIds: z.array(z.number()).min(1, 'At least one exercise is required'),
+  exercises: z
+    .array(
+      z.object({
+        id: z.number(),
+        sets: z.number(),
+        reps: z.number(),
+      })
+    )
+    .min(1, 'At least one exercise is required'),
 });
 
 const updateExercisesSchema = z.object({
   splitId: z.number(),
   exerciseId: z.number(),
   type: z.enum(['add', 'remove']),
+});
+
+const updateExerciseSchema = z.object({
+  exerciseId: z.number(),
+  reps: z.number(),
+  sets: z.number(),
 });
 
 const updateSplitSchema = z.object({
@@ -25,18 +39,13 @@ export const splitRouter = {
   createOne: protectedProcedure
     .input(createSplitSchema)
     .mutation(async ({ ctx: { db, session }, input }) => {
-      const exercises = await db.exercise.findMany({
-        where: { id: { in: input.exerciseIds } },
-        select: { id: true, reps: true, sets: true },
-      });
-
       const newSplit = await db.splitDay.create({
         data: {
           name: input.name,
           day: input.day,
           userId: session.userId,
           splitExercise: {
-            create: exercises.map((exercise) => ({
+            create: input.exercises.map((exercise) => ({
               exerciseId: exercise.id,
               userId: session.userId,
               reps: exercise.reps,
@@ -57,12 +66,13 @@ export const splitRouter = {
         },
         include: {
           splitExercise: {
+            orderBy: { createdAt: 'asc' },
             select: {
               reps: true,
               sets: true,
+              id: true,
               exercise: {
                 select: {
-                  id: true,
                   category: true,
                   subcategory: true,
                   videoId: true,
@@ -78,8 +88,8 @@ export const splitRouter = {
       });
       const { splitExercise, day, name } = splitResponse;
       const exercises = splitExercise.map((splitEx) => {
-        const { exercise, reps, sets } = splitEx;
-        const { id, subcategory, translations, category, videoId } = exercise;
+        const { exercise, reps, sets, id } = splitEx;
+        const { subcategory, translations, category, videoId } = exercise;
         const name = translations[0]!.name;
         return { id, subcategory, name, reps, sets, category, videoId };
       });
@@ -147,35 +157,6 @@ export const splitRouter = {
         nextCursor: splits[take - 1]?.id,
       };
     }),
-  updateExercises: protectedProcedure
-    .input(updateExercisesSchema)
-    .mutation(async ({ ctx: { db, session }, input }) => {
-      if (input.type === 'add') {
-        const exercise = await db.exercise.findUniqueOrThrow({
-          where: { id: input.exerciseId },
-          select: { reps: true, sets: true },
-        });
-
-        await db.splitExercise.create({
-          data: {
-            splitDay: { connect: { id: input.splitId } },
-            exercise: { connect: { id: input.exerciseId } },
-            user: { connect: { id: session.userId } },
-            reps: exercise.reps,
-            sets: exercise.sets,
-          },
-        });
-      } else {
-        await db.splitExercise.deleteMany({
-          where: {
-            splitDayId: input.splitId,
-            exerciseId: input.exerciseId,
-            userId: session.userId,
-          },
-        });
-      }
-      return { success: true };
-    }),
   updateOne: protectedProcedure
     .input(updateSplitSchema)
     .mutation(async ({ ctx: { db, session }, input }) => {
@@ -195,11 +176,51 @@ export const splitRouter = {
     }),
   deleteOne: protectedProcedure
     .input(z.object({ id: z.number() }))
-    .mutation(async ({ ctx: { db, session }, input }) => {
+    .mutation(async ({ ctx: { db }, input }) => {
       await db.splitDay.delete({
         where: {
           id: input.id,
-          userId: session.userId,
+        },
+      });
+      return { success: true };
+    }),
+  updateExercises: protectedProcedure
+    .input(updateExercisesSchema)
+    .mutation(async ({ ctx: { db, session }, input }) => {
+      if (input.type === 'add') {
+        const exercise = await db.exercise.findUniqueOrThrow({
+          where: { id: input.exerciseId },
+          select: { reps: true, sets: true },
+        });
+
+        await db.splitExercise.create({
+          data: {
+            splitDay: { connect: { id: input.splitId } },
+            exercise: { connect: { id: input.exerciseId } },
+            user: { connect: { id: session.userId } },
+            reps: exercise.reps,
+            sets: exercise.sets,
+          },
+        });
+      } else {
+        await db.splitExercise.delete({
+          where: {
+            id: input.exerciseId,
+          },
+        });
+      }
+      return { success: true };
+    }),
+  updateExercise: protectedProcedure
+    .input(updateExerciseSchema)
+    .mutation(async ({ ctx: { db }, input }) => {
+      await db.splitExercise.update({
+        where: {
+          id: input.exerciseId,
+        },
+        data: {
+          reps: input.reps,
+          sets: input.sets,
         },
       });
       return { success: true };
