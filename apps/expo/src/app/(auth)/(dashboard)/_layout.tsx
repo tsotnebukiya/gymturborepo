@@ -1,5 +1,5 @@
-import { TabBarIcon } from '~/components/common/TabBarIcon';
-import WizardComponent from '~/components/generation/Wizard';
+import { TabBarIcon } from '~/components/ui/TabBarIcon';
+import WizardComponent from '~/components/wizard/Wizard';
 import { Tabs } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';

@@ -131,6 +131,8 @@ model Exercise {
     videoEnd          Int
     name              String
     description       String
+    sets              Int
+    reps              Int
     category          Category
     subcategory       Subcategory
     translations      ExerciseTranslation[]
@@ -160,8 +162,8 @@ model SplitExercise {
     exerciseId Int
     user       User     @relation(fields: [userId], references: [id])
     userId     String
-    sets       Int      @default(3)
-    reps       Int      @default(12)
+    sets       Int
+    reps       Int
     splitDay   SplitDay @relation(fields: [splitDayId], references: [id])
     splitDayId Int
     createdAt  DateTime @default(now())

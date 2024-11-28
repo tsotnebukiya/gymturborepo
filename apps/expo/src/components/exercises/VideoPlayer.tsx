@@ -6,7 +6,17 @@ const horizontalPadding = 32; // 16px on each side
 const containerWidth = Dimensions.get('window').width - horizontalPadding;
 const videoHeight = (containerWidth / 16) * 9;
 
-export default function VideoPlayer() {
+interface Props {
+  videoId: string;
+  startSeconds: number;
+  endSeconds: number;
+}
+
+export default function VideoPlayer({
+  videoId,
+  startSeconds,
+  endSeconds,
+}: Props) {
   const [playing, setPlaying] = useState(false);
   const [key, setKey] = useState(0);
 
@@ -27,9 +37,9 @@ export default function VideoPlayer() {
         <YoutubePlayer
           key={key}
           height={videoHeight}
-          videoId="T3N-TO4reLQ"
+          videoId={videoId}
           webViewStyle={{ flex: 1 }}
-          initialPlayerParams={{ start: 100, end: 105 }}
+          initialPlayerParams={{ start: startSeconds, end: endSeconds }}
           play={playing}
           onChangeState={onStateChange}
         />

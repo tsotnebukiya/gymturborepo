@@ -18,6 +18,7 @@
     "@bacons/text-decoder": "^0.0.0",
     "@clerk/clerk-expo": "^2.2.30",
     "@expo/metro-config": "^0.19.4",
+    "@gorhom/bottom-sheet": "^5.0.6",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-picker/picker": "2.9.0",
     "@shopify/flash-list": "1.7.1",

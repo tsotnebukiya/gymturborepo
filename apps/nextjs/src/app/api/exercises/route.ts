@@ -95,6 +95,8 @@ export async function POST(req: NextRequest) {
                 subcategory: exercise.subcategory,
                 name: englishTranslation.name,
                 description: englishTranslation.description,
+                sets: exercise.recommendedSets,
+                reps: exercise.recommendedReps,
                 // Create translations
                 translations: {
                   create: exercise.translations.map((trans) => ({

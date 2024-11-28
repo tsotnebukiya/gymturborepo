@@ -2,9 +2,9 @@ import { StyleSheet, View, Pressable } from 'react-native';
 import { Text } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 import { type RouterOutputs } from '@acme/api';
-import { musclesConstants, splitDayConstants } from '~/utils/constants';
+import { musclesConstants, splitDayConstants } from '~/lib/utils/constants';
 import { router } from 'expo-router';
-import { api } from '~/utils/api';
+import { api } from '~/lib/utils/api';
 import { useCurrentLanguageEnum } from '~/i18n';
 
 export default function SplitItem({

@@ -4,7 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
 import { changeLanguage, resources, type LanguageCode } from '~/i18n';
 import { useTranslation } from 'react-i18next';
-import { api } from '~/utils/api';
+import { api } from '~/lib/utils/api';
 
 interface Props {
   visible: boolean;

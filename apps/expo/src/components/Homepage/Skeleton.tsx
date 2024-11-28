@@ -1,8 +1,8 @@
 import { View } from 'react-native';
 import { Skeleton } from 'moti/skeleton';
-import { generationItemStyles as styles } from './GenerationItem';
+import { generationItemStyles as styles } from './Item';
 
-export default function SkeletonComp() {
+export default function GenerationSkeleton() {
   const colorMode = 'light';
   return (
     <View style={styles.container}>

@@ -1,6 +1,6 @@
 import { StyleSheet, View, Dimensions } from 'react-native';
 import { Skeleton } from 'moti/skeleton';
-import TopBar from '../common/TopBar';
+import TopBar from '../shared/TopBar';
 import { router } from 'expo-router';
 
 const horizontalPadding = 32;

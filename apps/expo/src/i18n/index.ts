@@ -69,7 +69,6 @@ void initI18n();
 export default i18n;
 
 export const changeLanguage = async (lang: LanguageCode) => {
-  console.log('changing language to', lang);
   await AsyncStorage.setItem('language', lang);
   await i18n.changeLanguage(lang);
 };

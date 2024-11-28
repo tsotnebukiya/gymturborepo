@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { Skeleton } from 'moti/skeleton';
-import GradientLayout from '~/components/common/GradientLayout';
+import GradientLayout from '~/components/shared/GradientLayout';
 import ExerciseListSkeleton from '../exercises/SkeletonList';
 
 export default function SplitIndividualSkeleton() {

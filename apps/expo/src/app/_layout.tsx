@@ -1,5 +1,5 @@
-import { CLERK_PUBLISHABLE_KEY, tokenCache } from '~/utils/auth';
-import theme from '~/utils/theme';
+import { CLERK_PUBLISHABLE_KEY, tokenCache } from '~/lib/utils/auth';
+import theme from '~/lib/utils/theme';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { useFonts } from 'expo-font';
 import { Stack, usePathname, useRouter, useSegments } from 'expo-router';
@@ -7,13 +7,14 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ActivityIndicator, PaperProvider } from 'react-native-paper';
-import { TRPCProvider } from '~/utils/api';
+import { TRPCProvider } from '~/lib/utils/api';
 import { View } from 'react-native';
 import '~/i18n';
 import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
 } from 'react-native-reanimated';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
@@ -75,7 +76,9 @@ export default function RootLayoutNav() {
       <TRPCProvider>
         <PaperProvider theme={theme}>
           <GestureHandlerRootView style={{ flex: 1 }}>
-            <InitialLayout />
+            <BottomSheetModalProvider>
+              <InitialLayout />
+            </BottomSheetModalProvider>
           </GestureHandlerRootView>
         </PaperProvider>
       </TRPCProvider>

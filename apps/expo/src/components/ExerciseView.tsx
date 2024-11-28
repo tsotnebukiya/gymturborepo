@@ -1,18 +1,18 @@
 import { StyleSheet, View, Image } from 'react-native';
-import { api, type RouterOutputs } from '~/utils/api';
-import TopBar from '~/components/common/TopBar';
+import { api, type RouterOutputs } from '~/lib/utils/api';
+import TopBar from '~/components/shared/TopBar';
 import { router } from 'expo-router';
-import { musclesConstants } from '~/utils/constants';
+import { musclesConstants } from '~/lib/utils/constants';
 import { Text } from 'react-native-paper';
-import ExerciseSkeleton from './SkeletonItem';
-import VideoPlayer from './VideoPlayer';
-import ScrollView from '../common/ScrollView';
+import ExerciseSkeleton from './exercises/SkeletonItem';
+import VideoPlayer from './exercises/VideoPlayer';
+import ScrollView from './shared/ScrollView';
 import { useCurrentLanguageEnum } from '~/i18n';
 
-type GenerationData = RouterOutputs['exercise']['getOne'];
+type ExerciseData = RouterOutputs['exercise']['getOne'];
 
 interface Props {
-  data?: GenerationData;
+  data?: ExerciseData;
 }
 
 export default function ExerciseView({ data }: Props) {
@@ -80,7 +80,7 @@ export default function ExerciseView({ data }: Props) {
               </View>
             </View>
           </View>
-          <VideoPlayer />
+          <VideoPlayer videoId={data.videoId} startSeconds={0} endSeconds={0} />
         </View>
       </ScrollView>
     </View>

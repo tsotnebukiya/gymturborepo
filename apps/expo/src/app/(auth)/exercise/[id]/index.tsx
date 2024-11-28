@@ -1,10 +1,10 @@
 import { keepPreviousData } from '@tanstack/react-query';
 import { useLocalSearchParams } from 'expo-router';
-import FullExerciseView from '~/components/exercises/ScreenWrapper';
+import ExerciseView from '~/components/ExerciseView';
 import { useCurrentLanguageEnum } from '~/i18n';
-import { api } from '~/utils/api';
+import { api } from '~/lib/utils/api';
 
-export default function ExerciseView() {
+export default function ExerciseScreen() {
   const language = useCurrentLanguageEnum();
   const { id } = useLocalSearchParams();
   const { data } = api.exercise.getOne.useQuery(
@@ -16,5 +16,5 @@ export default function ExerciseView() {
       placeholderData: keepPreviousData,
     }
   );
-  return <FullExerciseView data={data} />;
+  return <ExerciseView data={data} />;
 }

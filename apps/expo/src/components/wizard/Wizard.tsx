@@ -1,11 +1,11 @@
 import { Alert, Linking, Pressable, StyleSheet, View } from 'react-native';
 import { AnimatedFAB, Card, IconButton, Modal, Text } from 'react-native-paper';
 import * as ImagePicker from 'expo-image-picker';
-import { api, type RouterOutputs } from '~/utils/api';
+import { api, type RouterOutputs } from '~/lib/utils/api';
 import { useState } from 'react';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { useRouter } from 'expo-router';
-import { useAppContext } from '../context/AppContext';
+import { useAppContext } from '../../lib/contexts/AppContext';
 import { useCurrentLanguageEnum } from '~/i18n';
 
 type PreviousData = RouterOutputs['generation']['getAll'];
@@ -22,7 +22,6 @@ export default function WizardComponent() {
   const { mutate, isPending } = api.generation.create.useMutation({
     onMutate: async () => {
       setStartTime(Date.now());
-      console.log('Starting mutation at:', new Date().toISOString());
       await utils.generation.getAll.cancel();
       const previousData = utils.generation.getAll.getData();
       utils.generation.getAll.setData(
@@ -122,7 +121,6 @@ export default function WizardComponent() {
       allowsEditing: false,
       quality: 1,
     });
-    console.log('WEAREHERE2');
     await handleImagePicked(result);
   };
   const handleCamera = async () => {

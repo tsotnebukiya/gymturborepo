@@ -1,13 +1,13 @@
 import {
   createContext,
-  Dispatch,
+  type Dispatch,
   type ReactNode,
-  SetStateAction,
+  type SetStateAction,
   useContext,
   useState,
 } from 'react';
 import { type Subcategory } from '@prisma/client';
-import { type GenerationData } from '../exercises/Item';
+import { type GenerationData } from '../../components/exercises/Item';
 
 interface AppContextType {
   wizardVisible: boolean;
@@ -21,15 +21,7 @@ interface AppContextType {
   splitSubcategory: Subcategory | undefined;
   setSplitSubcategory: (subcategory: Subcategory | undefined) => void;
   splitExercises: GenerationData[];
-  setSplitExercises: Dispatch<
-    SetStateAction<
-      {
-        name: string;
-        subcategory: Subcategory;
-        id: number;
-      }[]
-    >
-  >;
+  setSplitExercises: Dispatch<SetStateAction<GenerationData[]>>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);

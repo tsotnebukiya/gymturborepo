@@ -25,15 +25,22 @@ export const splitRouter = {
   createOne: protectedProcedure
     .input(createSplitSchema)
     .mutation(async ({ ctx: { db, session }, input }) => {
+      const exercises = await db.exercise.findMany({
+        where: { id: { in: input.exerciseIds } },
+        select: { id: true, reps: true, sets: true },
+      });
+
       const newSplit = await db.splitDay.create({
         data: {
           name: input.name,
           day: input.day,
           userId: session.userId,
           splitExercise: {
-            create: input.exerciseIds.map((exerciseId) => ({
-              exerciseId,
+            create: exercises.map((exercise) => ({
+              exerciseId: exercise.id,
               userId: session.userId,
+              reps: exercise.reps,
+              sets: exercise.sets,
             })),
           },
         },
@@ -58,6 +65,7 @@ export const splitRouter = {
                   id: true,
                   category: true,
                   subcategory: true,
+                  videoId: true,
                   translations: {
                     where: { language },
                     select: { name: true },
@@ -71,9 +79,9 @@ export const splitRouter = {
       const { splitExercise, day, name } = splitResponse;
       const exercises = splitExercise.map((splitEx) => {
         const { exercise, reps, sets } = splitEx;
-        const { id, subcategory, translations, category } = exercise;
+        const { id, subcategory, translations, category, videoId } = exercise;
         const name = translations[0]!.name;
-        return { id, subcategory, name, reps, sets, category };
+        return { id, subcategory, name, reps, sets, category, videoId };
       });
       const splitDetails = {
         id,
@@ -143,11 +151,18 @@ export const splitRouter = {
     .input(updateExercisesSchema)
     .mutation(async ({ ctx: { db, session }, input }) => {
       if (input.type === 'add') {
+        const exercise = await db.exercise.findUniqueOrThrow({
+          where: { id: input.exerciseId },
+          select: { reps: true, sets: true },
+        });
+
         await db.splitExercise.create({
           data: {
             splitDay: { connect: { id: input.splitId } },
             exercise: { connect: { id: input.exerciseId } },
             user: { connect: { id: session.userId } },
+            reps: exercise.reps,
+            sets: exercise.sets,
           },
         });
       } else {

@@ -2,9 +2,6 @@ import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
 
 import { appRouter, createTRPCContext } from '@acme/api';
 import { auth } from '@clerk/nextjs/server';
-import { log } from 'next-axiom';
-
-let isWarmStart = false;
 
 /**
  * Configure basic CORS headers
@@ -26,9 +23,6 @@ export const OPTIONS = () => {
 };
 
 const handler = async (req: Request) => {
-  const isColdStart = !isWarmStart;
-  isWarmStart = true;
-  console.log('isWarmStart', isWarmStart);
   const authObject = await auth();
   const response = await fetchRequestHandler({
     endpoint: '/api/trpc',
@@ -42,7 +36,6 @@ const handler = async (req: Request) => {
   });
 
   setCorsHeaders(response);
-  log.debug('Cold start:', { isColdStart });
   return response;
 };
 

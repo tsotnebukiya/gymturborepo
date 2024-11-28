@@ -41,6 +41,8 @@ export const exerciseRouter = {
         translations,
         savedExercise,
         generation,
+        sets,
+        reps,
       } = exerciseRespone;
       const name = translations[0]!.name;
       const description = translations[0]!.description;
@@ -58,6 +60,8 @@ export const exerciseRouter = {
         description,
         image,
         isSaved,
+        sets,
+        reps,
       };
       return exercise;
     }),
@@ -72,13 +76,18 @@ export const exerciseRouter = {
     )
     .query(async ({ ctx: { db }, input }) => {
       const { subcategory, searchName, language, cursor } = input;
-      const take = 10;
+      const take = 7;
       const exercises = await db.exercise.findMany({
         where: {
           ...(subcategory && { subcategory: input.subcategory }),
-          ...(searchName && {
-            name: { contains: input.searchName, mode: 'insensitive' },
-          }),
+          translations: {
+            some: {
+              language,
+              ...(searchName && {
+                name: { contains: searchName, mode: 'insensitive' },
+              }),
+            },
+          },
         },
         orderBy: { createdAt: 'desc' },
         take,
@@ -88,6 +97,9 @@ export const exerciseRouter = {
           id: true,
           subcategory: true,
           category: true,
+          videoId: true,
+          sets: true,
+          reps: true,
           translations: {
             where: { language },
             select: { name: true },
@@ -95,13 +107,17 @@ export const exerciseRouter = {
         },
       });
       const result = exercises.map((ex) => {
-        const { id, translations, category, subcategory } = ex;
+        const { id, translations, category, subcategory, videoId, sets, reps } =
+          ex;
         const name = translations[0]!.name;
         return {
           id,
           category,
           subcategory,
           name,
+          videoId,
+          sets,
+          reps,
         };
       });
       return {

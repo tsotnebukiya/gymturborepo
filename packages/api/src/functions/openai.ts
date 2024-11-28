@@ -30,12 +30,14 @@ const exerciseDetailsValidator = z.object({
       subcategory: z.nativeEnum(Subcategory),
       muscles: z.array(muscleDetailsValidator),
       translations: z.array(translationValidator),
+      recommendedReps: z.number(),
+      recommendedSets: z.number(),
     })
   ),
 });
 
 export async function generateExercisesDetails() {
-  const data = exercisesDummyData.slice(90, 100);
+  const data = exercisesDummyData.slice(0, 5);
   // const data = exercisesDummyData;
   const response = await openai.beta.chat.completions.parse({
     model: 'gpt-4o',
@@ -54,7 +56,8 @@ Exercises: ${JSON.stringify(data)}
 For each exercise provide:
 1. The primary muscle category and subcategory
 2. A complete breakdown of all muscles activated during the movement
-3. Translations in all languages (${Object.values(Language).join(', ')})
+3. Recommended number of repetitions and sets for optimal training
+4. Translations in all languages (${Object.values(Language).join(', ')})
 
 Each translation should include:
 - A natural name in that language

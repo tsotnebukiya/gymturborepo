@@ -110,7 +110,10 @@ export const generationRouter = {
           exercise: {
             select: {
               id: true,
+              videoId: true,
               subcategory: true,
+              sets: true,
+              reps: true,
               translations: {
                 where: {
                   language,
@@ -136,9 +139,9 @@ export const generationRouter = {
       const name = translations[0]!.name;
       const description = translations[0]!.description;
       const formattedExercise = exercise.map((ex) => {
-        const { id, subcategory, translations } = ex;
+        const { id, subcategory, translations, videoId, sets, reps } = ex;
         const name = translations[0]!.name;
-        return { id, subcategory, name };
+        return { id, subcategory, name, videoId, sets, reps };
       });
       const generation = {
         id,

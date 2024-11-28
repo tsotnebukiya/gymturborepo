@@ -42,58 +42,58 @@ export const bookmarksRouter = {
         cursor: z.number().optional(),
       })
     )
-    .query(async ({ ctx: { db }, input }) => {
+    .query(async ({ ctx: { db, session }, input }) => {
       const { subcategory, searchName, language, cursor } = input;
-      const take = 5;
-      const bookmarked = await db.savedExercise.findMany({
+      const take = 7;
+      const exercises = await db.exercise.findMany({
         where: {
-          exercise: {
-            ...(subcategory && { subcategory }),
-            translations: {
-              some: {
-                language,
-                ...(searchName && {
-                  name: { contains: searchName, mode: 'insensitive' },
-                }),
-              },
+          ...(subcategory && { subcategory }),
+          translations: {
+            some: {
+              language,
+              ...(searchName && {
+                name: { contains: searchName, mode: 'insensitive' },
+              }),
+            },
+          },
+          savedExercise: {
+            some: {
+              userId: session.userId,
             },
           },
         },
         orderBy: { createdAt: 'desc' },
         take,
         skip: cursor ? 1 : 0,
-        ...(cursor && { cursor: { id: input.cursor } }),
+        ...(cursor && { cursor: { id: cursor } }),
         select: {
           id: true,
-          exercise: {
-            select: {
-              category: true,
-              subcategory: true,
-              id: true,
-              translations: {
-                where: { language },
-                select: { name: true },
-              },
-            },
+          subcategory: true,
+          category: true,
+          sets: true,
+          reps: true,
+          translations: {
+            where: { language },
+            select: { name: true },
           },
+          videoId: true,
         },
       });
-      const result = bookmarked.map((ex) => {
-        const { exercise } = ex;
-        const {
-          category,
-          subcategory,
-          translations,
-          id: exerciseId,
-        } = exercise;
+
+      const result = exercises.map((ex) => {
+        const { id, translations, category, subcategory, sets, reps } = ex;
         const name = translations[0]!.name;
         return {
-          id: exerciseId,
+          id,
           category,
           subcategory,
           name,
+          videoId: ex.videoId,
+          sets,
+          reps,
         };
       });
+
       return {
         result,
         nextCursor: result[take - 1]?.id,

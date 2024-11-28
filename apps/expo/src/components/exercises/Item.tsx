@@ -1,9 +1,8 @@
 import { Image, StyleSheet, View, Pressable } from 'react-native';
-import { api, type RouterOutputs } from '~/utils/api';
+import { api, type RouterOutputs } from '~/lib/utils/api';
 import { router } from 'expo-router';
-import { musclesConstants } from '~/utils/constants';
-import { Text } from 'react-native-paper';
-import { useAppContext } from '../context/AppContext';
+import { musclesConstants } from '~/lib/utils/constants';
+import { Text, IconButton } from 'react-native-paper';
 import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 import Animated, {
   useAnimatedStyle,
@@ -17,12 +16,19 @@ export type GenerationData = NonNullable<
 
 interface Props {
   data: GenerationData;
-  type: 'generation' | 'saved' | 'split' | 'by-muscle';
+  showSets?: boolean;
   onSwipe?: (id: number) => void;
+  handlePress?: (id: number, exercise: GenerationData) => void;
+  handleMoreOptions?: (id: number, exercise: GenerationData) => void;
 }
 
-export default function ExerciseItem({ data, type, onSwipe }: Props) {
-  const { setSplitExercises } = useAppContext();
+export default function ExerciseItem({
+  data,
+  showSets,
+  onSwipe,
+  handlePress,
+  handleMoreOptions,
+}: Props) {
   const language = useCurrentLanguageEnum();
   api.exercise.getOne.usePrefetchQuery({ id: data.id, language });
   const exercise = data;
@@ -54,25 +60,14 @@ export default function ExerciseItem({ data, type, onSwipe }: Props) {
       </Animated.View>
     );
   };
-
-  const handlePress = (exerciseId: string) => {
-    if (type === 'saved') {
+  const handleItemPress = (id: number) => {
+    if (handlePress) {
+      handlePress(id, exercise);
+    } else {
       router.push({
         pathname: `/(auth)/exercise/[id]`,
-        params: { id: exerciseId },
+        params: { id },
       });
-    } else if (type === 'generation') {
-      router.push({
-        pathname: '/(auth)/generated/[id]/[exercise]',
-        params: { exercise: exerciseId, id: data.id },
-      });
-    } else {
-      setSplitExercises((prev) => {
-        const exists = prev.some((ex) => ex.id === exercise.id);
-        if (exists) return prev;
-        return [...prev, exercise];
-      });
-      router.back();
     }
   };
   return (
@@ -85,7 +80,7 @@ export default function ExerciseItem({ data, type, onSwipe }: Props) {
         enabled={!!onSwipe}
       >
         <Pressable
-          onPress={() => handlePress(exercise.id.toString())}
+          onPress={() => handleItemPress(exercise.id)}
           style={({ pressed }) => [
             styles.exerciseItem,
             pressed && styles.exerciseItemPressed,
@@ -93,22 +88,51 @@ export default function ExerciseItem({ data, type, onSwipe }: Props) {
         >
           <Image
             source={{
-              uri: 'https://img.youtube.com/vi/T3N-TO4reLQ/maxresdefault.jpg',
+              uri: `https://img.youtube.com/vi/${data.videoId}/maxresdefault.jpg`,
             }}
             style={styles.exerciseImage}
           />
           <View style={styles.exerciseContent}>
-            <Text style={styles.exerciseTitle}>{exercise.name}</Text>
-            <View style={styles.muscleGroup}>
-              <Image
-                source={musclesConstants[exercise.subcategory].icon}
-                style={styles.muscleIcon}
-              />
-              <Text variant="bodyMedium" style={styles.muscleText}>
-                {musclesConstants[exercise.subcategory].label}
-              </Text>
-            </View>
+            <Text
+              style={styles.exerciseTitle}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
+              {exercise.name}
+            </Text>
+            {showSets ? (
+              <View style={styles.setsContainerBordered}>
+                <View style={styles.setRepBordered}>
+                  <Text style={styles.setRepTextBordered}>{data.sets}</Text>
+                  <Text style={styles.setRepLabelBordered}>Sets</Text>
+                </View>
+                <View style={styles.setRepBordered}>
+                  <Text style={styles.setRepTextBordered}>{data.reps}</Text>
+                  <Text style={styles.setRepLabelBordered}>Reps</Text>
+                </View>
+              </View>
+            ) : (
+              <View style={styles.muscleGroup}>
+                <Image
+                  source={musclesConstants[exercise.subcategory].icon}
+                  style={styles.muscleIcon}
+                />
+                <Text variant="bodyMedium" style={styles.muscleText}>
+                  {musclesConstants[exercise.subcategory].label}
+                </Text>
+              </View>
+            )}
           </View>
+          {handleMoreOptions && (
+            <View>
+              <IconButton
+                icon="dots-vertical"
+                size={24}
+                style={styles.kebabButton}
+                onPress={() => handleMoreOptions(exercise.id, exercise)}
+              />
+            </View>
+          )}
         </Pressable>
       </Swipeable>
     </View>
@@ -133,8 +157,7 @@ const styles = StyleSheet.create({
   exerciseItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 16,
-    padding: 16,
+    padding: 8,
     backgroundColor: '#ffffff',
     borderRadius: 16,
   },
@@ -151,17 +174,27 @@ const styles = StyleSheet.create({
     gap: 10,
     justifyContent: 'center',
     height: 90,
+    marginVertical: 0,
+    marginLeft: 16,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  kebabButton: {
+    margin: 0,
   },
   exerciseTitle: {
     fontSize: 16,
     fontWeight: '600',
     color: '#1a1a1a',
-    marginBottom: 4,
+    flex: 1,
+    marginRight: 8,
   },
   muscleGroup: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 4,
   },
   muscleIcon: {
     width: 48,
@@ -184,5 +217,34 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: '600',
+  },
+  setsContainer: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 8,
+    flexWrap: 'wrap',
+  },
+  setsContainerBordered: {
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 8,
+  },
+  setRepBordered: {
+    borderWidth: 2,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 6,
+    minWidth: 60,
+    alignItems: 'center',
+  },
+  setRepTextBordered: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  setRepLabelBordered: {
+    fontSize: 12,
+    color: '#666',
+    marginTop: 2,
   },
 });

@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
-import TopBar from '~/components/common/TopBar';
+import TopBar from '~/components/shared/TopBar';
 import { useRouter } from 'expo-router';
-import SocialIcon from './SocialButton';
+import SocialIcon from '~/components/ui/SocialButton';
 import { Text } from 'react-native-paper';
 
 interface Props {

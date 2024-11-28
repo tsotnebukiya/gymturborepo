@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
-import { CategoryProvider } from '~/components/context/CategoryContext';
+import { CategoryProvider } from '~/lib/contexts/CategoryContext';
 
 export default function GenerationLayout() {
   return (

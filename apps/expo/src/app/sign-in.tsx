@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { useOAuth } from '@clerk/clerk-expo';
 import * as Linking from 'expo-linking';
-import SignInComponent from '~/components/auth/SignIn';
+import SignInComponent from '~/components/SignIn';
 
 export const useWarmUpBrowser = () => {
   useEffect(() => {

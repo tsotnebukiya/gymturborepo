@@ -1,7 +1,7 @@
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
-import { splitDayConstants, type SplitDayKey } from '~/utils/constants';
+import { splitDayConstants, type SplitDayKey } from '~/lib/utils/constants';
 import { useState, useEffect } from 'react';
 
 interface Props {

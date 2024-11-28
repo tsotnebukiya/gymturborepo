@@ -1,6 +1,6 @@
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
-import { api, type RouterOutputs } from '~/utils/api';
+import { api, type RouterOutputs } from '~/lib/utils/api';
 import LottieView from 'lottie-react-native';
 import { Skeleton } from 'moti/skeleton';
 import { useRouter } from 'expo-router';

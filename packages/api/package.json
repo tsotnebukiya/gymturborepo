@@ -17,7 +17,7 @@
     "db:reset": "pnpm with-env prisma db push --force-reset",
     "build": "pnpm db:generate && tsc --noEmit",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
-    "dev": "tsc --incremental false",
+    "dev": "tsc --watch --preserveWatchOutput",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",

@@ -1,6 +1,6 @@
-import ExerciseView from '~/components/exercises/ExerciseScreen';
+import ExerciseView from '~/components/ExerciseView';
 import { useLocalSearchParams } from 'expo-router';
-import { api } from '~/utils/api';
+import { api } from '~/lib/utils/api';
 import { useCurrentLanguageEnum } from '~/i18n';
 import { keepPreviousData } from '@tanstack/react-query';
 

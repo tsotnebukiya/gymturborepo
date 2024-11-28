@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Gradient from './Gradient';
+import Gradient from '../ui/Gradient';
 
 export default function GradientLayout({
   children,

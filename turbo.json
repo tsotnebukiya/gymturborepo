@@ -22,9 +22,21 @@
       "outputs": [".cache/tsbuildinfo.json", "dist/**"]
     },
     "dev": {
-      "dependsOn": ["^dev"],
+      "persistent": true,
+      "cache": false
+    },
+    "@acme/api#dev": {
+      "persistent": true,
       "cache": false,
-      "persistent": false
+      "outputs": ["dist/**"]
+    },
+    "@acme/expo#dev": {
+      "persistent": true,
+      "cache": false
+    },
+    "@acme/nextjs#dev": {
+      "persistent": true,
+      "cache": false
     },
     "format": {
       "outputs": [".cache/.prettiercache"],
