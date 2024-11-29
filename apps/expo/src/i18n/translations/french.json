@@ -36,6 +36,15 @@
     "createDescription": "Créez une nouvelle séance pour commencer à vous entraîner avec l'IA",
     "splitName": "Nom de la Séance",
     "selectWeekday": "Sélectionner le Jour",
+    "days": {
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi",
+      "saturday": "Samedi",
+      "sunday": "Dimanche"
+    },
     "repsAndSets": {
       "title": "Sélectionner Répétitions et Séries",
       "sets": "Séries",
@@ -50,6 +59,37 @@
   "categories": {
     "title": "Catégories",
     "exerciseName": "Nom de l'Exercice"
+  },
+  "muscles": {
+    "categories": {
+      "core": "Core",
+      "back": "Dos",
+      "arms": "Bras",
+      "chest": "Poitrine",
+      "shoulders": "Épaules",
+      "legs": "Jambes"
+    },
+    "upper_abs": "Abdominaux Supérieurs",
+    "lower_abs": "Abdominaux Inférieurs",
+    "side_abs": "Abdominaux Latéraux",
+    "abs": "Abdominaux",
+    "upper_back": "Haut du Dos",
+    "middle_back": "Milieu du Dos",
+    "lower_back": "Bas du Dos",
+    "biceps": "Biceps",
+    "triceps": "Triceps",
+    "wrist_extensors": "Extenseurs du Poignet",
+    "wrist_flexors": "Fléchisseurs du Poignet",
+    "chest": "Poitrine",
+    "rear_shoulder": "Épaule Postérieure",
+    "front_shoulder": "Épaule Antérieure",
+    "side_shoulder": "Épaule Latérale",
+    "quadriceps": "Quadriceps",
+    "hamstrings": "Ischio-jambiers",
+    "calves": "Mollets",
+    "glutes": "Fessiers",
+    "inner_thighs": "Adducteurs",
+    "outer_thighs": "Abducteurs"
   },
   "auth": {
     "continueWith": {

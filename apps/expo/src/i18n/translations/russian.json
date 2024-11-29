@@ -36,6 +36,15 @@
     "createDescription": "Создайте новую тренировку, чтобы начать тренироваться с ИИ",
     "splitName": "Название тренировки",
     "selectWeekday": "Выберите день недели",
+    "days": {
+      "monday": "Понедельник",
+      "tuesday": "Вторник",
+      "wednesday": "Среда",
+      "thursday": "Четверг",
+      "friday": "Пятница",
+      "saturday": "Суббота",
+      "sunday": "Воскресенье"
+    },
     "repsAndSets": {
       "title": "Выберите повторения и подходы",
       "sets": "Подходы",
@@ -50,6 +59,37 @@
   "categories": {
     "title": "Категории",
     "exerciseName": "Название упражнения"
+  },
+  "muscles": {
+    "categories": {
+      "core": "Кор",
+      "back": "Спина",
+      "arms": "Руки",
+      "chest": "Грудь",
+      "shoulders": "Плечи",
+      "legs": "Ноги"
+    },
+    "upper_abs": "Верхний пресс",
+    "lower_abs": "Нижний пресс",
+    "side_abs": "Боковой пресс",
+    "abs": "Пресс",
+    "upper_back": "Верхняя часть спины",
+    "middle_back": "Средняя часть спины",
+    "lower_back": "Поясница",
+    "biceps": "Бицепс",
+    "triceps": "Трицепс",
+    "wrist_extensors": "Разгибатели запястья",
+    "wrist_flexors": "Сгибатели запястья",
+    "chest": "Грудь",
+    "rear_shoulder": "Задняя дельта",
+    "front_shoulder": "Передняя дельта",
+    "side_shoulder": "Средняя дельта",
+    "quadriceps": "Квадрицепс",
+    "hamstrings": "Бицепс бедра",
+    "calves": "Икры",
+    "glutes": "Ягодицы",
+    "inner_thighs": "Внутренняя часть бедра",
+    "outer_thighs": "Внешняя часть бедра"
   },
   "auth": {
     "continueWith": {

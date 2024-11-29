@@ -3,13 +3,14 @@ import { useAppContext } from '~/lib/contexts/AppContext';
 import { StyleSheet, View, Image, Pressable } from 'react-native';
 import { Text } from 'react-native-paper';
 import TopBar from '~/components/shared/TopBar';
-import { muscleCategories, musclesConstants } from '~/lib/utils/constants';
+import { muscleCategories, useMusclesConstants } from '~/lib/utils/constants';
 import { type PrismaTypes } from '@acme/api';
 import ScrollView from '~/components/shared/ScrollView';
 
 type Subcategory = PrismaTypes.$Enums.Subcategory;
 
 export default function CategoryListScreen() {
+  const musclesConstants = useMusclesConstants();
   const { type } = useLocalSearchParams<{
     type: 'new' | 'saved' | 'split';
   }>();

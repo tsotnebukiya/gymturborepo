@@ -36,6 +36,15 @@
     "createDescription": "创建新的训练计划，开始AI训练",
     "splitName": "训练名称",
     "selectWeekday": "选择星期",
+    "days": {
+      "monday": "星期一",
+      "tuesday": "星期二",
+      "wednesday": "星期三",
+      "thursday": "星期四",
+      "friday": "星期五",
+      "saturday": "星期六",
+      "sunday": "星期日"
+    },
     "repsAndSets": {
       "title": "选择组数和次数",
       "sets": "组数",
@@ -50,6 +59,37 @@
   "categories": {
     "title": "分类",
     "exerciseName": "运动名称"
+  },
+  "muscles": {
+    "categories": {
+      "core": "核心",
+      "back": "背部",
+      "arms": "手臂",
+      "chest": "胸部",
+      "shoulders": "肩部",
+      "legs": "腿部"
+    },
+    "upper_abs": "上腹肌",
+    "lower_abs": "下腹肌",
+    "side_abs": "侧腹肌",
+    "abs": "腹肌",
+    "upper_back": "上背部",
+    "middle_back": "中背部",
+    "lower_back": "下背部",
+    "biceps": "二头肌",
+    "triceps": "三头肌",
+    "wrist_extensors": "手腕伸肌",
+    "wrist_flexors": "手腕屈肌",
+    "chest": "胸部",
+    "rear_shoulder": "后三角肌",
+    "front_shoulder": "前三角肌",
+    "side_shoulder": "中三角肌",
+    "quadriceps": "股四头肌",
+    "hamstrings": "腘绳肌",
+    "calves": "小腿肌",
+    "glutes": "臀部肌群",
+    "inner_thighs": "大腿内侧",
+    "outer_thighs": "大腿外侧"
   },
   "auth": {
     "continueWith": {

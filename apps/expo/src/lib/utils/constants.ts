@@ -1,130 +1,128 @@
 import { type PrismaTypes } from '@acme/api';
+import { useTranslation } from 'react-i18next';
 
-export const musclesConstants: Record<
-  PrismaTypes.$Enums.Subcategory,
-  {
-    icon: number;
-    label: string;
-    category: string;
-  }
-> = {
-  // Core
-  UPPER_ABS: {
-    icon: require('~/assets/muscles/upperabs.png'),
-    label: 'Upper Abs',
-    category: 'Core',
-  },
-  LOWER_ABS: {
-    icon: require('~/assets/muscles/lowerabs.png'),
-    label: 'Lower Abs',
-    category: 'Core',
-  },
-  SIDE_ABS: {
-    icon: require('~/assets/muscles/sideabs.png'),
-    label: 'Side Abs',
-    category: 'Core',
-  },
-  ABDOMINALS: {
-    icon: require('~/assets/muscles/abdominals.png'),
-    label: 'Abdominals',
-    category: 'Core',
-  },
+export function useMusclesConstants() {
+  const { t } = useTranslation();
 
-  // Back
-  UPPER_BACK: {
-    icon: require('~/assets/muscles/upperback.png'),
-    label: 'Upper Back',
-    category: 'Back',
-  },
-  MIDDLE_BACK: {
-    icon: require('~/assets/muscles/middleback.png'),
-    label: 'Middle Back',
-    category: 'Back',
-  },
-  LOWER_BACK: {
-    icon: require('~/assets/muscles/lowerback.png'),
-    label: 'Lower Back',
-    category: 'Back',
-  },
+  return {
+    // Core
+    UPPER_ABS: {
+      icon: require('~/assets/muscles/upperabs.png'),
+      label: t('muscles.upper_abs'),
+      category: 'Core',
+    },
+    LOWER_ABS: {
+      icon: require('~/assets/muscles/lowerabs.png'),
+      label: t('muscles.lower_abs'),
+      category: 'Core',
+    },
+    SIDE_ABS: {
+      icon: require('~/assets/muscles/sideabs.png'),
+      label: t('muscles.side_abs'),
+      category: 'Core',
+    },
+    ABDOMINALS: {
+      icon: require('~/assets/muscles/abdominals.png'),
+      label: t('muscles.abs'),
+      category: 'Core',
+    },
 
-  // Arms
-  BICEPS: {
-    icon: require('~/assets/muscles/biceps.png'),
-    label: 'Biceps',
-    category: 'Arms',
-  },
-  TRICEPS: {
-    icon: require('~/assets/muscles/triceps.png'),
-    label: 'Triceps',
-    category: 'Arms',
-  },
-  WRIST_EXTENSORS: {
-    icon: require('~/assets/muscles/wristextensors.png'),
-    label: 'Wrist Extensors',
-    category: 'Arms',
-  },
-  WRIST_FLEXORS: {
-    icon: require('~/assets/muscles/wristflexors.png'),
-    label: 'Wrist Flexors',
-    category: 'Arms',
-  },
+    // Back
+    UPPER_BACK: {
+      icon: require('~/assets/muscles/upperback.png'),
+      label: t('muscles.upper_back'),
+      category: 'Back',
+    },
+    MIDDLE_BACK: {
+      icon: require('~/assets/muscles/middleback.png'),
+      label: t('muscles.middle_back'),
+      category: 'Back',
+    },
+    LOWER_BACK: {
+      icon: require('~/assets/muscles/lowerback.png'),
+      label: t('muscles.lower_back'),
+      category: 'Back',
+    },
 
-  // Chest
-  CHEST: {
-    icon: require('~/assets/muscles/chest.png'),
-    label: 'Chest',
-    category: 'Chest',
-  },
+    // Arms
+    BICEPS: {
+      icon: require('~/assets/muscles/biceps.png'),
+      label: t('muscles.biceps'),
+      category: 'Arms',
+    },
+    TRICEPS: {
+      icon: require('~/assets/muscles/triceps.png'),
+      label: t('muscles.triceps'),
+      category: 'Arms',
+    },
+    WRIST_EXTENSORS: {
+      icon: require('~/assets/muscles/wristextensors.png'),
+      label: t('muscles.wrist_extensors'),
+      category: 'Arms',
+    },
+    WRIST_FLEXORS: {
+      icon: require('~/assets/muscles/wristflexors.png'),
+      label: t('muscles.wrist_flexors'),
+      category: 'Arms',
+    },
 
-  // Shoulders
-  REAR_SHOULDER: {
-    icon: require('~/assets/muscles/rearshoulder.png'),
-    label: 'Rear Shoulder',
-    category: 'Shoulders',
-  },
-  FRONT_SHOULDER: {
-    icon: require('~/assets/muscles/frontshoulder.png'),
-    label: 'Front Shoulder',
-    category: 'Shoulders',
-  },
-  SIDE_SHOULDER: {
-    icon: require('~/assets/muscles/placeholder.png'),
-    label: 'Side Shoulder',
-    category: 'Shoulders',
-  },
+    // Chest
+    CHEST: {
+      icon: require('~/assets/muscles/chest.png'),
+      label: t('muscles.chest'),
+      category: 'Chest',
+    },
 
-  // Legs
-  QUADRICEPS: {
-    icon: require('~/assets/muscles/quadriceps.png'),
-    label: 'Quadriceps',
-    category: 'Legs',
-  },
-  HAMSTRINGS: {
-    icon: require('~/assets/muscles/hamstrings.png'),
-    label: 'Hamstrings',
-    category: 'Legs',
-  },
-  CALVES: {
-    icon: require('~/assets/muscles/calves.png'),
-    label: 'Calves',
-    category: 'Legs',
-  },
-  GLUTES: {
-    icon: require('~/assets/muscles/glutes.png'),
-    label: 'Glutes',
-    category: 'Legs',
-  },
-  INNER_THIGHS: {
-    icon: require('~/assets/muscles/innerthighs.png'),
-    label: 'Inner Thighs',
-    category: 'Legs',
-  },
-  OUTER_THIGHS: {
-    icon: require('~/assets/muscles/outerthighs.png'),
-    label: 'Outer Thighs',
-    category: 'Legs',
-  },
-} as const;
+    // Shoulders
+    REAR_SHOULDER: {
+      icon: require('~/assets/muscles/rearshoulder.png'),
+      label: t('muscles.rear_shoulder'),
+      category: 'Shoulders',
+    },
+    FRONT_SHOULDER: {
+      icon: require('~/assets/muscles/frontshoulder.png'),
+      label: t('muscles.front_shoulder'),
+      category: 'Shoulders',
+    },
+    SIDE_SHOULDER: {
+      icon: require('~/assets/muscles/placeholder.png'),
+      label: t('muscles.side_shoulder'),
+      category: 'Shoulders',
+    },
+
+    // Legs
+    QUADRICEPS: {
+      icon: require('~/assets/muscles/quadriceps.png'),
+      label: t('muscles.quadriceps'),
+      category: 'Legs',
+    },
+    HAMSTRINGS: {
+      icon: require('~/assets/muscles/hamstrings.png'),
+      label: t('muscles.hamstrings'),
+      category: 'Legs',
+    },
+    CALVES: {
+      icon: require('~/assets/muscles/calves.png'),
+      label: t('muscles.calves'),
+      category: 'Legs',
+    },
+    GLUTES: {
+      icon: require('~/assets/muscles/glutes.png'),
+      label: t('muscles.glutes'),
+      category: 'Legs',
+    },
+    INNER_THIGHS: {
+      icon: require('~/assets/muscles/innerthighs.png'),
+      label: t('muscles.inner_thighs'),
+      category: 'Legs',
+    },
+    OUTER_THIGHS: {
+      icon: require('~/assets/muscles/outerthighs.png'),
+      label: t('muscles.outer_thighs'),
+      category: 'Legs',
+    },
+  } as const;
+}
 
 export const muscleCategories = Object.entries(musclesConstants).reduce<
   {
@@ -160,19 +158,19 @@ export const muscleCategories = Object.entries(musclesConstants).reduce<
   return acc;
 }, []);
 
-export type MuscleKey = keyof typeof musclesConstants;
+export function useSplitDayConstants() {
+  const { t } = useTranslation();
 
-export const splitDayConstants: Record<
-  PrismaTypes.$Enums.SplitWeekDay,
-  string
-> = {
-  MONDAY: 'Monday',
-  TUESDAY: 'Tuesday',
-  WEDNESDAY: 'Wednesday',
-  THURSDAY: 'Thursday',
-  FRIDAY: 'Friday',
-  SATURDAY: 'Saturday',
-  SUNDAY: 'Sunday',
-} as const;
+  return {
+    MONDAY: t('splits.days.monday'),
+    TUESDAY: t('splits.days.tuesday'),
+    WEDNESDAY: t('splits.days.wednesday'),
+    THURSDAY: t('splits.days.thursday'),
+    FRIDAY: t('splits.days.friday'),
+    SATURDAY: t('splits.days.saturday'),
+    SUNDAY: t('splits.days.sunday'),
+  } as const;
+}
 
-export type SplitDayKey = keyof typeof splitDayConstants;
+export type MuscleKey = PrismaTypes.$Enums.Subcategory;
+export type SplitDayKey = PrismaTypes.$Enums.SplitWeekDay;

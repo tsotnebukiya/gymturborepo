@@ -36,6 +36,15 @@
     "createDescription": "Create a new split to start training with AI",
     "splitName": "Split Name",
     "selectWeekday": "Select Weekday",
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
     "repsAndSets": {
       "title": "Select Reps & Sets",
       "sets": "Sets",
@@ -50,6 +59,37 @@
   "categories": {
     "title": "Categories",
     "exerciseName": "Exercise Name"
+  },
+  "muscles": {
+    "categories": {
+      "core": "Core",
+      "back": "Back",
+      "arms": "Arms",
+      "chest": "Chest",
+      "shoulders": "Shoulders",
+      "legs": "Legs"
+    },
+    "upper_abs": "Upper Abs",
+    "lower_abs": "Lower Abs",
+    "side_abs": "Side Abs",
+    "abs": "Abdominals",
+    "upper_back": "Upper Back",
+    "middle_back": "Middle Back",
+    "lower_back": "Lower Back",
+    "biceps": "Biceps",
+    "triceps": "Triceps",
+    "wrist_extensors": "Wrist Extensors",
+    "wrist_flexors": "Wrist Flexors",
+    "chest": "Chest",
+    "rear_shoulder": "Rear Shoulder",
+    "front_shoulder": "Front Shoulder",
+    "side_shoulder": "Side Shoulder",
+    "quadriceps": "Quadriceps",
+    "hamstrings": "Hamstrings",
+    "calves": "Calves",
+    "glutes": "Glutes",
+    "inner_thighs": "Inner Thighs",
+    "outer_thighs": "Outer Thighs"
   },
   "auth": {
     "continueWith": {

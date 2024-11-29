@@ -2,7 +2,10 @@ import { StyleSheet, View, Pressable } from 'react-native';
 import { Text } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 import { type RouterOutputs } from '@acme/api';
-import { musclesConstants, splitDayConstants } from '~/lib/utils/constants';
+import {
+  useMusclesConstants,
+  useSplitDayConstants,
+} from '~/lib/utils/constants';
 import { router } from 'expo-router';
 import { api } from '~/lib/utils/api';
 import { useCurrentLanguageEnum } from '~/i18n';
@@ -13,6 +16,9 @@ export default function SplitItem({
   item: RouterOutputs['split']['getAll']['splits'][number];
 }) {
   const language = useCurrentLanguageEnum();
+  const musclesConstants = useMusclesConstants();
+  const splitDayConstants = useSplitDayConstants();
+
   api.split.getOne.usePrefetchQuery({ id: item.id, language });
   const handlePress = () => {
     router.push({
@@ -55,6 +61,7 @@ export default function SplitItem({
           {item.subcategories.map((muscle, index) => (
             <View key={index} style={styles.muscleTag}>
               <Text style={styles.muscleText}>
+                {musclesConstants[muscle].label}
                 {musclesConstants[muscle].label}
               </Text>
             </View>

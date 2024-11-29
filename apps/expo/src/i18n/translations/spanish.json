@@ -36,6 +36,15 @@
     "createDescription": "Crea una nueva división para comenzar a entrenar con IA",
     "splitName": "Nombre de la División",
     "selectWeekday": "Seleccionar Día de la Semana",
+    "days": {
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
+    },
     "repsAndSets": {
       "title": "Seleccionar Repeticiones y Series",
       "sets": "Series",
@@ -50,6 +59,37 @@
   "categories": {
     "title": "Categorías",
     "exerciseName": "Nombre del Ejercicio"
+  },
+  "muscles": {
+    "categories": {
+      "core": "Core",
+      "back": "Espalda",
+      "arms": "Brazos",
+      "chest": "Pecho",
+      "shoulders": "Hombros",
+      "legs": "Piernas"
+    },
+    "upper_abs": "Abdominales Superiores",
+    "lower_abs": "Abdominales Inferiores",
+    "side_abs": "Abdominales Laterales",
+    "abs": "Abdominales",
+    "upper_back": "Espalda Superior",
+    "middle_back": "Espalda Media",
+    "lower_back": "Espalda Baja",
+    "biceps": "Bíceps",
+    "triceps": "Tríceps",
+    "wrist_extensors": "Extensores de Muñeca",
+    "wrist_flexors": "Flexores de Muñeca",
+    "chest": "Pecho",
+    "rear_shoulder": "Hombro Posterior",
+    "front_shoulder": "Hombro Frontal",
+    "side_shoulder": "Hombro Lateral",
+    "quadriceps": "Cuádriceps",
+    "hamstrings": "Isquiotibiales",
+    "calves": "Gemelos",
+    "glutes": "Glúteos",
+    "inner_thighs": "Muslos Internos",
+    "outer_thighs": "Muslos Externos"
   },
   "auth": {
     "continueWith": {

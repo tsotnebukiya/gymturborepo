@@ -36,6 +36,15 @@
     "createDescription": "Erstellen Sie einen neuen Trainingsplan, um mit KI zu trainieren",
     "splitName": "Name des Trainingsplans",
     "selectWeekday": "Wochentag auswählen",
+    "days": {
+      "monday": "Montag",
+      "tuesday": "Dienstag",
+      "wednesday": "Mittwoch",
+      "thursday": "Donnerstag",
+      "friday": "Freitag",
+      "saturday": "Samstag",
+      "sunday": "Sonntag"
+    },
     "repsAndSets": {
       "title": "Wiederholungen & Sätze auswählen",
       "sets": "Sätze",
@@ -50,6 +59,37 @@
   "categories": {
     "title": "Kategorien",
     "exerciseName": "Übungsname"
+  },
+  "muscles": {
+    "categories": {
+      "core": "Core",
+      "back": "Rücken",
+      "arms": "Arme",
+      "chest": "Brust",
+      "shoulders": "Schultern",
+      "legs": "Beine"
+    },
+    "upper_abs": "Obere Bauchmuskeln",
+    "lower_abs": "Untere Bauchmuskeln",
+    "side_abs": "Seitliche Bauchmuskeln",
+    "abs": "Bauchmuskeln",
+    "upper_back": "Oberer Rücken",
+    "middle_back": "Mittlerer Rücken",
+    "lower_back": "Unterer Rücken",
+    "biceps": "Bizeps",
+    "triceps": "Trizeps",
+    "wrist_extensors": "Handgelenk-Extensoren",
+    "wrist_flexors": "Handgelenk-Flexoren",
+    "chest": "Brust",
+    "rear_shoulder": "Hintere Schulter",
+    "front_shoulder": "Vordere Schulter",
+    "side_shoulder": "Seitliche Schulter",
+    "quadriceps": "Quadrizeps",
+    "hamstrings": "Oberschenkelbizeps",
+    "calves": "Waden",
+    "glutes": "Gesäßmuskeln",
+    "inner_thighs": "Innere Oberschenkel",
+    "outer_thighs": "Äußere Oberschenkel"
   },
   "auth": {
     "continueWith": {

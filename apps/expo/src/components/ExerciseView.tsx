@@ -2,7 +2,7 @@ import { StyleSheet, View, Image } from 'react-native';
 import { api, type RouterOutputs } from '~/lib/utils/api';
 import TopBar from '~/components/shared/TopBar';
 import { router } from 'expo-router';
-import { musclesConstants } from '~/lib/utils/constants';
+import { useMusclesConstants } from '~/lib/utils/constants';
 import { Text } from 'react-native-paper';
 import ExerciseSkeleton from './exercises/SkeletonItem';
 import VideoPlayer from './exercises/VideoPlayer';
@@ -17,6 +17,7 @@ interface Props {
 
 export default function ExerciseView({ data }: Props) {
   const language = useCurrentLanguageEnum();
+  const musclesConstants = useMusclesConstants();
   const utils = api.useUtils();
   const { mutate: bookmark, isPending } = api.bookmark.bookmark.useMutation({
     onSettled: async () => {

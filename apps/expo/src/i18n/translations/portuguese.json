@@ -36,6 +36,15 @@
     "createDescription": "Crie um novo treino para começar a treinar com IA",
     "splitName": "Nome do Treino",
     "selectWeekday": "Selecionar Dia da Semana",
+    "days": {
+      "monday": "Segunda-feira",
+      "tuesday": "Terça-feira",
+      "wednesday": "Quarta-feira",
+      "thursday": "Quinta-feira",
+      "friday": "Sexta-feira",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
+    },
     "repsAndSets": {
       "title": "Selecionar Repetições e Séries",
       "sets": "Séries",
@@ -50,6 +59,37 @@
   "categories": {
     "title": "Categorias",
     "exerciseName": "Nome do Exercício"
+  },
+  "muscles": {
+    "categories": {
+      "core": "Core",
+      "back": "Costas",
+      "arms": "Braços",
+      "chest": "Peito",
+      "shoulders": "Ombros",
+      "legs": "Pernas"
+    },
+    "upper_abs": "Abdominais Superiores",
+    "lower_abs": "Abdominais Inferiores",
+    "side_abs": "Abdominais Laterais",
+    "abs": "Abdominais",
+    "upper_back": "Costas Superiores",
+    "middle_back": "Costas Médias",
+    "lower_back": "Lombar",
+    "biceps": "Bíceps",
+    "triceps": "Tríceps",
+    "wrist_extensors": "Extensores do Pulso",
+    "wrist_flexors": "Flexores do Pulso",
+    "chest": "Peito",
+    "rear_shoulder": "Ombro Posterior",
+    "front_shoulder": "Ombro Frontal",
+    "side_shoulder": "Ombro Lateral",
+    "quadriceps": "Quadríceps",
+    "hamstrings": "Posteriores da Coxa",
+    "calves": "Panturrilhas",
+    "glutes": "Glúteos",
+    "inner_thighs": "Parte Interna da Coxa",
+    "outer_thighs": "Parte Externa da Coxa"
   },
   "auth": {
     "continueWith": {

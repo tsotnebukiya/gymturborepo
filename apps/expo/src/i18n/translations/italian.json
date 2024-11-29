@@ -36,6 +36,15 @@
     "createDescription": "Crea un nuovo allenamento per iniziare ad allenarti con l'IA",
     "splitName": "Nome Allenamento",
     "selectWeekday": "Seleziona Giorno",
+    "days": {
+      "monday": "Lunedì",
+      "tuesday": "Martedì",
+      "wednesday": "Mercoledì",
+      "thursday": "Giovedì",
+      "friday": "Venerdì",
+      "saturday": "Sabato",
+      "sunday": "Domenica"
+    },
     "repsAndSets": {
       "title": "Seleziona Ripetizioni e Serie",
       "sets": "Serie",
@@ -50,6 +59,37 @@
   "categories": {
     "title": "Categorie",
     "exerciseName": "Nome Esercizio"
+  },
+  "muscles": {
+    "categories": {
+      "core": "Core",
+      "back": "Schiena",
+      "arms": "Braccia",
+      "chest": "Petto",
+      "shoulders": "Spalle",
+      "legs": "Gambe"
+    },
+    "upper_abs": "Addominali Superiori",
+    "lower_abs": "Addominali Inferiori",
+    "side_abs": "Addominali Laterali",
+    "abs": "Addominali",
+    "upper_back": "Schiena Superiore",
+    "middle_back": "Schiena Media",
+    "lower_back": "Schiena Inferiore",
+    "biceps": "Bicipiti",
+    "triceps": "Tricipiti",
+    "wrist_extensors": "Estensori del Polso",
+    "wrist_flexors": "Flessori del Polso",
+    "chest": "Petto",
+    "rear_shoulder": "Spalla Posteriore",
+    "front_shoulder": "Spalla Anteriore",
+    "side_shoulder": "Spalla Laterale",
+    "quadriceps": "Quadricipiti",
+    "hamstrings": "Femorali",
+    "calves": "Polpacci",
+    "glutes": "Glutei",
+    "inner_thighs": "Adduttori",
+    "outer_thighs": "Abduttori"
   },
   "auth": {
     "continueWith": {

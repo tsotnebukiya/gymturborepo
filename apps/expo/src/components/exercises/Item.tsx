@@ -1,7 +1,7 @@
 import { Image, StyleSheet, View, Pressable } from 'react-native';
 import { api, type RouterOutputs } from '~/lib/utils/api';
 import { router } from 'expo-router';
-import { musclesConstants } from '~/lib/utils/constants';
+import { useMusclesConstants } from '~/lib/utils/constants';
 import { Text, IconButton } from 'react-native-paper';
 import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 import Animated, {
@@ -30,6 +30,7 @@ export default function ExerciseItem({
   handleMoreOptions,
 }: Props) {
   const language = useCurrentLanguageEnum();
+  const musclesConstants = useMusclesConstants();
   api.exercise.getOne.usePrefetchQuery({ id: data.id, language });
   const exercise = data;
 
