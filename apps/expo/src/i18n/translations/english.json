@@ -9,22 +9,80 @@
     "ru": "Russian",
     "zh": "Chinese"
   },
-  "intro": {
-    "title": "Intro",
-    "start": "Start"
-  },
   "tabs": {
     "home": "Home",
     "bookmarks": "Saved",
     "settings": "Settings",
     "splits": "Splits"
   },
-  "some": {
-    "home": "Home"
+  "wizard": {
+    "gallery": "Gallery",
+    "takePhoto": "Take Photo",
+    "chooseMuscle": "Choose Muscle",
+    "generationInProgress": "Generation in Progress",
+    "waitMessage": "Please wait for the current generation to complete"
+  },
+  "home": {
+    "latestGenerations": "Latest Generations",
+    "noGenerations": "No generations yet",
+    "createFirst": "Create your first AI generation and start exploring the possibilities!",
+    "createFirstButton": "Create First Generation",
+    "pending": "Pending"
+  },
+  "splits": {
+    "title": "Splits List",
+    "noSplits": "No splits yet",
+    "createSplit": "Create Split",
+    "createDescription": "Create a new split to start training with AI",
+    "splitName": "Split Name",
+    "selectWeekday": "Select Weekday",
+    "repsAndSets": {
+      "title": "Select Reps & Sets",
+      "sets": "Sets",
+      "reps": "Reps"
+    },
+    "errors": {
+      "createError": "Failed to create split",
+      "nameRequired": "Split name is required",
+      "nameEmpty": "Name cannot be empty"
+    }
+  },
+  "categories": {
+    "title": "Categories",
+    "exerciseName": "Exercise Name"
+  },
+  "auth": {
+    "continueWith": {
+      "google": "Continue with Google",
+      "apple": "Continue with Apple",
+      "facebook": "Continue with Facebook"
+    }
+  },
+  "permissions": {
+    "gallery": {
+      "title": "Gallery Permission Required",
+      "message": "Please enable gallery access in your device settings to use this feature",
+      "needed": "Gallery Permission Needed",
+      "explanation": "We need gallery access to select photos. Please grant permission when prompted"
+    },
+    "camera": {
+      "title": "Camera Permission Required",
+      "message": "Please enable camera access in your device settings to use this feature",
+      "needed": "Camera Permission Needed",
+      "explanation": "We need camera access to take photos. Please grant permission when prompted"
+    }
+  },
+  "buttons": {
+    "cancel": "Cancel",
+    "ok": "OK",
+    "openSettings": "Open Settings"
   },
   "settings": {
     "selectLanguage": "Select Language",
     "changeLanguage": "Change Language",
     "signOut": "Sign Out"
+  },
+  "errors": {
+    "generic": "Something went wrong"
   }
 }
