@@ -1,7 +1,7 @@
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
-import { splitDayConstants, type SplitDayKey } from '~/lib/utils/constants';
+import { useSplitDayConstants, type SplitDayKey } from '~/lib/utils/constants';
 import { useState, useEffect } from 'react';
 
 interface Props {
@@ -19,6 +19,7 @@ export default function DayPickerModal({
   selectedDay,
   onSelectDay,
 }: Props) {
+  const splitDayConstants = useSplitDayConstants();
   const [tempSelectedDay, setTempSelectedDay] = useState<
     SplitDayKey | undefined
   >(selectedDay);

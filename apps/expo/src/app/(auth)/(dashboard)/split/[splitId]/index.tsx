@@ -4,7 +4,7 @@ import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import { TextInput, Button, Text, ActivityIndicator } from 'react-native-paper';
 import GradientLayout from '~/components/shared/GradientLayout';
 import TopBar from '~/components/shared/TopBar';
-import { splitDayConstants, type SplitDayKey } from '~/lib/utils/constants';
+import { useSplitDayConstants, type SplitDayKey } from '~/lib/utils/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import DayPickerModal from '~/components/splits/DayPickerModal';
 import { useAppContext } from '~/lib/contexts/AppContext';
@@ -21,6 +21,7 @@ import RepsSetsModal from '~/components/splits/RepsSetsModal';
 export default function SplitIndividualScreen() {
   const language = useCurrentLanguageEnum();
   const { splitId } = useLocalSearchParams();
+
   const { data: split, isLoading } = api.split.getOne.useQuery(
     {
       id: Number(splitId),
@@ -44,7 +45,7 @@ function LoadedSplitIndividual({
 }) {
   const utils = api.useUtils();
   const [repsSetsModalVisible, setRepsSetsModalVisible] = useState(false);
-
+  const splitDayConstants = useSplitDayConstants();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { setSplitExercises, splitExercises } = useAppContext();
   const [isNameInputVisible, setIsNameInputVisible] = useState(false);

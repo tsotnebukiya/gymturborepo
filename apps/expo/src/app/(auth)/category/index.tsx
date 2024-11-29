@@ -3,7 +3,10 @@ import { useAppContext } from '~/lib/contexts/AppContext';
 import { StyleSheet, View, Image, Pressable } from 'react-native';
 import { Text } from 'react-native-paper';
 import TopBar from '~/components/shared/TopBar';
-import { muscleCategories, useMusclesConstants } from '~/lib/utils/constants';
+import {
+  useMuscleCategories,
+  useMusclesConstants,
+} from '~/lib/utils/constants';
 import { type PrismaTypes } from '@acme/api';
 import ScrollView from '~/components/shared/ScrollView';
 
@@ -11,6 +14,7 @@ type Subcategory = PrismaTypes.$Enums.Subcategory;
 
 export default function CategoryListScreen() {
   const musclesConstants = useMusclesConstants();
+  const muscleCategories = useMuscleCategories();
   const { type } = useLocalSearchParams<{
     type: 'new' | 'saved' | 'split';
   }>();
@@ -50,7 +54,7 @@ export default function CategoryListScreen() {
         {muscleCategories.map((category, index) => (
           <View key={index} style={styles.categoryContainer}>
             <Text variant="titleMedium" style={styles.categoryTitle}>
-              {category.category}
+              {category.label}
             </Text>
             <View style={styles.subcategoriesList}>
               {category.subcategories.map((subcategory, subIndex) => {

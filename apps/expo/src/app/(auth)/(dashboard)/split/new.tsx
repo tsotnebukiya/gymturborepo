@@ -4,7 +4,7 @@ import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import { TextInput, Text, Button } from 'react-native-paper';
 import GradientLayout from '~/components/shared/GradientLayout';
 import TopBar from '~/components/shared/TopBar';
-import { splitDayConstants, type SplitDayKey } from '~/lib/utils/constants';
+import { useSplitDayConstants, type SplitDayKey } from '~/lib/utils/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import DayPickerModal from '~/components/splits/DayPickerModal';
 import { useAppContext } from '~/lib/contexts/AppContext';
@@ -17,6 +17,7 @@ import RepsSetsModal from '~/components/splits/RepsSetsModal';
 
 export default function SplitNewScreen() {
   const utils = api.useUtils();
+  const splitDayConstants = useSplitDayConstants();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const [repsSetsModalVisible, setRepsSetsModalVisible] = useState(false);
   const [name, setName] = useState<string | undefined>();

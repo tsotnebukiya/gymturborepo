@@ -18,7 +18,7 @@ export default function SplitItem({
   const language = useCurrentLanguageEnum();
   const musclesConstants = useMusclesConstants();
   const splitDayConstants = useSplitDayConstants();
-
+  console.log(splitDayConstants);
   api.split.getOne.usePrefetchQuery({ id: item.id, language });
   const handlePress = () => {
     router.push({
@@ -61,7 +61,6 @@ export default function SplitItem({
           {item.subcategories.map((muscle, index) => (
             <View key={index} style={styles.muscleTag}>
               <Text style={styles.muscleText}>
-                {musclesConstants[muscle].label}
                 {musclesConstants[muscle].label}
               </Text>
             </View>

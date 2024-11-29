@@ -3,160 +3,179 @@ import { useTranslation } from 'react-i18next';
 
 export function useMusclesConstants() {
   const { t } = useTranslation();
-
   return {
     // Core
     UPPER_ABS: {
       icon: require('~/assets/muscles/upperabs.png'),
       label: t('muscles.upper_abs'),
-      category: 'Core',
+      category: 'core',
     },
     LOWER_ABS: {
       icon: require('~/assets/muscles/lowerabs.png'),
       label: t('muscles.lower_abs'),
-      category: 'Core',
+      category: 'core',
     },
     SIDE_ABS: {
       icon: require('~/assets/muscles/sideabs.png'),
       label: t('muscles.side_abs'),
-      category: 'Core',
+      category: 'core',
     },
     ABDOMINALS: {
       icon: require('~/assets/muscles/abdominals.png'),
       label: t('muscles.abs'),
-      category: 'Core',
+      category: 'core',
     },
 
     // Back
     UPPER_BACK: {
       icon: require('~/assets/muscles/upperback.png'),
       label: t('muscles.upper_back'),
-      category: 'Back',
+      category: 'back',
     },
     MIDDLE_BACK: {
       icon: require('~/assets/muscles/middleback.png'),
       label: t('muscles.middle_back'),
-      category: 'Back',
+      category: 'back',
     },
     LOWER_BACK: {
       icon: require('~/assets/muscles/lowerback.png'),
       label: t('muscles.lower_back'),
-      category: 'Back',
+      category: 'back',
     },
 
     // Arms
     BICEPS: {
       icon: require('~/assets/muscles/biceps.png'),
       label: t('muscles.biceps'),
-      category: 'Arms',
+      category: 'arms',
     },
     TRICEPS: {
       icon: require('~/assets/muscles/triceps.png'),
       label: t('muscles.triceps'),
-      category: 'Arms',
+      category: 'arms',
     },
     WRIST_EXTENSORS: {
       icon: require('~/assets/muscles/wristextensors.png'),
       label: t('muscles.wrist_extensors'),
-      category: 'Arms',
+      category: 'arms',
     },
     WRIST_FLEXORS: {
       icon: require('~/assets/muscles/wristflexors.png'),
       label: t('muscles.wrist_flexors'),
-      category: 'Arms',
+      category: 'arms',
     },
 
     // Chest
     CHEST: {
       icon: require('~/assets/muscles/chest.png'),
       label: t('muscles.chest'),
-      category: 'Chest',
+      category: 'chest',
     },
 
     // Shoulders
     REAR_SHOULDER: {
       icon: require('~/assets/muscles/rearshoulder.png'),
       label: t('muscles.rear_shoulder'),
-      category: 'Shoulders',
+      category: 'shoulders',
     },
     FRONT_SHOULDER: {
       icon: require('~/assets/muscles/frontshoulder.png'),
       label: t('muscles.front_shoulder'),
-      category: 'Shoulders',
+      category: 'shoulders',
     },
     SIDE_SHOULDER: {
       icon: require('~/assets/muscles/placeholder.png'),
       label: t('muscles.side_shoulder'),
-      category: 'Shoulders',
+      category: 'shoulders',
     },
 
     // Legs
     QUADRICEPS: {
       icon: require('~/assets/muscles/quadriceps.png'),
       label: t('muscles.quadriceps'),
-      category: 'Legs',
+      category: 'legs',
     },
     HAMSTRINGS: {
       icon: require('~/assets/muscles/hamstrings.png'),
       label: t('muscles.hamstrings'),
-      category: 'Legs',
+      category: 'legs',
     },
     CALVES: {
       icon: require('~/assets/muscles/calves.png'),
       label: t('muscles.calves'),
-      category: 'Legs',
+      category: 'legs',
     },
     GLUTES: {
       icon: require('~/assets/muscles/glutes.png'),
       label: t('muscles.glutes'),
-      category: 'Legs',
+      category: 'legs',
     },
     INNER_THIGHS: {
       icon: require('~/assets/muscles/innerthighs.png'),
       label: t('muscles.inner_thighs'),
-      category: 'Legs',
+      category: 'legs',
     },
     OUTER_THIGHS: {
       icon: require('~/assets/muscles/outerthighs.png'),
       label: t('muscles.outer_thighs'),
-      category: 'Legs',
+      category: 'legs',
     },
   } as const;
 }
 
-export const muscleCategories = Object.entries(musclesConstants).reduce<
-  {
-    category: string;
-    subcategories: {
+export function useMuscleCategories() {
+  const { t } = useTranslation();
+  const musclesConstants = useMusclesConstants();
+
+  const categoryTranslations: Record<string, string> = {
+    core: t('muscles.categories.core'),
+    back: t('muscles.categories.back'),
+    arms: t('muscles.categories.arms'),
+    chest: t('muscles.categories.chest'),
+    shoulders: t('muscles.categories.shoulders'),
+    legs: t('muscles.categories.legs'),
+  };
+
+  const returnValue = Object.entries(musclesConstants).reduce<
+    {
+      category: string;
       label: string;
-      icon: number;
-      name: PrismaTypes.$Enums.Subcategory;
-    }[];
-  }[]
->((acc, [key, muscle]) => {
-  const existingCategory = acc.find((cat) => cat.category === muscle.category);
+      subcategories: {
+        label: string;
+        icon: number;
+        name: PrismaTypes.$Enums.Subcategory;
+      }[];
+    }[]
+  >((acc, [key, muscle]) => {
+    const existingCategory = acc.find(
+      (cat) => cat.category === muscle.category
+    );
 
-  if (existingCategory) {
-    existingCategory.subcategories.push({
-      label: muscle.label,
-      icon: muscle.icon,
-      name: key as PrismaTypes.$Enums.Subcategory,
-    });
-  } else {
-    acc.push({
-      category: muscle.category,
-      subcategories: [
-        {
-          label: muscle.label,
-          icon: muscle.icon,
-          name: key as PrismaTypes.$Enums.Subcategory,
-        },
-      ],
-    });
-  }
+    if (existingCategory) {
+      existingCategory.subcategories.push({
+        label: muscle.label,
+        icon: muscle.icon,
+        name: key as PrismaTypes.$Enums.Subcategory,
+      });
+    } else {
+      acc.push({
+        category: muscle.category,
+        label: categoryTranslations[muscle.category]!,
+        subcategories: [
+          {
+            label: muscle.label,
+            icon: muscle.icon,
+            name: key as PrismaTypes.$Enums.Subcategory,
+          },
+        ],
+      });
+    }
 
-  return acc;
-}, []);
+    return acc;
+  }, []);
+  console.log(returnValue);
+  return returnValue;
+}
 
 export function useSplitDayConstants() {
   const { t } = useTranslation();

@@ -4,6 +4,12 @@ import * as Localization from 'expo-localization';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import translationEn from './translations/english.json';
 import translationEs from './translations/spanish.json';
+import translationRu from './translations/russian.json';
+import translationFr from './translations/french.json';
+import translationDe from './translations/german.json';
+import translationIt from './translations/italian.json';
+import translationPt from './translations/portuguese.json';
+import translationZh from './translations/chinese.json';
 import { type PrismaTypes } from '@acme/api';
 
 export type LanguageCode =
@@ -24,12 +30,12 @@ export const resources: Record<
 > = {
   en: { translation: translationEn },
   es: { translation: translationEs },
-  fr: { translation: translationEn },
-  de: { translation: translationEn },
-  it: { translation: translationEn },
-  pt: { translation: translationEn },
-  ru: { translation: translationEn },
-  zh: { translation: translationEn },
+  fr: { translation: translationFr },
+  de: { translation: translationDe },
+  it: { translation: translationIt },
+  pt: { translation: translationPt },
+  ru: { translation: translationRu },
+  zh: { translation: translationZh },
 };
 
 export const isoPrismaMapping: Record<
