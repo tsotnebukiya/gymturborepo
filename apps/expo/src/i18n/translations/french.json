@@ -13,29 +13,44 @@
     "home": "Accueil",
     "bookmarks": "Sauvegardés",
     "settings": "Paramètres",
-    "splits": "Séances"
+    "splits": "Routines"
   },
   "wizard": {
     "gallery": "Galerie",
     "takePhoto": "Prendre une Photo",
-    "chooseMuscle": "Choisir le Muscle",
+    "chooseMuscle": "Choisir un Muscle",
     "generationInProgress": "Génération en Cours",
-    "waitMessage": "Veuillez attendre que la génération actuelle soit terminée"
+    "waitMessage": "Veuillez attendre que la génération actuelle soit terminée",
+    "permissions": {
+      "gallery": {
+        "title": "Permission Galerie Requise",
+        "message": "Veuillez activer l'accès à la galerie dans les paramètres de votre appareil pour utiliser cette fonction",
+        "needed": "Permission Galerie Nécessaire",
+        "explanation": "Nous avons besoin d'accéder à la galerie pour sélectionner des photos. Veuillez accorder la permission lorsque demandé"
+      },
+      "camera": {
+        "title": "Permission Caméra Requise",
+        "message": "Veuillez activer l'accès à la caméra dans les paramètres de votre appareil pour utiliser cette fonction",
+        "needed": "Permission Caméra Nécessaire",
+        "explanation": "Nous avons besoin d'accéder à la caméra pour prendre des photos. Veuillez accorder la permission lorsque demandé"
+      }
+    }
   },
   "home": {
     "latestGenerations": "Dernières Générations",
-    "noGenerations": "Aucune génération pour le moment",
+    "noGenerations": "Pas encore de générations",
     "createFirst": "Créez votre première génération IA et commencez à explorer les possibilités !",
     "createFirstButton": "Créer la Première Génération",
     "pending": "En attente"
   },
   "splits": {
-    "title": "Liste des Séances",
-    "noSplits": "Aucune séance pour le moment",
-    "createSplit": "Créer une Séance",
-    "createDescription": "Créez une nouvelle séance pour commencer à vous entraîner avec l'IA",
-    "splitName": "Nom de la Séance",
+    "title": "Liste des Routines",
+    "noSplits": "Pas encore de routines",
+    "createSplit": "Créer une Routine",
+    "createDescription": "Créez une nouvelle routine pour commencer à vous entraîner avec l'IA",
+    "splitName": "Nom de la Routine",
     "selectWeekday": "Sélectionner le Jour",
+    "selectSavedExercise": "Sélectionner un Exercice Sauvegardé",
     "days": {
       "monday": "Lundi",
       "tuesday": "Mardi",
@@ -46,13 +61,13 @@
       "sunday": "Dimanche"
     },
     "repsAndSets": {
-      "title": "Sélectionner Répétitions et Séries",
+      "title": "Sélectionner Séries et Répétitions",
       "sets": "Séries",
       "reps": "Répétitions"
     },
     "errors": {
-      "createError": "Échec de la création de la séance",
-      "nameRequired": "Le nom de la séance est requis",
+      "createError": "Échec de la création de la routine",
+      "nameRequired": "Le nom de la routine est requis",
       "nameEmpty": "Le nom ne peut pas être vide"
     }
   },
@@ -88,8 +103,8 @@
     "hamstrings": "Ischio-jambiers",
     "calves": "Mollets",
     "glutes": "Fessiers",
-    "inner_thighs": "Adducteurs",
-    "outer_thighs": "Abducteurs"
+    "inner_thighs": "Cuisses Intérieures",
+    "outer_thighs": "Cuisses Extérieures"
   },
   "auth": {
     "continueWith": {
@@ -119,10 +134,43 @@
   },
   "settings": {
     "selectLanguage": "Sélectionner la Langue",
-    "changeLanguage": "Changer de Langue",
+    "changeLanguage": "Changer la Langue",
     "signOut": "Se Déconnecter"
   },
   "errors": {
-    "generic": "Une erreur est survenue"
+    "generic": "Une erreur est survenue",
+    "noExercisesFound": "Aucun exercice trouvé",
+    "noExercises": "Pas d'exercices"
+  },
+  "exercises": {
+    "title": "Exercices",
+    "exerciseName": "Nom de l'Exercice",
+    "exercises": "exercices",
+    "selectSavedExercise": "Sélectionner un Exercice Sauvegardé",
+    "changeSetRep": "Modifier Séries/Répétitions",
+    "delete": "Supprimer",
+    "noExercisesYet": "Pas encore d'exercices",
+    "createExercise": "Créer un Exercice",
+    "createDescription": "Créez un nouvel exercice pour commencer à vous entraîner avec l'IA",
+    "percentage": "%",
+    "sets": "Séries",
+    "reps": "Répétitions"
+  },
+  "signIn": {
+    "title": "Se Connecter"
+  },
+  "common": {
+    "close": "✕",
+    "loading": "Chargement...",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "clearFilter": "Effacer le Filtre",
+    "back": "Retour",
+    "save": "Sauvegarder",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "add": "Ajouter",
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
   }
 }

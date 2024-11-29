@@ -10,8 +10,10 @@ import ExerciseListSkeleton from '~/components/exercises/SkeletonList';
 import { type Subcategory } from '@prisma/client';
 import { useCurrentLanguageEnum } from '~/i18n';
 import GradientLayout from '~/components/shared/GradientLayout';
+import { useTranslation } from 'react-i18next';
 
 export default function MuscleExercisesScreen() {
+  const { t } = useTranslation();
   const { subcategory } = useLocalSearchParams<{ subcategory: Subcategory }>();
   const language = useCurrentLanguageEnum();
   const [searchInput, setSearchInput] = useState<string | undefined>(undefined);
@@ -64,7 +66,7 @@ export default function MuscleExercisesScreen() {
           />
 
           <TextInput
-            label="Exercise Name"
+            label={t('exercises.exerciseName')}
             value={searchInput}
             autoFocus={false}
             mode="outlined"

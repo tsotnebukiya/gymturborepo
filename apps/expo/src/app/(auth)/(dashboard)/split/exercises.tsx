@@ -1,6 +1,6 @@
 import { View, StyleSheet, FlatList, RefreshControl } from 'react-native';
 import { api } from '~/lib/utils/api';
-import ExerciseItem, { GenerationData } from '~/components/exercises/Item';
+import ExerciseItem, { type GenerationData } from '~/components/exercises/Item';
 import { useState } from 'react';
 import { IconButton, Text, TextInput } from 'react-native-paper';
 import { keepPreviousData } from '@tanstack/react-query';
@@ -10,8 +10,10 @@ import ExerciseListSkeleton from '~/components/exercises/SkeletonList';
 import { useAppContext } from '~/lib/contexts/AppContext';
 import { useCurrentLanguageEnum } from '~/i18n';
 import GradientLayout from '~/components/shared/GradientLayout';
+import { useTranslation } from 'react-i18next';
 
 export default function SplitExercisesListScreen() {
+  const { t } = useTranslation();
   const language = useCurrentLanguageEnum();
   const {
     setSplitSubcategory: setSubcategory,
@@ -83,7 +85,7 @@ export default function SplitExercisesListScreen() {
             onPress={() => router.back()}
           />
           <TextInput
-            label="Exercise Name"
+            label={t('exercises.exerciseName')}
             value={searchInput}
             autoFocus={false}
             mode="outlined"

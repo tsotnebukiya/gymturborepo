@@ -20,12 +20,26 @@
     "takePhoto": "Foto aufnehmen",
     "chooseMuscle": "Muskel auswählen",
     "generationInProgress": "Generierung läuft",
-    "waitMessage": "Bitte warten Sie, bis die aktuelle Generierung abgeschlossen ist"
+    "waitMessage": "Bitte warten Sie, bis die aktuelle Generierung abgeschlossen ist",
+    "permissions": {
+      "gallery": {
+        "title": "Galerie-Berechtigung erforderlich",
+        "message": "Bitte aktivieren Sie den Galerie-Zugriff in Ihren Geräteeinstellungen, um diese Funktion zu nutzen",
+        "needed": "Galerie-Berechtigung benötigt",
+        "explanation": "Wir benötigen Zugriff auf die Galerie, um Fotos auszuwählen. Bitte gewähren Sie die Berechtigung, wenn Sie dazu aufgefordert werden"
+      },
+      "camera": {
+        "title": "Kamera-Berechtigung erforderlich",
+        "message": "Bitte aktivieren Sie den Kamera-Zugriff in Ihren Geräteeinstellungen, um diese Funktion zu nutzen",
+        "needed": "Kamera-Berechtigung benötigt",
+        "explanation": "Wir benötigen Zugriff auf die Kamera, um Fotos aufzunehmen. Bitte gewähren Sie die Berechtigung, wenn Sie dazu aufgefordert werden"
+      }
+    }
   },
   "home": {
     "latestGenerations": "Neueste Generierungen",
     "noGenerations": "Noch keine Generierungen",
-    "createFirst": "Erstellen Sie Ihre erste KI-Generierung und entdecken Sie die Möglichkeiten!",
+    "createFirst": "Erstellen Sie Ihre erste KI-Generierung und beginnen Sie die Möglichkeiten zu erkunden!",
     "createFirstButton": "Erste Generierung erstellen",
     "pending": "Ausstehend"
   },
@@ -36,6 +50,7 @@
     "createDescription": "Erstellen Sie einen neuen Trainingsplan, um mit KI zu trainieren",
     "splitName": "Name des Trainingsplans",
     "selectWeekday": "Wochentag auswählen",
+    "selectSavedExercise": "Gespeicherte Übung auswählen",
     "days": {
       "monday": "Montag",
       "tuesday": "Dienstag",
@@ -46,7 +61,7 @@
       "sunday": "Sonntag"
     },
     "repsAndSets": {
-      "title": "Wiederholungen & Sätze auswählen",
+      "title": "Sätze und Wiederholungen auswählen",
       "sets": "Sätze",
       "reps": "Wiederholungen"
     },
@@ -58,7 +73,7 @@
   },
   "categories": {
     "title": "Kategorien",
-    "exerciseName": "Übungsname"
+    "exerciseName": "Name der Übung"
   },
   "muscles": {
     "categories": {
@@ -101,15 +116,15 @@
   "permissions": {
     "gallery": {
       "title": "Galerie-Berechtigung erforderlich",
-      "message": "Bitte aktivieren Sie den Galerie-Zugriff in Ihren Geräteeinstellungen",
+      "message": "Bitte aktivieren Sie den Galerie-Zugriff in Ihren Geräteeinstellungen, um diese Funktion zu nutzen",
       "needed": "Galerie-Berechtigung benötigt",
-      "explanation": "Wir benötigen Zugriff auf die Galerie, um Fotos auszuwählen. Bitte gewähren Sie die Berechtigung"
+      "explanation": "Wir benötigen Zugriff auf die Galerie, um Fotos auszuwählen. Bitte gewähren Sie die Berechtigung, wenn Sie dazu aufgefordert werden"
     },
     "camera": {
       "title": "Kamera-Berechtigung erforderlich",
-      "message": "Bitte aktivieren Sie den Kamera-Zugriff in Ihren Geräteeinstellungen",
+      "message": "Bitte aktivieren Sie den Kamera-Zugriff in Ihren Geräteeinstellungen, um diese Funktion zu nutzen",
       "needed": "Kamera-Berechtigung benötigt",
-      "explanation": "Wir benötigen Zugriff auf die Kamera, um Fotos aufzunehmen. Bitte gewähren Sie die Berechtigung"
+      "explanation": "Wir benötigen Zugriff auf die Kamera, um Fotos aufzunehmen. Bitte gewähren Sie die Berechtigung, wenn Sie dazu aufgefordert werden"
     }
   },
   "buttons": {
@@ -123,6 +138,39 @@
     "signOut": "Abmelden"
   },
   "errors": {
-    "generic": "Etwas ist schiefgelaufen"
+    "generic": "Etwas ist schiefgelaufen",
+    "noExercisesFound": "Keine Übungen gefunden",
+    "noExercises": "Keine Übungen"
+  },
+  "exercises": {
+    "title": "Übungen",
+    "exerciseName": "Name der Übung",
+    "exercises": "Übungen",
+    "selectSavedExercise": "Gespeicherte Übung auswählen",
+    "changeSetRep": "Sätze/Wiederholungen ändern",
+    "delete": "Löschen",
+    "noExercisesYet": "Noch keine Übungen",
+    "createExercise": "Übung erstellen",
+    "createDescription": "Erstellen Sie eine neue Übung, um mit KI zu trainieren",
+    "percentage": "%",
+    "sets": "Sätze",
+    "reps": "Wiederholungen"
+  },
+  "signIn": {
+    "title": "Anmelden"
+  },
+  "common": {
+    "close": "✕",
+    "loading": "Lädt...",
+    "search": "Suchen",
+    "filter": "Filter",
+    "clearFilter": "Filter löschen",
+    "back": "Zurück",
+    "save": "Speichern",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "add": "Hinzufügen",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen"
   }
 }

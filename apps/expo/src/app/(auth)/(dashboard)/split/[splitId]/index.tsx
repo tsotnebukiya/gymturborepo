@@ -17,6 +17,7 @@ import SplitIndividualSkeleton from '~/components/splits/IndividualSkeleton';
 import ExerciseBottomSheet from '~/components/splits/BottomExerciseModal';
 import { type BottomSheetModal } from '@gorhom/bottom-sheet';
 import RepsSetsModal from '~/components/splits/RepsSetsModal';
+import { useTranslation } from 'react-i18next';
 
 export default function SplitIndividualScreen() {
   const language = useCurrentLanguageEnum();
@@ -44,6 +45,7 @@ function LoadedSplitIndividual({
   split: RouterOutputs['split']['getOne'];
 }) {
   const utils = api.useUtils();
+  const { t } = useTranslation();
   const [repsSetsModalVisible, setRepsSetsModalVisible] = useState(false);
   const splitDayConstants = useSplitDayConstants();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -246,7 +248,7 @@ function LoadedSplitIndividual({
               labelStyle={styles.exerciseButtonLabel}
               disabled={isUpdatingExercises}
             >
-              Select Saved Exercise
+              {t('exercises.selectSavedExercise')}
             </Button>
           </View>
         </ScrollView>

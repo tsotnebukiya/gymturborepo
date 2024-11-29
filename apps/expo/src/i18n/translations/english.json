@@ -20,7 +20,21 @@
     "takePhoto": "Take Photo",
     "chooseMuscle": "Choose Muscle",
     "generationInProgress": "Generation in Progress",
-    "waitMessage": "Please wait for the current generation to complete"
+    "waitMessage": "Please wait for the current generation to complete",
+    "permissions": {
+      "gallery": {
+        "title": "Gallery Permission Required",
+        "message": "Please enable gallery access in your device settings to use this feature",
+        "needed": "Gallery Permission Needed",
+        "explanation": "We need gallery access to select photos. Please grant permission when prompted"
+      },
+      "camera": {
+        "title": "Camera Permission Required",
+        "message": "Please enable camera access in your device settings to use this feature",
+        "needed": "Camera Permission Needed",
+        "explanation": "We need camera access to take photos. Please grant permission when prompted"
+      }
+    }
   },
   "home": {
     "latestGenerations": "Latest Generations",
@@ -36,6 +50,7 @@
     "createDescription": "Create a new split to start training with AI",
     "splitName": "Split Name",
     "selectWeekday": "Select Weekday",
+    "selectSavedExercise": "Select Saved Exercise",
     "days": {
       "monday": "Monday",
       "tuesday": "Tuesday",
@@ -136,7 +151,10 @@
     "delete": "Delete",
     "noExercisesYet": "No exercises yet",
     "createExercise": "Create Exercise",
-    "createDescription": "Create a new exercise to start training with AI"
+    "createDescription": "Create a new exercise to start training with AI",
+    "percentage": "%",
+    "sets": "Sets",
+    "reps": "Reps"
   },
   "signIn": {
     "title": "Sign In"

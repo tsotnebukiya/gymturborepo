@@ -7,10 +7,12 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import { useRouter } from 'expo-router';
 import { useAppContext } from '../../lib/contexts/AppContext';
 import { useCurrentLanguageEnum } from '~/i18n';
+import { useTranslation } from 'react-i18next';
 
 type PreviousData = RouterOutputs['generation']['getAll'];
 
 export default function WizardComponent() {
+  const { t } = useTranslation();
   const language = useCurrentLanguageEnum();
   const { wizardVisible, setWizardVisible } = useAppContext();
   const showModal = () => setWizardVisible(true);
@@ -98,8 +100,8 @@ export default function WizardComponent() {
       if (!granted) {
         if (!canAskAgain) {
           Alert.alert(
-            'Gallery Permission Required',
-            'Please enable gallery access in your device settings to use this feature.',
+            t('wizard.permissions.gallery.title'),
+            t('wizard.permissions.gallery.message'),
             [
               { text: 'Cancel', style: 'cancel' },
               { text: 'Open Settings', onPress: openAppSettings },
@@ -107,8 +109,8 @@ export default function WizardComponent() {
           );
         } else {
           Alert.alert(
-            'Gallery Permission Needed',
-            'We need gallery access to select photos. Please grant permission when prompted.',
+            t('wizard.permissions.gallery.needed'),
+            t('wizard.permissions.gallery.explanation'),
             [{ text: 'OK' }]
           );
         }
@@ -129,18 +131,18 @@ export default function WizardComponent() {
       if (!granted) {
         if (!canAskAgain) {
           Alert.alert(
-            'Camera Permission Required',
-            'Please enable camera access in your device settings to use this feature.',
+            t('wizard.permissions.camera.title'),
+            t('wizard.permissions.camera.message'),
             [
-              { text: 'Cancel', style: 'cancel' },
-              { text: 'Open Settings', onPress: openAppSettings },
+              { text: t('buttons.cancel'), style: 'cancel' },
+              { text: t('buttons.openSettings'), onPress: openAppSettings },
             ]
           );
         } else {
           Alert.alert(
-            'Camera Permission Needed',
-            'We need camera access to take photos. Please grant permission when prompted.',
-            [{ text: 'OK' }]
+            t('wizard.permissions.camera.needed'),
+            t('wizard.permissions.camera.explanation'),
+            [{ text: t('buttons.ok') }]
           );
         }
         return;
@@ -161,11 +163,9 @@ export default function WizardComponent() {
   };
   const handleFAB = () => {
     if (isPending) {
-      Alert.alert(
-        'Generation in Progress',
-        'Please wait for the current generation to complete.',
-        [{ text: 'OK' }]
-      );
+      Alert.alert(t('wizard.generationInProgress'), t('wizard.waitMessage'), [
+        { text: t('buttons.ok') },
+      ]);
       return;
     }
     showModal();
@@ -199,7 +199,7 @@ export default function WizardComponent() {
                 style={styles.icon}
               />
               <Text variant="labelLarge" style={styles.text}>
-                Gallery
+                {t('wizard.gallery')}
               </Text>
             </Card>
           </Pressable>
@@ -207,7 +207,7 @@ export default function WizardComponent() {
             <Card style={styles.card}>
               <IconButton icon="camera" size={36} style={styles.icon} />
               <Text variant="labelLarge" style={styles.text}>
-                Take Photo
+                {t('wizard.takePhoto')}
               </Text>
             </Card>
           </Pressable>
@@ -222,7 +222,7 @@ export default function WizardComponent() {
                 style={styles.icon}
               />
               <Text variant="labelLarge" style={styles.text}>
-                Choose Muscle
+                {t('wizard.chooseMuscle')}
               </Text>
             </Card>
           </Pressable>

@@ -12,15 +12,29 @@
   "tabs": {
     "home": "Inicio",
     "bookmarks": "Guardados",
-    "settings": "Configuración",
-    "splits": "Divisiones"
+    "settings": "Ajustes",
+    "splits": "Rutinas"
   },
   "wizard": {
     "gallery": "Galería",
     "takePhoto": "Tomar Foto",
     "chooseMuscle": "Elegir Músculo",
     "generationInProgress": "Generación en Progreso",
-    "waitMessage": "Por favor, espere a que se complete la generación actual"
+    "waitMessage": "Por favor, espere a que se complete la generación actual",
+    "permissions": {
+      "gallery": {
+        "title": "Permiso de Galería Requerido",
+        "message": "Por favor, habilite el acceso a la galería en la configuración de su dispositivo para usar esta función",
+        "needed": "Se Necesita Permiso de Galería",
+        "explanation": "Necesitamos acceso a la galería para seleccionar fotos. Por favor, conceda el permiso cuando se le solicite"
+      },
+      "camera": {
+        "title": "Permiso de Cámara Requerido",
+        "message": "Por favor, habilite el acceso a la cámara en la configuración de su dispositivo para usar esta función",
+        "needed": "Se Necesita Permiso de Cámara",
+        "explanation": "Necesitamos acceso a la cámara para tomar fotos. Por favor, conceda el permiso cuando se le solicite"
+      }
+    }
   },
   "home": {
     "latestGenerations": "Últimas Generaciones",
@@ -30,12 +44,13 @@
     "pending": "Pendiente"
   },
   "splits": {
-    "title": "Lista de Divisiones",
-    "noSplits": "No hay divisiones aún",
-    "createSplit": "Crear División",
-    "createDescription": "Crea una nueva división para comenzar a entrenar con IA",
-    "splitName": "Nombre de la División",
-    "selectWeekday": "Seleccionar Día de la Semana",
+    "title": "Lista de Rutinas",
+    "noSplits": "No hay rutinas aún",
+    "createSplit": "Crear Rutina",
+    "createDescription": "Crea una nueva rutina para empezar a entrenar con IA",
+    "splitName": "Nombre de la Rutina",
+    "selectWeekday": "Seleccionar Día",
+    "selectSavedExercise": "Seleccionar Ejercicio Guardado",
     "days": {
       "monday": "Lunes",
       "tuesday": "Martes",
@@ -46,13 +61,13 @@
       "sunday": "Domingo"
     },
     "repsAndSets": {
-      "title": "Seleccionar Repeticiones y Series",
+      "title": "Seleccionar Series y Repeticiones",
       "sets": "Series",
       "reps": "Repeticiones"
     },
     "errors": {
-      "createError": "Error al crear la división",
-      "nameRequired": "El nombre de la división es obligatorio",
+      "createError": "Error al crear la rutina",
+      "nameRequired": "Se requiere un nombre para la rutina",
       "nameEmpty": "El nombre no puede estar vacío"
     }
   },
@@ -86,7 +101,7 @@
     "side_shoulder": "Hombro Lateral",
     "quadriceps": "Cuádriceps",
     "hamstrings": "Isquiotibiales",
-    "calves": "Gemelos",
+    "calves": "Pantorrillas",
     "glutes": "Glúteos",
     "inner_thighs": "Muslos Internos",
     "outer_thighs": "Muslos Externos"
@@ -114,8 +129,8 @@
   },
   "buttons": {
     "cancel": "Cancelar",
-    "ok": "Aceptar",
-    "openSettings": "Abrir Configuración"
+    "ok": "OK",
+    "openSettings": "Abrir Ajustes"
   },
   "settings": {
     "selectLanguage": "Seleccionar Idioma",
@@ -123,6 +138,39 @@
     "signOut": "Cerrar Sesión"
   },
   "errors": {
-    "generic": "Algo salió mal"
+    "generic": "Algo salió mal",
+    "noExercisesFound": "No se encontraron ejercicios",
+    "noExercises": "No hay ejercicios"
+  },
+  "exercises": {
+    "title": "Ejercicios",
+    "exerciseName": "Nombre del Ejercicio",
+    "exercises": "ejercicios",
+    "selectSavedExercise": "Seleccionar Ejercicio Guardado",
+    "changeSetRep": "Cambiar Series/Repeticiones",
+    "delete": "Eliminar",
+    "noExercisesYet": "No hay ejercicios aún",
+    "createExercise": "Crear Ejercicio",
+    "createDescription": "Crea un nuevo ejercicio para empezar a entrenar con IA",
+    "percentage": "%",
+    "sets": "Series",
+    "reps": "Repeticiones"
+  },
+  "signIn": {
+    "title": "Iniciar Sesión"
+  },
+  "common": {
+    "close": "✕",
+    "loading": "Cargando...",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "clearFilter": "Limpiar Filtro",
+    "back": "Atrás",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "add": "Añadir",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
   }
 }

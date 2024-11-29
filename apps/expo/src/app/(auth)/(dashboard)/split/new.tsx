@@ -14,8 +14,10 @@ import { api } from '~/lib/utils/api';
 import { type BottomSheetModal } from '@gorhom/bottom-sheet';
 import ExerciseBottomSheet from '~/components/splits/BottomExerciseModal';
 import RepsSetsModal from '~/components/splits/RepsSetsModal';
+import { useTranslation } from 'react-i18next';
 
 export default function SplitNewScreen() {
+  const { t } = useTranslation();
   const utils = api.useUtils();
   const splitDayConstants = useSplitDayConstants();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
@@ -93,7 +95,7 @@ export default function SplitNewScreen() {
     <GradientLayout>
       <View style={styles.container}>
         <TopBar
-          title="Create Split"
+          title={t('splits.createSplit')}
           statusBarHeight={0}
           borderBottomColor="#E0E0E0"
           backAction={{ icon: 'arrow-left', onPress: () => router.back() }}
@@ -110,7 +112,7 @@ export default function SplitNewScreen() {
           <View style={styles.content}>
             <View style={styles.filterContainer}>
               <TextInput
-                label="Split Name"
+                label={t('splits.splitName')}
                 value={name}
                 autoFocus={false}
                 mode="outlined"
@@ -144,6 +146,7 @@ export default function SplitNewScreen() {
               selectedDay={selectedDay}
               onSelectDay={setSelectedDay}
             />
+
             {splitExercises.map((el, index) => (
               <ExerciseItem
                 data={el}
@@ -161,7 +164,7 @@ export default function SplitNewScreen() {
               contentStyle={styles.exerciseButtonContent}
               labelStyle={styles.exerciseButtonLabel}
             >
-              Select Saved Exercise
+              {t('splits.selectSavedExercise')}
             </Button>
           </View>
         </ScrollView>

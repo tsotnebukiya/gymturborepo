@@ -9,6 +9,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useCurrentLanguageEnum } from '~/i18n';
+import { useTranslation } from 'react-i18next';
 
 export type GenerationData = NonNullable<
   RouterOutputs['generation']['getOne']
@@ -30,6 +31,7 @@ export default function ExerciseItem({
   handleMoreOptions,
 }: Props) {
   const language = useCurrentLanguageEnum();
+  const { t } = useTranslation();
   const musclesConstants = useMusclesConstants();
   api.exercise.getOne.usePrefetchQuery({ id: data.id, language });
   const exercise = data;
@@ -105,11 +107,15 @@ export default function ExerciseItem({
               <View style={styles.setsContainerBordered}>
                 <View style={styles.setRepBordered}>
                   <Text style={styles.setRepTextBordered}>{data.sets}</Text>
-                  <Text style={styles.setRepLabelBordered}>Sets</Text>
+                  <Text style={styles.setRepLabelBordered}>
+                    {t('splits.repsAndSets.sets')}
+                  </Text>
                 </View>
                 <View style={styles.setRepBordered}>
                   <Text style={styles.setRepTextBordered}>{data.reps}</Text>
-                  <Text style={styles.setRepLabelBordered}>Reps</Text>
+                  <Text style={styles.setRepLabelBordered}>
+                    {t('splits.repsAndSets.reps')}
+                  </Text>
                 </View>
               </View>
             ) : (
@@ -118,7 +124,12 @@ export default function ExerciseItem({
                   source={musclesConstants[exercise.subcategory].icon}
                   style={styles.muscleIcon}
                 />
-                <Text variant="bodyMedium" style={styles.muscleText}>
+                <Text
+                  variant="bodyMedium"
+                  style={styles.muscleText}
+                  ellipsizeMode="tail"
+                  numberOfLines={1}
+                >
                   {musclesConstants[exercise.subcategory].label}
                 </Text>
               </View>
@@ -204,6 +215,7 @@ const styles = StyleSheet.create({
   muscleText: {
     color: '#666666',
     fontSize: 15,
+    flex: 1,
   },
   deleteButton: {
     backgroundColor: '#ff4444',

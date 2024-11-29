@@ -10,9 +10,11 @@ import ExerciseListSkeleton from '~/components/exercises/SkeletonList';
 import { useAppContext } from '~/lib/contexts/AppContext';
 import { useCurrentLanguageEnum } from '~/i18n';
 import GradientLayout from '~/components/shared/GradientLayout';
+import { useTranslation } from 'react-i18next';
 
 export default function SavedExercisesScreen() {
   const language = useCurrentLanguageEnum();
+  const { t } = useTranslation();
   const { setSubcategory, subcategory } = useAppContext();
   const [searchInput, setSearchInput] = useState<string | undefined>(undefined);
   const [debouncedSearch] = useDebounce(searchInput, 1000);
@@ -68,7 +70,7 @@ export default function SavedExercisesScreen() {
             onPress={() => router.back()}
           />
           <TextInput
-            label="Exercise Name"
+            label={t('exercises.exerciseName')}
             value={searchInput}
             autoFocus={false}
             mode="outlined"
