@@ -20,7 +20,21 @@
     "takePhoto": "拍照",
     "chooseMuscle": "选择肌肉",
     "generationInProgress": "生成中",
-    "waitMessage": "请等待当前生成完成"
+    "waitMessage": "请等待当前生成完成",
+    "permissions": {
+      "gallery": {
+        "title": "需要相册权限",
+        "message": "请在设备设置中启用相册访问权限",
+        "needed": "需要相册权限",
+        "explanation": "我们需要访问相册来选择照片，请授予权限"
+      },
+      "camera": {
+        "title": "需要相机权限",
+        "message": "请在设备设置中启用相机访问权限",
+        "needed": "需要相机权限",
+        "explanation": "我们需要访问相机来拍照，请授予权限"
+      }
+    }
   },
   "home": {
     "latestGenerations": "最新生成",
@@ -36,6 +50,7 @@
     "createDescription": "创建新的训练计划，开始AI训练",
     "splitName": "训练名称",
     "selectWeekday": "选择星期",
+    "selectSavedExercise": "选择已保存的运动",
     "days": {
       "monday": "星期一",
       "tuesday": "星期二",
@@ -123,6 +138,39 @@
     "signOut": "退出登录"
   },
   "errors": {
-    "generic": "出现错误"
+    "generic": "出现错误",
+    "noExercisesFound": "未找到运动",
+    "noExercises": "暂无运动"
+  },
+  "exercises": {
+    "title": "运动",
+    "exerciseName": "运动名称",
+    "exercises": "个运动",
+    "selectSavedExercise": "选择已保存的运动",
+    "changeSetRep": "修改组数/次数",
+    "delete": "删除",
+    "noExercisesYet": "暂无运动",
+    "createExercise": "创建运动",
+    "createDescription": "创建新的运动，开始AI训练",
+    "percentage": "%",
+    "sets": "组数",
+    "reps": "次数"
+  },
+  "signIn": {
+    "title": "登录"
+  },
+  "common": {
+    "close": "✕",
+    "loading": "加载中...",
+    "search": "搜索",
+    "filter": "筛选",
+    "clearFilter": "清除筛选",
+    "back": "返回",
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "add": "添加",
+    "cancel": "取消",
+    "confirm": "确认"
   }
 }

@@ -20,7 +20,21 @@
     "takePhoto": "Tirar Foto",
     "chooseMuscle": "Escolher Músculo",
     "generationInProgress": "Geração em Andamento",
-    "waitMessage": "Aguarde a conclusão da geração atual"
+    "waitMessage": "Aguarde a conclusão da geração atual",
+    "permissions": {
+      "gallery": {
+        "title": "Permissão da Galeria Necessária",
+        "message": "Ative o acesso à galeria nas configurações do dispositivo",
+        "needed": "Permissão da Galeria Necessária",
+        "explanation": "Precisamos de acesso à galeria para selecionar fotos. Por favor, conceda a permissão quando solicitado"
+      },
+      "camera": {
+        "title": "Permissão da Câmera Necessária",
+        "message": "Ative o acesso à câmera nas configurações do dispositivo",
+        "needed": "Permissão da Câmera Necessária",
+        "explanation": "Precisamos de acesso à câmera para tirar fotos. Por favor, conceda a permissão quando solicitado"
+      }
+    }
   },
   "home": {
     "latestGenerations": "Últimas Gerações",
@@ -36,6 +50,7 @@
     "createDescription": "Crie um novo treino para começar a treinar com IA",
     "splitName": "Nome do Treino",
     "selectWeekday": "Selecionar Dia da Semana",
+    "selectSavedExercise": "Selecionar Exercício Salvo",
     "days": {
       "monday": "Segunda-feira",
       "tuesday": "Terça-feira",
@@ -123,6 +138,39 @@
     "signOut": "Sair"
   },
   "errors": {
-    "generic": "Algo deu errado"
+    "generic": "Algo deu errado",
+    "noExercisesFound": "Nenhum exercício encontrado",
+    "noExercises": "Nenhum exercício"
+  },
+  "exercises": {
+    "title": "Exercícios",
+    "exerciseName": "Nome do Exercício",
+    "exercises": "exercícios",
+    "selectSavedExercise": "Selecionar Exercício Salvo",
+    "changeSetRep": "Alterar Séries/Repetições",
+    "delete": "Excluir",
+    "noExercisesYet": "Nenhum exercício ainda",
+    "createExercise": "Criar Exercício",
+    "createDescription": "Crie um novo exercício para começar a treinar com IA",
+    "percentage": "%",
+    "sets": "Séries",
+    "reps": "Repetições"
+  },
+  "signIn": {
+    "title": "Entrar"
+  },
+  "common": {
+    "close": "✕",
+    "loading": "Carregando...",
+    "search": "Pesquisar",
+    "filter": "Filtrar",
+    "clearFilter": "Limpar Filtro",
+    "back": "Voltar",
+    "save": "Salvar",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "add": "Adicionar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar"
   }
 }

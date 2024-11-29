@@ -20,7 +20,21 @@
     "takePhoto": "Scatta Foto",
     "chooseMuscle": "Scegli Muscolo",
     "generationInProgress": "Generazione in Corso",
-    "waitMessage": "Attendi il completamento della generazione corrente"
+    "waitMessage": "Attendi il completamento della generazione corrente",
+    "permissions": {
+      "gallery": {
+        "title": "Permesso Galleria Richiesto",
+        "message": "Abilita l'accesso alla galleria nelle impostazioni del dispositivo",
+        "needed": "Permesso Galleria Necessario",
+        "explanation": "Abbiamo bisogno dell'accesso alla galleria per selezionare le foto. Concedi il permesso quando richiesto"
+      },
+      "camera": {
+        "title": "Permesso Fotocamera Richiesto",
+        "message": "Abilita l'accesso alla fotocamera nelle impostazioni del dispositivo",
+        "needed": "Permesso Fotocamera Necessario",
+        "explanation": "Abbiamo bisogno dell'accesso alla fotocamera per scattare foto. Concedi il permesso quando richiesto"
+      }
+    }
   },
   "home": {
     "latestGenerations": "Ultime Generazioni",
@@ -36,6 +50,7 @@
     "createDescription": "Crea un nuovo allenamento per iniziare ad allenarti con l'IA",
     "splitName": "Nome Allenamento",
     "selectWeekday": "Seleziona Giorno",
+    "selectSavedExercise": "Seleziona Esercizio Salvato",
     "days": {
       "monday": "Lunedì",
       "tuesday": "Martedì",
@@ -123,6 +138,39 @@
     "signOut": "Esci"
   },
   "errors": {
-    "generic": "Qualcosa è andato storto"
+    "generic": "Qualcosa è andato storto",
+    "noExercisesFound": "Nessun esercizio trovato",
+    "noExercises": "Nessun esercizio"
+  },
+  "exercises": {
+    "title": "Esercizi",
+    "exerciseName": "Nome Esercizio",
+    "exercises": "esercizi",
+    "selectSavedExercise": "Seleziona Esercizio Salvato",
+    "changeSetRep": "Modifica Serie/Ripetizioni",
+    "delete": "Elimina",
+    "noExercisesYet": "Nessun esercizio ancora",
+    "createExercise": "Crea Esercizio",
+    "createDescription": "Crea un nuovo esercizio per iniziare ad allenarti con l'IA",
+    "percentage": "%",
+    "sets": "Serie",
+    "reps": "Ripetizioni"
+  },
+  "signIn": {
+    "title": "Accedi"
+  },
+  "common": {
+    "close": "✕",
+    "loading": "Caricamento...",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "clearFilter": "Cancella Filtro",
+    "back": "Indietro",
+    "save": "Salva",
+    "edit": "Modifica",
+    "delete": "Elimina",
+    "add": "Aggiungi",
+    "cancel": "Annulla",
+    "confirm": "Conferma"
   }
 }
