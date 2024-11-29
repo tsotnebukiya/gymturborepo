@@ -2,6 +2,7 @@ import { Modal, Pressable, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   visible: boolean;
@@ -22,6 +23,7 @@ export default function RepsSetsModal({
 }: Props) {
   const [tempReps, setTempReps] = useState(initialReps);
   const [tempSets, setTempSets] = useState(initialSets);
+  const { t } = useTranslation();
 
   const handleConfirm = () => {
     onConfirm(tempReps, tempSets);
@@ -42,15 +44,15 @@ export default function RepsSetsModal({
           onStartShouldSetResponder={() => true}
         >
           <View style={styles.header}>
-            <Text variant="titleMedium">Select Reps & Sets</Text>
+            <Text variant="titleMedium">{t('splits.repsAndSets.title')}</Text>
             <Pressable onPress={onClose} hitSlop={8}>
-              <Text style={styles.closeButton}>✕</Text>
+              <Text style={styles.closeButton}>{t('common.close')}</Text>
             </Pressable>
           </View>
 
           <View style={styles.pickersContainer}>
             <View style={styles.pickerWrapper}>
-              <Text variant="labelMedium">Sets</Text>
+              <Text variant="labelMedium">{t('splits.repsAndSets.sets')}</Text>
               <Picker
                 selectedValue={tempSets}
                 onValueChange={(value) => setTempSets(Number(value))}
@@ -62,7 +64,7 @@ export default function RepsSetsModal({
               </Picker>
             </View>
             <View style={styles.pickerWrapper}>
-              <Text variant="labelMedium">Reps</Text>
+              <Text variant="labelMedium">{t('splits.repsAndSets.reps')}</Text>
               <Picker
                 selectedValue={tempReps}
                 onValueChange={(value) => setTempReps(Number(value))}
@@ -81,7 +83,7 @@ export default function RepsSetsModal({
             style={styles.confirmButton}
             loading={isLoading}
           >
-            Confirm
+            {t('common.confirm')}
           </Button>
         </View>
       </Pressable>

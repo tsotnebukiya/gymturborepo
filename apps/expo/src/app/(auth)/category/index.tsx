@@ -9,12 +9,14 @@ import {
 } from '~/lib/utils/constants';
 import { type PrismaTypes } from '@acme/api';
 import ScrollView from '~/components/shared/ScrollView';
+import { useTranslation } from 'react-i18next';
 
 type Subcategory = PrismaTypes.$Enums.Subcategory;
 
 export default function CategoryListScreen() {
   const musclesConstants = useMusclesConstants();
   const muscleCategories = useMuscleCategories();
+  const { t } = useTranslation();
   const { type } = useLocalSearchParams<{
     type: 'new' | 'saved' | 'split';
   }>();
@@ -43,7 +45,7 @@ export default function CategoryListScreen() {
     <View style={styles.container}>
       <TopBar
         statusBarHeight={0}
-        title={'Categories'}
+        title={t('categories.title')}
         borderBottomColor="#E0E0E0"
         backAction={{
           icon: 'arrow-left',
@@ -65,8 +67,6 @@ export default function CategoryListScreen() {
                     style={({ pressed }) => [
                       styles.subcategoryItem,
                       pressed && styles.subcategoryItemPressed,
-                      // activeSubcategory === subcategory.name &&
-                      //   styles.subcategoryItemPressed,
                       { width: '100%' },
                     ]}
                   >

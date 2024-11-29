@@ -74,7 +74,7 @@ export default function ExerciseView({ data }: Props) {
                       style={styles.muscleIcon}
                     />
                     <Text style={styles.percentageText}>
-                      {muscle.percentage}%
+                      {muscle.percentage}
                     </Text>
                   </View>
                 ))}

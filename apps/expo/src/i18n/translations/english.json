@@ -140,5 +140,19 @@
   },
   "signIn": {
     "title": "Sign In"
+  },
+  "common": {
+    "close": "✕",
+    "loading": "Loading...",
+    "search": "Search",
+    "filter": "Filter",
+    "clearFilter": "Clear Filter",
+    "back": "Back",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add": "Add",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   }
 }
