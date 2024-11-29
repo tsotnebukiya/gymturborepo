@@ -1,0 +1,88 @@
+{
+  "language": {
+    "en": "Inglês",
+    "es": "Espanhol",
+    "fr": "Francês",
+    "de": "Alemão",
+    "it": "Italiano",
+    "pt": "Português",
+    "ru": "Russo",
+    "zh": "Chinês"
+  },
+  "tabs": {
+    "home": "Início",
+    "bookmarks": "Salvos",
+    "settings": "Configurações",
+    "splits": "Treinos"
+  },
+  "wizard": {
+    "gallery": "Galeria",
+    "takePhoto": "Tirar Foto",
+    "chooseMuscle": "Escolher Músculo",
+    "generationInProgress": "Geração em Andamento",
+    "waitMessage": "Aguarde a conclusão da geração atual"
+  },
+  "home": {
+    "latestGenerations": "Últimas Gerações",
+    "noGenerations": "Nenhuma geração ainda",
+    "createFirst": "Crie sua primeira geração com IA e comece a explorar as possibilidades!",
+    "createFirstButton": "Criar Primeira Geração",
+    "pending": "Pendente"
+  },
+  "splits": {
+    "title": "Lista de Treinos",
+    "noSplits": "Nenhum treino ainda",
+    "createSplit": "Criar Treino",
+    "createDescription": "Crie um novo treino para começar a treinar com IA",
+    "splitName": "Nome do Treino",
+    "selectWeekday": "Selecionar Dia da Semana",
+    "repsAndSets": {
+      "title": "Selecionar Repetições e Séries",
+      "sets": "Séries",
+      "reps": "Repetições"
+    },
+    "errors": {
+      "createError": "Erro ao criar treino",
+      "nameRequired": "Nome do treino é obrigatório",
+      "nameEmpty": "O nome não pode estar vazio"
+    }
+  },
+  "categories": {
+    "title": "Categorias",
+    "exerciseName": "Nome do Exercício"
+  },
+  "auth": {
+    "continueWith": {
+      "google": "Continuar com Google",
+      "apple": "Continuar com Apple",
+      "facebook": "Continuar com Facebook"
+    }
+  },
+  "permissions": {
+    "gallery": {
+      "title": "Permissão da Galeria Necessária",
+      "message": "Ative o acesso à galeria nas configurações do dispositivo",
+      "needed": "Permissão da Galeria Necessária",
+      "explanation": "Precisamos de acesso à galeria para selecionar fotos. Por favor, conceda a permissão quando solicitado"
+    },
+    "camera": {
+      "title": "Permissão da Câmera Necessária",
+      "message": "Ative o acesso à câmera nas configurações do dispositivo",
+      "needed": "Permissão da Câmera Necessária",
+      "explanation": "Precisamos de acesso à câmera para tirar fotos. Por favor, conceda a permissão quando solicitado"
+    }
+  },
+  "buttons": {
+    "cancel": "Cancelar",
+    "ok": "OK",
+    "openSettings": "Abrir Configurações"
+  },
+  "settings": {
+    "selectLanguage": "Selecionar Idioma",
+    "changeLanguage": "Mudar Idioma",
+    "signOut": "Sair"
+  },
+  "errors": {
+    "generic": "Algo deu errado"
+  }
+}

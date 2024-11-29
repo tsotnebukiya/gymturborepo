@@ -1,0 +1,88 @@
+{
+  "language": {
+    "en": "Inglese",
+    "es": "Spagnolo",
+    "fr": "Francese",
+    "de": "Tedesco",
+    "it": "Italiano",
+    "pt": "Portoghese",
+    "ru": "Russo",
+    "zh": "Cinese"
+  },
+  "tabs": {
+    "home": "Home",
+    "bookmarks": "Salvati",
+    "settings": "Impostazioni",
+    "splits": "Allenamenti"
+  },
+  "wizard": {
+    "gallery": "Galleria",
+    "takePhoto": "Scatta Foto",
+    "chooseMuscle": "Scegli Muscolo",
+    "generationInProgress": "Generazione in Corso",
+    "waitMessage": "Attendi il completamento della generazione corrente"
+  },
+  "home": {
+    "latestGenerations": "Ultime Generazioni",
+    "noGenerations": "Nessuna generazione",
+    "createFirst": "Crea la tua prima generazione IA e inizia a esplorare le possibilità!",
+    "createFirstButton": "Crea Prima Generazione",
+    "pending": "In attesa"
+  },
+  "splits": {
+    "title": "Lista Allenamenti",
+    "noSplits": "Nessun allenamento",
+    "createSplit": "Crea Allenamento",
+    "createDescription": "Crea un nuovo allenamento per iniziare ad allenarti con l'IA",
+    "splitName": "Nome Allenamento",
+    "selectWeekday": "Seleziona Giorno",
+    "repsAndSets": {
+      "title": "Seleziona Ripetizioni e Serie",
+      "sets": "Serie",
+      "reps": "Ripetizioni"
+    },
+    "errors": {
+      "createError": "Errore nella creazione dell'allenamento",
+      "nameRequired": "Il nome dell'allenamento è obbligatorio",
+      "nameEmpty": "Il nome non può essere vuoto"
+    }
+  },
+  "categories": {
+    "title": "Categorie",
+    "exerciseName": "Nome Esercizio"
+  },
+  "auth": {
+    "continueWith": {
+      "google": "Continua con Google",
+      "apple": "Continua con Apple",
+      "facebook": "Continua con Facebook"
+    }
+  },
+  "permissions": {
+    "gallery": {
+      "title": "Permesso Galleria Richiesto",
+      "message": "Abilita l'accesso alla galleria nelle impostazioni del dispositivo",
+      "needed": "Permesso Galleria Necessario",
+      "explanation": "Abbiamo bisogno dell'accesso alla galleria per selezionare le foto. Concedi il permesso quando richiesto"
+    },
+    "camera": {
+      "title": "Permesso Fotocamera Richiesto",
+      "message": "Abilita l'accesso alla fotocamera nelle impostazioni del dispositivo",
+      "needed": "Permesso Fotocamera Necessario",
+      "explanation": "Abbiamo bisogno dell'accesso alla fotocamera per scattare foto. Concedi il permesso quando richiesto"
+    }
+  },
+  "buttons": {
+    "cancel": "Annulla",
+    "ok": "OK",
+    "openSettings": "Apri Impostazioni"
+  },
+  "settings": {
+    "selectLanguage": "Seleziona Lingua",
+    "changeLanguage": "Cambia Lingua",
+    "signOut": "Esci"
+  },
+  "errors": {
+    "generic": "Qualcosa è andato storto"
+  }
+}

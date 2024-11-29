@@ -1,0 +1,88 @@
+{
+  "language": {
+    "en": "Anglais",
+    "es": "Espagnol",
+    "fr": "Français",
+    "de": "Allemand",
+    "it": "Italien",
+    "pt": "Portugais",
+    "ru": "Russe",
+    "zh": "Chinois"
+  },
+  "tabs": {
+    "home": "Accueil",
+    "bookmarks": "Sauvegardés",
+    "settings": "Paramètres",
+    "splits": "Séances"
+  },
+  "wizard": {
+    "gallery": "Galerie",
+    "takePhoto": "Prendre une Photo",
+    "chooseMuscle": "Choisir le Muscle",
+    "generationInProgress": "Génération en Cours",
+    "waitMessage": "Veuillez attendre que la génération actuelle soit terminée"
+  },
+  "home": {
+    "latestGenerations": "Dernières Générations",
+    "noGenerations": "Aucune génération pour le moment",
+    "createFirst": "Créez votre première génération IA et commencez à explorer les possibilités !",
+    "createFirstButton": "Créer la Première Génération",
+    "pending": "En attente"
+  },
+  "splits": {
+    "title": "Liste des Séances",
+    "noSplits": "Aucune séance pour le moment",
+    "createSplit": "Créer une Séance",
+    "createDescription": "Créez une nouvelle séance pour commencer à vous entraîner avec l'IA",
+    "splitName": "Nom de la Séance",
+    "selectWeekday": "Sélectionner le Jour",
+    "repsAndSets": {
+      "title": "Sélectionner Répétitions et Séries",
+      "sets": "Séries",
+      "reps": "Répétitions"
+    },
+    "errors": {
+      "createError": "Échec de la création de la séance",
+      "nameRequired": "Le nom de la séance est requis",
+      "nameEmpty": "Le nom ne peut pas être vide"
+    }
+  },
+  "categories": {
+    "title": "Catégories",
+    "exerciseName": "Nom de l'Exercice"
+  },
+  "auth": {
+    "continueWith": {
+      "google": "Continuer avec Google",
+      "apple": "Continuer avec Apple",
+      "facebook": "Continuer avec Facebook"
+    }
+  },
+  "permissions": {
+    "gallery": {
+      "title": "Permission Galerie Requise",
+      "message": "Veuillez activer l'accès à la galerie dans les paramètres de votre appareil pour utiliser cette fonction",
+      "needed": "Permission Galerie Nécessaire",
+      "explanation": "Nous avons besoin d'accéder à la galerie pour sélectionner des photos. Veuillez accorder la permission lorsque demandé"
+    },
+    "camera": {
+      "title": "Permission Caméra Requise",
+      "message": "Veuillez activer l'accès à la caméra dans les paramètres de votre appareil pour utiliser cette fonction",
+      "needed": "Permission Caméra Nécessaire",
+      "explanation": "Nous avons besoin d'accéder à la caméra pour prendre des photos. Veuillez accorder la permission lorsque demandé"
+    }
+  },
+  "buttons": {
+    "cancel": "Annuler",
+    "ok": "OK",
+    "openSettings": "Ouvrir les Paramètres"
+  },
+  "settings": {
+    "selectLanguage": "Sélectionner la Langue",
+    "changeLanguage": "Changer de Langue",
+    "signOut": "Se Déconnecter"
+  },
+  "errors": {
+    "generic": "Une erreur est survenue"
+  }
+}

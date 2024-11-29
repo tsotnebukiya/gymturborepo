@@ -1,0 +1,88 @@
+{
+  "language": {
+    "en": "Englisch",
+    "es": "Spanisch",
+    "fr": "Französisch",
+    "de": "Deutsch",
+    "it": "Italienisch",
+    "pt": "Portugiesisch",
+    "ru": "Russisch",
+    "zh": "Chinesisch"
+  },
+  "tabs": {
+    "home": "Start",
+    "bookmarks": "Gespeichert",
+    "settings": "Einstellungen",
+    "splits": "Trainingsplan"
+  },
+  "wizard": {
+    "gallery": "Galerie",
+    "takePhoto": "Foto aufnehmen",
+    "chooseMuscle": "Muskel auswählen",
+    "generationInProgress": "Generierung läuft",
+    "waitMessage": "Bitte warten Sie, bis die aktuelle Generierung abgeschlossen ist"
+  },
+  "home": {
+    "latestGenerations": "Neueste Generierungen",
+    "noGenerations": "Noch keine Generierungen",
+    "createFirst": "Erstellen Sie Ihre erste KI-Generierung und entdecken Sie die Möglichkeiten!",
+    "createFirstButton": "Erste Generierung erstellen",
+    "pending": "Ausstehend"
+  },
+  "splits": {
+    "title": "Trainingspläne",
+    "noSplits": "Noch keine Trainingspläne",
+    "createSplit": "Trainingsplan erstellen",
+    "createDescription": "Erstellen Sie einen neuen Trainingsplan, um mit KI zu trainieren",
+    "splitName": "Name des Trainingsplans",
+    "selectWeekday": "Wochentag auswählen",
+    "repsAndSets": {
+      "title": "Wiederholungen & Sätze auswählen",
+      "sets": "Sätze",
+      "reps": "Wiederholungen"
+    },
+    "errors": {
+      "createError": "Fehler beim Erstellen des Trainingsplans",
+      "nameRequired": "Name des Trainingsplans ist erforderlich",
+      "nameEmpty": "Name darf nicht leer sein"
+    }
+  },
+  "categories": {
+    "title": "Kategorien",
+    "exerciseName": "Übungsname"
+  },
+  "auth": {
+    "continueWith": {
+      "google": "Mit Google fortfahren",
+      "apple": "Mit Apple fortfahren",
+      "facebook": "Mit Facebook fortfahren"
+    }
+  },
+  "permissions": {
+    "gallery": {
+      "title": "Galerie-Berechtigung erforderlich",
+      "message": "Bitte aktivieren Sie den Galerie-Zugriff in Ihren Geräteeinstellungen",
+      "needed": "Galerie-Berechtigung benötigt",
+      "explanation": "Wir benötigen Zugriff auf die Galerie, um Fotos auszuwählen. Bitte gewähren Sie die Berechtigung"
+    },
+    "camera": {
+      "title": "Kamera-Berechtigung erforderlich",
+      "message": "Bitte aktivieren Sie den Kamera-Zugriff in Ihren Geräteeinstellungen",
+      "needed": "Kamera-Berechtigung benötigt",
+      "explanation": "Wir benötigen Zugriff auf die Kamera, um Fotos aufzunehmen. Bitte gewähren Sie die Berechtigung"
+    }
+  },
+  "buttons": {
+    "cancel": "Abbrechen",
+    "ok": "OK",
+    "openSettings": "Einstellungen öffnen"
+  },
+  "settings": {
+    "selectLanguage": "Sprache auswählen",
+    "changeLanguage": "Sprache ändern",
+    "signOut": "Abmelden"
+  },
+  "errors": {
+    "generic": "Etwas ist schiefgelaufen"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "language": {
+    "en": "英语",
+    "es": "西班牙语",
+    "fr": "法语",
+    "de": "德语",
+    "it": "意大利语",
+    "pt": "葡萄牙语",
+    "ru": "俄语",
+    "zh": "中文"
+  },
+  "tabs": {
+    "home": "首页",
+    "bookmarks": "收藏",
+    "settings": "设置",
+    "splits": "训练"
+  },
+  "wizard": {
+    "gallery": "相册",
+    "takePhoto": "拍照",
+    "chooseMuscle": "选择肌肉",
+    "generationInProgress": "生成中",
+    "waitMessage": "请等待当前生成完成"
+  },
+  "home": {
+    "latestGenerations": "最新生成",
+    "noGenerations": "暂无生成",
+    "createFirst": "创建你的第一个AI生成，开始探索可能性！",
+    "createFirstButton": "创建第一个生成",
+    "pending": "等待中"
+  },
+  "splits": {
+    "title": "训练列表",
+    "noSplits": "暂无训练",
+    "createSplit": "创建训练",
+    "createDescription": "创建新的训练计划，开始AI训练",
+    "splitName": "训练名称",
+    "selectWeekday": "选择星期",
+    "repsAndSets": {
+      "title": "选择组数和次数",
+      "sets": "组数",
+      "reps": "次数"
+    },
+    "errors": {
+      "createError": "创建训练失败",
+      "nameRequired": "训练名称必填",
+      "nameEmpty": "名称不能为空"
+    }
+  },
+  "categories": {
+    "title": "分类",
+    "exerciseName": "运动名称"
+  },
+  "auth": {
+    "continueWith": {
+      "google": "使用Google继续",
+      "apple": "使用Apple继续",
+      "facebook": "使用Facebook继续"
+    }
+  },
+  "permissions": {
+    "gallery": {
+      "title": "需要相册权限",
+      "message": "请在设备设置中启用相册访问权限",
+      "needed": "需要相册权限",
+      "explanation": "我们需要访问相册来选择照片，请授予权限"
+    },
+    "camera": {
+      "title": "需要相机权限",
+      "message": "请在设备设置中启用相机访问权限",
+      "needed": "需要相机权限",
+      "explanation": "我们需要访问相机来拍照，请授予权限"
+    }
+  },
+  "buttons": {
+    "cancel": "取消",
+    "ok": "确定",
+    "openSettings": "打开设置"
+  },
+  "settings": {
+    "selectLanguage": "选择语言",
+    "changeLanguage": "更改语言",
+    "signOut": "退出登录"
+  },
+  "errors": {
+    "generic": "出现错误"
+  }
+}

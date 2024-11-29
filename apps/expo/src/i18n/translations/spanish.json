@@ -9,22 +9,80 @@
     "ru": "Ruso",
     "zh": "Chino"
   },
-  "intro": {
-    "title": "Intro",
-    "start": "Inicio"
-  },
   "tabs": {
     "home": "Inicio",
     "bookmarks": "Guardados",
     "settings": "Configuración",
     "splits": "Divisiones"
   },
-  "some": {
-    "home": "Inicio"
+  "wizard": {
+    "gallery": "Galería",
+    "takePhoto": "Tomar Foto",
+    "chooseMuscle": "Elegir Músculo",
+    "generationInProgress": "Generación en Progreso",
+    "waitMessage": "Por favor, espere a que se complete la generación actual"
+  },
+  "home": {
+    "latestGenerations": "Últimas Generaciones",
+    "noGenerations": "No hay generaciones aún",
+    "createFirst": "¡Crea tu primera generación con IA y comienza a explorar las posibilidades!",
+    "createFirstButton": "Crear Primera Generación",
+    "pending": "Pendiente"
+  },
+  "splits": {
+    "title": "Lista de Divisiones",
+    "noSplits": "No hay divisiones aún",
+    "createSplit": "Crear División",
+    "createDescription": "Crea una nueva división para comenzar a entrenar con IA",
+    "splitName": "Nombre de la División",
+    "selectWeekday": "Seleccionar Día de la Semana",
+    "repsAndSets": {
+      "title": "Seleccionar Repeticiones y Series",
+      "sets": "Series",
+      "reps": "Repeticiones"
+    },
+    "errors": {
+      "createError": "Error al crear la división",
+      "nameRequired": "El nombre de la división es obligatorio",
+      "nameEmpty": "El nombre no puede estar vacío"
+    }
+  },
+  "categories": {
+    "title": "Categorías",
+    "exerciseName": "Nombre del Ejercicio"
+  },
+  "auth": {
+    "continueWith": {
+      "google": "Continuar con Google",
+      "apple": "Continuar con Apple",
+      "facebook": "Continuar con Facebook"
+    }
+  },
+  "permissions": {
+    "gallery": {
+      "title": "Permiso de Galería Requerido",
+      "message": "Por favor, habilite el acceso a la galería en la configuración de su dispositivo para usar esta función",
+      "needed": "Se Necesita Permiso de Galería",
+      "explanation": "Necesitamos acceso a la galería para seleccionar fotos. Por favor, conceda el permiso cuando se le solicite"
+    },
+    "camera": {
+      "title": "Permiso de Cámara Requerido",
+      "message": "Por favor, habilite el acceso a la cámara en la configuración de su dispositivo para usar esta función",
+      "needed": "Se Necesita Permiso de Cámara",
+      "explanation": "Necesitamos acceso a la cámara para tomar fotos. Por favor, conceda el permiso cuando se le solicite"
+    }
+  },
+  "buttons": {
+    "cancel": "Cancelar",
+    "ok": "Aceptar",
+    "openSettings": "Abrir Configuración"
   },
   "settings": {
-    "selectLanguage": "Seleccionar idioma",
-    "changeLanguage": "Cambiar idioma",
-    "signOut": "Cerrar sesión"
+    "selectLanguage": "Seleccionar Idioma",
+    "changeLanguage": "Cambiar Idioma",
+    "signOut": "Cerrar Sesión"
+  },
+  "errors": {
+    "generic": "Algo salió mal"
   }
 }
