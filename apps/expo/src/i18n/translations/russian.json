@@ -123,6 +123,22 @@
     "signOut": "Выйти"
   },
   "errors": {
-    "generic": "Что-то пошло не так"
+    "generic": "Что-то пошло не так",
+    "noExercisesFound": "Упражнения не найдены",
+    "noExercises": "Нет упражнений"
+  },
+  "exercises": {
+    "title": "Упражнения",
+    "exerciseName": "Название упражнения",
+    "exercises": "упражнений",
+    "selectSavedExercise": "Выбрать сохраненное упражнение",
+    "changeSetRep": "Изменить подходы/повторения",
+    "delete": "Удалить",
+    "noExercisesYet": "Пока нет упражнений",
+    "createExercise": "Создать упражнение",
+    "createDescription": "Создайте новое упражнение, чтобы начать тренироваться с ИИ"
+  },
+  "signIn": {
+    "title": "Вход"
   }
 }

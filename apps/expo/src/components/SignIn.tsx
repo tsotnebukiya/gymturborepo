@@ -3,6 +3,7 @@ import TopBar from '~/components/shared/TopBar';
 import { useRouter } from 'expo-router';
 import SocialIcon from '~/components/ui/SocialButton';
 import { Text } from 'react-native-paper';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   loading: boolean;
@@ -18,6 +19,7 @@ export default function SignInComponent({
   onFacebookPress,
 }: Props) {
   const router = useRouter();
+  const { t } = useTranslation();
   return (
     <>
       <TopBar
@@ -30,10 +32,10 @@ export default function SignInComponent({
         }}
       />
       <View style={styles.container}>
-        <Text style={styles.title}>Sign In</Text>
+        <Text style={styles.title}>{t('signIn.title')}</Text>
         <View style={styles.buttonContainer}>
           <SocialIcon
-            text="Continue with Google"
+            text={t('auth.continueWith.google')}
             icon="google"
             localStyles={{
               wrapper: { ...styles.button, ...styles.googleButton },
@@ -42,7 +44,7 @@ export default function SignInComponent({
             disabled={loading}
           />
           <SocialIcon
-            text="Continue with Apple"
+            text={t('auth.continueWith.apple')}
             icon="apple"
             localStyles={{
               wrapper: { ...styles.button, ...styles.appleButton },
@@ -51,7 +53,7 @@ export default function SignInComponent({
             disabled={loading}
           />
           <SocialIcon
-            text="Continue with Facebook"
+            text={t('auth.continueWith.facebook')}
             icon="facebook"
             localStyles={{
               wrapper: { ...styles.button, ...styles.facebookButton },

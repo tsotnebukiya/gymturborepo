@@ -9,9 +9,11 @@ import { Text } from 'react-native-paper';
 import CTABox from '~/components/shared/CTABox';
 import { useAppContext } from '~/lib/contexts/AppContext';
 import GenerationSkeleton from '~/components/homepage/Skeleton';
+import { useTranslation } from 'react-i18next';
 
 export default function HomeScreen() {
   const language = useCurrentLanguageEnum();
+  const { t } = useTranslation();
   const { setWizardVisible } = useAppContext();
   const { data, isLoading, refetch } = api.generation.getAll.useQuery(
     {
@@ -38,7 +40,7 @@ export default function HomeScreen() {
     <GradientLayout>
       <ScrollView onRefresh={handleRefresh}>
         <View style={styles.container}>
-          <Text variant="titleLarge">Latest Generations</Text>
+          <Text variant="titleLarge">{t('home.latestGenerations')}</Text>
           <View style={styles.generationsContainer}>
             {isLoading ? (
               Array.from({ length: 3 }).map((_, index) => (
@@ -50,9 +52,9 @@ export default function HomeScreen() {
               ))
             ) : (
               <CTABox
-                title="No generations yet"
-                description="Create your first AI generation and start exploring the possibilities!"
-                buttonText="Create First Generation"
+                title={t('home.noGenerations')}
+                description={t('home.createFirst')}
+                buttonText={t('home.createFirstButton')}
                 onPress={handleCTA}
               />
             )}

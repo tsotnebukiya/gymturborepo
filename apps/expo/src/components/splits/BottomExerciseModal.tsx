@@ -8,6 +8,7 @@ import {
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import { Pressable, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 export default function ExerciseBottomSheet({
   sheetRef,
@@ -19,6 +20,7 @@ export default function ExerciseBottomSheet({
   handleDelete: () => void;
 }) {
   const snapPoints = useMemo(() => ['20%'], []);
+  const { t } = useTranslation();
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
@@ -46,7 +48,7 @@ export default function ExerciseBottomSheet({
           ]}
           onPress={handleChangeSetRep}
         >
-          <Text style={styles.buttonText}>Change Set/Rep</Text>
+          <Text style={styles.buttonText}>{t('exercises.changeSetRep')}</Text>
         </Pressable>
 
         <Pressable
@@ -57,7 +59,7 @@ export default function ExerciseBottomSheet({
           ]}
           onPress={handleDelete}
         >
-          <Text style={[styles.buttonText]}>Delete</Text>
+          <Text style={[styles.buttonText]}>{t('exercises.delete')}</Text>
         </Pressable>
       </BottomSheetView>
     </BottomSheetModal>

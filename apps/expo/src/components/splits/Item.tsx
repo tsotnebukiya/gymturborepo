@@ -9,6 +9,7 @@ import {
 import { router } from 'expo-router';
 import { api } from '~/lib/utils/api';
 import { useCurrentLanguageEnum } from '~/i18n';
+import { useTranslation } from 'react-i18next';
 
 export default function SplitItem({
   item,
@@ -18,6 +19,7 @@ export default function SplitItem({
   const language = useCurrentLanguageEnum();
   const musclesConstants = useMusclesConstants();
   const splitDayConstants = useSplitDayConstants();
+  const { t } = useTranslation();
   console.log(splitDayConstants);
   api.split.getOne.usePrefetchQuery({ id: item.id, language });
   const handlePress = () => {
@@ -52,7 +54,7 @@ export default function SplitItem({
           <View style={styles.detail}>
             <Ionicons name="barbell-outline" size={14} color="#666666" />
             <Text style={styles.detailText}>
-              {item.exercisesCount} exercises
+              {item.exercisesCount} {t('exercises.exercises')}
             </Text>
           </View>
         </View>

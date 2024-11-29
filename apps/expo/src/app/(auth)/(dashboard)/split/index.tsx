@@ -9,9 +9,11 @@ import { keepPreviousData } from '@tanstack/react-query';
 import { useState } from 'react';
 import SplitSkeleton from '~/components/splits/Skeleton';
 import { useCurrentLanguageEnum } from '~/i18n';
+import { useTranslation } from 'react-i18next';
 
 export default function SplitsHomeScreen() {
   const language = useCurrentLanguageEnum();
+  const { t } = useTranslation();
   const {
     data,
     isLoading,
@@ -48,7 +50,7 @@ export default function SplitsHomeScreen() {
     <GradientLayout>
       <View style={styles.container}>
         <TopBar
-          title="Splits List"
+          title={t('splits.title')}
           statusBarHeight={0}
           borderBottomColor="#E0E0E0"
           actions={[
@@ -73,9 +75,9 @@ export default function SplitsHomeScreen() {
                 <SplitSkeleton />
               ) : (
                 <CTABox
-                  buttonText="Create Split"
-                  description="Create a new split to start training with AI"
-                  title="No splits yet"
+                  buttonText={t('splits.createSplit')}
+                  description={t('splits.createDescription')}
+                  title={t('splits.noSplits')}
                   onPress={handleCreateNew}
                 />
               )}
