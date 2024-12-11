@@ -10,10 +10,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   icon: './src/assets/icon.png',
   userInterfaceStyle: 'automatic',
   newArchEnabled: true,
-  splash: {
-    image: './src/assets/icon.png',
-    resizeMode: 'contain',
-  },
   updates: {
     fallbackToCacheTimeout: 0,
     url: 'https://u.expo.dev/b436b234-7f6e-47be-8c02-1a6bc764ee08',
@@ -41,5 +37,24 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     tsconfigPaths: true,
     typedRoutes: true,
   },
-  plugins: ['expo-router', 'expo-secure-store', 'expo-localization'],
+  plugins: [
+    'expo-router',
+    'expo-secure-store',
+    'expo-localization',
+    'expo-font',
+    [
+      'expo-splash-screen',
+      {
+        backgroundColor: '#232323',
+        image: './src/assets/splash-bg.png',
+        dark: {
+          image: './src/assets/splash-bg.png',
+          backgroundColor: '#000000',
+        },
+        imageWidth: 200,
+        resizeMode: 'contain',
+        splashScreenAnimation: 'fade',
+      },
+    ],
+  ],
 });

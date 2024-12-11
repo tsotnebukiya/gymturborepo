@@ -222,7 +222,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    padding: 16,
     gap: 16,
   },
   daysContainer: {

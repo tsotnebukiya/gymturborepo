@@ -27,7 +27,8 @@ export default function SignInComponent({
           icon: 'close',
           mode: 'contained-tonal',
           onPress: () => {
-            router.navigate('/');
+            // router.navigate('/');
+            router.back();
           },
         }}
       />

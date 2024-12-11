@@ -172,5 +172,15 @@
     "add": "Add",
     "cancel": "Cancel",
     "confirm": "Confirm"
+  },
+  "intro": {
+    "title1": "Asana - Your Yoga Journey Starts Here",
+    "subTitle1": "Get ready to embark on a transformative yoga journey with Asana. Discover a wide range of yogas, tailored to your goals.",
+    "title2": "Tailored Exercise Plan for Your Needs",
+    "subTitle2": "Asana personalizes yogas just for you. Whether you're a beginner or a yoga enthusiast, our app adapts to your needs.",
+    "title3": "Stay Informed About Your Yoga Progress",
+    "subTitle3": "Stay motivated and track your progress effortlessly. Start your yoga journey today and achieve the results you've always wanted.",
+    "skip": "Skip",
+    "continue": "Continue"
   }
 }

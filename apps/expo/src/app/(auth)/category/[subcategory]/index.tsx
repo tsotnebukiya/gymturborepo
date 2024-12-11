@@ -9,8 +9,8 @@ import { router, useLocalSearchParams } from 'expo-router';
 import ExerciseListSkeleton from '~/components/exercises/SkeletonList';
 import { type Subcategory } from '@prisma/client';
 import { useCurrentLanguageEnum } from '~/i18n';
-import GradientLayout from '~/components/shared/GradientLayout';
 import { useTranslation } from 'react-i18next';
+import Gradient from '~/components/ui/Gradient';
 
 export default function MuscleExercisesScreen() {
   const { t } = useTranslation();
@@ -56,7 +56,7 @@ export default function MuscleExercisesScreen() {
   };
 
   return (
-    <GradientLayout>
+    <Gradient>
       <View style={styles.container}>
         <View style={styles.filterContainer}>
           <IconButton
@@ -115,7 +115,7 @@ export default function MuscleExercisesScreen() {
           }
         />
       </View>
-    </GradientLayout>
+    </Gradient>
   );
 }
 

@@ -1,7 +1,12 @@
 import { CLERK_PUBLISHABLE_KEY, tokenCache } from '~/lib/utils/auth';
-import theme from '~/lib/utils/theme';
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
-import { useFonts } from 'expo-font';
+import {
+  useFonts,
+  Urbanist_400Regular,
+  Urbanist_500Medium,
+  Urbanist_600SemiBold,
+  Urbanist_700Bold,
+} from '@expo-google-fonts/urbanist';
 import { Stack, usePathname, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
@@ -26,7 +31,10 @@ void SplashScreen.preventAutoHideAsync();
 function InitialLayout() {
   const pathname = usePathname();
   const [loaded, error] = useFonts({
-    SpaceMono: require('~/assets/fonts/SpaceMono-Regular.ttf'),
+    Urbanist_400Regular,
+    Urbanist_500Medium,
+    Urbanist_600SemiBold,
+    Urbanist_700Bold,
   });
   const { isLoaded, isSignedIn } = useAuth();
   const segments = useSegments();
@@ -74,7 +82,7 @@ export default function RootLayoutNav() {
       tokenCache={tokenCache}
     >
       <TRPCProvider>
-        <PaperProvider theme={theme}>
+        <PaperProvider>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>
               <InitialLayout />
