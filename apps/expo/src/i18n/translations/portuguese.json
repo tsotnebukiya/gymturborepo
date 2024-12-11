@@ -172,5 +172,15 @@
     "add": "Adicionar",
     "cancel": "Cancelar",
     "confirm": "Confirmar"
+  },
+  "intro": {
+    "title1": "Asana - Sua jornada de yoga começa aqui",
+    "subTitle1": "Prepare-se para embarcar em uma jornada transformadora de yoga com Asana. Descubra uma ampla gama de yogas, adaptados aos seus objetivos.",
+    "title2": "Plano de exercícios personalizado para suas necessidades",
+    "subTitle2": "Asana personaliza os yogas só para você. Seja você iniciante ou entusiasta do yoga, nosso aplicativo se adapta às suas necessidades.",
+    "title3": "Mantenha-se informado sobre seu progresso no yoga",
+    "subTitle3": "Mantenha-se motivado e acompanhe seu progresso sem esforço. Comece sua jornada de yoga hoje e alcance os resultados que você sempre desejou.",
+    "skip": "Pular",
+    "continue": "Continuar"
   }
 }

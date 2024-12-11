@@ -172,5 +172,15 @@
     "add": "Hinzufügen",
     "cancel": "Abbrechen",
     "confirm": "Bestätigen"
+  },
+  "intro": {
+    "title1": "Asana - Ihre Yoga-Reise beginnt hier",
+    "subTitle1": "Machen Sie sich bereit für eine transformative Yoga-Reise mit Asana. Entdecken Sie eine breite Palette von Yoga-Übungen, die auf Ihre Ziele zugeschnitten sind.",
+    "title2": "Maßgeschneiderter Übungsplan für Ihre Bedürfnisse",
+    "subTitle2": "Asana personalisiert Yoga speziell für Sie. Ob Anfänger oder Yoga-Enthusiast, unsere App passt sich Ihren Bedürfnissen an.",
+    "title3": "Bleiben Sie über Ihren Yoga-Fortschritt informiert",
+    "subTitle3": "Bleiben Sie motiviert und verfolgen Sie Ihre Fortschritte mühelos. Beginnen Sie heute Ihre Yoga-Reise und erreichen Sie die Ergebnisse, die Sie sich immer gewünscht haben.",
+    "skip": "Überspringen",
+    "continue": "Weiter"
   }
 }

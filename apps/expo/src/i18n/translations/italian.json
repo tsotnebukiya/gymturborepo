@@ -172,5 +172,15 @@
     "add": "Aggiungi",
     "cancel": "Annulla",
     "confirm": "Conferma"
+  },
+  "intro": {
+    "title1": "Asana - Il tuo viaggio nello yoga inizia qui",
+    "subTitle1": "Preparati a intraprendere un viaggio trasformativo nello yoga con Asana. Scopri una vasta gamma di yoga, adattati ai tuoi obiettivi.",
+    "title2": "Piano di esercizi personalizzato per le tue esigenze",
+    "subTitle2": "Asana personalizza lo yoga solo per te. Che tu sia un principiante o un appassionato di yoga, la nostra app si adatta alle tue esigenze.",
+    "title3": "Rimani informato sui tuoi progressi nello yoga",
+    "subTitle3": "Mantieni la motivazione e traccia i tuoi progressi senza sforzo. Inizia oggi il tuo viaggio nello yoga e raggiungi i risultati che hai sempre desiderato.",
+    "skip": "Salta",
+    "continue": "Continua"
   }
 }
