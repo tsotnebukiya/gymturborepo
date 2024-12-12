@@ -19,6 +19,7 @@ export default function SignInComponent({
   onFacebookPress,
 }: Props) {
   const router = useRouter();
+
   const { t } = useTranslation();
   return (
     <>
@@ -27,8 +28,7 @@ export default function SignInComponent({
           icon: 'close',
           mode: 'contained-tonal',
           onPress: () => {
-            // router.navigate('/');
-            router.back();
+            router.replace('/(app)');
           },
         }}
       />

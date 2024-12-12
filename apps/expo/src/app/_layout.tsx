@@ -7,13 +7,12 @@ import {
   Urbanist_600SemiBold,
   Urbanist_700Bold,
 } from '@expo-google-fonts/urbanist';
-import { Stack, usePathname, useRouter, useSegments } from 'expo-router';
+import { Slot } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { ActivityIndicator, PaperProvider } from 'react-native-paper';
+import { PaperProvider } from 'react-native-paper';
 import { TRPCProvider } from '~/lib/utils/api';
-import { View } from 'react-native';
 import '~/i18n';
 import {
   configureReanimatedLogger,
@@ -29,50 +28,24 @@ configureReanimatedLogger({
 void SplashScreen.preventAutoHideAsync();
 
 function InitialLayout() {
-  const pathname = usePathname();
   const [loaded, error] = useFonts({
     Urbanist_400Regular,
     Urbanist_500Medium,
     Urbanist_600SemiBold,
     Urbanist_700Bold,
   });
-  const { isLoaded, isSignedIn } = useAuth();
-  const segments = useSegments();
-  const router = useRouter();
+  const { isLoaded } = useAuth();
   useEffect(() => {
     if (error) throw error;
   }, [error]);
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && isLoaded) {
       void SplashScreen.hideAsync();
     }
-  }, [loaded]);
-  useEffect(() => {
-    if (!isLoaded) return;
-    const inAuthGroup = segments[0] === '(auth)';
-    if (isSignedIn && !inAuthGroup) {
-      router.navigate('/home');
-    } else if (!isSignedIn && pathname !== '/') {
-      router.navigate('/');
-    }
-  }, [isSignedIn]);
+  }, [loaded, isLoaded]);
 
-  if (!isLoaded)
-    return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
-        <ActivityIndicator size={'large'} />
-      </View>
-    );
-
-  return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="+not-found" />
-      <Stack.Screen name="(auth)" />
-      <Stack.Screen name="index" />
-      <Stack.Screen name="sign-in" />
-    </Stack>
-  );
+  return <Slot />;
 }
 
 export default function RootLayoutNav() {

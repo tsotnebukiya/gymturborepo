@@ -1,7 +1,12 @@
-import { Stack } from 'expo-router';
+import { useAuth } from '@clerk/clerk-expo';
+import { Redirect, Stack } from 'expo-router';
 import { AppContextProvider } from '~/lib/contexts/AppContext';
 
 export default function AuthLayout() {
+  const { isSignedIn } = useAuth();
+  if (!isSignedIn) {
+    return <Redirect href="/sign-in" />;
+  }
   return (
     <AppContextProvider>
       <Stack screenOptions={{ headerShown: false }}>
