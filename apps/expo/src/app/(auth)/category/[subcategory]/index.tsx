@@ -8,14 +8,14 @@ import { useDebounce } from 'use-debounce';
 import { router, useLocalSearchParams } from 'expo-router';
 import ExerciseListSkeleton from '~/components/exercises/SkeletonList';
 import { type Subcategory } from '@prisma/client';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 import { useTranslation } from 'react-i18next';
 import Gradient from '~/components/ui/Gradient';
 
 export default function MuscleExercisesScreen() {
   const { t } = useTranslation();
   const { subcategory } = useLocalSearchParams<{ subcategory: Subcategory }>();
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const [searchInput, setSearchInput] = useState<string | undefined>(undefined);
   const [debouncedSearch] = useDebounce(searchInput, 1000);
   const [refreshing, setRefreshing] = useState(false);

@@ -4,7 +4,7 @@ import { api, type RouterOutputs } from '~/lib/utils/api';
 import LottieView from 'lottie-react-native';
 import { Skeleton } from 'moti/skeleton';
 import { useRouter } from 'expo-router';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 
 export default function GenerationItem({
   data,
@@ -12,7 +12,7 @@ export default function GenerationItem({
   data: RouterOutputs['generation']['getAll'][number];
 }) {
   const router = useRouter();
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const completed = data.status === 'COMPLETED';
   const onPress = () => {
     if (completed) {

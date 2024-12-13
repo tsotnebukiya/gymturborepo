@@ -8,7 +8,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 import { useTranslation } from 'react-i18next';
 
 export type GenerationData = NonNullable<
@@ -30,7 +30,7 @@ export default function ExerciseItem({
   handlePress,
   handleMoreOptions,
 }: Props) {
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const { t } = useTranslation();
   const musclesConstants = useMusclesConstants();
   api.exercise.getOne.usePrefetchQuery({ id: data.id, language });

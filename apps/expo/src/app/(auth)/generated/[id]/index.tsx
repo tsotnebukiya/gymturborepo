@@ -1,6 +1,5 @@
 import { keepPreviousData } from '@tanstack/react-query';
 import { useLocalSearchParams } from 'expo-router';
-import { useCurrentLanguageEnum } from '~/i18n';
 import { api } from '~/lib/utils/api';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import Gradient from '~/components/ui/Gradient';
@@ -12,6 +11,7 @@ import ExerciseItem from '~/components/exercises/Item';
 import ScrollView from '~/components/shared/ScrollView';
 import { Text } from 'react-native-paper';
 import ExerciseListSkeleton from '~/components/exercises/SkeletonList';
+import { useCurrentLanguage } from '~/i18n';
 
 const { height } = Dimensions.get('window');
 
@@ -26,7 +26,7 @@ function NoExercises() {
 export default function GeneratedItemScreen() {
   const { id } = useLocalSearchParams();
   const [imageLoading, setImageLoading] = useState(true);
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const { data, isLoading } = api.generation.getOne.useQuery(
     {
       id: Number(id),

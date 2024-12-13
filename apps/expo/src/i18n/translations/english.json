@@ -157,7 +157,8 @@
     "reps": "Reps"
   },
   "signIn": {
-    "title": "Sign In"
+    "title": "Let's Get Started!",
+    "subtitle": "Let's dive in into your account"
   },
   "common": {
     "close": "✕",

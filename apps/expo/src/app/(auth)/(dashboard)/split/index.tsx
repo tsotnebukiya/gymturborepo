@@ -8,11 +8,11 @@ import { api } from '~/lib/utils/api';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useState } from 'react';
 import SplitSkeleton from '~/components/splits/Skeleton';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 import { useTranslation } from 'react-i18next';
 
 export default function SplitsHomeScreen() {
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const { t } = useTranslation();
   const {
     data,

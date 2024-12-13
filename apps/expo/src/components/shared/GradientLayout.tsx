@@ -9,23 +9,23 @@ export default function GradientLayout({
 }) {
   const insets = useSafeAreaInsets();
   return (
-    <Gradient>
-      <View
-        style={[
-          styles.container,
-          {
-            paddingTop: insets.top,
-          },
-        ]}
-      >
-        {children}
-      </View>
-    </Gradient>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingTop: insets.top,
+        },
+      ]}
+    >
+      <Gradient />
+      {children}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'transparent',
   },
 });

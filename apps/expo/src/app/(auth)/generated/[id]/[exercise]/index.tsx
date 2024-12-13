@@ -1,11 +1,11 @@
 import ExerciseView from '~/components/ExerciseView';
 import { useLocalSearchParams } from 'expo-router';
 import { api } from '~/lib/utils/api';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 import { keepPreviousData } from '@tanstack/react-query';
 
 export default function ExerciseScreen() {
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const { exercise } = useLocalSearchParams();
   const { data, isLoading } = api.exercise.getOne.useQuery(
     {

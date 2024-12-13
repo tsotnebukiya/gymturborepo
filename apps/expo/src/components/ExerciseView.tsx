@@ -7,7 +7,7 @@ import { Text } from 'react-native-paper';
 import ExerciseSkeleton from './exercises/SkeletonItem';
 import VideoPlayer from './exercises/VideoPlayer';
 import ScrollView from './shared/ScrollView';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 
 type ExerciseData = RouterOutputs['exercise']['getOne'];
 
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function ExerciseView({ data }: Props) {
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const musclesConstants = useMusclesConstants();
   const utils = api.useUtils();
   const { mutate: bookmark, isPending } = api.bookmark.bookmark.useMutation({

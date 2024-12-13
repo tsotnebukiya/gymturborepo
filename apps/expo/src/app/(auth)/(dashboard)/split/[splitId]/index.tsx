@@ -11,7 +11,7 @@ import { useAppContext } from '~/lib/contexts/AppContext';
 import ExerciseItem, { type GenerationData } from '~/components/exercises/Item';
 import ScrollView from '~/components/shared/ScrollView';
 import { api, type RouterOutputs } from '~/lib/utils/api';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 import { keepPreviousData } from '@tanstack/react-query';
 import SplitIndividualSkeleton from '~/components/splits/IndividualSkeleton';
 import ExerciseBottomSheet from '~/components/splits/BottomExerciseModal';
@@ -20,7 +20,7 @@ import RepsSetsModal from '~/components/splits/RepsSetsModal';
 import { useTranslation } from 'react-i18next';
 
 export default function SplitIndividualScreen() {
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const { splitId } = useLocalSearchParams();
 
   const { data: split, isLoading } = api.split.getOne.useQuery(

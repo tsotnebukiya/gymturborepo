@@ -6,14 +6,14 @@ import { useState } from 'react';
 import * as ImageManipulator from 'expo-image-manipulator';
 import { useRouter } from 'expo-router';
 import { useAppContext } from '../../lib/contexts/AppContext';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 import { useTranslation } from 'react-i18next';
 
 type PreviousData = RouterOutputs['generation']['getAll'];
 
 export default function WizardComponent() {
   const { t } = useTranslation();
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const { wizardVisible, setWizardVisible } = useAppContext();
   const showModal = () => setWizardVisible(true);
   const hideModal = () => setWizardVisible(false);

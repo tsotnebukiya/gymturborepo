@@ -1,7 +1,7 @@
 import { keepPreviousData } from '@tanstack/react-query';
 import GradientLayout from '~/components/shared/GradientLayout';
 import ScrollView from '~/components/shared/ScrollView';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 import { api } from '~/lib/utils/api';
 import { StyleSheet, View } from 'react-native';
 import GenerationItem from '~/components/homepage/Item';
@@ -12,7 +12,7 @@ import GenerationSkeleton from '~/components/homepage/Skeleton';
 import { useTranslation } from 'react-i18next';
 
 export default function HomeScreen() {
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const { t } = useTranslation();
   const { setWizardVisible } = useAppContext();
   const { data, isLoading, refetch } = api.generation.getAll.useQuery(

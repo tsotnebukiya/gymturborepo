@@ -19,8 +19,12 @@ export default function IntroItem({ item }: { item: CarouselData }) {
   const { width } = useWindowDimensions();
   return (
     <View style={[styles.textContainer, { width }]}>
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.subTitle}>{item.subtitle}</Text>
+      <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
+        {item.title}
+      </Text>
+      <Text style={styles.subTitle} numberOfLines={3} ellipsizeMode="tail">
+        {item.subtitle}
+      </Text>
     </View>
   );
 }

@@ -1,10 +1,14 @@
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Divider, Text } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
 import { changeLanguage, resources, type LanguageCode } from '~/i18n';
 import { useTranslation } from 'react-i18next';
 import { api } from '~/lib/utils/api';
+import colors from '~/lib/utils/colors';
+import { fontFamilies, typography } from '~/lib/utils/typography';
+import Button from './ui/Button';
+import Gradient from './ui/Gradient';
 
 interface Props {
   visible: boolean;
@@ -38,14 +42,15 @@ export default function LanguageModal({ visible, onClose }: Props) {
           style={styles.modalContent}
           onStartShouldSetResponder={() => true}
         >
+          <Gradient />
           <View style={styles.header}>
-            <Text variant="titleMedium">{t('settings.selectLanguage')}</Text>
-            <Pressable onPress={onClose} hitSlop={8}>
-              <Text style={styles.closeButton}>✕</Text>
-            </Pressable>
+            <Text style={styles.headerText}>
+              {t('settings.selectLanguage')}
+            </Text>
           </View>
-
+          <Divider style={styles.divider} />
           <Picker
+            itemStyle={styles.pickerItem}
             selectedValue={tempSelectedLang}
             onValueChange={(value) =>
               setTempSelectedLang(value as LanguageCode)
@@ -59,13 +64,8 @@ export default function LanguageModal({ visible, onClose }: Props) {
               />
             ))}
           </Picker>
-          <Button
-            mode="contained"
-            onPress={handleConfirm}
-            style={styles.confirmButton}
-          >
-            Confirm
-          </Button>
+          <Divider style={styles.divider} />
+          <Button onPress={handleConfirm}>{t('common.confirm')}</Button>
         </View>
       </Pressable>
     </Modal>
@@ -75,36 +75,45 @@ export default function LanguageModal({ visible, onClose }: Props) {
 const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: colors.overlay,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modalContent: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    width: '80%',
-    maxWidth: 400,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 5,
+  divider: {
+    backgroundColor: colors.border.light,
+    height: 1.5,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    // marginBottom: 16,
+    marginBottom: 20,
+  },
+  headerText: {
+    fontSize: typography.h4.fontSize,
+    lineHeight: typography.h4.lineHeight,
+    fontFamily: fontFamilies.bold,
+    color: colors.text.general.light,
+  },
+  modalContent: {
+    backgroundColor: 'transparent',
+    borderRadius: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    width: '90%',
+    overflow: 'hidden',
+  },
+  pickerItem: {
+    fontSize: typography.h4.fontSize,
+    lineHeight: typography.h4.lineHeight,
+    fontFamily: fontFamilies.semiBold,
+    color: colors.text.general.brand,
   },
   closeButton: {
-    fontSize: 20,
-    color: '#666',
+    position: 'absolute',
+    borderWidth: 1.5,
+    right: -12,
   },
   confirmButton: {
-    // marginTop: 16,
+    marginTop: 20,
   },
 });

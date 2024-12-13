@@ -9,6 +9,7 @@ interface ButtonProps {
   type?: 'primary' | 'secondary';
   style?: ViewStyle;
   disabled?: boolean;
+  flex?: boolean;
 }
 
 export default function Button({
@@ -17,6 +18,7 @@ export default function Button({
   type = 'primary',
   style,
   disabled = false,
+  flex = false,
 }: ButtonProps) {
   return (
     <Pressable
@@ -32,6 +34,7 @@ export default function Button({
             ? styles.disabledPrimary
             : styles.disabledSecondary),
         style,
+        flex && { flex: 1 },
       ]}
     >
       <Text
@@ -57,7 +60,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
   },
   primary: {
     backgroundColor: colors.primary[900],

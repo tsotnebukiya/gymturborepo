@@ -8,13 +8,13 @@ import { useDebounce } from 'use-debounce';
 import { router } from 'expo-router';
 import ExerciseListSkeleton from '~/components/exercises/SkeletonList';
 import { useAppContext } from '~/lib/contexts/AppContext';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 import GradientLayout from '~/components/shared/GradientLayout';
 import { useTranslation } from 'react-i18next';
 
 export default function SplitExercisesListScreen() {
   const { t } = useTranslation();
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const {
     setSplitSubcategory: setSubcategory,
     splitSubcategory: subcategory,

@@ -23,14 +23,18 @@ export default {
     100: '#8AA0DE',
     50: '#9AACEE',
   },
-  beige: '#FFF6F2',
-  text: {
-    general: { light: '#212121', greyscale: '#616161' },
+  overlay: 'rgba(9, 16, 29, 0.4)',
+  beige: '#FFF9F7',
+  border: {
+    light: '#E0E0E0',
   },
+  text: {
+    general: { light: '#212121', greyscale: '#616161', brand: '#222222' },
+  },
+  rippleColor: 'rgba(34, 34, 34, 0.1)',
 } as const;
 
-// To create lighter versions of the color #FFF6F2 (a soft peachy white), we incrementally increase the lightness or decrease the saturation of the color. Here are five progressively lighter variations:
-
+//#FFF6F2
 // #FFF8F5
 // #FFF9F7
 // #FFFBF9

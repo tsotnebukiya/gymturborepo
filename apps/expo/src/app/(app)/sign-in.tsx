@@ -17,7 +17,9 @@ WebBrowser.maybeCompleteAuthSession();
 
 export default function SignInScreen() {
   useWarmUpBrowser();
-  const [loading, setLoading] = useState(false);
+  const [loadingProvider, setLoadingProvider] = useState<
+    'google' | 'apple' | 'facebook' | null
+  >(null);
   const { startOAuthFlow: googleFlow } = useOAuth({
     strategy: 'oauth_google',
     redirectUrl: Linking.createURL('/home'),
@@ -30,10 +32,13 @@ export default function SignInScreen() {
     strategy: 'oauth_facebook',
     redirectUrl: Linking.createURL('/home'),
   });
+  console.log(loadingProvider);
   const onPress = useCallback(
     async (provider: string) => {
       try {
-        setLoading(true);
+        setLoadingProvider(
+          provider.toLowerCase() as 'google' | 'apple' | 'facebook'
+        );
         let flow;
         switch (provider) {
           case 'Google':
@@ -57,14 +62,18 @@ export default function SignInScreen() {
       } catch (err) {
         console.error(`${provider} OAuth error`, err);
       } finally {
-        setLoading(false);
+        setLoadingProvider(null);
       }
     },
     [appleFlow, facebookFlow, googleFlow]
   );
   return (
     <SignInComponent
-      loading={loading}
+      loading={{
+        google: loadingProvider === 'google',
+        apple: loadingProvider === 'apple',
+        facebook: loadingProvider === 'facebook',
+      }}
       onGooglePress={() => onPress('Google')}
       onApplePress={() => onPress('Apple')}
       onFacebookPress={() => onPress('Facebook')}

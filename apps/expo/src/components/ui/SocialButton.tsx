@@ -1,40 +1,77 @@
-import { StyleSheet, type ViewStyle } from 'react-native';
-import { Button, Icon, Text } from 'react-native-paper';
+import { Image, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
+import { Text } from 'react-native-paper';
+import colors from '~/lib/utils/colors';
+import { fontFamilies, typography } from '~/lib/utils/typography';
 
-interface Styles {
-  wrapper: ViewStyle;
-}
+const icons = {
+  google: require('~/assets/icons/google.png'),
+
+  apple: require('~/assets/icons/apple.png'),
+
+  facebook: require('~/assets/icons/facebook.png'),
+};
 
 interface Props {
-  icon: string;
+  icon: 'google' | 'apple' | 'facebook';
   text: string;
   disabled: boolean;
-  localStyles: Styles;
+  loading?: boolean;
   onPress: () => void;
 }
 
 export default function SocialIcon({
   text,
   icon,
-  localStyles,
   disabled,
+  loading = false,
   onPress,
 }: Props) {
   return (
-    <Button
-      icon={() => <Icon size={28} source={icon} color="white" />}
-      mode="contained"
-      labelStyle={{ color: 'white' }}
+    <Pressable
+      style={({ pressed }) => [styles.container, pressed && styles.pressed]}
       onPress={onPress}
-      loading={disabled}
-      disabled={disabled}
-      style={localStyles.wrapper}
+      disabled={disabled || loading}
     >
-      <Text style={styles.buttonText}>{text}</Text>
-    </Button>
+      {loading ? (
+        <ActivityIndicator
+          color={colors.text.general.light}
+          style={styles.icon}
+        />
+      ) : (
+        <Image source={icons[icon]} style={styles.icon} />
+      )}
+      <Text style={styles.text}>{text}</Text>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  buttonText: { fontSize: 16, fontWeight: 'bold', color: 'white' },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+    padding: 16,
+    borderRadius: 100,
+    borderWidth: 1,
+    backgroundColor: '#FFFFFF',
+    borderColor: colors.border.light,
+  },
+  pressed: {
+    backgroundColor: colors.border.light,
+    opacity: 0.8,
+  },
+  icon: {
+    width: 28,
+    height: 28,
+    position: 'absolute',
+    left: 16,
+  },
+  text: {
+    fontSize: typography.large.fontSize,
+    lineHeight: typography.large.lineHeight,
+    color: colors.text.general.light,
+    fontFamily: fontFamilies.bold,
+    flex: 1,
+    textAlign: 'center',
+  },
 });

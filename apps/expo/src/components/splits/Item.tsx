@@ -8,7 +8,7 @@ import {
 } from '~/lib/utils/constants';
 import { router } from 'expo-router';
 import { api } from '~/lib/utils/api';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 import { useTranslation } from 'react-i18next';
 
 export default function SplitItem({
@@ -16,7 +16,7 @@ export default function SplitItem({
 }: {
   item: RouterOutputs['split']['getAll']['splits'][number];
 }) {
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const musclesConstants = useMusclesConstants();
   const splitDayConstants = useSplitDayConstants();
   const { t } = useTranslation();

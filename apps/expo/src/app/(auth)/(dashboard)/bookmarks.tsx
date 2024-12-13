@@ -8,12 +8,12 @@ import { useDebounce } from 'use-debounce';
 import { router } from 'expo-router';
 import ExerciseListSkeleton from '~/components/exercises/SkeletonList';
 import { useAppContext } from '~/lib/contexts/AppContext';
-import { useCurrentLanguageEnum } from '~/i18n';
+import { useCurrentLanguage } from '~/i18n';
 import GradientLayout from '~/components/shared/GradientLayout';
 import { useTranslation } from 'react-i18next';
 
 export default function SavedExercisesScreen() {
-  const language = useCurrentLanguageEnum();
+  const { language } = useCurrentLanguage();
   const { t } = useTranslation();
   const { setSubcategory, subcategory } = useAppContext();
   const [searchInput, setSearchInput] = useState<string | undefined>(undefined);
@@ -132,7 +132,7 @@ export default function SavedExercisesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 16,
+    // paddingVertical: 0,
     // gap: 16,
   },
   filterContainer: {

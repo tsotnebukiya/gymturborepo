@@ -38,18 +38,53 @@ export const resources: Record<
   zh: { translation: translationZh },
 };
 
-export const isoPrismaMapping: Record<
-  LanguageCode,
-  PrismaTypes.$Enums.Language
-> = {
-  en: 'ENGLISH',
-  es: 'SPANISH',
-  fr: 'FRENCH',
-  de: 'GERMAN',
-  it: 'ITALIAN',
-  pt: 'PORTUGUESE',
-  ru: 'RUSSIAN',
-  zh: 'CHINESE',
+interface LanguageDetails {
+  icon: number;
+  code: string;
+  language: PrismaTypes.$Enums.Language;
+}
+
+export const isoMapping: Record<LanguageCode, LanguageDetails> = {
+  en: {
+    icon: require('../assets/flags/us.png'),
+    code: 'EN',
+    language: 'ENGLISH',
+  },
+  es: {
+    icon: require('../assets/flags/es.png'),
+    code: 'ES',
+    language: 'SPANISH',
+  },
+  fr: {
+    icon: require('../assets/flags/fr.png'),
+    code: 'FR',
+    language: 'FRENCH',
+  },
+  de: {
+    icon: require('../assets/flags/de.png'),
+    code: 'DE',
+    language: 'GERMAN',
+  },
+  it: {
+    icon: require('../assets/flags/it.png'),
+    code: 'IT',
+    language: 'ITALIAN',
+  },
+  pt: {
+    icon: require('../assets/flags/pt.png'),
+    code: 'PT',
+    language: 'PORTUGUESE',
+  },
+  ru: {
+    icon: require('../assets/flags/ru.png'),
+    code: 'RU',
+    language: 'RUSSIAN',
+  },
+  zh: {
+    icon: require('../assets/flags/cn.png'),
+    code: 'ZH',
+    language: 'CHINESE',
+  },
 } as const;
 
 const initI18n = async () => {
@@ -79,7 +114,7 @@ export const changeLanguage = async (lang: LanguageCode) => {
   await i18n.changeLanguage(lang);
 };
 
-export function useCurrentLanguageEnum(): PrismaTypes.$Enums.Language {
+export function useCurrentLanguage(): LanguageDetails {
   const { i18n } = useTranslation();
-  return isoPrismaMapping[i18n.language as LanguageCode];
+  return isoMapping[i18n.language as LanguageCode];
 }
