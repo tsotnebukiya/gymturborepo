@@ -78,7 +78,7 @@ export const generationRouter = {
         orderBy: {
           createdAt: 'desc',
         },
-        take: 5,
+        take: 3,
       });
       const endTime = performance.now();
       log.debug('Generation getAll query executed', {

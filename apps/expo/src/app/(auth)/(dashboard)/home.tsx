@@ -3,17 +3,16 @@ import GradientLayout from '~/components/shared/GradientLayout';
 import ScrollView from '~/components/shared/ScrollView';
 import { useCurrentLanguage } from '~/i18n';
 import { api } from '~/lib/utils/api';
-import { StyleSheet, View } from 'react-native';
-import GenerationItem from '~/components/homepage/Item';
-import { Text } from 'react-native-paper';
-import CTABox from '~/components/shared/CTABox';
 import { useAppContext } from '~/lib/contexts/AppContext';
-import GenerationSkeleton from '~/components/homepage/Skeleton';
-import { useTranslation } from 'react-i18next';
+import TopBar from '~/components/shared/TopBar';
+import { useRouter } from 'expo-router';
+import LatestGenerations from '~/components/homepage/LatestGenerations';
+import MuscleCategories from '~/components/homepage/MuscleCategories';
+import { StyleSheet, View } from 'react-native';
 
 export default function HomeScreen() {
+  const router = useRouter();
   const { language } = useCurrentLanguage();
-  const { t } = useTranslation();
   const { setWizardVisible } = useAppContext();
   const { data, isLoading, refetch } = api.generation.getAll.useQuery(
     {
@@ -36,29 +35,31 @@ export default function HomeScreen() {
     await refetch();
   };
   const handleCTA = () => setWizardVisible(true);
+  const handleSupport = () => {
+    router.push('/(auth)/support');
+  };
   return (
     <GradientLayout>
       <ScrollView onRefresh={handleRefresh}>
+        <TopBar
+          logo={true}
+          title={'GymLead AI'}
+          inset={false}
+          actions={[
+            {
+              icon: require('~/assets/icons/chat.png'),
+              mode: 'outlined',
+              onPress: handleSupport,
+            },
+          ]}
+        />
         <View style={styles.container}>
-          <Text variant="titleLarge">{t('home.latestGenerations')}</Text>
-          <View style={styles.generationsContainer}>
-            {isLoading ? (
-              Array.from({ length: 3 }).map((_, index) => (
-                <GenerationSkeleton key={index} />
-              ))
-            ) : data?.length ? (
-              data.map((generation) => (
-                <GenerationItem key={generation.id} data={generation} />
-              ))
-            ) : (
-              <CTABox
-                title={t('home.noGenerations')}
-                description={t('home.createFirst')}
-                buttonText={t('home.createFirstButton')}
-                onPress={handleCTA}
-              />
-            )}
-          </View>
+          <LatestGenerations
+            isLoading={isLoading}
+            data={data}
+            handleCTA={handleCTA}
+          />
+          <MuscleCategories />
         </View>
       </ScrollView>
     </GradientLayout>
@@ -67,11 +68,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 32,
-  },
-  generationsContainer: {
-    gap: 16,
+    gap: 24,
+    paddingTop: 12,
   },
 });

@@ -1,5 +1,4 @@
 import { Path } from 'react-native-svg';
-
 import { useWindowDimensions } from 'react-native';
 import { Svg } from 'react-native-svg';
 import colors from '~/lib/utils/colors';
@@ -19,7 +18,7 @@ export default function TabBarSVG() {
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
-        d={`M${screenWidth * 0.387} 32C${screenWidth * 0.404} 32 ${screenWidth * 0.417} 26.422 ${screenWidth * 0.425} 20.0282C${screenWidth * 0.439} 8.15917 ${screenWidth * 0.467} 0 ${screenWidth * 0.5} 0C${screenWidth * 0.533} 0 ${screenWidth * 0.561} 8.15917 ${screenWidth * 0.575} 20.0282C${screenWidth * 0.583} 26.422 ${screenWidth * 0.596} 32 ${screenWidth * 0.613} 32H${screenWidth}C${screenWidth + 0.552} 32 ${screenWidth} 32.4477 ${screenWidth} 33V106C${screenWidth} 106.552 ${screenWidth - 0.448} 107 ${screenWidth} 107H0.999997C0.447713 107 0 106.552 0 106V33C0 32.4477 0.447715 32 1 32H${screenWidth * 0.613}Z`}
+        d={`M${screenWidth * 0.388} 32C${screenWidth * 0.404} 32 ${screenWidth * 0.418} 26.422 ${screenWidth * 0.425} 20.0282C${screenWidth * 0.439} 8.1592 ${screenWidth * 0.467} 0 ${screenWidth * 0.5} 0C${screenWidth * 0.533} 0 ${screenWidth * 0.561} 8.1592 ${screenWidth * 0.575} 20.0282C${screenWidth * 0.582} 26.422 ${screenWidth * 0.596} 32 ${screenWidth * 0.612} 32H${screenWidth - 2}C${screenWidth - 1.448} 32 ${screenWidth - 1} 32.4477 ${screenWidth - 1} 33V106C${screenWidth - 1} 106.552 ${screenWidth - 1.448} 107 ${screenWidth - 2} 107H2C1.44771 107 1 106.552 1 106V33C1 32.4477 1.44772 32 2 32H${screenWidth * 0.388}Z`}
         fill={colors.tabBar}
       />
     </Svg>

@@ -173,7 +173,6 @@ export function useMuscleCategories() {
 
     return acc;
   }, []);
-  console.log(returnValue);
   return returnValue;
 }
 
@@ -193,3 +192,34 @@ export function useSplitDayConstants() {
 
 export type MuscleKey = PrismaTypes.$Enums.Subcategory;
 export type SplitDayKey = PrismaTypes.$Enums.SplitWeekDay;
+
+export function useCategoryConstants() {
+  const { t } = useTranslation();
+
+  return [
+    {
+      translation: t('muscles.categories.shoulders'),
+      image: require('~/assets/musclepictures/shoulders.png'),
+    },
+    {
+      translation: t('muscles.categories.chest'),
+      image: require('~/assets/musclepictures/chest.png'),
+    },
+    {
+      translation: t('muscles.categories.arms'),
+      image: require('~/assets/musclepictures/arms.png'),
+    },
+    {
+      translation: t('muscles.categories.back'),
+      image: require('~/assets/musclepictures/back.png'),
+    },
+    {
+      translation: t('muscles.categories.core'),
+      image: require('~/assets/musclepictures/abs.png'),
+    },
+    {
+      translation: t('muscles.categories.legs'),
+      image: require('~/assets/musclepictures/legs.png'),
+    },
+  ];
+}

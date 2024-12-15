@@ -1,8 +1,9 @@
-import { StyleSheet, View } from 'react-native';
-import { Appbar, IconButton } from 'react-native-paper';
+import { Image, StyleSheet, View } from 'react-native';
+import { IconButton, Text } from 'react-native-paper';
 import colors from '~/lib/utils/colors';
 import LanguageButton from '../LanguageButton';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { fontFamilies, typography } from '~/lib/utils/typography';
 
 interface Props {
   title?: string;
@@ -22,9 +23,18 @@ interface Props {
   borderBottomColor?: string;
   languageButton?: boolean;
   flexEnd?: boolean;
+  logo?: boolean;
+  inset?: boolean;
 }
 
-const TopBar = ({ title, actions, backAction, languageButton }: Props) => {
+const TopBar = ({
+  title,
+  actions,
+  backAction,
+  languageButton,
+  logo = false,
+  inset = true,
+}: Props) => {
   const onlyLang = !backAction && languageButton;
   const insets = useSafeAreaInsets();
   return (
@@ -32,9 +42,15 @@ const TopBar = ({ title, actions, backAction, languageButton }: Props) => {
       style={[
         styles.header,
         onlyLang && styles.justifyEnd,
-        { marginTop: insets.top },
+        { marginTop: inset ? insets.top : 0 },
       ]}
     >
+      {logo && (
+        <Image
+          style={{ width: 24, height: 32.3 }}
+          source={require('~/assets/logo-black.png')}
+        />
+      )}
       {backAction && (
         <IconButton
           icon="arrow-left"
@@ -46,7 +62,7 @@ const TopBar = ({ title, actions, backAction, languageButton }: Props) => {
           mode={backAction.mode || 'outlined'}
         />
       )}
-      {title && <Appbar.Content title={title} />}
+      {title && <Text style={styles.title}>{title}</Text>}
       {actions?.map((action, index) => (
         <IconButton
           key={index}
@@ -56,6 +72,7 @@ const TopBar = ({ title, actions, backAction, languageButton }: Props) => {
           onPress={action.onPress}
           mode={action.mode}
           loading={action.loading}
+          style={styles.action}
         />
       ))}
       {languageButton && <LanguageButton grayBackground={!onlyLang} />}
@@ -71,13 +88,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     display: 'flex',
-    minHeight: 50,
+    minHeight: 42,
+  },
+  title: {
+    fontFamily: fontFamilies.bold,
+    fontSize: typography.h4.fontSize,
+    lineHeight: typography.h4.lineHeight,
+    color: colors.text.general.light,
   },
   justifyEnd: {
     justifyContent: 'flex-end',
   },
   noBorder: {
     borderWidth: 0,
+    margin: 0,
+  },
+  action: {
     margin: 0,
   },
 });

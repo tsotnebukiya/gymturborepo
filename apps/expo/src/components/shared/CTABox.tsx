@@ -1,5 +1,8 @@
-import { StyleSheet } from 'react-native';
-import { Text, Card, Button } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Text, Card } from 'react-native-paper';
+import colors from '~/lib/utils/colors';
+import { fontFamilies, typography } from '~/lib/utils/typography';
+import Button from '../ui/Button';
 
 export default function CTABox({
   title,
@@ -13,17 +16,13 @@ export default function CTABox({
   onPress: () => void;
 }) {
   return (
-    <Card style={styles.emptyCard}>
+    <Card style={styles.emptyCard} mode="contained">
       <Card.Content style={styles.cardContent}>
-        <Text variant="titleMedium" style={styles.cardTitle}>
-          {title}
-        </Text>
-        <Text variant="bodyMedium" style={styles.cardDescription}>
-          {description}
-        </Text>
-        <Button mode="contained" style={styles.button} onPress={onPress}>
-          {buttonText}
-        </Button>
+        <View style={styles.cardText}>
+          <Text style={styles.cardTitle}>{title}</Text>
+          <Text style={styles.cardDescription}>{description}</Text>
+        </View>
+        <Button onPress={onPress}>{buttonText}</Button>
       </Card.Content>
     </Card>
   );
@@ -31,22 +30,30 @@ export default function CTABox({
 
 const styles = StyleSheet.create({
   emptyCard: {
-    backgroundColor: '#f8f9fa',
-    borderRadius: 12,
+    borderRadius: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: 'white',
+    borderColor: colors.border.light,
+    borderWidth: 1,
   },
   cardContent: {
     alignItems: 'center',
-    padding: 24,
+    gap: 44,
   },
+  cardText: { gap: 16 },
   cardTitle: {
-    marginBottom: 8,
+    textAlign: 'center',
+    fontSize: typography.h6.fontSize,
+    lineHeight: typography.h6.lineHeight,
+    fontFamily: fontFamilies.bold,
+    color: colors.text.general.light,
   },
   cardDescription: {
     textAlign: 'center',
-    marginBottom: 16,
-    color: '#6c757d',
-  },
-  button: {
-    marginTop: 8,
+    fontSize: typography.h6.fontSize,
+    lineHeight: typography.h6.lineHeight,
+    fontFamily: fontFamilies.regular,
+    color: colors.text.general.greyscale,
   },
 });

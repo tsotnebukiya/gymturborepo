@@ -24,7 +24,7 @@ export default {
     50: '#9AACEE',
   },
   overlay: 'rgba(9, 16, 29, 0.4)',
-  beige: '#FFF6F2',
+  beige: '#FFF9F7',
   tabBar: '#FAFAFA',
   border: {
     light: '#E0E0E0',
@@ -36,6 +36,7 @@ export default {
     active: '#212121',
     inactive: '#9E9E9E',
   },
+  surfaceLight: '#F5F5F5',
   rippleColor: 'rgba(34, 34, 34, 0.1)',
   shadows: {
     wizard: '0px 0px 12px 0px rgba(54, 54, 54, 0.3)',

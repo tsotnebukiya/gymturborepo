@@ -4,7 +4,6 @@ import {
   StyleSheet,
   RefreshControl,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function ScrollView({
   children,
@@ -13,7 +12,6 @@ export default function ScrollView({
   children: React.ReactNode;
   onRefresh?: () => Promise<void>;
 }) {
-  const insets = useSafeAreaInsets();
   const [refreshing, setRefreshing] = useState(false);
 
   const handleRefresh = async () => {
@@ -31,7 +29,7 @@ export default function ScrollView({
         ) : undefined
       }
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: insets.bottom }}
+      contentContainerStyle={{ paddingBottom: 131 }}
       style={styles.container}
     >
       {children}
@@ -42,6 +40,6 @@ export default function ScrollView({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
   },
 });

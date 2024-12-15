@@ -41,7 +41,8 @@
     "noGenerations": "No generations yet",
     "createFirst": "Create your first AI generation and start exploring the possibilities!",
     "createFirstButton": "Create First Generation",
-    "pending": "Pending"
+    "pending": "Pending",
+    "muscleCategories": "Muscle Categories"
   },
   "splits": {
     "title": "Splits List",

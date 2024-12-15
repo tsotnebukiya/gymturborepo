@@ -8,13 +8,17 @@ import { fontFamilies, typography } from '~/lib/utils/typography';
 export default function WizardModal({
   handleGallery,
   handleCamera,
+  onDismiss,
 }: {
   handleGallery: () => void;
   handleCamera: () => void;
+  onDismiss?: () => void;
 }) {
   const { t } = useTranslation();
   const { wizardVisible, setWizardVisible } = useAppContext();
-  const hideModal = () => setWizardVisible(false);
+  const hideModal = () => {
+    setWizardVisible(false);
+  };
 
   return (
     <Modal
@@ -24,6 +28,7 @@ export default function WizardModal({
       animationType="fade"
       presentationStyle="overFullScreen"
       onRequestClose={hideModal}
+      onDismiss={onDismiss}
     >
       <Pressable style={styles.modalOverlay} onPress={hideModal}>
         <View
@@ -31,7 +36,10 @@ export default function WizardModal({
           onStartShouldSetResponder={() => true}
         >
           <View style={styles.topRow}>
-            <Pressable onPress={handleGallery}>
+            <Pressable
+              onPress={handleGallery}
+              style={({ pressed }) => [pressed && styles.pressed]}
+            >
               <Card style={styles.card}>
                 <Image
                   source={require('~/assets/icons/gallery.png')}
@@ -40,7 +48,10 @@ export default function WizardModal({
                 <Text style={styles.text}>{t('wizard.gallery')}</Text>
               </Card>
             </Pressable>
-            <Pressable onPress={handleCamera}>
+            <Pressable
+              onPress={handleCamera}
+              style={({ pressed }) => [pressed && styles.pressed]}
+            >
               <Card style={styles.card}>
                 <Image
                   source={require('~/assets/icons/camera.png')}
@@ -63,6 +74,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  pressed: {
+    transform: [{ scale: 0.95 }],
+  },
   modalContent: {
     overflow: 'hidden',
     bottom: 132,
@@ -83,7 +97,7 @@ const styles = StyleSheet.create({
     height: 125,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5F3FF',
+    backgroundColor: '#FFFEFD',
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,

@@ -15,7 +15,8 @@ type PreviousData = RouterOutputs['generation']['getAll'];
 export default function WizardComponent() {
   const { t } = useTranslation();
   const { language } = useCurrentLanguage();
-  const { setWizardVisible } = useAppContext();
+  const { setWizardVisible, wizardVisible } = useAppContext();
+  console.log('wizardVisible', wizardVisible);
   const hideModal = () => setWizardVisible(false);
   const router = useRouter();
   const [image, setImage] = useState<string>();
@@ -38,7 +39,7 @@ export default function WizardComponent() {
               name: 'Pending?',
               status: 'PENDING',
             },
-            ...(oldQueryData || []),
+            ...(oldQueryData?.slice(0, 2) || []),
           ] as PreviousData
       );
       return { previousData };
@@ -62,6 +63,10 @@ export default function WizardComponent() {
     ImagePicker.useMediaLibraryPermissions();
   const cameraPermissionGranted = cameraPermission?.granted;
   const libraryPermissionedGranted = permissionLibrary?.granted;
+  const [pendingAction, setPendingAction] = useState<
+    'gallery' | 'camera' | null
+  >(null);
+
   const openAppSettings = () => {
     void Linking.openSettings();
   };
@@ -94,6 +99,26 @@ export default function WizardComponent() {
     router.push('/(auth)/(dashboard)/home');
   };
 
+  const handleModalDismiss = async () => {
+    if (pendingAction === 'gallery') {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        allowsEditing: false,
+        quality: 1,
+      });
+      await handleImagePicked(result);
+    } else if (pendingAction === 'camera') {
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: false,
+        quality: 1,
+        presentationStyle:
+          ImagePicker.UIImagePickerPresentationStyle.FORM_SHEET,
+      });
+      await handleImagePicked(result);
+    }
+    setPendingAction(null);
+  };
   const handleGallery = async () => {
     if (!libraryPermissionedGranted) {
       const { granted, canAskAgain } = await requestPermissionLibrary();
@@ -117,13 +142,8 @@ export default function WizardComponent() {
         return;
       }
     }
+    setPendingAction('gallery');
     hideModal();
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false,
-      quality: 1,
-    });
-    await handleImagePicked(result);
   };
   const handleCamera = async () => {
     if (!cameraPermissionGranted) {
@@ -148,20 +168,18 @@ export default function WizardComponent() {
         return;
       }
     }
+    setPendingAction('camera');
     hideModal();
-    const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: false,
-      quality: 1,
-      presentationStyle: ImagePicker.UIImagePickerPresentationStyle.FORM_SHEET,
-    });
-    await handleImagePicked(result);
   };
 
   return (
     <>
       <WizardButton isPending={isPending} />
-      <WizardModal handleCamera={handleCamera} handleGallery={handleGallery} />
+      <WizardModal
+        handleCamera={handleCamera}
+        handleGallery={handleGallery}
+        onDismiss={handleModalDismiss}
+      />
     </>
   );
 }

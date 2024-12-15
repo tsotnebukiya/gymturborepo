@@ -1,10 +1,12 @@
 import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Icon, Text } from 'react-native-paper';
 import { api, type RouterOutputs } from '~/lib/utils/api';
 import LottieView from 'lottie-react-native';
 import { Skeleton } from 'moti/skeleton';
 import { useRouter } from 'expo-router';
 import { useCurrentLanguage } from '~/i18n';
+import colors from '~/lib/utils/colors';
+import { fontFamilies, typography } from '~/lib/utils/typography';
 
 export default function GenerationItem({
   data,
@@ -23,7 +25,13 @@ export default function GenerationItem({
     api.generation.getOne.usePrefetchQuery({ id: data.id, language });
   }
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <Pressable
+      style={({ pressed }) => [
+        styles.container,
+        pressed && data.status === 'COMPLETED' ? styles.pressed : null,
+      ]}
+      onPress={onPress}
+    >
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: data.image }}
@@ -52,20 +60,31 @@ export default function GenerationItem({
           </>
         ) : null}
         {data.status === 'FAILED' ? (
-          <Text variant="titleLarge" style={styles.errorText}>
+          <Text variant="titleLarge" style={styles.errorTitle}>
             Invalid Image
           </Text>
         ) : null}
         {data.status === 'COMPLETED' ? (
           <>
-            <Text variant="titleLarge" numberOfLines={1} ellipsizeMode="tail">
+            <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
               {data.name}
             </Text>
-            <Text variant="bodyMedium" numberOfLines={2} ellipsizeMode="middle">
+            <Text
+              style={styles.subtitle}
+              numberOfLines={2}
+              ellipsizeMode="middle"
+            >
               {data.description}
             </Text>
           </>
         ) : null}
+      </View>
+      <View style={styles.iconContainer}>
+        <Icon
+          source="chevron-right"
+          size={30}
+          color={colors.text.general.light}
+        />
       </View>
     </Pressable>
   );
@@ -76,20 +95,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     backgroundColor: 'white',
-    borderRadius: 16,
     alignSelf: 'center',
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    shadowColor: '#000',
+    borderRadius: 6,
+    gap: 16,
+    shadowColor: '#000000',
     shadowOffset: {
-      width: 0,
-      height: 2,
+      width: 1.95,
+      height: 1.95,
     },
-    elevation: 5,
+    shadowOpacity: 0.15, // 15%
+    shadowRadius: 2.6,
+    elevation: 4, // For Android - approximate equivalent
   },
   imageContainer: {
-    borderTopLeftRadius: 16,
-    borderBottomLeftRadius: 16,
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
     overflow: 'hidden',
     position: 'relative',
   },
@@ -101,21 +121,42 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   image: {
-    width: 110,
-    height: 110,
+    width: 100,
+    height: 100,
   },
   contentContainer: {
-    padding: 12,
     flex: 1,
-    gap: 12,
+    gap: 6,
+    paddingTop: 6,
   },
-  bodyContainer: {
-    flexDirection: 'row',
-    gap: 16,
-    alignItems: 'center',
+  pressed: {
+    opacity: 0.6,
   },
-  errorText: {
+  title: {
+    fontSize: typography.h5.fontSize,
+    lineHeight: typography.h5.lineHeight,
+    fontFamily: fontFamilies.bold,
+    color: colors.text.general.light,
+  },
+  subtitle: {
+    fontSize: typography.medium.fontSize,
+    lineHeight: typography.medium.lineHeight,
+    fontFamily: fontFamilies.regular,
+    color: colors.text.general.greyscale,
+  },
+  errorTitle: {
+    fontSize: typography.h5.fontSize,
+    lineHeight: typography.h5.lineHeight,
+    fontFamily: fontFamilies.bold,
     color: 'red',
+  },
+  iconContainer: {
+    justifyContent: 'center',
+  },
+  icon: {
+    backgroundColor: 'white',
+    padding: 0,
+    margin: 0,
   },
 });
 
