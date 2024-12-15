@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   grayBackground: {
-    backgroundColor: colors.border.light,
+    backgroundColor: '#F5F5F5',
   },
   text: {
     fontSize: typography.h6.fontSize,

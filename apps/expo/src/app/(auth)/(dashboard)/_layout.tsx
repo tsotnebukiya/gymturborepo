@@ -1,27 +1,42 @@
-import { TabBarIcon } from '~/components/ui/TabBarIcon';
+import { TabBarIcon, TabBarLabel } from '~/components/ui/TabBar';
 import WizardComponent from '~/components/wizard/Wizard';
 import { Tabs } from 'expo-router';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
+import { View } from 'react-native';
+import TabBarSVG from '~/components/ui/TabBarSVG';
+import colors from '~/lib/utils/colors';
 
 export default function DashboardLayout() {
-  const insets = useSafeAreaInsets();
   const { t } = useTranslation();
   return (
-    <>
+    <View style={{ flex: 1 }}>
       <Tabs
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            height: 50 + insets.bottom,
-            paddingBottom: insets.bottom,
+            position: 'absolute',
+            height: 107,
+            paddingBottom: 0,
+            paddingTop: 37,
+            borderColor: 'transparent',
+            backgroundColor: 'transparent',
+            zIndex: 1,
+          },
+          tabBarItemStyle: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
           },
         }}
       >
         <Tabs.Screen
           name="home"
           options={{
-            title: t('tabs.home'),
+            tabBarActiveTintColor: colors.menuBarIcon.active,
+            tabBarInactiveTintColor: colors.menuBarIcon.inactive,
+            tabBarLabel: ({ focused }) => (
+              <TabBarLabel label={t('tabs.home')} active={focused} />
+            ),
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? 'home' : 'home-outline'}
@@ -33,7 +48,14 @@ export default function DashboardLayout() {
         <Tabs.Screen
           name="bookmarks"
           options={{
-            title: t('tabs.bookmarks'),
+            tabBarActiveTintColor: colors.menuBarIcon.active,
+            tabBarInactiveTintColor: colors.menuBarIcon.inactive,
+            tabBarItemStyle: {
+              marginRight: 30,
+            },
+            tabBarLabel: ({ focused }) => (
+              <TabBarLabel label={t('tabs.bookmarks')} active={focused} />
+            ),
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? 'bookmarks' : 'bookmarks-outline'}
@@ -45,7 +67,14 @@ export default function DashboardLayout() {
         <Tabs.Screen
           name="split"
           options={{
-            title: t('tabs.splits'),
+            tabBarActiveTintColor: colors.menuBarIcon.active,
+            tabBarInactiveTintColor: colors.menuBarIcon.inactive,
+            tabBarItemStyle: {
+              marginLeft: 30,
+            },
+            tabBarLabel: ({ focused }) => (
+              <TabBarLabel label={t('tabs.splits')} active={focused} />
+            ),
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? 'grid' : 'grid-outline'}
@@ -57,7 +86,11 @@ export default function DashboardLayout() {
         <Tabs.Screen
           name="settings"
           options={{
-            title: t('tabs.settings'),
+            tabBarActiveTintColor: colors.menuBarIcon.active,
+            tabBarInactiveTintColor: colors.menuBarIcon.inactive,
+            tabBarLabel: ({ focused }) => (
+              <TabBarLabel label={t('tabs.settings')} active={focused} />
+            ),
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 name={focused ? 'settings' : 'settings-outline'}
@@ -67,7 +100,8 @@ export default function DashboardLayout() {
           }}
         />
       </Tabs>
+      <TabBarSVG />
       <WizardComponent />
-    </>
+    </View>
   );
 }

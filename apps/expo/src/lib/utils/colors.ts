@@ -24,14 +24,22 @@ export default {
     50: '#9AACEE',
   },
   overlay: 'rgba(9, 16, 29, 0.4)',
-  beige: '#FFF9F7',
+  beige: '#FFF6F2',
+  tabBar: '#FAFAFA',
   border: {
     light: '#E0E0E0',
   },
   text: {
     general: { light: '#212121', greyscale: '#616161', brand: '#222222' },
   },
+  menuBarIcon: {
+    active: '#212121',
+    inactive: '#9E9E9E',
+  },
   rippleColor: 'rgba(34, 34, 34, 0.1)',
+  shadows: {
+    wizard: '0px 0px 12px 0px rgba(54, 54, 54, 0.3)',
+  },
 } as const;
 
 //#FFF6F2

@@ -1,5 +1,4 @@
-import { Alert, Linking, Pressable, StyleSheet, View } from 'react-native';
-import { AnimatedFAB, Card, IconButton, Modal, Text } from 'react-native-paper';
+import { Alert, Linking } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { api, type RouterOutputs } from '~/lib/utils/api';
 import { useState } from 'react';
@@ -8,14 +7,15 @@ import { useRouter } from 'expo-router';
 import { useAppContext } from '../../lib/contexts/AppContext';
 import { useCurrentLanguage } from '~/i18n';
 import { useTranslation } from 'react-i18next';
+import WizardButton from './Button';
+import WizardModal from './Modal';
 
 type PreviousData = RouterOutputs['generation']['getAll'];
 
 export default function WizardComponent() {
   const { t } = useTranslation();
   const { language } = useCurrentLanguage();
-  const { wizardVisible, setWizardVisible } = useAppContext();
-  const showModal = () => setWizardVisible(true);
+  const { setWizardVisible } = useAppContext();
   const hideModal = () => setWizardVisible(false);
   const router = useRouter();
   const [image, setImage] = useState<string>();
@@ -157,118 +157,11 @@ export default function WizardComponent() {
     });
     await handleImagePicked(result);
   };
-  const handleCategory = () => {
-    hideModal();
-    router.push({ pathname: '/(auth)/category', params: { type: 'new' } });
-  };
-  const handleFAB = () => {
-    if (isPending) {
-      Alert.alert(t('wizard.generationInProgress'), t('wizard.waitMessage'), [
-        { text: t('buttons.ok') },
-      ]);
-      return;
-    }
-    showModal();
-  };
 
   return (
     <>
-      <AnimatedFAB
-        variant="secondary"
-        icon={'plus'}
-        label={'Label'}
-        extended={false}
-        onPress={handleFAB}
-        visible={true}
-        animateFrom={'right'}
-        iconMode={'dynamic'}
-        style={styles.fabStyle}
-      />
-      <Modal
-        visible={wizardVisible}
-        onDismiss={hideModal}
-        style={styles.modal}
-        contentContainerStyle={styles.modalContainer}
-      >
-        <View style={styles.topRow}>
-          <Pressable onPress={handleGallery}>
-            <Card style={styles.card}>
-              <IconButton
-                icon={'folder-multiple-image'}
-                size={36}
-                style={styles.icon}
-              />
-              <Text variant="labelLarge" style={styles.text}>
-                {t('wizard.gallery')}
-              </Text>
-            </Card>
-          </Pressable>
-          <Pressable onPress={handleCamera}>
-            <Card style={styles.card}>
-              <IconButton icon="camera" size={36} style={styles.icon} />
-              <Text variant="labelLarge" style={styles.text}>
-                {t('wizard.takePhoto')}
-              </Text>
-            </Card>
-          </Pressable>
-        </View>
-
-        <View style={styles.bottomRow}>
-          <Pressable onPress={handleCategory}>
-            <Card style={styles.card}>
-              <IconButton
-                icon="human-handsdown"
-                size={36}
-                style={styles.icon}
-              />
-              <Text variant="labelLarge" style={styles.text}>
-                {t('wizard.chooseMuscle')}
-              </Text>
-            </Card>
-          </Pressable>
-        </View>
-      </Modal>
+      <WizardButton isPending={isPending} />
+      <WizardModal handleCamera={handleCamera} handleGallery={handleGallery} />
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  fabStyle: {
-    position: 'absolute',
-    bottom: 100,
-    right: 16,
-  },
-  modal: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  modalContainer: {
-    width: '100%',
-    marginBottom: 140,
-    padding: 20,
-  },
-  card: {
-    width: 160,
-    height: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    textAlign: 'center',
-  },
-  icon: {
-    width: 36,
-    height: 36,
-    borderRadius: 0,
-    alignSelf: 'center',
-  },
-  topRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 20,
-    marginBottom: 20,
-  },
-  bottomRow: {
-    alignItems: 'center',
-  },
-});
