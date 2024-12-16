@@ -4,7 +4,6 @@ import { api } from '~/lib/utils/api';
 import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import Gradient from '~/components/ui/Gradient';
 import { Skeleton } from 'moti/skeleton';
-import { useState } from 'react';
 import TopBar from '~/components/shared/TopBar';
 import { router } from 'expo-router';
 import ExerciseItem from '~/components/exercises/Item';
@@ -25,7 +24,6 @@ function NoExercises() {
 
 export default function GeneratedItemScreen() {
   const { id } = useLocalSearchParams();
-  const [imageLoading, setImageLoading] = useState(true);
   const { language } = useCurrentLanguage();
   const { data, isLoading } = api.generation.getOne.useQuery(
     {
@@ -53,45 +51,43 @@ export default function GeneratedItemScreen() {
         ) : (
           <Image
             source={{ uri: data.image }}
-            style={[styles.image, imageLoading && styles.hidden]}
+            style={[styles.image]}
             resizeMode="cover"
-            onLoadStart={() => setImageLoading(true)}
-            onLoadEnd={() => setImageLoading(false)}
           />
         )}
-        <Text>{data?.image}</Text>
       </View>
       <View style={[styles.contentOuter]}>
-        <Gradient>
-          <View style={styles.listContainer}>
-            <TopBar
-              statusBarHeight={0}
-              title={data?.name ? `${data.name}` : ''}
-              borderBottomColor="#E0E0E0"
-              backAction={{
-                icon: 'arrow-left',
-                onPress: handleBack,
-              }}
-            />
-            <ScrollView>
-              <View style={styles.exercisesContainer}>
-                {isLoading ? (
-                  <ExerciseListSkeleton />
-                ) : !data?.exercise.length ? (
-                  <NoExercises />
-                ) : (
-                  data.exercise.map((exercise, index) => (
+        <Gradient />
+        <View style={styles.listContainer}>
+          <TopBar
+            inset={false}
+            title={data?.name ? `${data.name}` : ''}
+            barBorder={true}
+            backAction={{
+              icon: 'arrow-left',
+              onPress: handleBack,
+            }}
+          />
+          <ScrollView tabBarPadding={false}>
+            <View style={styles.contentContainer}>
+              {isLoading ? (
+                <ExerciseListSkeleton />
+              ) : !data?.exercise.length ? (
+                <NoExercises />
+              ) : (
+                <View style={styles.exercisesContainer}>
+                  {data.exercise.map((exercise, index) => (
                     <ExerciseItem
                       data={exercise}
                       key={index}
                       handlePress={handleItemPress}
                     />
-                  ))
-                )}
-              </View>
-            </ScrollView>
-          </View>
-        </Gradient>
+                  ))}
+                </View>
+              )}
+            </View>
+          </ScrollView>
+        </View>
       </View>
     </View>
   );
@@ -117,16 +113,15 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    backgroundColor: '#ffffff',
   },
   video: {
     alignSelf: 'center',
     width: 320,
     height: 200,
   },
-  exercisesContainer: {
-    marginTop: 32,
-    gap: 16,
+  contentContainer: {
+    paddingHorizontal: 12,
+    paddingVertical: 24,
   },
   exerciseItem: {
     flexDirection: 'row',
@@ -151,6 +146,9 @@ const styles = StyleSheet.create({
     width: 140,
     height: 90,
     borderRadius: 12,
+  },
+  exercisesContainer: {
+    gap: 20,
   },
   exerciseContent: {
     flex: 1,

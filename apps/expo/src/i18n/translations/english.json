@@ -42,7 +42,8 @@
     "createFirst": "Create your first AI generation and start exploring the possibilities!",
     "createFirstButton": "Create First Generation",
     "pending": "Pending",
-    "muscleCategories": "Muscle Categories"
+    "muscleCategories": "Muscle Categories",
+    "recommendedExercises": "Recommended Exercises"
   },
   "splits": {
     "title": "Splits List",

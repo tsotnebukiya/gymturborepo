@@ -7,11 +7,12 @@ export default function GenerationSkeleton() {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Skeleton colorMode={colorMode} height={110} width={110} />
+        <Skeleton colorMode={colorMode} height={100} width={100} />
       </View>
       <View style={styles.contentContainer}>
         <Skeleton colorMode={colorMode} width={150} height={20} />
-        <Skeleton colorMode={colorMode} width={'100%'} height={40} />
+        <Skeleton colorMode={colorMode} width={'80%'} height={15} />
+        <Skeleton colorMode={colorMode} width={'80%'} height={15} />
       </View>
     </View>
   );

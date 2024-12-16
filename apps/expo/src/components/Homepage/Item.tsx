@@ -1,5 +1,5 @@
 import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { Icon, Text } from 'react-native-paper';
+import { IconButton, Text } from 'react-native-paper';
 import { api, type RouterOutputs } from '~/lib/utils/api';
 import LottieView from 'lottie-react-native';
 import { Skeleton } from 'moti/skeleton';
@@ -28,7 +28,7 @@ export default function GenerationItem({
     <Pressable
       style={({ pressed }) => [
         styles.container,
-        pressed && data.status === 'COMPLETED' ? styles.pressed : null,
+        pressed && completed ? styles.pressed : null,
       ]}
       onPress={onPress}
     >
@@ -80,11 +80,14 @@ export default function GenerationItem({
         ) : null}
       </View>
       <View style={styles.iconContainer}>
-        <Icon
-          source="chevron-right"
-          size={30}
-          color={colors.text.general.light}
-        />
+        {completed ? (
+          <IconButton
+            icon="chevron-right"
+            size={24}
+            iconColor={colors.text.general.light}
+            style={styles.icon}
+          />
+        ) : null}
       </View>
     </Pressable>
   );
@@ -97,15 +100,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignSelf: 'center',
     borderRadius: 6,
-    gap: 16,
     shadowColor: '#000000',
     shadowOffset: {
       width: 1.95,
       height: 1.95,
     },
-    shadowOpacity: 0.15, // 15%
+    shadowOpacity: 0.15,
     shadowRadius: 2.6,
-    elevation: 4, // For Android - approximate equivalent
+    elevation: 4,
   },
   imageContainer: {
     borderTopLeftRadius: 6,
@@ -128,6 +130,7 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 6,
     paddingTop: 6,
+    marginLeft: 16,
   },
   pressed: {
     opacity: 0.6,
@@ -154,7 +157,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   icon: {
-    backgroundColor: 'white',
     padding: 0,
     margin: 0,
   },

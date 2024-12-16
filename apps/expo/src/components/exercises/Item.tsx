@@ -3,13 +3,10 @@ import { api, type RouterOutputs } from '~/lib/utils/api';
 import { router } from 'expo-router';
 import { useMusclesConstants } from '~/lib/utils/constants';
 import { Text, IconButton } from 'react-native-paper';
-import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
-import Animated, {
-  useAnimatedStyle,
-  withTiming,
-} from 'react-native-reanimated';
 import { useCurrentLanguage } from '~/i18n';
 import { useTranslation } from 'react-i18next';
+import colors from '~/lib/utils/colors';
+import { fontFamilies, typography } from '~/lib/utils/typography';
 
 export type GenerationData = NonNullable<
   RouterOutputs['generation']['getOne']
@@ -26,7 +23,6 @@ interface Props {
 export default function ExerciseItem({
   data,
   showSets,
-  onSwipe,
   handlePress,
   handleMoreOptions,
 }: Props) {
@@ -36,33 +32,6 @@ export default function ExerciseItem({
   api.exercise.getOne.usePrefetchQuery({ id: data.id, language });
   const exercise = data;
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateX: withTiming(0),
-      },
-    ],
-  }));
-
-  const renderRightActions = () => {
-    return (
-      <Animated.View style={[styles.deleteButton, animatedStyle]}>
-        <Pressable
-          onPress={() => {
-            if (onSwipe) onSwipe(exercise.id);
-          }}
-          style={{
-            width: '100%',
-            height: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text style={styles.deleteText}>Delete</Text>
-        </Pressable>
-      </Animated.View>
-    );
-  };
   const handleItemPress = (id: number) => {
     if (handlePress) {
       handlePress(id, exercise);
@@ -74,162 +43,136 @@ export default function ExerciseItem({
     }
   };
   return (
-    <View style={styles.container}>
-      <Swipeable
-        renderRightActions={renderRightActions}
-        friction={2}
-        rightThreshold={40}
-        overshootRight={false}
-        enabled={!!onSwipe}
-      >
-        <Pressable
-          onPress={() => handleItemPress(exercise.id)}
-          style={({ pressed }) => [
-            styles.exerciseItem,
-            pressed && styles.exerciseItemPressed,
-          ]}
+    <Pressable
+      onPress={() => handleItemPress(exercise.id)}
+      style={({ pressed }) => [
+        styles.exerciseItem,
+        pressed && styles.exerciseItemPressed,
+      ]}
+    >
+      <Image
+        source={{
+          uri: `https://img.youtube.com/vi/${data.videoId}/maxresdefault.jpg`,
+        }}
+        style={styles.exerciseImage}
+      />
+      <View style={styles.exerciseContent}>
+        <Text
+          style={styles.exerciseTitle}
+          numberOfLines={1}
+          ellipsizeMode="tail"
         >
-          <Image
-            source={{
-              uri: `https://img.youtube.com/vi/${data.videoId}/maxresdefault.jpg`,
-            }}
-            style={styles.exerciseImage}
-          />
-          <View style={styles.exerciseContent}>
-            <Text
-              style={styles.exerciseTitle}
-              numberOfLines={1}
-              ellipsizeMode="tail"
-            >
-              {exercise.name}
-            </Text>
-            {showSets ? (
-              <View style={styles.setsContainerBordered}>
-                <View style={styles.setRepBordered}>
-                  <Text style={styles.setRepTextBordered}>{data.sets}</Text>
-                  <Text style={styles.setRepLabelBordered}>
-                    {t('splits.repsAndSets.sets')}
-                  </Text>
-                </View>
-                <View style={styles.setRepBordered}>
-                  <Text style={styles.setRepTextBordered}>{data.reps}</Text>
-                  <Text style={styles.setRepLabelBordered}>
-                    {t('splits.repsAndSets.reps')}
-                  </Text>
-                </View>
-              </View>
-            ) : (
-              <View style={styles.muscleGroup}>
-                <Image
-                  source={musclesConstants[exercise.subcategory].icon}
-                  style={styles.muscleIcon}
-                />
-                <Text
-                  variant="bodyMedium"
-                  style={styles.muscleText}
-                  ellipsizeMode="tail"
-                  numberOfLines={1}
-                >
-                  {musclesConstants[exercise.subcategory].label}
-                </Text>
-              </View>
-            )}
-          </View>
-          {handleMoreOptions && (
-            <View>
-              <IconButton
-                icon="dots-vertical"
-                size={24}
-                style={styles.kebabButton}
-                onPress={() => handleMoreOptions(exercise.id, exercise)}
-              />
+          {exercise.name}
+        </Text>
+        {showSets ? (
+          <View style={styles.setsContainerBordered}>
+            <View style={styles.setRepBordered}>
+              <Text style={styles.setRepTextBordered}>{data.sets}</Text>
+              <Text style={styles.setRepLabelBordered}>
+                {t('splits.repsAndSets.sets')}
+              </Text>
             </View>
-          )}
-        </Pressable>
-      </Swipeable>
-    </View>
+            <View style={styles.setRepBordered}>
+              <Text style={styles.setRepTextBordered}>{data.reps}</Text>
+              <Text style={styles.setRepLabelBordered}>
+                {t('splits.repsAndSets.reps')}
+              </Text>
+            </View>
+          </View>
+        ) : (
+          <View style={styles.muscleGroup}>
+            <Image
+              source={musclesConstants[exercise.subcategory].icon}
+              style={styles.muscleIcon}
+            />
+            <Text
+              variant="bodyMedium"
+              style={styles.muscleText}
+              ellipsizeMode="tail"
+              numberOfLines={1}
+            >
+              {musclesConstants[exercise.subcategory].label}
+            </Text>
+          </View>
+        )}
+      </View>
+      {handleMoreOptions ? (
+        <IconButton
+          icon="dots-vertical"
+          size={24}
+          style={styles.kebabButton}
+          iconColor={colors.text.general.light}
+          onPress={() => handleMoreOptions(exercise.id, exercise)}
+        />
+      ) : (
+        <IconButton
+          iconColor={colors.text.general.light}
+          icon="chevron-right"
+          size={24}
+          style={styles.kebabButton}
+        />
+      )}
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    borderRadius: 16,
-    backgroundColor: '#ffffff',
-    // iOS shadow
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    // Android shadow
-    elevation: 5,
-  },
   exerciseItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 8,
+    paddingLeft: 16,
+    paddingRight: 2,
+    paddingVertical: 12,
     backgroundColor: '#ffffff',
-    borderRadius: 16,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.border.light,
   },
   exerciseItemPressed: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: colors.surfaceLight,
   },
   exerciseImage: {
-    width: 140,
-    height: 90,
-    borderRadius: 12,
+    width: 100,
+    height: 100,
+    borderRadius: 6,
   },
   exerciseContent: {
     flex: 1,
-    gap: 10,
-    justifyContent: 'center',
-    height: 90,
-    marginVertical: 0,
     marginLeft: 16,
+    gap: 6,
+    alignSelf: 'stretch',
   },
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  iconContainer: {
+    justifyContent: 'center',
+  },
   kebabButton: {
     margin: 0,
   },
   exerciseTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1a1a1a',
-    flex: 1,
-    marginRight: 8,
+    fontSize: typography.h5.fontSize,
+    lineHeight: typography.h5.lineHeight,
+    fontFamily: fontFamilies.bold,
+    color: colors.text.general.light,
   },
   muscleGroup: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: 8,
   },
   muscleIcon: {
     width: 48,
     height: 48,
   },
   muscleText: {
-    color: '#666666',
-    fontSize: 15,
+    fontSize: typography.medium.fontSize,
+    lineHeight: typography.medium.lineHeight,
+    fontFamily: fontFamilies.regular,
+    color: colors.text.general.greyscale,
     flex: 1,
-  },
-  deleteButton: {
-    backgroundColor: '#ff4444',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
-    borderRadius: 16,
-    paddingRight: 16,
-  },
-  deleteText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
   },
   setsContainer: {
     flexDirection: 'row',

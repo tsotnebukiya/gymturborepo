@@ -10,21 +10,28 @@ import {
 import { type PrismaTypes } from '@acme/api';
 import ScrollView from '~/components/shared/ScrollView';
 import { useTranslation } from 'react-i18next';
+import Gradient from '~/components/ui/Gradient';
+import colors from '~/lib/utils/colors';
+import { fontFamilies } from '~/lib/utils/typography';
+import { typography } from '~/lib/utils/typography';
 
 type Subcategory = PrismaTypes.$Enums.Subcategory;
+type Category = PrismaTypes.$Enums.Category;
 
 export default function CategoryListScreen() {
   const musclesConstants = useMusclesConstants();
   const muscleCategories = useMuscleCategories();
   const { t } = useTranslation();
-  const { type } = useLocalSearchParams<{
+  const { type, category } = useLocalSearchParams<{
     type: 'new' | 'saved' | 'split';
+    category?: Category;
   }>();
   const { setSubcategory, setSplitSubcategory } = useAppContext();
   const router = useRouter();
   const handleBack = () => {
     router.back();
   };
+  console.log(category);
   const handleCategory = (subcategory: Subcategory) => {
     if (type === 'saved') {
       setSubcategory(subcategory);
@@ -34,7 +41,6 @@ export default function CategoryListScreen() {
         pathname: '/(auth)/category/[subcategory]',
         params: { subcategory },
       });
-      // WEAREHERE
     } else {
       setSplitSubcategory(subcategory);
       handleBack();
@@ -43,47 +49,57 @@ export default function CategoryListScreen() {
 
   return (
     <View style={styles.container}>
-      <TopBar
-        statusBarHeight={0}
-        title={t('categories.title')}
-        borderBottomColor="#E0E0E0"
-        backAction={{
-          icon: 'arrow-left',
-          onPress: handleBack,
-        }}
-      />
-      <ScrollView>
-        {muscleCategories.map((category, index) => (
-          <View key={index} style={styles.categoryContainer}>
-            <Text variant="titleMedium" style={styles.categoryTitle}>
-              {category.label}
-            </Text>
-            <View style={styles.subcategoriesList}>
-              {category.subcategories.map((subcategory, subIndex) => {
-                return (
-                  <Pressable
-                    key={subIndex}
-                    onPress={() => handleCategory(subcategory.name)}
-                    style={({ pressed }) => [
-                      styles.subcategoryItem,
-                      pressed && styles.subcategoryItemPressed,
-                      { width: '100%' },
-                    ]}
-                  >
-                    <Image
-                      source={musclesConstants[subcategory.name].icon}
-                      style={styles.subcategoryImage}
-                    />
-                    <Text variant="bodyLarge" style={styles.subcategoryName}>
-                      {musclesConstants[subcategory.name].label}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-            </View>
+      <Gradient />
+      <View style={styles.contentOuter}>
+        <TopBar
+          inset={false}
+          title={t('categories.title')}
+          barBorder={true}
+          backAction={{
+            icon: 'arrow-left',
+            onPress: handleBack,
+          }}
+        />
+        <ScrollView tabBarPadding={false}>
+          <View style={styles.contentContainer}>
+            {muscleCategories
+              .filter((c) => {
+                console.log(c.category, category);
+                return c.category === category;
+              })
+              .map((category, index) => (
+                <View key={index} style={styles.categoryContainer}>
+                  <Text style={styles.categoryTitle}>{category.label}</Text>
+                  <View style={styles.subcategoriesList}>
+                    {category.subcategories.map((subcategory, subIndex) => {
+                      return (
+                        <Pressable
+                          key={subIndex}
+                          onPress={() => handleCategory(subcategory.name)}
+                          style={({ pressed }) => [
+                            styles.subcategoryItem,
+                            pressed && styles.subcategoryItemPressed,
+                          ]}
+                        >
+                          <Image
+                            source={musclesConstants[subcategory.name].icon}
+                            style={styles.subcategoryImage}
+                          />
+                          <Text
+                            variant="bodyLarge"
+                            style={styles.subcategoryName}
+                          >
+                            {musclesConstants[subcategory.name].label}
+                          </Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                </View>
+              ))}
           </View>
-        ))}
-      </ScrollView>
+        </ScrollView>
+      </View>
     </View>
   );
 }
@@ -91,55 +107,53 @@ export default function CategoryListScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: '100%',
-    backgroundColor: 'white',
-    gap: 24,
+  },
+  contentOuter: {
+    flex: 1,
   },
   categoryContainer: {
-    marginBottom: 24,
     backgroundColor: '#ffffff',
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 3,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.border.light,
   },
+  contentContainer: { paddingHorizontal: 12, paddingVertical: 24, gap: 24 },
   categoryTitle: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E0E0E0',
-    color: '#1a1a1a',
+    paddingTop: 20,
+    paddingBottom: 10,
+    paddingHorizontal: 10,
+    color: colors.text.general.light,
+    fontSize: typography.h5.fontSize,
+    lineHeight: typography.h5.lineHeight,
+    fontFamily: fontFamilies.bold,
   },
   subcategoriesList: {
     overflow: 'hidden',
     borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
+    borderTopColor: colors.border.light,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
   subcategoryItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 16,
-    padding: 16,
+    gap: 20,
+    padding: 10,
     backgroundColor: '#ffffff',
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
   },
   subcategoryItemPressed: {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: colors.surfaceLight,
   },
   subcategoryImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 4,
+    width: 48,
+    height: 48,
   },
   subcategoryName: {
-    fontSize: 16,
+    fontSize: typography.large.fontSize,
+    lineHeight: typography.large.lineHeight,
+    fontFamily: fontFamilies.semiBold,
+    color: colors.text.general.light,
   },
 });

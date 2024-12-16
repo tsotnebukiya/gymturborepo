@@ -132,8 +132,6 @@ export default function SavedExercisesScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingVertical: 0,
-    // gap: 16,
   },
   filterContainer: {
     paddingHorizontal: 16,

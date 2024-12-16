@@ -1,29 +1,29 @@
-import {
-  Image,
-  type ImageSourcePropType,
-  Pressable,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import { fontFamilies, typography } from '~/lib/utils/typography';
 import colors from '~/lib/utils/colors';
-import { useCategoryConstants } from '~/lib/utils/constants';
+import {
+  type CategoryConstant,
+  useCategoryConstants,
+} from '~/lib/utils/constants';
+import { router } from 'expo-router';
 
-function Item({
-  item: { translation, image },
-}: {
-  item: { translation: string; image: ImageSourcePropType };
-}) {
+function Item({ item }: { item: CategoryConstant }) {
   return (
     <Pressable
       style={({ pressed }) => [styles.item, pressed && styles.pressed]}
+      onPress={() => {
+        router.push({
+          pathname: '/(auth)/category',
+          params: { category: item.category },
+        });
+      }}
     >
       <View style={styles.itemContent}>
-        <Text style={styles.categoryText}>{translation}</Text>
+        <Text style={styles.categoryText}>{item.translation}</Text>
       </View>
-      <Image source={image} style={styles.image} />
+      <Image source={item.image} style={styles.image} resizeMethod="scale" />
     </Pressable>
   );
 }

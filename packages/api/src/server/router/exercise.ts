@@ -125,4 +125,47 @@ export const exerciseRouter = {
         nextCursor: result[take - 1]?.id,
       };
     }),
+  getRandom: protectedProcedure
+    .input(
+      z.object({
+        language: z.nativeEnum(Language),
+      })
+    )
+    .query(async ({ ctx: { db }, input }) => {
+      const { language } = input;
+      const take = 3;
+      const exercisesCount = await db.exercise.count();
+      const skip = Math.floor(Math.random() * exercisesCount);
+      const exercises = await db.exercise.findMany({
+        skip,
+        take,
+        select: {
+          id: true,
+          subcategory: true,
+          category: true,
+          videoId: true,
+          sets: true,
+          reps: true,
+          translations: {
+            where: { language },
+            select: { name: true },
+          },
+        },
+      });
+      const result = exercises.map((ex) => {
+        const { id, translations, category, subcategory, videoId, sets, reps } =
+          ex;
+        const name = translations[0]!.name;
+        return {
+          id,
+          category,
+          subcategory,
+          name,
+          videoId,
+          sets,
+          reps,
+        };
+      });
+      return result;
+    }),
 } satisfies TRPCRouterRecord;

@@ -8,9 +8,11 @@ import {
 export default function ScrollView({
   children,
   onRefresh,
+  tabBarPadding = true,
 }: {
   children: React.ReactNode;
   onRefresh?: () => Promise<void>;
+  tabBarPadding?: boolean;
 }) {
   const [refreshing, setRefreshing] = useState(false);
 
@@ -29,7 +31,7 @@ export default function ScrollView({
         ) : undefined
       }
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: 131 }}
+      contentContainerStyle={tabBarPadding ? styles.paddingBottom : {}}
       style={styles.container}
     >
       {children}
@@ -40,6 +42,8 @@ export default function ScrollView({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 12,
+  },
+  paddingBottom: {
+    paddingBottom: 131,
   },
 });
