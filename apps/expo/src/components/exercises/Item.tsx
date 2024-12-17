@@ -18,6 +18,7 @@ interface Props {
   onSwipe?: (id: number) => void;
   handlePress?: (id: number, exercise: GenerationData) => void;
   handleMoreOptions?: (id: number, exercise: GenerationData) => void;
+  replace?: boolean;
 }
 
 export default function ExerciseItem({

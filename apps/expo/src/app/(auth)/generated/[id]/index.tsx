@@ -37,6 +37,12 @@ export default function GeneratedItemScreen() {
   const handleBack = () => {
     router.back();
   };
+  const handleAlert = () => {
+    router.push({
+      pathname: '/(auth)/support',
+      params: { generationId: data?.id },
+    });
+  };
   const handleItemPress = (id: number) => {
     router.push({
       pathname: '/(auth)/generated/[id]/[exercise]',
@@ -67,6 +73,12 @@ export default function GeneratedItemScreen() {
               icon: 'arrow-left',
               onPress: handleBack,
             }}
+            actions={[
+              {
+                icon: 'alert-circle',
+                onPress: handleAlert,
+              },
+            ]}
           />
           <ScrollView tabBarPadding={false}>
             <View style={styles.contentContainer}>

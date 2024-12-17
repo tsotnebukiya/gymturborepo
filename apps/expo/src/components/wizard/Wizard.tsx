@@ -15,8 +15,7 @@ type PreviousData = RouterOutputs['generation']['getAll'];
 export default function WizardComponent() {
   const { t } = useTranslation();
   const { language } = useCurrentLanguage();
-  const { setWizardVisible, wizardVisible } = useAppContext();
-  console.log('wizardVisible', wizardVisible);
+  const { setWizardVisible } = useAppContext();
   const hideModal = () => setWizardVisible(false);
   const router = useRouter();
   const [image, setImage] = useState<string>();

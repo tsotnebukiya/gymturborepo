@@ -16,7 +16,7 @@ function Item({ item }: { item: CategoryConstant }) {
       onPress={() => {
         router.push({
           pathname: '/(auth)/category',
-          params: { category: item.category },
+          params: { category: item.category, type: 'new' },
         });
       }}
     >

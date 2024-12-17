@@ -14,9 +14,9 @@ export default function ExerciseSkeleton() {
   return (
     <View>
       <TopBar
-        statusBarHeight={0}
+        inset={false}
         title={''}
-        borderBottomColor="#E0E0E0"
+        barBorder={true}
         backAction={{
           icon: 'arrow-left',
           onPress: handleBack,

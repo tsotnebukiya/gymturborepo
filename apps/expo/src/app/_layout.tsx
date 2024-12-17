@@ -19,6 +19,7 @@ import {
   ReanimatedLogLevel,
 } from 'react-native-reanimated';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import theme from '~/lib/utils/theme';
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
@@ -55,7 +56,7 @@ export default function RootLayoutNav() {
       tokenCache={tokenCache}
     >
       <TRPCProvider>
-        <PaperProvider>
+        <PaperProvider theme={theme}>
           <GestureHandlerRootView style={{ flex: 1 }}>
             <BottomSheetModalProvider>
               <InitialLayout />

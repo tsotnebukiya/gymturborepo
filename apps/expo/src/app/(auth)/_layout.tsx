@@ -20,7 +20,12 @@ export default function AuthLayout() {
           name="exercise/[id]/index"
           options={{ presentation: 'modal' }}
         />
-        <Stack.Screen name="support" options={{ presentation: 'modal' }} />
+        <Stack.Screen
+          name="support"
+          options={{
+            presentation: 'modal',
+          }}
+        />
       </Stack>
     </AppContextProvider>
   );

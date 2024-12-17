@@ -24,6 +24,9 @@ interface Props {
   logo?: boolean;
   inset?: boolean;
   barBorder?: boolean;
+  children?: React.ReactNode;
+  emptyLeft?: boolean;
+  emptyRight?: boolean;
 }
 
 const TopBar = ({
@@ -34,6 +37,9 @@ const TopBar = ({
   logo = false,
   inset = true,
   barBorder = false,
+  children,
+  emptyLeft = false,
+  emptyRight = false,
 }: Props) => {
   const onlyLang = !backAction && languageButton;
   const insets = useSafeAreaInsets();
@@ -49,47 +55,44 @@ const TopBar = ({
       >
         {logo && (
           <Image
-            style={{ width: 24, height: 32.3 }}
+            style={styles.logo}
             source={require('~/assets/logo-black.png')}
           />
         )}
-        {backAction ? (
+        {backAction && (
           <IconButton
             icon="arrow-left"
             onPress={backAction.onPress}
             rippleColor={colors.rippleColor}
-            iconColor="black"
-            style={styles.noBorder}
-            size={24}
+            iconColor={colors.menuBarIcon.active}
+            style={[styles.iconButton, styles.noBorder]}
             mode={backAction.mode || 'outlined'}
           />
-        ) : (
-          <View style={styles.width40} />
         )}
+        {emptyLeft ? <View style={styles.width40} /> : null}
         {title && (
           <Text numberOfLines={1} ellipsizeMode="tail" style={styles.title}>
             {title}
           </Text>
         )}
-        {actions?.length ? (
+        {children}
+
+        {actions?.length &&
           actions.map((action, index) => (
             <IconButton
               key={index}
               rippleColor={colors.rippleColor}
               animated={true}
+              iconColor={colors.menuBarIcon.active}
               icon={action.icon}
               onPress={action.onPress}
               mode={action.mode}
               loading={action.loading}
-              style={styles.action}
+              style={styles.iconButton}
             />
-          ))
-        ) : languageButton ? (
-          <LanguageButton grayBackground={!onlyLang} />
-        ) : (
-          // Add a dummy view with the same width as the back button
-          <View style={styles.width40} />
-        )}
+          ))}
+        {languageButton && <LanguageButton grayBackground={!onlyLang} />}
+        {emptyRight ? <View style={styles.width40} /> : null}
       </View>
     </View>
   );
@@ -104,9 +107,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     minHeight: 42,
+    height: 56,
     paddingHorizontal: 12,
-    paddingVertical: 6,
   },
+  logo: { width: 24, height: 32.3 },
   barBorder: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border.light,
@@ -127,9 +131,9 @@ const styles = StyleSheet.create({
   },
   noBorder: {
     borderWidth: 0,
-    margin: 0,
   },
-  action: {
+  iconButton: {
     margin: 0,
+    borderColor: colors.menuBarIcon.active,
   },
 });

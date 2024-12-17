@@ -46,7 +46,7 @@ export default function HomeScreen() {
   };
   const handleCTA = () => setWizardVisible(true);
   const handleSupport = () => {
-    router.push('/(auth)/support');
+    router.push({ pathname: '/(auth)/support' });
   };
   return (
     <GradientLayout>

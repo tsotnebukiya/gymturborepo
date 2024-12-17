@@ -2,7 +2,7 @@ import { View, StyleSheet, FlatList, RefreshControl } from 'react-native';
 import { api } from '~/lib/utils/api';
 import ExerciseItem from '~/components/exercises/Item';
 import { useState } from 'react';
-import { IconButton, Text, TextInput } from 'react-native-paper';
+import { Text, TextInput } from 'react-native-paper';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
 import { router } from 'expo-router';
@@ -11,6 +11,7 @@ import { useAppContext } from '~/lib/contexts/AppContext';
 import { useCurrentLanguage } from '~/i18n';
 import GradientLayout from '~/components/shared/GradientLayout';
 import { useTranslation } from 'react-i18next';
+import TopBar from '~/components/shared/TopBar';
 
 export default function SavedExercisesScreen() {
   const { language } = useCurrentLanguage();
@@ -45,14 +46,17 @@ export default function SavedExercisesScreen() {
   };
 
   const handleFilter = () => {
-    router.push({
-      pathname: '/(auth)/category',
-      params: { type: 'saved' },
-    });
+    if (subcategory) {
+      setSubcategory(undefined);
+    } else {
+      router.push({
+        pathname: '/(auth)/category',
+        params: { type: 'saved' },
+      });
+    }
   };
-  const clearFilters = () => {
+  const clearInput = () => {
     setSearchInput('');
-    setSubcategory(undefined);
   };
 
   const handleRefresh = async () => {
@@ -63,40 +67,36 @@ export default function SavedExercisesScreen() {
   return (
     <GradientLayout>
       <View style={styles.container}>
-        <View style={styles.filterContainer}>
-          <IconButton
-            icon={'arrow-left'}
-            mode="contained"
-            onPress={() => router.back()}
-          />
-          <TextInput
-            label={t('exercises.exerciseName')}
-            value={searchInput}
-            autoFocus={false}
-            mode="outlined"
-            keyboardType="default"
-            showSoftInputOnFocus={true}
-            style={styles.searchInput}
-            outlineStyle={styles.searchOutline}
-            onChangeText={setSearchInput}
-          />
-          <View style={styles.iconContainer}>
-            {(searchInput || subcategory) && (
-              <IconButton
-                icon="close"
-                mode="contained"
-                style={styles.filterIcon}
-                onPress={clearFilters}
-              />
-            )}
-            <IconButton
-              icon={subcategory ? 'filter' : 'filter-plus-outline'}
-              mode="contained"
-              style={styles.filterIcon}
-              onPress={handleFilter}
+        <TopBar
+          inset={false}
+          actions={[
+            {
+              icon: subcategory ? 'filter-remove' : 'filter-plus-outline',
+              mode: 'outlined',
+              onPress: handleFilter,
+            },
+          ]}
+        >
+          <View style={styles.inputContainer}>
+            <TextInput
+              dense={true}
+              value={searchInput}
+              autoFocus={false}
+              mode="outlined"
+              placeholder={t('exercises.exerciseName')}
+              keyboardType="default"
+              showSoftInputOnFocus={true}
+              style={styles.searchInput}
+              right={
+                searchInput ? (
+                  <TextInput.Icon icon="close" onPress={clearInput} />
+                ) : undefined
+              }
+              outlineStyle={styles.searchOutline}
+              onChangeText={setSearchInput}
             />
           </View>
-        </View>
+        </TopBar>
         <FlatList
           style={styles.listContainer}
           contentContainerStyle={[styles.contentContainer]}
@@ -140,11 +140,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 16,
   },
+  inputContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+  },
   searchOutline: {
-    borderRadius: 16,
+    borderRadius: 10,
   },
   searchInput: {
-    flex: 1,
+    alignSelf: 'stretch',
   },
   modal: {
     height: '100%',
@@ -160,11 +166,12 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: '100%',
-    paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingTop: 24,
+    paddingHorizontal: 12,
   },
   contentContainer: {
-    gap: 16,
+    gap: 20,
+    paddingBottom: 111,
   },
   iconContainer: {
     flexDirection: 'row',

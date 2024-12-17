@@ -43,7 +43,8 @@
     "createFirstButton": "Create First Generation",
     "pending": "Pending",
     "muscleCategories": "Muscle Categories",
-    "recommendedExercises": "Recommended Exercises"
+    "recommendedExercises": "Recommended Exercises",
+    "viewAll": "View all"
   },
   "splits": {
     "title": "Splits List",

@@ -6,6 +6,8 @@ import colors from '~/lib/utils/colors';
 import { type RouterOutputs } from '@acme/api';
 import ExerciseListSkeleton from '../exercises/SkeletonList';
 import ExerciseItem from '../exercises/Item';
+import ViewAllButton from '../ui/ViewAllButton';
+import { useRouter } from 'expo-router';
 
 interface Props {
   isLoading: boolean;
@@ -14,9 +16,16 @@ interface Props {
 
 export default function RecommendedExercises({ isLoading, data }: Props) {
   const { t } = useTranslation();
+  const router = useRouter();
+  const onPress = () => {
+    router.push({ pathname: '/(auth)/category', params: { type: 'new' } });
+  };
   return (
     <View style={styles.generations}>
-      <Text style={styles.title}>{t('home.recommendedExercises')}</Text>
+      <View style={styles.topContainer}>
+        <Text style={styles.title}>{t('home.recommendedExercises')}</Text>
+        <ViewAllButton onPress={onPress} />
+      </View>
       {isLoading ? (
         <ExerciseListSkeleton />
       ) : (
@@ -36,6 +45,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     gap: 20,
   },
+  topContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   exercisesContainer: {
     gap: 20,
   },
@@ -44,5 +58,6 @@ const styles = StyleSheet.create({
     lineHeight: typography.h5.lineHeight,
     fontFamily: fontFamilies.bold,
     color: colors.text.general.light,
+    flex: 1,
   },
 });

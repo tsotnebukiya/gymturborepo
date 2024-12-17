@@ -1,0 +1,53 @@
+import {
+  MD3LightTheme as DefaultTheme,
+  type MD3Theme,
+} from 'react-native-paper';
+
+const theme: MD3Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#222222',
+    primaryContainer: '#2B2B2B',
+    onPrimary: '#FFFFFF',
+    onPrimaryContainer: '#FFFFFF',
+    secondary: '#254166',
+    secondaryContainer: '#4D6B9B',
+    onSecondary: '#FFFFFF',
+    onSecondaryContainer: '#FFFFFF',
+    tertiary: '#363636',
+    tertiaryContainer: '#404040',
+    onTertiary: '#FFFFFF',
+    onTertiaryContainer: '#FFFFFF',
+    background: '#FFFFFF',
+    surface: '#FFFFFF',
+    surfaceVariant: '#F5F5F5',
+    surfaceDisabled: '#E0E0E0',
+    onSurface: '#212121',
+    onSurfaceVariant: '#616161',
+    onSurfaceDisabled: '#9E9E9E',
+    error: '#B00020',
+    errorContainer: '#FFCDD2',
+    onError: '#FFFFFF',
+    onErrorContainer: '#B00020',
+    onBackground: '#212121',
+    outline: '#E0E0E0',
+    outlineVariant: '#9E9E9E',
+    inverseSurface: '#222222',
+    inverseOnSurface: '#FFFFFF',
+    inversePrimary: '#9AACEE',
+    shadow: 'rgba(54, 54, 54, 0.3)',
+    scrim: 'rgba(9, 16, 29, 0.4)',
+    backdrop: 'rgba(9, 16, 29, 0.4)',
+    elevation: {
+      level0: 'transparent',
+      level1: 'rgba(54, 54, 54, 0.05)',
+      level2: 'rgba(54, 54, 54, 0.08)',
+      level3: 'rgba(54, 54, 54, 0.11)',
+      level4: 'rgba(54, 54, 54, 0.12)',
+      level5: 'rgba(54, 54, 54, 0.14)',
+    },
+  },
+};
+
+export default theme;

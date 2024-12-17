@@ -76,7 +76,7 @@ export const exerciseRouter = {
     )
     .query(async ({ ctx: { db }, input }) => {
       const { subcategory, searchName, language, cursor } = input;
-      const take = 7;
+      const take = 5;
       const exercises = await db.exercise.findMany({
         where: {
           ...(subcategory && { subcategory: input.subcategory }),

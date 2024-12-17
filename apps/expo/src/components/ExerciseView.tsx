@@ -8,6 +8,9 @@ import ExerciseSkeleton from './exercises/SkeletonItem';
 import VideoPlayer from './exercises/VideoPlayer';
 import ScrollView from './shared/ScrollView';
 import { useCurrentLanguage } from '~/i18n';
+import Gradient from './ui/Gradient';
+import colors from '~/lib/utils/colors';
+import { fontFamilies, typography } from '~/lib/utils/typography';
 
 type ExerciseData = RouterOutputs['exercise']['getOne'];
 
@@ -42,10 +45,11 @@ export default function ExerciseView({ data }: Props) {
 
   return (
     <View style={styles.container}>
+      <Gradient />
       <TopBar
-        statusBarHeight={0}
+        inset={false}
         title={`${data.name}`}
-        borderBottomColor="#E0E0E0"
+        barBorder={true}
         backAction={{
           icon: 'arrow-left',
           onPress: handleBack,
@@ -92,59 +96,58 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
+    paddingTop: 12,
   },
   contentContainer: {
-    gap: 32,
-    marginTop: 32,
+    gap: 24,
+    marginTop: 24,
+    paddingHorizontal: 12,
   },
   rowContainer: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
+    gap: 12,
     backgroundColor: '#ffffff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    borderRadius: 16,
-    padding: 16,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: colors.border.light,
   },
   infoContainer: {
     flex: 1,
   },
   description: {
-    fontSize: 15,
-    textAlign: 'auto',
-    color: '#666666',
+    fontSize: typography.large.fontSize,
+    lineHeight: typography.large.lineHeight,
+    fontFamily: fontFamilies.regular,
+    textAlign: 'left',
+    color: colors.text.general.greyscale,
   },
   percentagesContainer: {
-    width: 124,
+    justifyContent: 'center',
   },
   percentagesGrid: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-    justifyContent: 'flex-end',
+    justifyContent: 'space-around',
   },
   percentageItem: {
     alignItems: 'center',
     gap: 4,
-    width: 56,
   },
   muscleIcon: {
     width: 48,
     height: 48,
   },
   percentageText: {
-    fontSize: 14,
-    color: '#666666',
-    fontWeight: '600',
+    fontSize: typography.medium.fontSize,
+    lineHeight: typography.medium.lineHeight,
+    fontFamily: fontFamilies.regular,
+    color: colors.text.general.greyscale,
   },
   divider: {
-    width: 1,
-    backgroundColor: '#E0E0E0',
-    marginHorizontal: 16,
+    width: '100%',
+    height: 1,
+    backgroundColor: colors.border.light,
+    // marginHorizontal: 12,
   },
 });

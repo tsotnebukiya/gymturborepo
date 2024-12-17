@@ -20,7 +20,6 @@ export default function SplitItem({
   const musclesConstants = useMusclesConstants();
   const splitDayConstants = useSplitDayConstants();
   const { t } = useTranslation();
-  console.log(splitDayConstants);
   api.split.getOne.usePrefetchQuery({ id: item.id, language });
   const handlePress = () => {
     router.push({

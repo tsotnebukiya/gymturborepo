@@ -32,7 +32,6 @@ export default function SignInScreen() {
     strategy: 'oauth_facebook',
     redirectUrl: Linking.createURL('/home'),
   });
-  console.log(loadingProvider);
   const onPress = useCallback(
     async (provider: string) => {
       try {

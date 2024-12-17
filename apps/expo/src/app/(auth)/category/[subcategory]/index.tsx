@@ -2,7 +2,7 @@ import { View, StyleSheet, FlatList, RefreshControl } from 'react-native';
 import { api } from '~/lib/utils/api';
 import ExerciseItem from '~/components/exercises/Item';
 import { useState } from 'react';
-import { IconButton, Text, TextInput } from 'react-native-paper';
+import { Text, TextInput } from 'react-native-paper';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -11,6 +11,7 @@ import { type Subcategory } from '@prisma/client';
 import { useCurrentLanguage } from '~/i18n';
 import { useTranslation } from 'react-i18next';
 import Gradient from '~/components/ui/Gradient';
+import TopBar from '~/components/shared/TopBar';
 
 export default function MuscleExercisesScreen() {
   const { t } = useTranslation();
@@ -37,7 +38,6 @@ export default function MuscleExercisesScreen() {
       placeholderData: keepPreviousData,
     }
   );
-
   const exercises = data?.pages.flatMap((page) => page.result) || [];
   const loadMore = () => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -45,7 +45,7 @@ export default function MuscleExercisesScreen() {
     }
   };
 
-  const clearFilters = () => {
+  const clearInput = () => {
     setSearchInput('');
   };
 
@@ -56,43 +56,42 @@ export default function MuscleExercisesScreen() {
   };
 
   return (
-    <Gradient>
-      <View style={styles.container}>
-        <View style={styles.filterContainer}>
-          <IconButton
-            icon={'arrow-left'}
-            mode="contained"
-            onPress={() => router.back()}
-          />
-
-          <TextInput
-            label={t('exercises.exerciseName')}
-            value={searchInput}
-            autoFocus={false}
-            mode="outlined"
-            keyboardType="default"
-            showSoftInputOnFocus={true}
-            style={styles.searchInput}
-            outlineStyle={styles.searchOutline}
-            onChangeText={setSearchInput}
-          />
-          <View style={styles.iconContainer}>
-            {searchInput && (
-              <IconButton
-                icon="close"
-                mode="contained"
-                style={styles.filterIcon}
-                onPress={clearFilters}
-              />
-            )}
+    <View style={styles.container}>
+      <Gradient />
+      <View style={styles.outerContainer}>
+        <TopBar
+          inset={false}
+          backAction={{
+            icon: 'arrow-left',
+            onPress: () => router.back(),
+          }}
+        >
+          <View style={styles.inputContainer}>
+            <TextInput
+              dense={true}
+              value={searchInput}
+              autoFocus={false}
+              mode="outlined"
+              placeholder={t('exercises.exerciseName')}
+              keyboardType="default"
+              showSoftInputOnFocus={true}
+              style={styles.searchInput}
+              right={
+                searchInput ? (
+                  <TextInput.Icon icon="close" onPress={clearInput} />
+                ) : undefined
+              }
+              outlineStyle={styles.searchOutline}
+              onChangeText={setSearchInput}
+            />
           </View>
-        </View>
+        </TopBar>
         <FlatList
           style={styles.listContainer}
           contentContainerStyle={[styles.contentContainer]}
           data={exercises}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => <ExerciseItem data={item} />}
+          renderItem={({ item }) => <ExerciseItem data={item} replace />}
           keyExtractor={(item, index) => String(index)}
           onEndReached={loadMore}
           onEndReachedThreshold={0.5}
@@ -115,28 +114,29 @@ export default function MuscleExercisesScreen() {
           }
         />
       </View>
-    </Gradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 16,
-    // gap: 16,
+    paddingTop: 12,
   },
-  filterContainer: {
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    gap: 16,
+  outerContainer: {
+    flex: 1,
+  },
+  inputContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 16,
   },
   searchOutline: {
-    borderRadius: 16,
+    borderRadius: 10,
   },
   searchInput: {
-    flex: 1,
+    alignSelf: 'stretch',
   },
   modal: {
     height: '100%',
@@ -150,19 +150,11 @@ const styles = StyleSheet.create({
   tabsContainer: {
     paddingHorizontal: 16,
   },
-  listContainer: {
-    width: '100%',
-    paddingHorizontal: 16,
-    paddingTop: 16,
-  },
+  listContainer: {},
   contentContainer: {
-    gap: 16,
-  },
-  iconContainer: {
-    flexDirection: 'row',
-    gap: 8,
-    height: 'auto',
-    alignItems: 'center',
+    gap: 20,
+    paddingVertical: 24,
+    paddingHorizontal: 12,
   },
   emptyText: {
     fontSize: 16,

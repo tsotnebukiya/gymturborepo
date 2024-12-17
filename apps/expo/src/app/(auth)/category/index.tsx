@@ -31,8 +31,8 @@ export default function CategoryListScreen() {
   const handleBack = () => {
     router.back();
   };
-  console.log(category);
   const handleCategory = (subcategory: Subcategory) => {
+    console.log(type);
     if (type === 'saved') {
       setSubcategory(subcategory);
       handleBack();
@@ -52,6 +52,7 @@ export default function CategoryListScreen() {
       <Gradient />
       <View style={styles.contentOuter}>
         <TopBar
+          emptyRight={true}
           inset={false}
           title={t('categories.title')}
           barBorder={true}
@@ -64,8 +65,7 @@ export default function CategoryListScreen() {
           <View style={styles.contentContainer}>
             {muscleCategories
               .filter((c) => {
-                console.log(c.category, category);
-                return c.category === category;
+                return category ? c.category === category : true;
               })
               .map((category, index) => (
                 <View key={index} style={styles.categoryContainer}>
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
   },
   contentOuter: {
     flex: 1,
+    paddingTop: 12,
   },
   categoryContainer: {
     backgroundColor: '#ffffff',
