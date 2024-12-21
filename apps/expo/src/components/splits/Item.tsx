@@ -10,6 +10,8 @@ import { router } from 'expo-router';
 import { api } from '~/lib/utils/api';
 import { useCurrentLanguage } from '~/i18n';
 import { useTranslation } from 'react-i18next';
+import colors from '~/lib/utils/colors';
+import { fontFamilies, typography } from '~/lib/utils/typography';
 
 export default function SplitItem({
   item,
@@ -35,38 +37,30 @@ export default function SplitItem({
       ]}
       onPress={handlePress}
     >
-      <View style={styles.splitContent}>
-        <View style={styles.row}>
-          <Text style={styles.splitTitle} variant="titleMedium">
-            {item.name}
-          </Text>
+      <View style={styles.row}>
+        <Text style={styles.splitTitle}>{item.name}</Text>
 
-          <View style={styles.dayContainer}>
-            <Ionicons name="calendar-outline" size={14} color="#666666" />
-            <Text style={styles.splitDay} variant="bodyMedium">
-              {splitDayConstants[item.day]}
+        <View style={styles.dayContainer}>
+          <Ionicons name="calendar-outline" size={20} color="#757575" />
+          <Text style={styles.splitDay}>{splitDayConstants[item.day]}</Text>
+        </View>
+      </View>
+
+      <View style={styles.detail}>
+        <Ionicons name="barbell-outline" size={22} color="#757575" />
+        <Text style={styles.detailText}>
+          {item.exercisesCount} {t('exercises.exercises')}
+        </Text>
+      </View>
+
+      <View style={styles.muscleGroups}>
+        {item.subcategories.map((muscle, index) => (
+          <View key={index} style={styles.muscleTag}>
+            <Text style={styles.muscleText}>
+              {musclesConstants[muscle].label}
             </Text>
           </View>
-        </View>
-
-        <View style={styles.detailsRow}>
-          <View style={styles.detail}>
-            <Ionicons name="barbell-outline" size={14} color="#666666" />
-            <Text style={styles.detailText}>
-              {item.exercisesCount} {t('exercises.exercises')}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.muscleGroups}>
-          {item.subcategories.map((muscle, index) => (
-            <View key={index} style={styles.muscleTag}>
-              <Text style={styles.muscleText}>
-                {musclesConstants[muscle].label}
-              </Text>
-            </View>
-          ))}
-        </View>
+        ))}
       </View>
     </Pressable>
   );
@@ -74,17 +68,13 @@ export default function SplitItem({
 
 const styles = StyleSheet.create({
   splitItem: {
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 6,
     backgroundColor: '#ffffff',
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.border.light,
   },
   splitItemPressed: {
     backgroundColor: '#f5f5f5',
@@ -98,53 +88,54 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   splitTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1a1a1a',
+    fontSize: typography.h5.fontSize,
+    lineHeight: typography.h5.lineHeight,
+    fontFamily: fontFamilies.bold,
     flex: 1,
+    color: colors.text.general.light,
   },
   dayContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    marginTop: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
+    gap: 6,
+    paddingHorizontal: 6,
+    height: 32,
+    backgroundColor: '#F6F6F6',
+    borderRadius: 8,
   },
   splitDay: {
-    fontSize: 14,
-    color: '#666666',
-  },
-  detailsRow: {
-    flexDirection: 'row',
-    gap: 16,
-    marginTop: 8,
+    fontSize: typography.medium.fontSize,
+    lineHeight: typography.medium.lineHeight,
+    fontFamily: fontFamilies.semiBold,
+    color: '#757575',
   },
   detail: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: 6,
   },
   detailText: {
-    fontSize: 14,
-    color: '#666666',
+    fontSize: typography.medium.fontSize,
+    lineHeight: typography.medium.lineHeight,
+    fontFamily: fontFamilies.regular,
+    color: '#757575',
   },
   muscleGroups: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
-    marginTop: 8,
   },
   muscleTag: {
-    backgroundColor: '#f0f0f0',
     paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 8,
+    paddingVertical: 3,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: colors.border.light,
   },
   muscleText: {
-    fontSize: 14,
-    color: '#4a4a4a',
+    fontSize: typography.medium.fontSize,
+    lineHeight: typography.medium.lineHeight,
+    fontFamily: fontFamilies.semiBold,
+    color: colors.text.general.light,
   },
 });

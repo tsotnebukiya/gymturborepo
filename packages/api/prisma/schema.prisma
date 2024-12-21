@@ -146,7 +146,7 @@ model Exercise {
 
 model SavedExercise {
     id         Int      @id @default(autoincrement())
-    user       User     @relation(fields: [userId], references: [id])
+    user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId     String
     exercise   Exercise @relation(fields: [exerciseId], references: [id])
     exerciseId Int
@@ -160,7 +160,7 @@ model SplitExercise {
     id         Int      @id @default(autoincrement())
     exercise   Exercise @relation(fields: [exerciseId], references: [id])
     exerciseId Int
-    user       User     @relation(fields: [userId], references: [id])
+    user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId     String
     sets       Int
     reps       Int
@@ -172,7 +172,7 @@ model SplitExercise {
 
 model GenerationTranslation {
     id           Int        @id @default(autoincrement())
-    generation   Generation @relation(fields: [generationId], references: [id])
+    generation   Generation @relation(fields: [generationId], references: [id], onDelete: Cascade)
     generationId Int
     language     Language   @default(ENGLISH)
     name         String
@@ -188,7 +188,7 @@ model Generation {
     status       GenerationStatus        @default(PENDING)
     image        String
     exercise     Exercise[]
-    user         User                    @relation(fields: [userId], references: [id])
+    user         User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId       String
     createdAt    DateTime                @default(now())
     updatedAt    DateTime                @updatedAt
@@ -200,7 +200,7 @@ model SplitDay {
     name          String
     day           SplitWeekDay
     splitExercise SplitExercise[]
-    user          User            @relation(fields: [userId], references: [id])
+    user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId        String
     createdAt     DateTime        @default(now())
     updatedAt     DateTime        @updatedAt

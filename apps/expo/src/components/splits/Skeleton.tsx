@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { Skeleton } from 'moti/skeleton';
+import colors from '~/lib/utils/colors';
 
 interface SplitSkeletonProps {
   count?: number;
@@ -40,17 +41,13 @@ export default function SplitSkeleton({ count = 5 }: SplitSkeletonProps) {
 
 const styles = StyleSheet.create({
   splitItem: {
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 6,
     backgroundColor: '#ffffff',
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.border.light,
   },
   splitContent: {
     width: '100%',

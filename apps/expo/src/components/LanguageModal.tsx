@@ -65,7 +65,9 @@ export default function LanguageModal({ visible, onClose }: Props) {
             ))}
           </Picker>
           <Divider style={styles.divider} />
-          <Button onPress={handleConfirm}>{t('common.confirm')}</Button>
+          <Button onPress={handleConfirm} style={styles.confirmButton}>
+            {t('common.confirm')}
+          </Button>
         </View>
       </Pressable>
     </Modal>
@@ -107,11 +109,6 @@ const styles = StyleSheet.create({
     lineHeight: typography.h4.lineHeight,
     fontFamily: fontFamilies.semiBold,
     color: colors.text.general.brand,
-  },
-  closeButton: {
-    position: 'absolute',
-    borderWidth: 1.5,
-    right: -12,
   },
   confirmButton: {
     marginTop: 20,

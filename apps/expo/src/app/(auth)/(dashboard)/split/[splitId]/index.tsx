@@ -1,11 +1,10 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { Alert, Pressable, StyleSheet, View } from 'react-native';
-import { TextInput, Button, Text, ActivityIndicator } from 'react-native-paper';
+import { Alert, StyleSheet, View } from 'react-native';
+import { TextInput } from 'react-native-paper';
 import GradientLayout from '~/components/shared/GradientLayout';
 import TopBar from '~/components/shared/TopBar';
-import { useSplitDayConstants, type SplitDayKey } from '~/lib/utils/constants';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { type SplitDayKey } from '~/lib/utils/constants';
 import DayPickerModal from '~/components/splits/DayPickerModal';
 import { useAppContext } from '~/lib/contexts/AppContext';
 import ExerciseItem, { type GenerationData } from '~/components/exercises/Item';
@@ -17,7 +16,9 @@ import SplitIndividualSkeleton from '~/components/splits/IndividualSkeleton';
 import ExerciseBottomSheet from '~/components/splits/BottomExerciseModal';
 import { type BottomSheetModal } from '@gorhom/bottom-sheet';
 import RepsSetsModal from '~/components/splits/RepsSetsModal';
-import { useTranslation } from 'react-i18next';
+import WeekdayButton from '~/components/splits/WeekdayButton';
+import UpdatingBox from '~/components/splits/UpdatingBox';
+import SelectButton from '~/components/splits/SelectButton';
 
 export default function SplitIndividualScreen() {
   const { language } = useCurrentLanguage();
@@ -45,9 +46,7 @@ function LoadedSplitIndividual({
   split: RouterOutputs['split']['getOne'];
 }) {
   const utils = api.useUtils();
-  const { t } = useTranslation();
   const [repsSetsModalVisible, setRepsSetsModalVisible] = useState(false);
-  const splitDayConstants = useSplitDayConstants();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { setSplitExercises, splitExercises } = useAppContext();
   const [isNameInputVisible, setIsNameInputVisible] = useState(false);
@@ -112,13 +111,6 @@ function LoadedSplitIndividual({
     setRepsSetsModalVisible(true);
     bottomSheetRef.current?.close();
   };
-  const handleDelete = (id: number) => {
-    mutateExercises({
-      splitId: split.id,
-      exerciseId: id,
-      type: 'remove',
-    });
-  };
   const handleBottomSheetClose = () => {
     bottomSheetRef.current?.close();
   };
@@ -143,7 +135,7 @@ function LoadedSplitIndividual({
       type: 'remove',
     });
   };
-  const handleMoreOptions = (id: number, exercise: GenerationData) => {
+  const handleMoreOptions = (exercise: GenerationData) => {
     setSelectedExercise(exercise);
     setTimeout(() => {
       bottomSheetRef.current?.present();
@@ -165,94 +157,65 @@ function LoadedSplitIndividual({
 
   return (
     <GradientLayout>
-      <View style={styles.container}>
-        <TopBar
-          title={split.name}
-          statusBarHeight={0}
-          borderBottomColor="#E0E0E0"
-          backAction={{ icon: 'arrow-left', onPress: () => router.back() }}
-          actions={[
-            {
-              icon: isNameInputVisible ? 'check' : 'circle-edit-outline',
-              onPress: isNameInputVisible ? handleNameChange : handleInputOpen,
-              loading: isPendingName,
-              mode: 'contained',
-            },
-          ]}
-        />
-
-        <ScrollView onRefresh={handleRefresh}>
-          <View style={styles.content}>
-            <View style={styles.filterContainer}>
-              {isNameInputVisible && (
-                <TextInput
-                  label="Split Name"
-                  value={name}
-                  autoFocus={false}
-                  mode="outlined"
-                  keyboardType="default"
-                  showSoftInputOnFocus={true}
-                  style={styles.searchInput}
-                  outlineStyle={styles.searchOutline}
-                  onChangeText={setName}
-                />
-              )}
+      <TopBar
+        title={split.name}
+        inset={false}
+        barBorder={true}
+        backAction={{ icon: 'arrow-left', onPress: () => router.back() }}
+        actions={[
+          {
+            icon: isNameInputVisible ? 'check' : 'circle-edit-outline',
+            onPress: isNameInputVisible ? handleNameChange : handleInputOpen,
+            loading: isPendingName,
+            mode: 'contained',
+          },
+        ]}
+      />
+      <ScrollView onRefresh={handleRefresh}>
+        <View style={styles.content}>
+          {isNameInputVisible ? (
+            <View style={styles.inputContainer}>
+              <TextInput
+                dense={true}
+                value={name}
+                autoFocus={false}
+                mode="outlined"
+                placeholder={'Split Name'}
+                keyboardType="default"
+                showSoftInputOnFocus={true}
+                style={styles.searchInput}
+                right={
+                  name ? (
+                    <TextInput.Icon icon="close" onPress={() => setName('')} />
+                  ) : undefined
+                }
+                outlineStyle={styles.searchOutline}
+                onChangeText={setName}
+              />
             </View>
-            <Pressable
-              style={({ pressed }) => [
-                styles.daySelector,
-                pressed && styles.daySelectorPressed,
-              ]}
-              onPress={() => setIsDayPickerVisible(true)}
-            >
-              <MaterialCommunityIcons
-                name="calendar"
-                size={24}
-                color="rgb(0, 104, 116)"
-              />
-              <Text style={styles.daySelectorText}>
-                {splitDayConstants[selectedDay]}
-              </Text>
-            </Pressable>
+          ) : null}
 
-            <DayPickerModal
-              visible={isDayPickerVisible}
-              selectedDay={selectedDay}
-              onSelectDay={handleDayChange}
-              loading={isPendingDay}
+          <WeekdayButton
+            selectedDay={selectedDay}
+            onPress={() => setIsDayPickerVisible(true)}
+          />
+
+          {isUpdatingExercises && <UpdatingBox />}
+          {split.exercises.map((el) => (
+            <ExerciseItem
+              showSets={true}
+              data={el}
+              key={el.id}
+              handleMoreOptions={handleMoreOptions}
             />
+          ))}
+          <SelectButton
+            disabled={isUpdatingExercises}
+            onPress={handleSelectExercise}
+          />
+        </View>
+      </ScrollView>
 
-            {isUpdatingExercises && (
-              <View style={styles.loadingContainer}>
-                <ActivityIndicator size="small" />
-                <Text>Updating exercises...</Text>
-              </View>
-            )}
-
-            {split.exercises.map((el) => (
-              <ExerciseItem
-                showSets={true}
-                data={el}
-                key={el.id}
-                handleMoreOptions={handleMoreOptions}
-                onSwipe={handleDelete}
-              />
-            ))}
-
-            <Button
-              mode="outlined"
-              onPress={handleSelectExercise}
-              icon="plus"
-              style={styles.exerciseButton}
-              contentStyle={styles.exerciseButtonContent}
-              labelStyle={styles.exerciseButtonLabel}
-              disabled={isUpdatingExercises}
-            >
-              {t('exercises.selectSavedExercise')}
-            </Button>
-          </View>
-        </ScrollView>
-      </View>
       {selectedExercise && (
         <ExerciseBottomSheet
           sheetRef={bottomSheetRef}
@@ -260,6 +223,13 @@ function LoadedSplitIndividual({
           handleDelete={() => handleSheetDelete(selectedExercise.id)}
         />
       )}
+      <DayPickerModal
+        visible={isDayPickerVisible}
+        selectedDay={selectedDay}
+        onSelectDay={handleDayChange}
+        loading={isPendingDay}
+        onClose={() => setIsDayPickerVisible(false)}
+      />
       {selectedExercise && (
         <RepsSetsModal
           visible={repsSetsModalVisible}
@@ -275,132 +245,26 @@ function LoadedSplitIndividual({
 }
 
 const styles = StyleSheet.create({
-  modal: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    margin: 0,
-    backgroundColor: 'white',
-  },
-  modalContent: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    gap: 16,
-  },
   filterContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 16,
   },
-
-  // Update searchOutline and searchInput
-  searchOutline: {
-    borderRadius: 16,
-  },
-  searchInput: {
+  inputContainer: {
     flex: 1,
-  },
-  content: {
-    gap: 16,
-  },
-  daysContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 10,
-    flexWrap: 'wrap',
-  },
-  dayButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: 'rgb(0, 104, 116)', // primary
-    minWidth: 70,
-    alignItems: 'center',
-  },
-  dayButtonSelected: {
-    backgroundColor: 'rgb(0, 104, 116)', // primary
-  },
-  dayButtonPressed: {
-    opacity: 0.7,
-    transform: [{ scale: 0.98 }],
-  },
-  dayButtonText: {
-    color: 'rgb(0, 104, 116)', // primary
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  dayButtonTextSelected: {
-    color: 'rgb(255, 255, 255)', // onPrimary
-  },
-
-  daySelector: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-    backgroundColor: 'white',
-    borderRadius: 16,
-    gap: 12,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
-  },
-  daySelectorPressed: {
-    opacity: 0.8,
-    transform: [{ scale: 0.98 }],
-    backgroundColor: '#f5f5f5',
-  },
-  daySelectorText: {
-    fontSize: 16,
-    color: '#333',
-    fontWeight: '500',
-  },
-
-  exerciseButton: {
-    backgroundColor: 'white',
-    borderRadius: 16,
-    borderColor: '#E0E0E0',
-    borderWidth: 1,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 1,
-  },
-  exerciseButtonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 8,
-    height: 56,
-  },
-  exerciseButtonLabel: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#333',
-  },
-
-  loadingContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 8,
-    padding: 8,
-    backgroundColor: 'rgba(0, 104, 116, 0.1)',
-    borderRadius: 8,
+  },
+  searchOutline: {
+    borderRadius: 10,
+  },
+  searchInput: {
+    alignSelf: 'stretch',
+  },
+  content: {
+    gap: 24,
+    paddingTop: 24,
+    paddingHorizontal: 12,
   },
 });

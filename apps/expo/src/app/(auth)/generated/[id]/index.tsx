@@ -11,13 +11,15 @@ import ScrollView from '~/components/shared/ScrollView';
 import { Text } from 'react-native-paper';
 import ExerciseListSkeleton from '~/components/exercises/SkeletonList';
 import { useCurrentLanguage } from '~/i18n';
+import { useTranslation } from 'react-i18next';
 
 const { height } = Dimensions.get('window');
 
 function NoExercises() {
+  const { t } = useTranslation();
   return (
     <View style={styles.emptyContainer}>
-      <Text style={styles.emptyText}>No exercises generated</Text>
+      <Text style={styles.emptyText}>{t('errors.noExercisesGenerated')}</Text>
     </View>
   );
 }
@@ -37,10 +39,10 @@ export default function GeneratedItemScreen() {
   const handleBack = () => {
     router.back();
   };
-  const handleAlert = () => {
+  const handleSupport = () => {
     router.push({
       pathname: '/(auth)/support',
-      params: { generationId: data?.id },
+      params: { generationId: id },
     });
   };
   const handleItemPress = (id: number) => {
@@ -76,7 +78,7 @@ export default function GeneratedItemScreen() {
             actions={[
               {
                 icon: 'alert-circle',
-                onPress: handleAlert,
+                onPress: handleSupport,
               },
             ]}
           />
@@ -133,7 +135,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingHorizontal: 12,
-    paddingVertical: 24,
+    paddingTop: 24,
   },
   exerciseItem: {
     flexDirection: 'row',

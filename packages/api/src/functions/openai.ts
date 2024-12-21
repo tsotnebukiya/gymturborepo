@@ -35,9 +35,10 @@ const exerciseDetailsValidator = z.object({
     })
   ),
 });
-
+// 85-95 ukve gaketda, shemdegi gaakete
 export async function generateExercisesDetails() {
-  const data = exercisesDummyData.slice(0, 5);
+  const data = exercisesDummyData.slice(105, 113);
+
   // const data = exercisesDummyData;
   const response = await openai.beta.chat.completions.parse({
     model: 'gpt-4o',

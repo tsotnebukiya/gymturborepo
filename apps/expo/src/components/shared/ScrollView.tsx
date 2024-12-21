@@ -4,6 +4,7 @@ import {
   StyleSheet,
   RefreshControl,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function ScrollView({
   children,
@@ -15,7 +16,7 @@ export default function ScrollView({
   tabBarPadding?: boolean;
 }) {
   const [refreshing, setRefreshing] = useState(false);
-
+  const insets = useSafeAreaInsets();
   const handleRefresh = async () => {
     if (!onRefresh) return;
     setRefreshing(true);
@@ -31,7 +32,9 @@ export default function ScrollView({
         ) : undefined
       }
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={tabBarPadding ? styles.paddingBottom : {}}
+      contentContainerStyle={
+        tabBarPadding ? styles.paddingBottom : { paddingBottom: insets.bottom }
+      }
       style={styles.container}
     >
       {children}

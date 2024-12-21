@@ -1,4 +1,9 @@
-import { Pressable, StyleSheet, type ViewStyle } from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  type ViewStyle,
+  ActivityIndicator,
+} from 'react-native';
 import { Text } from 'react-native-paper';
 import colors from '~/lib/utils/colors';
 import { fontFamilies, typography } from '~/lib/utils/typography';
@@ -10,6 +15,7 @@ interface ButtonProps {
   style?: ViewStyle;
   disabled?: boolean;
   flex?: boolean;
+  loading?: boolean;
 }
 
 export default function Button({
@@ -19,17 +25,18 @@ export default function Button({
   style,
   disabled = false,
   flex = false,
+  loading = false,
 }: ButtonProps) {
   return (
     <Pressable
       onPress={onPress}
-      disabled={disabled}
+      disabled={disabled || loading}
       style={({ pressed }) => [
         styles.button,
         type === 'primary' && styles.primary,
         type === 'secondary' && styles.secondary,
         pressed && styles.pressed,
-        disabled &&
+        (disabled || loading) &&
           (type === 'primary'
             ? styles.disabledPrimary
             : styles.disabledSecondary),
@@ -42,14 +49,22 @@ export default function Button({
           styles.text,
           type === 'primary' && styles.textPrimary,
           type === 'secondary' && styles.textSecondary,
-          disabled &&
+          (disabled || loading) &&
             (type === 'primary'
               ? styles.textDisabledPrimary
               : styles.textDisabledSecondary),
+          loading && styles.loadingText,
         ]}
       >
         {children}
       </Text>
+      {loading && (
+        <ActivityIndicator
+          style={styles.loader}
+          color={type === 'primary' ? 'white' : colors.primary[900]}
+          size="small"
+        />
+      )}
     </Pressable>
   );
 }
@@ -60,6 +75,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
+    gap: 8,
   },
   primary: {
     backgroundColor: colors.primary[900],
@@ -92,5 +109,11 @@ const styles = StyleSheet.create({
   },
   textDisabledSecondary: {
     color: colors.primary[700],
+  },
+  loadingText: {
+    opacity: 0.7,
+  },
+  loader: {
+    marginLeft: 4,
   },
 });

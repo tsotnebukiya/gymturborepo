@@ -1,4 +1,4 @@
-import { StyleSheet, View, FlatList, RefreshControl } from 'react-native';
+import { StyleSheet, FlatList, RefreshControl } from 'react-native';
 import GradientLayout from '~/components/shared/GradientLayout';
 import TopBar from '~/components/shared/TopBar';
 import SplitItem from '~/components/splits/Item';
@@ -48,49 +48,49 @@ export default function SplitsHomeScreen() {
   };
   return (
     <GradientLayout>
-      <View style={styles.container}>
-        <TopBar
-          title={t('splits.title')}
-          statusBarHeight={0}
-          borderBottomColor="#E0E0E0"
-          actions={[
-            {
-              icon: 'plus',
-              onPress: handleCreateNew,
-              mode: 'contained',
-            },
-          ]}
-        />
-        <FlatList
-          data={splits}
-          renderItem={({ item }) => <SplitItem item={item} />}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={styles.listContainer}
-          onEndReached={loadMore}
-          onEndReachedThreshold={0.5}
-          ListEmptyComponent={() => (
-            <>
-              {isLoading ? (
-                <SplitSkeleton />
-              ) : (
-                <CTABox
-                  buttonText={t('splits.createSplit')}
-                  description={t('splits.createDescription')}
-                  title={t('splits.noSplits')}
-                  onPress={handleCreateNew}
-                />
-              )}
-            </>
-          )}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-          }
-          ListFooterComponent={() => (
-            <>{isFetchingNextPage && <SplitSkeleton />}</>
-          )}
-        />
-      </View>
+      <TopBar
+        title={t('splits.title')}
+        inset={false}
+        barBorder={true}
+        logo={true}
+        actions={[
+          {
+            icon: 'plus',
+            onPress: handleCreateNew,
+            mode: 'contained',
+          },
+        ]}
+      />
+
+      <FlatList
+        data={splits}
+        renderItem={({ item }) => <SplitItem item={item} />}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
+        contentContainerStyle={styles.listContainer}
+        onEndReached={loadMore}
+        onEndReachedThreshold={0.5}
+        ListEmptyComponent={() => (
+          <>
+            {isLoading ? (
+              <SplitSkeleton />
+            ) : (
+              <CTABox
+                buttonText={t('splits.createSplit')}
+                description={t('splits.createDescription')}
+                title={t('splits.noSplits')}
+                onPress={handleCreateNew}
+              />
+            )}
+          </>
+        )}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+        ListFooterComponent={() => (
+          <>{isFetchingNextPage && <SplitSkeleton />}</>
+        )}
+      />
     </GradientLayout>
   );
 }
@@ -100,7 +100,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   listContainer: {
-    padding: 16,
-    gap: 16,
+    paddingHorizontal: 12,
+    paddingTop: 24,
+    paddingBottom: 111,
+    gap: 24,
   },
 });

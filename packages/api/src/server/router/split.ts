@@ -73,6 +73,7 @@ export const splitRouter = {
               id: true,
               exercise: {
                 select: {
+                  id: true,
                   category: true,
                   subcategory: true,
                   videoId: true,
@@ -89,9 +90,24 @@ export const splitRouter = {
       const { splitExercise, day, name } = splitResponse;
       const exercises = splitExercise.map((splitEx) => {
         const { exercise, reps, sets, id } = splitEx;
-        const { subcategory, translations, category, videoId } = exercise;
+        const {
+          subcategory,
+          translations,
+          category,
+          videoId,
+          id: exerciseId,
+        } = exercise;
         const name = translations[0]!.name;
-        return { id, subcategory, name, reps, sets, category, videoId };
+        return {
+          id,
+          subcategory,
+          name,
+          reps,
+          sets,
+          category,
+          videoId,
+          exerciseId,
+        };
       });
       const splitDetails = {
         id,

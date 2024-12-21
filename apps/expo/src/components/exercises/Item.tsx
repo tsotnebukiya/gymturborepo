@@ -13,12 +13,10 @@ export type GenerationData = NonNullable<
 >['exercise'][number];
 
 interface Props {
-  data: GenerationData;
+  data: GenerationData & { exerciseId?: number };
   showSets?: boolean;
-  onSwipe?: (id: number) => void;
   handlePress?: (id: number, exercise: GenerationData) => void;
-  handleMoreOptions?: (id: number, exercise: GenerationData) => void;
-  replace?: boolean;
+  handleMoreOptions?: (exercise: GenerationData) => void;
 }
 
 export default function ExerciseItem({
@@ -32,11 +30,11 @@ export default function ExerciseItem({
   const musclesConstants = useMusclesConstants();
   api.exercise.getOne.usePrefetchQuery({ id: data.id, language });
   const exercise = data;
-
   const handleItemPress = (id: number) => {
     if (handlePress) {
       handlePress(id, exercise);
     } else {
+      const id = exercise.exerciseId || exercise.id;
       router.push({
         pathname: `/(auth)/exercise/[id]`,
         params: { id },
@@ -103,7 +101,7 @@ export default function ExerciseItem({
           size={24}
           style={styles.kebabButton}
           iconColor={colors.text.general.light}
-          onPress={() => handleMoreOptions(exercise.id, exercise)}
+          onPress={() => handleMoreOptions(exercise)}
         />
       ) : (
         <IconButton

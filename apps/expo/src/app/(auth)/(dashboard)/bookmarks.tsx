@@ -12,6 +12,7 @@ import { useCurrentLanguage } from '~/i18n';
 import GradientLayout from '~/components/shared/GradientLayout';
 import { useTranslation } from 'react-i18next';
 import TopBar from '~/components/shared/TopBar';
+import CTABox from '~/components/shared/CTABox';
 
 export default function SavedExercisesScreen() {
   const { language } = useCurrentLanguage();
@@ -72,7 +73,7 @@ export default function SavedExercisesScreen() {
           actions={[
             {
               icon: subcategory ? 'filter-remove' : 'filter-plus-outline',
-              mode: 'outlined',
+              mode: 'contained',
               onPress: handleFilter,
             },
           ]}
@@ -111,9 +112,21 @@ export default function SavedExercisesScreen() {
               {isLoading ? (
                 <ExerciseListSkeleton />
               ) : searchInput || subcategory ? (
-                <Text style={styles.emptyText}>No exercises found</Text>
+                <Text style={styles.emptyText}>
+                  {t('errors.noExercisesFound')}
+                </Text>
               ) : (
-                <Text>No exercises</Text>
+                <CTABox
+                  title={t('exercises.noExercisesYet')}
+                  description={t('exercises.createDescription')}
+                  buttonText={t('exercises.createExercise')}
+                  onPress={() => {
+                    router.push({
+                      pathname: '/(auth)/category',
+                      params: { type: 'new' },
+                    });
+                  }}
+                />
               )}
             </>
           )}

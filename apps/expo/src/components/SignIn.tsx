@@ -35,7 +35,7 @@ export default function SignInComponent({
       <TopBar
         backAction={{
           icon: 'close',
-          mode: 'outlined',
+          mode: 'contained',
           onPress: () => {
             router.replace('/(app)');
           },

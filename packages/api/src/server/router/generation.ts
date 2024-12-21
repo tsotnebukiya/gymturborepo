@@ -136,6 +136,18 @@ export const generationRouter = {
         },
       });
       const { id, image, translations, status, exercise } = generationResponse;
+      const failed = generationResponse.status === 'FAILED';
+      if (failed) {
+        return {
+          id,
+          image,
+          status,
+          name: 'Invalid image',
+          description: 'Invalid image',
+          exercise: [],
+        };
+      }
+
       const name = translations[0]!.name;
       const description = translations[0]!.description;
       const formattedExercise = exercise.map((ex) => {

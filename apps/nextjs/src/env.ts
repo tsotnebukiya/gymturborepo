@@ -22,6 +22,7 @@ export const env = createEnv({
     WEBHOOK_SECRET: z.string(),
     UPSTASH_REDIS_URL: z.string(),
     UPSTASH_REDIS_TOKEN: z.string(),
+    RESEND_API_KEY: z.string(),
   },
 
   /**

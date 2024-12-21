@@ -1,4 +1,19 @@
 {
+  "support": {
+    "deleteAccount": "Are you sure you want to delete account?",
+    "cancel": "Cancel",
+    "yesDelete": "Yes, Delete",
+    "successTitle": "Thank you for your feedback!",
+    "successSubtitle": "We've received your message and will get back to you as soon as possible.",
+    "reportGenerationIssueTitle": "Report Generation Issue",
+    "helpImproveAppTitle": "Help Us Improve",
+    "placeholder": "Describe the issue here...",
+    "sendReport": "Send Report",
+    "sendFeedback": "Send Feedback",
+    "reportGenerationIssue": "Found something wrong with this generation? Tell us what happened and we'll look into it.",
+    "helpImproveApp": "We'd love to hear your thoughts! Share your feedback, report issues, or suggest new features to help us make the app better."
+  },
+
   "language": {
     "en": "English",
     "es": "Spanish",
@@ -49,11 +64,13 @@
   "splits": {
     "title": "Splits List",
     "noSplits": "No splits yet",
+    "splitName": "Split Name",
+    "exerciseSettings": "Exercise Settings",
     "createSplit": "Create Split",
     "createDescription": "Create a new split to start training with AI",
-    "splitName": "Split Name",
     "selectWeekday": "Select Weekday",
     "selectSavedExercise": "Select Saved Exercise",
+    "updatingExercises": "Updating exercises...",
     "days": {
       "monday": "Monday",
       "tuesday": "Tuesday",
@@ -69,6 +86,7 @@
       "reps": "Reps"
     },
     "errors": {
+      "error": "Error",
       "createError": "Failed to create split",
       "nameRequired": "Split name is required",
       "nameEmpty": "Name cannot be empty"
@@ -136,14 +154,19 @@
     "openSettings": "Open Settings"
   },
   "settings": {
-    "selectLanguage": "Select Language",
     "changeLanguage": "Change Language",
-    "signOut": "Sign Out"
+    "helpSupport": "Help & Support",
+    "termsAndConditions": "Terms and Conditions",
+    "privacyPolicy": "Privacy Policy",
+    "exitAccount": "Exit Account",
+    "deleteAccount": "Delete Account",
+    "selectLanguage": "Select Language"
   },
   "errors": {
     "generic": "Something went wrong",
     "noExercisesFound": "No exercises found",
-    "noExercises": "No exercises"
+    "noExercises": "No exercises",
+    "noExercisesGenerated": "No exercises generated"
   },
   "exercises": {
     "title": "Exercises",
@@ -152,9 +175,9 @@
     "selectSavedExercise": "Select Saved Exercise",
     "changeSetRep": "Change Set/Rep",
     "delete": "Delete",
-    "noExercisesYet": "No exercises yet",
-    "createExercise": "Create Exercise",
-    "createDescription": "Create a new exercise to start training with AI",
+    "noExercisesYet": "No saved exercises",
+    "createExercise": "Discover Exercises",
+    "createDescription": "Check out our generated exercises",
     "percentage": "%",
     "sets": "Sets",
     "reps": "Reps"

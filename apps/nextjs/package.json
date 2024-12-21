@@ -27,6 +27,7 @@
     "next-axiom": "^1.5.1",
     "react": "catalog:react18",
     "react-dom": "catalog:react18",
+    "resend": "^4.0.1",
     "superjson": "2.2.1",
     "svix": "^1.37.0",
     "zod": "catalog:"

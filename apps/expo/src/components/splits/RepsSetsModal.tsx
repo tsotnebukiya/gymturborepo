@@ -38,7 +38,13 @@ export default function RepsSetsModal({
       presentationStyle="overFullScreen"
       onRequestClose={onClose}
     >
-      <Pressable style={styles.modalOverlay} onPress={onClose}>
+      <Pressable
+        style={styles.modalOverlay}
+        onPress={() => {
+          console.log('onClose');
+          onClose();
+        }}
+      >
         <View
           style={styles.modalContent}
           onStartShouldSetResponder={() => true}

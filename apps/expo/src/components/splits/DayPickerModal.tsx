@@ -1,8 +1,14 @@
 import { Modal, Pressable, StyleSheet, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Divider, Text } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import { useSplitDayConstants, type SplitDayKey } from '~/lib/utils/constants';
 import { useState, useEffect } from 'react';
+import colors from '~/lib/utils/colors';
+import Gradient from '../ui/Gradient';
+import { typography } from '~/lib/utils/typography';
+import { fontFamilies } from '~/lib/utils/typography';
+import Button from '../ui/Button';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   visible: boolean;
@@ -20,6 +26,7 @@ export default function DayPickerModal({
   onSelectDay,
 }: Props) {
   const splitDayConstants = useSplitDayConstants();
+  const { t } = useTranslation();
   const [tempSelectedDay, setTempSelectedDay] = useState<
     SplitDayKey | undefined
   >(selectedDay);
@@ -48,14 +55,14 @@ export default function DayPickerModal({
           style={styles.modalContent}
           onStartShouldSetResponder={() => true}
         >
-          <View style={styles.header}>
-            <Text variant="titleMedium">Select Weekday</Text>
-            <Pressable onPress={onClose} hitSlop={8}>
-              <Text style={styles.closeButton}>✕</Text>
-            </Pressable>
-          </View>
+          <Gradient />
 
+          <View style={styles.header}>
+            <Text style={styles.headerText}>{t('splits.selectWeekday')}</Text>
+          </View>
+          <Divider style={styles.divider} />
           <Picker
+            itemStyle={styles.pickerItem}
             selectedValue={tempSelectedDay}
             onValueChange={(value) => {
               setTempSelectedDay(value as SplitDayKey);
@@ -65,13 +72,14 @@ export default function DayPickerModal({
               <Picker.Item key={key} label={label} value={key} />
             ))}
           </Picker>
+          <Divider style={styles.divider} />
+
           <Button
-            mode="contained"
             onPress={handleConfirm}
-            style={styles.confirmButton}
             loading={loading}
+            style={styles.confirmButton}
           >
-            Confirm
+            {t('common.confirm')}
           </Button>
         </View>
       </Pressable>
@@ -82,36 +90,40 @@ export default function DayPickerModal({
 const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: colors.overlay,
     justifyContent: 'center',
     alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    width: '80%',
-    maxWidth: 400,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 5,
+    backgroundColor: 'transparent',
+    borderRadius: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    width: '90%',
+    overflow: 'hidden',
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    // marginBottom: 16,
+    marginBottom: 20,
   },
-  closeButton: {
-    fontSize: 20,
-    color: '#666',
+  headerText: {
+    fontSize: typography.h4.fontSize,
+    lineHeight: typography.h4.lineHeight,
+    fontFamily: fontFamilies.bold,
+    color: colors.text.general.light,
+  },
+  divider: {
+    backgroundColor: colors.border.light,
+    height: 1.5,
+  },
+  pickerItem: {
+    fontSize: typography.h4.fontSize,
+    lineHeight: typography.h4.lineHeight,
+    fontFamily: fontFamilies.semiBold,
+    color: colors.text.general.brand,
   },
   confirmButton: {
-    // marginTop: 16,
+    marginTop: 20,
   },
 });

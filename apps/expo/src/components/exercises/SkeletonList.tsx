@@ -1,5 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { Skeleton } from 'moti/skeleton';
+import colors from '~/lib/utils/colors';
 
 interface ExerciseListSkeletonProps {
   type?: 'default' | 'ai-generating';
@@ -20,8 +21,8 @@ export default function ExerciseListSkeleton({
         .map((_, index) => (
           <View key={index} style={styles.exerciseItem}>
             <Skeleton
-              width={140}
-              height={90}
+              width={100}
+              height={100}
               radius={12}
               colorMode="light"
               transition={{
@@ -63,18 +64,14 @@ const styles = StyleSheet.create({
   exerciseItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 16,
-    padding: 16,
+    paddingLeft: 16,
+    paddingRight: 2,
+    paddingVertical: 12,
     backgroundColor: '#ffffff',
-    borderRadius: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.border.light,
+    gap: 16,
   },
   exerciseContent: {
     flex: 1,

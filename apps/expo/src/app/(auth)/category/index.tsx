@@ -62,7 +62,7 @@ export default function CategoryListScreen() {
           }}
         />
         <ScrollView tabBarPadding={false}>
-          <View style={styles.contentContainer}>
+          <View style={[styles.contentContainer]}>
             {muscleCategories
               .filter((c) => {
                 return category ? c.category === category : true;
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border.light,
   },
-  contentContainer: { paddingHorizontal: 12, paddingVertical: 24, gap: 24 },
+  contentContainer: { paddingHorizontal: 12, paddingTop: 24, gap: 24 },
   categoryTitle: {
     paddingTop: 20,
     paddingBottom: 10,

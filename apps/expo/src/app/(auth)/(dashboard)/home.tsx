@@ -5,14 +5,13 @@ import { useCurrentLanguage } from '~/i18n';
 import { api } from '~/lib/utils/api';
 import { useAppContext } from '~/lib/contexts/AppContext';
 import TopBar from '~/components/shared/TopBar';
-import { useRouter } from 'expo-router';
 import LatestGenerations from '~/components/homepage/LatestGenerations';
 import MuscleCategories from '~/components/homepage/MuscleCategories';
 import { StyleSheet, View } from 'react-native';
 import RecommendedExercises from '~/components/homepage/RecommendedEx';
+import { router } from 'expo-router';
 
 export default function HomeScreen() {
-  const router = useRouter();
   const { language } = useCurrentLanguage();
   const { setWizardVisible } = useAppContext();
   const {
@@ -46,24 +45,24 @@ export default function HomeScreen() {
   };
   const handleCTA = () => setWizardVisible(true);
   const handleSupport = () => {
-    router.push({ pathname: '/(auth)/support' });
+    router.push('/support');
   };
   return (
     <GradientLayout>
+      <TopBar
+        logo={true}
+        title={'GymLead AI'}
+        inset={false}
+        barBorder={true}
+        actions={[
+          {
+            icon: require('~/assets/icons/chat.png'),
+            mode: 'contained',
+            onPress: handleSupport,
+          },
+        ]}
+      />
       <ScrollView onRefresh={handleRefresh}>
-        <TopBar
-          logo={true}
-          title={'GymLead AI'}
-          inset={false}
-          barBorder={true}
-          actions={[
-            {
-              icon: require('~/assets/icons/chat.png'),
-              mode: 'outlined',
-              onPress: handleSupport,
-            },
-          ]}
-        />
         <View style={styles.container}>
           <LatestGenerations
             isLoading={generationIsLoading}
@@ -81,7 +80,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     gap: 24,
-    paddingTop: 12,
+    paddingTop: 24,
     paddingHorizontal: 12,
   },
 });

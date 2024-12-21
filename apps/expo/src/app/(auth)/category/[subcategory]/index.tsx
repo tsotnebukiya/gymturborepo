@@ -100,9 +100,11 @@ export default function MuscleExercisesScreen() {
               {isLoading ? (
                 <ExerciseListSkeleton />
               ) : searchInput ? (
-                <Text style={styles.emptyText}>No exercises found</Text>
+                <Text style={styles.emptyText}>
+                  {t('errors.noExercisesFound')}
+                </Text>
               ) : (
-                <Text>No exercises</Text>
+                <Text>{t('errors.noExercises')}</Text>
               )}
             </>
           )}

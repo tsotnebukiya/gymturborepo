@@ -10,18 +10,20 @@ import {
 import { StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { fontFamilies, typography } from '~/lib/utils/typography';
 import colors from '~/lib/utils/colors';
-import Button from '../ui/Button';
+import { fontFamilies, typography } from '~/lib/utils/typography';
+import Button from './ui/Button';
 
-export default function ExerciseBottomSheet({
+export default function DeleteAccountModal({
   sheetRef,
-  handleChangeSetRep,
-  handleDelete,
+  handleClose,
+  isDeleting,
+  handleDeleteAccount,
 }: {
   sheetRef: React.RefObject<BottomSheetModal>;
-  handleChangeSetRep: () => void;
-  handleDelete: () => void;
+  handleClose: () => void;
+  isDeleting: boolean;
+  handleDeleteAccount: () => void;
 }) {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
@@ -40,18 +42,28 @@ export default function ExerciseBottomSheet({
     <BottomSheetModal
       ref={sheetRef}
       backdropComponent={renderBackdrop}
-      enableDynamicSizing={true}
+      enableDynamicSizing
     >
       <BottomSheetView
         style={[styles.container, { paddingBottom: insets.bottom }]}
       >
-        <Text style={styles.title}>{t('splits.exerciseSettings')}</Text>
+        <Text style={styles.title}>{t('settings.deleteAccount')}</Text>
+        <Divider style={styles.divider} />
+        <Text style={styles.subtitle} numberOfLines={2}>
+          {t('support.deleteAccount')}
+        </Text>
         <Divider style={styles.divider} />
         <View style={styles.buttonContainer}>
-          <Button onPress={handleChangeSetRep} type="secondary">
-            {t('exercises.changeSetRep')}
+          <Button type="secondary" flex={true} onPress={handleClose}>
+            {t('support.cancel')}
           </Button>
-          <Button onPress={handleDelete}>{t('exercises.delete')}</Button>
+          <Button
+            flex={true}
+            onPress={handleDeleteAccount}
+            loading={isDeleting}
+          >
+            {t('support.yesDelete')}
+          </Button>
         </View>
       </BottomSheetView>
     </BottomSheetModal>
@@ -69,6 +81,13 @@ const styles = StyleSheet.create({
     fontSize: typography.h4.fontSize,
     lineHeight: typography.h4.lineHeight,
     fontFamily: fontFamilies.bold,
+    color: '#F75555',
+  },
+  subtitle: {
+    textAlign: 'center',
+    fontSize: typography.h5.fontSize,
+    lineHeight: typography.h5.lineHeight,
+    fontFamily: fontFamilies.regular,
     color: colors.text.general.light,
   },
   divider: {
@@ -76,6 +95,7 @@ const styles = StyleSheet.create({
     height: 1.5,
   },
   buttonContainer: {
+    flexDirection: 'row',
     justifyContent: 'space-between',
     gap: 16,
   },

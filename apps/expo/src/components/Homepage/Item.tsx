@@ -15,7 +15,7 @@ export default function GenerationItem({
 }) {
   const router = useRouter();
   const { language } = useCurrentLanguage();
-  const completed = data.status === 'COMPLETED';
+  const completed = data.status === 'COMPLETED' || data.status === 'FAILED';
   const onPress = () => {
     if (completed) {
       router.push(`/generated/${data.id}`);
