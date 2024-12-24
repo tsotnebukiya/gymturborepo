@@ -128,7 +128,7 @@ export const splitRouter = {
       })
     )
     .query(async ({ ctx: { db, session }, input }) => {
-      const take = 5;
+      const take = 7;
       const splits = await db.splitDay.findMany({
         where: {
           userId: session.userId,

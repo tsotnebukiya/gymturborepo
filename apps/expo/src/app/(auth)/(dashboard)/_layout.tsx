@@ -13,6 +13,7 @@ export default function DashboardLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
+
           tabBarStyle: {
             position: 'absolute',
             height: 107,
@@ -20,6 +21,7 @@ export default function DashboardLayout() {
             paddingTop: 37,
             borderColor: 'transparent',
             backgroundColor: 'transparent',
+            elevation: 0,
             zIndex: 1,
           },
           tabBarItemStyle: {
@@ -34,6 +36,7 @@ export default function DashboardLayout() {
           options={{
             tabBarActiveTintColor: colors.menuBarIcon.active,
             tabBarInactiveTintColor: colors.menuBarIcon.inactive,
+
             tabBarLabel: ({ focused }) => (
               <TabBarLabel label={t('tabs.home')} active={focused} />
             ),

@@ -91,7 +91,7 @@ export default function MuscleExercisesScreen() {
           contentContainerStyle={[styles.contentContainer]}
           data={exercises}
           showsVerticalScrollIndicator={false}
-          renderItem={({ item }) => <ExerciseItem data={item} replace />}
+          renderItem={({ item }) => <ExerciseItem data={item} />}
           keyExtractor={(item, index) => String(index)}
           onEndReached={loadMore}
           onEndReachedThreshold={0.5}
