@@ -8,6 +8,7 @@ import { useAuth } from '@clerk/clerk-expo';
 
 const getBaseUrl = () => {
   // return 'http://localhost:3000';
+  console.log(process.env.NODE_ENV, 'WEAREHERE');
   return 'https://gymleadai.app';
 };
 

@@ -44,11 +44,11 @@ export async function GET() {
     );
 
     // Count exercises
-    uniqueExercises.forEach((exercise) => {
-      if (exercise.subcategory in subcategoryCounts) {
-        subcategoryCounts[exercise.subcategory]++;
-      }
-    });
+    // uniqueExercises.forEach((exercise) => {
+    //   if (exercise.subcategory in subcategoryCounts) {
+    //     subcategoryCounts[exercise.subcategory]++;
+    //   }
+    // });
 
     // Check thumbnails
     const thumbnailChecks = await Promise.all(
