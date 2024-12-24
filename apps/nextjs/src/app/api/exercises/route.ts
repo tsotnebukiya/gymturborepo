@@ -2,61 +2,97 @@ import { db, generateExercisesDetails } from '@acme/api';
 import { type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { env } from '~/env';
-import { redis, type PrismaTypes } from '@acme/api';
 
-let isWarmStart = false;
+export async function GET() {
+  try {
+    // Get all exercises
+    const exercises = await db.exercise.findMany({});
 
-export async function GET(req: NextRequest) {
-  const isColdStart = !isWarmStart;
-  isWarmStart = true;
+    // Filter out duplicates based on videoId
+    const uniqueExercises = [
+      ...new Map(exercises.map((ex) => [ex.videoId, ex])).values(),
+    ];
 
-  const type = req.nextUrl.searchParams.get('type');
-  if (type === 'database') {
-    const start = performance.now();
-    const exercises = await db.exercise.findMany({
-      include: {
-        translations: true,
-        musclePercentages: true,
-      },
+    // Define all possible subcategories
+    const allSubcategories = [
+      'UPPER_ABS',
+      'LOWER_ABS',
+      'SIDE_ABS',
+      'ABDOMINALS',
+      'UPPER_BACK',
+      'MIDDLE_BACK',
+      'LOWER_BACK',
+      'BICEPS',
+      'TRICEPS',
+      'WRIST_EXTENSORS',
+      'WRIST_FLEXORS',
+      'CHEST',
+      'REAR_SHOULDER',
+      'FRONT_SHOULDER',
+      'SIDE_SHOULDER',
+      'QUADRICEPS',
+      'HAMSTRINGS',
+      'CALVES',
+      'GLUTES',
+      'INNER_THIGHS',
+      'OUTER_THIGHS',
+    ];
+
+    // Initialize counts object with zeros for all subcategories
+    const subcategoryCounts = Object.fromEntries(
+      allSubcategories.map((sub) => [sub, 0])
+    );
+
+    // Count exercises
+    uniqueExercises.forEach((exercise) => {
+      if (exercise.subcategory in subcategoryCounts) {
+        subcategoryCounts[exercise.subcategory]++;
+      }
     });
-    const end = performance.now();
-    const dataSizeInBytes = new TextEncoder().encode(
-      JSON.stringify(exercises)
-    ).length;
-    const dataSizeInKB = dataSizeInBytes / 1024;
+
+    // Check thumbnails
+    const thumbnailChecks = await Promise.all(
+      uniqueExercises.map(async (exercise) => {
+        const thumbnailUrl = `https://img.youtube.com/vi/${exercise.videoId}/maxresdefault.jpg`;
+        try {
+          const response = await fetch(thumbnailUrl, { method: 'HEAD' });
+          return {
+            videoId: exercise.videoId,
+            thumbnailExists: response.ok,
+            subcategory: exercise.subcategory,
+          };
+        } catch (error) {
+          console.log(error);
+          return {
+            videoId: exercise.videoId,
+            thumbnailExists: false,
+            subcategory: exercise.subcategory,
+          };
+        }
+      })
+    );
+
+    const invalidThumbnails = thumbnailChecks.filter(
+      (check) => !check.thumbnailExists
+    );
     return new Response(
       JSON.stringify({
-        status: 'success',
-        dataSizeInKB,
-        time: end - start,
-        coldStart: `[${new Date().toISOString()}] Cold Start: ${isColdStart}`,
+        totalUniqueExercises: uniqueExercises.length,
+        subcategoryCounts,
+        invalidThumbnails,
       }),
-      { status: 200 }
+      {
+        status: 200,
+      }
     );
-  }
-  if (type === 'redis') {
-    const start = performance.now();
-    const cachedExercises =
-      (await redis.get<NonNullable<PrismaTypes.Exercise>[]>('exercises')) || [];
-    const finalExerfcises = cachedExercises;
-    const end = performance.now();
-    const dataSizeInBytes = new TextEncoder().encode(
-      JSON.stringify(finalExerfcises)
-    ).length;
-    const dataSizeInKB = dataSizeInBytes / 1024;
+  } catch (error) {
     return new Response(
-      JSON.stringify({
-        status: 'success',
-        dataSizeInKB,
-        time: end - start,
-        coldStart: `[${new Date().toISOString()}] Cold Start: ${isColdStart}`,
-      }),
-      { status: 200 }
+      JSON.stringify({ status: 'error', error: String(error) }),
+      {
+        status: 500,
+      }
     );
   }
-  return new Response(JSON.stringify({ status: 'Incorrect Type' }), {
-    status: 400,
-  });
 }
 
 const passwordSchema = z.object({

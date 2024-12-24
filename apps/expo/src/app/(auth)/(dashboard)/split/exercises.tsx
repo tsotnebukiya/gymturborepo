@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     gap: 16,
+    paddingBottom: 111,
   },
   iconContainer: {
     flexDirection: 'row',
