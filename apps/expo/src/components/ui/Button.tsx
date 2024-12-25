@@ -4,7 +4,8 @@ import {
   type ViewStyle,
   ActivityIndicator,
 } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, Icon } from 'react-native-paper';
+import type { IconSource } from 'react-native-paper/lib/typescript/components/Icon';
 import colors from '~/lib/utils/colors';
 import { fontFamilies, typography } from '~/lib/utils/typography';
 
@@ -16,6 +17,8 @@ interface ButtonProps {
   disabled?: boolean;
   flex?: boolean;
   loading?: boolean;
+  icon?: IconSource;
+  iconPosition?: 'left' | 'right';
 }
 
 export default function Button({
@@ -26,6 +29,8 @@ export default function Button({
   disabled = false,
   flex = false,
   loading = false,
+  icon,
+  iconPosition = 'left',
 }: ButtonProps) {
   return (
     <Pressable
@@ -44,6 +49,13 @@ export default function Button({
         flex && { flex: 1 },
       ]}
     >
+      {icon && iconPosition === 'left' && !loading && (
+        <Icon
+          source={icon}
+          size={20}
+          color={type === 'primary' ? 'white' : colors.primary[900]}
+        />
+      )}
       <Text
         style={[
           styles.text,
@@ -58,6 +70,13 @@ export default function Button({
       >
         {children}
       </Text>
+      {icon && iconPosition === 'right' && !loading && (
+        <Icon
+          source={icon}
+          size={20}
+          color={type === 'primary' ? 'white' : colors.primary[900]}
+        />
+      )}
       {loading && (
         <ActivityIndicator
           style={styles.loader}

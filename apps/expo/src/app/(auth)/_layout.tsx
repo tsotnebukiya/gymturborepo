@@ -1,5 +1,6 @@
 import { useAuth } from '@clerk/clerk-expo';
 import { Redirect, Stack } from 'expo-router';
+import { StatusBar } from 'react-native';
 import { AppContextProvider } from '~/lib/contexts/AppContext';
 
 export default function AuthLayout() {
@@ -9,6 +10,7 @@ export default function AuthLayout() {
   }
   return (
     <AppContextProvider>
+      <StatusBar backgroundColor={'transparent'} />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(dashboard)" />
         <Stack.Screen

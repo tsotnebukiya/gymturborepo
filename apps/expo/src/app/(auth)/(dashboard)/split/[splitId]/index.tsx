@@ -18,7 +18,8 @@ import { type BottomSheetModal } from '@gorhom/bottom-sheet';
 import RepsSetsModal from '~/components/splits/RepsSetsModal';
 import WeekdayButton from '~/components/splits/WeekdayButton';
 import UpdatingBox from '~/components/splits/UpdatingBox';
-import SelectButton from '~/components/splits/SelectButton';
+import Button from '~/components/ui/Button';
+import { useTranslation } from 'react-i18next';
 
 export default function SplitIndividualScreen() {
   const { language } = useCurrentLanguage();
@@ -46,6 +47,7 @@ function LoadedSplitIndividual({
   split: RouterOutputs['split']['getOne'];
 }) {
   const utils = api.useUtils();
+  const { t } = useTranslation();
   const [repsSetsModalVisible, setRepsSetsModalVisible] = useState(false);
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const { setSplitExercises, splitExercises } = useAppContext();
@@ -194,13 +196,12 @@ function LoadedSplitIndividual({
               />
             </View>
           ) : null}
-
+          {isUpdatingExercises && <UpdatingBox />}
           <WeekdayButton
             selectedDay={selectedDay}
             onPress={() => setIsDayPickerVisible(true)}
           />
 
-          {isUpdatingExercises && <UpdatingBox />}
           {split.exercises.map((el) => (
             <ExerciseItem
               showSets={true}
@@ -209,10 +210,13 @@ function LoadedSplitIndividual({
               handleMoreOptions={handleMoreOptions}
             />
           ))}
-          <SelectButton
-            disabled={isUpdatingExercises}
+          <Button
+            icon={'plus'}
             onPress={handleSelectExercise}
-          />
+            disabled={isUpdatingExercises}
+          >
+            {t('exercises.selectSavedExercise')}
+          </Button>
         </View>
       </ScrollView>
 

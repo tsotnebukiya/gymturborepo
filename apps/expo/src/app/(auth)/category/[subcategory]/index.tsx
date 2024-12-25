@@ -152,10 +152,13 @@ const styles = StyleSheet.create({
   tabsContainer: {
     paddingHorizontal: 16,
   },
-  listContainer: {},
+  listContainer: {
+    paddingTop: 18,
+    marginTop: 6,
+  },
   contentContainer: {
     gap: 20,
-    paddingVertical: 24,
+    paddingBottom: 24,
     paddingHorizontal: 12,
   },
   emptyText: {

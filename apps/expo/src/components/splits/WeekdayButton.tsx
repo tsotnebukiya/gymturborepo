@@ -38,8 +38,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 16,
     gap: 20,
-    borderWidth: 2,
-    borderColor: '#BDBDBD',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   daySelectorPressed: {
     opacity: 0.8,
@@ -47,8 +53,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   daySelectorText: {
-    fontSize: typography.medium.fontSize,
-    lineHeight: typography.medium.lineHeight,
+    fontSize: typography.large.fontSize,
+    lineHeight: typography.large.lineHeight,
     fontFamily: fontFamilies.bold,
     color: colors.text.general.brand,
   },

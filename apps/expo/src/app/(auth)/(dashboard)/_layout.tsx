@@ -54,7 +54,7 @@ export default function DashboardLayout() {
             tabBarActiveTintColor: colors.menuBarIcon.active,
             tabBarInactiveTintColor: colors.menuBarIcon.inactive,
             tabBarItemStyle: {
-              marginRight: 30,
+              marginRight: 25,
             },
             tabBarLabel: ({ focused }) => (
               <TabBarLabel label={t('tabs.bookmarks')} active={focused} />
@@ -73,7 +73,7 @@ export default function DashboardLayout() {
             tabBarActiveTintColor: colors.menuBarIcon.active,
             tabBarInactiveTintColor: colors.menuBarIcon.inactive,
             tabBarItemStyle: {
-              marginLeft: 30,
+              marginLeft: 25,
             },
             tabBarLabel: ({ focused }) => (
               <TabBarLabel label={t('tabs.splits')} active={focused} />

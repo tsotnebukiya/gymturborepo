@@ -179,7 +179,8 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: '100%',
-    paddingTop: 24,
+    paddingTop: 18,
+    marginTop: 6,
     paddingHorizontal: 12,
   },
   contentContainer: {

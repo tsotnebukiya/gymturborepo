@@ -15,7 +15,7 @@ import ExerciseBottomSheet from '~/components/splits/BottomExerciseModal';
 import RepsSetsModal from '~/components/splits/RepsSetsModal';
 import { useTranslation } from 'react-i18next';
 import WeekdayButton from '~/components/splits/WeekdayButton';
-import SelectButton from '~/components/splits/SelectButton';
+import Button from '~/components/ui/Button';
 
 export default function SplitNewScreen() {
   const { t } = useTranslation();
@@ -145,7 +145,9 @@ export default function SplitNewScreen() {
               handleMoreOptions={handleMoreOptions}
             />
           ))}
-          <SelectButton disabled={false} onPress={handleSelectExercise} />
+          <Button icon={'plus'} onPress={handleSelectExercise} disabled={false}>
+            {t('exercises.selectSavedExercise')}
+          </Button>
         </View>
       </ScrollView>
       {selectedExercise && (

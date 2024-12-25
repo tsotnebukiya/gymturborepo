@@ -12,7 +12,7 @@ export const TabBarIcon = ({
   style,
   ...rest
 }: IconProps<ComponentProps<typeof Ionicons>['name']>) => {
-  return <Ionicons size={28} style={[style]} {...rest} />;
+  return <Ionicons size={24} style={[style]} {...rest} />;
 };
 
 export const TabBarLabel = ({
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   label: {
     color: colors.menuBarIcon.active,
     fontSize: typography.small.fontSize,
-    lineHeight: typography.small.lineHeight,
+    lineHeight: typography.xsmall.lineHeight,
   },
   active: {
     color: colors.menuBarIcon.active,

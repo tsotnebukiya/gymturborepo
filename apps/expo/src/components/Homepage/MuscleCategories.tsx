@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   categoryText: {
-    fontSize: typography.large.fontSize,
-    lineHeight: typography.large.lineHeight,
+    fontSize: typography.h6.fontSize,
+    lineHeight: typography.h6.lineHeight,
     fontFamily: fontFamilies.semiBold,
     color: colors.text.general.light,
   },

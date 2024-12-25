@@ -72,7 +72,7 @@ export default function GenerationItem({
             <Text
               style={styles.subtitle}
               numberOfLines={2}
-              ellipsizeMode="middle"
+              ellipsizeMode="tail"
             >
               {data.description}
             </Text>

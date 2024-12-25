@@ -152,8 +152,8 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   exerciseTitle: {
-    fontSize: typography.h5.fontSize,
-    lineHeight: typography.h5.lineHeight,
+    fontSize: typography.h6.fontSize,
+    lineHeight: typography.h6.lineHeight,
     fontFamily: fontFamilies.bold,
     color: colors.text.general.light,
   },

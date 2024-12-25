@@ -29,9 +29,9 @@ export default function SignInComponent({
   const { t } = useTranslation();
   const disabled = loading.google || loading.apple || loading.facebook || false;
   return (
-    <View style={{ flex: 1, backgroundColor: 'transparent' }}>
+    <View style={styles.outerContainer}>
       <Gradient />
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="dark-content" backgroundColor={'transparent'} />
       <TopBar
         backAction={{
           icon: 'close',
@@ -81,6 +81,10 @@ export default function SignInComponent({
 }
 
 const styles = StyleSheet.create({
+  outerContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
