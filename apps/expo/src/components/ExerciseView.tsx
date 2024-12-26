@@ -85,7 +85,11 @@ export default function ExerciseView({ data }: Props) {
               </View>
             </View>
           </View>
-          <VideoPlayer videoId={data.videoId} startSeconds={0} endSeconds={0} />
+          <VideoPlayer
+            videoId={data.videoId}
+            startSeconds={data.videoStart}
+            endSeconds={data.videoEnd}
+          />
         </View>
       </ScrollView>
     </View>
