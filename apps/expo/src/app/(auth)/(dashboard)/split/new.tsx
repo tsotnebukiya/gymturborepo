@@ -1,28 +1,27 @@
 import { router } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { Alert } from 'react-native';
 import GradientLayout from '~/components/shared/GradientLayout';
 import TopBar from '~/components/shared/TopBar';
 import { type SplitDayKey } from '~/lib/utils/constants';
-import DayPickerModal from '~/components/splits/DayPickerModal';
 import { useAppContext } from '~/lib/contexts/AppContext';
-import ExerciseItem, { type GenerationData } from '~/components/exercises/Item';
-import ScrollView from '~/components/shared/ScrollView';
+import { type GenerationData } from '~/components/exercises/Item';
 import { api } from '~/lib/utils/api';
 import { type BottomSheetModal } from '@gorhom/bottom-sheet';
 import ExerciseBottomSheet from '~/components/splits/BottomExerciseModal';
 import RepsSetsModal from '~/components/splits/RepsSetsModal';
 import { useTranslation } from 'react-i18next';
-import WeekdayButton from '~/components/splits/WeekdayButton';
-import Button from '~/components/ui/Button';
+import DraggableList from '~/components/splits/DraggableList';
+import DayPickerModal from '~/components/splits/DayPickerModal';
+import { reorderItems } from 'react-native-reorderable-list';
+import { type ReorderableListReorderEvent } from 'react-native-reorderable-list';
 
 export default function SplitNewScreen() {
   const { t } = useTranslation();
   const utils = api.useUtils();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const [repsSetsModalVisible, setRepsSetsModalVisible] = useState(false);
-  const [name, setName] = useState<string | undefined>();
+  const [name, setName] = useState<string>('');
   const { splitExercises, setSplitExercises } = useAppContext();
   const [selectedDay, setSelectedDay] = useState<SplitDayKey>('MONDAY');
   const [isDayPickerVisible, setIsDayPickerVisible] = useState(false);
@@ -84,6 +83,14 @@ export default function SplitNewScreen() {
       bottomSheetRef.current?.snapToIndex(0); // Changed from 1 to 0 since snapPoints only has ['50%']
     }, 0);
   };
+  const handleSelectDay = (selectedDay: SplitDayKey) => {
+    setSelectedDay(selectedDay);
+    setIsDayPickerVisible(false);
+  };
+  const handleReorder = ({ from, to }: ReorderableListReorderEvent) => {
+    const newData = reorderItems(splitExercises, from, to);
+    setSplitExercises(newData);
+  };
   useEffect(() => {
     return () => {
       setSplitExercises([]);
@@ -105,51 +112,24 @@ export default function SplitNewScreen() {
           },
         ]}
       />
-      <ScrollView>
-        <View style={styles.content}>
-          <View style={styles.inputContainer}>
-            <TextInput
-              dense={true}
-              value={name}
-              autoFocus={false}
-              mode="outlined"
-              placeholder={t('splits.splitName')}
-              keyboardType="default"
-              showSoftInputOnFocus={true}
-              style={styles.searchInput}
-              right={
-                name ? (
-                  <TextInput.Icon icon="close" onPress={() => setName('')} />
-                ) : undefined
-              }
-              outlineStyle={styles.searchOutline}
-              onChangeText={setName}
-            />
-          </View>
-          <WeekdayButton
-            selectedDay={selectedDay}
-            onPress={() => setIsDayPickerVisible(true)}
-          />
-          <DayPickerModal
-            visible={isDayPickerVisible}
-            onClose={() => setIsDayPickerVisible(false)}
-            selectedDay={selectedDay}
-            onSelectDay={setSelectedDay}
-          />
 
-          {splitExercises.map((el, index) => (
-            <ExerciseItem
-              data={el}
-              key={index}
-              showSets={true}
-              handleMoreOptions={handleMoreOptions}
-            />
-          ))}
-          <Button icon={'plus'} onPress={handleSelectExercise} disabled={false}>
-            {t('exercises.selectSavedExercise')}
-          </Button>
-        </View>
-      </ScrollView>
+      <DraggableList
+        type="new"
+        splitExercises={splitExercises}
+        name={name}
+        setName={setName}
+        selectedDay={selectedDay}
+        setIsDayPickerVisible={setIsDayPickerVisible}
+        handleSelectExercise={handleSelectExercise}
+        handleMoreOptions={handleMoreOptions}
+        handleReorder={handleReorder}
+      />
+      <DayPickerModal
+        visible={isDayPickerVisible}
+        onClose={() => setIsDayPickerVisible(false)}
+        selectedDay={selectedDay}
+        onSelectDay={handleSelectDay}
+      />
       {selectedExercise && (
         <ExerciseBottomSheet
           sheetRef={bottomSheetRef}
@@ -169,23 +149,3 @@ export default function SplitNewScreen() {
     </GradientLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  inputContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 16,
-  },
-  searchOutline: {
-    borderRadius: 10,
-  },
-  searchInput: {
-    alignSelf: 'stretch',
-  },
-  content: {
-    gap: 24,
-    paddingTop: 24,
-    paddingHorizontal: 12,
-  },
-});

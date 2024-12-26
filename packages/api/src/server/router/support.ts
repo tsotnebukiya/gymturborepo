@@ -27,7 +27,6 @@ export const supportRouter = {
           generationId: input.generationId,
         }),
       });
-      console.log(error);
       if (error) {
         throw new TRPCError({
           code: 'INTERNAL_SERVER_ERROR',

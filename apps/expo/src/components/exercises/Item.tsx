@@ -17,11 +17,13 @@ interface Props {
   showSets?: boolean;
   handlePress?: (id: number, exercise: GenerationData) => void;
   handleMoreOptions?: (exercise: GenerationData) => void;
+  onLongPress?: () => void;
 }
 
 export default function ExerciseItem({
   data,
   showSets,
+  onLongPress,
   handlePress,
   handleMoreOptions,
 }: Props) {
@@ -47,8 +49,19 @@ export default function ExerciseItem({
       style={({ pressed }) => [
         styles.exerciseItem,
         pressed && styles.exerciseItemPressed,
+        onLongPress && styles.noPaddingLeft,
       ]}
     >
+      {onLongPress && (
+        <IconButton
+          icon={require('~/assets/icons/drag.png')}
+          size={24}
+          iconColor={colors.text.general.light}
+          delayLongPress={5}
+          onLongPress={onLongPress}
+        />
+      )}
+
       <Image
         source={{
           uri: `https://img.youtube.com/vi/${data.videoId}/maxresdefault.jpg`,
@@ -126,6 +139,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: colors.border.light,
+  },
+  noPaddingLeft: {
+    paddingLeft: 0,
   },
   exerciseItemPressed: {
     backgroundColor: colors.surfaceLight,

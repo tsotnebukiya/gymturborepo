@@ -32,7 +32,6 @@ export default function CategoryListScreen() {
     router.back();
   };
   const handleCategory = (subcategory: Subcategory) => {
-    console.log(type);
     if (type === 'saved') {
       setSubcategory(subcategory);
       handleBack();

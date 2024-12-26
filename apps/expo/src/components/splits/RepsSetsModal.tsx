@@ -41,7 +41,6 @@ export default function RepsSetsModal({
       <Pressable
         style={styles.modalOverlay}
         onPress={() => {
-          console.log('onClose');
           onClose();
         }}
       >

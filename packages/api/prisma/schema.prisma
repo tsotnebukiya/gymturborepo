@@ -164,10 +164,13 @@ model SplitExercise {
     userId     String
     sets       Int
     reps       Int
-    splitDay   SplitDay @relation(fields: [splitDayId], references: [id])
+    rank       String
+    splitDay   SplitDay @relation(fields: [splitDayId], references: [id], onDelete: Cascade)
     splitDayId Int
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
+
+    @@index([splitDayId, rank])
 }
 
 model GenerationTranslation {

@@ -1,5 +1,5 @@
 import { StyleSheet, View, Pressable } from 'react-native';
-import { Text } from 'react-native-paper';
+import { IconButton, Text } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 import { type RouterOutputs } from '@acme/api';
 import {
@@ -18,16 +18,25 @@ export default function SplitItem({
 }: {
   item: RouterOutputs['split']['getAll']['splits'][number];
 }) {
+  const utils = api.useUtils();
   const { language } = useCurrentLanguage();
   const musclesConstants = useMusclesConstants();
   const splitDayConstants = useSplitDayConstants();
   const { t } = useTranslation();
   api.split.getOne.usePrefetchQuery({ id: item.id, language });
+  const { mutate: deleteSplit, isPending } = api.split.deleteOne.useMutation({
+    onSettled: () => {
+      void utils.split.getAll.invalidate();
+    },
+  });
   const handlePress = () => {
     router.push({
       pathname: '/(auth)/(dashboard)/split/[splitId]',
       params: { splitId: item.id },
     });
+  };
+  const handleDelete = () => {
+    deleteSplit({ id: item.id });
   };
   return (
     <Pressable
@@ -37,44 +46,62 @@ export default function SplitItem({
       ]}
       onPress={handlePress}
     >
-      <View style={styles.row}>
-        <Text style={styles.splitTitle}>{item.name}</Text>
+      <View style={styles.splitLayout}>
+        <View style={styles.row}>
+          <Text style={styles.splitTitle}>{item.name}</Text>
 
-        <View style={styles.dayContainer}>
-          <Ionicons name="calendar-outline" size={20} color="#757575" />
-          <Text style={styles.splitDay}>{splitDayConstants[item.day]}</Text>
+          <View style={styles.dayContainer}>
+            <Ionicons name="calendar-outline" size={20} color="#757575" />
+            <Text style={styles.splitDay}>{splitDayConstants[item.day]}</Text>
+          </View>
+        </View>
+
+        <View style={styles.detail}>
+          <Ionicons name="barbell-outline" size={22} color="#757575" />
+          <Text style={styles.detailText}>
+            {item.exercisesCount} {t('exercises.exercises')}
+          </Text>
+        </View>
+
+        <View style={styles.muscleGroups}>
+          {item.subcategories.map((muscle, index) => (
+            <View key={index} style={styles.muscleTag}>
+              <Text style={styles.muscleText}>
+                {musclesConstants[muscle].label}
+              </Text>
+            </View>
+          ))}
         </View>
       </View>
-
-      <View style={styles.detail}>
-        <Ionicons name="barbell-outline" size={22} color="#757575" />
-        <Text style={styles.detailText}>
-          {item.exercisesCount} {t('exercises.exercises')}
-        </Text>
-      </View>
-
-      <View style={styles.muscleGroups}>
-        {item.subcategories.map((muscle, index) => (
-          <View key={index} style={styles.muscleTag}>
-            <Text style={styles.muscleText}>
-              {musclesConstants[muscle].label}
-            </Text>
-          </View>
-        ))}
-      </View>
+      <IconButton
+        icon="delete-off"
+        loading={isPending}
+        size={24}
+        style={styles.deleteButton}
+        onPress={handleDelete}
+        iconColor={colors.text.general.light}
+      />
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   splitItem: {
-    paddingHorizontal: 16,
+    paddingLeft: 16,
     paddingVertical: 12,
-    gap: 6,
+    display: 'flex',
+    flexDirection: 'row',
     backgroundColor: '#ffffff',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: colors.border.light,
+  },
+  deleteButton: {
+    alignSelf: 'center',
+  },
+  splitLayout: {
+    gap: 6,
+    flex: 1,
   },
   splitItemPressed: {
     backgroundColor: '#f5f5f5',

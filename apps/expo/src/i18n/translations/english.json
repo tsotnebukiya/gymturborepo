@@ -69,7 +69,7 @@
     "createSplit": "Create Split",
     "createDescription": "Create a new split to start training with AI",
     "selectWeekday": "Select Weekday",
-    "selectSavedExercise": "Select Exercise",
+    "selectSavedExercise": "Add Exercise",
     "updatingExercises": "Updating exercises...",
     "days": {
       "monday": "Monday",
@@ -172,7 +172,7 @@
     "title": "Exercises",
     "exerciseName": "Exercise Name",
     "exercises": "exercises",
-    "selectSavedExercise": "Select Exercise",
+    "selectSavedExercise": "Add Exercise",
     "changeSetRep": "Change Set/Rep",
     "delete": "Delete",
     "noExercisesYet": "No saved exercises",
