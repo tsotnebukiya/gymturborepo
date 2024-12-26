@@ -1,4 +1,18 @@
 {
+  "support": {
+    "deleteAccount": "Sei sicuro di voler eliminare l'account?",
+    "cancel": "Annulla",
+    "yesDelete": "Sì, Elimina",
+    "successTitle": "Grazie per il tuo feedback!",
+    "successSubtitle": "Abbiamo ricevuto il tuo messaggio e ti risponderemo il prima possibile.",
+    "reportGenerationIssueTitle": "Segnala Problema di Generazione",
+    "helpImproveAppTitle": "Aiutaci a Migliorare",
+    "placeholder": "Descrivi il problema qui...",
+    "sendReport": "Invia Segnalazione",
+    "sendFeedback": "Invia Feedback",
+    "reportGenerationIssue": "Hai trovato qualcosa che non va in questa generazione? Dicci cosa è successo e lo esamineremo.",
+    "helpImproveApp": "Ci piacerebbe sentire la tua opinione! Condividi il tuo feedback, segnala problemi o suggerisci nuove funzionalità per aiutarci a migliorare l'app."
+  },
   "language": {
     "en": "Inglese",
     "es": "Spagnolo",
@@ -13,7 +27,7 @@
     "home": "Home",
     "bookmarks": "Salvati",
     "settings": "Impostazioni",
-    "splits": "Allenamenti"
+    "splits": "Schede"
   },
   "wizard": {
     "gallery": "Galleria",
@@ -24,13 +38,13 @@
     "permissions": {
       "gallery": {
         "title": "Permesso Galleria Richiesto",
-        "message": "Abilita l'accesso alla galleria nelle impostazioni del dispositivo",
+        "message": "Abilita l'accesso alla galleria nelle impostazioni del dispositivo per utilizzare questa funzione",
         "needed": "Permesso Galleria Necessario",
         "explanation": "Abbiamo bisogno dell'accesso alla galleria per selezionare le foto. Concedi il permesso quando richiesto"
       },
       "camera": {
         "title": "Permesso Fotocamera Richiesto",
-        "message": "Abilita l'accesso alla fotocamera nelle impostazioni del dispositivo",
+        "message": "Abilita l'accesso alla fotocamera nelle impostazioni del dispositivo per utilizzare questa funzione",
         "needed": "Permesso Fotocamera Necessario",
         "explanation": "Abbiamo bisogno dell'accesso alla fotocamera per scattare foto. Concedi il permesso quando richiesto"
       }
@@ -38,19 +52,24 @@
   },
   "home": {
     "latestGenerations": "Ultime Generazioni",
-    "noGenerations": "Nessuna generazione",
+    "noGenerations": "Nessuna generazione ancora",
     "createFirst": "Crea la tua prima generazione IA e inizia a esplorare le possibilità!",
     "createFirstButton": "Crea Prima Generazione",
-    "pending": "In attesa"
+    "pending": "In Attesa",
+    "muscleCategories": "Categorie Muscolari",
+    "recommendedExercises": "Esercizi Raccomandati",
+    "viewAll": "Vedi Tutti"
   },
   "splits": {
-    "title": "Lista Allenamenti",
-    "noSplits": "Nessun allenamento",
-    "createSplit": "Crea Allenamento",
-    "createDescription": "Crea un nuovo allenamento per iniziare ad allenarti con l'IA",
-    "splitName": "Nome Allenamento",
+    "title": "Lista Schede",
+    "noSplits": "Nessuna scheda ancora",
+    "splitName": "Nome Scheda",
+    "exerciseSettings": "Impostazioni Esercizio",
+    "createSplit": "Crea Scheda",
+    "createDescription": "Crea una nuova scheda per iniziare ad allenarti con l'IA",
     "selectWeekday": "Seleziona Giorno",
-    "selectSavedExercise": "Seleziona Esercizio Salvato",
+    "selectSavedExercise": "Aggiungi Esercizio",
+    "updatingExercises": "Aggiornamento esercizi...",
     "days": {
       "monday": "Lunedì",
       "tuesday": "Martedì",
@@ -66,8 +85,9 @@
       "reps": "Ripetizioni"
     },
     "errors": {
-      "createError": "Errore nella creazione dell'allenamento",
-      "nameRequired": "Il nome dell'allenamento è obbligatorio",
+      "error": "Errore",
+      "createError": "Errore nella creazione della scheda",
+      "nameRequired": "Il nome della scheda è obbligatorio",
       "nameEmpty": "Il nome non può essere vuoto"
     }
   },
@@ -103,8 +123,8 @@
     "hamstrings": "Femorali",
     "calves": "Polpacci",
     "glutes": "Glutei",
-    "inner_thighs": "Adduttori",
-    "outer_thighs": "Abduttori"
+    "inner_thighs": "Cosce Interne",
+    "outer_thighs": "Cosce Esterne"
   },
   "auth": {
     "continueWith": {
@@ -116,13 +136,13 @@
   "permissions": {
     "gallery": {
       "title": "Permesso Galleria Richiesto",
-      "message": "Abilita l'accesso alla galleria nelle impostazioni del dispositivo",
+      "message": "Abilita l'accesso alla galleria nelle impostazioni del dispositivo per utilizzare questa funzione",
       "needed": "Permesso Galleria Necessario",
       "explanation": "Abbiamo bisogno dell'accesso alla galleria per selezionare le foto. Concedi il permesso quando richiesto"
     },
     "camera": {
       "title": "Permesso Fotocamera Richiesto",
-      "message": "Abilita l'accesso alla fotocamera nelle impostazioni del dispositivo",
+      "message": "Abilita l'accesso alla fotocamera nelle impostazioni del dispositivo per utilizzare questa funzione",
       "needed": "Permesso Fotocamera Necessario",
       "explanation": "Abbiamo bisogno dell'accesso alla fotocamera per scattare foto. Concedi il permesso quando richiesto"
     }
@@ -133,31 +153,37 @@
     "openSettings": "Apri Impostazioni"
   },
   "settings": {
-    "selectLanguage": "Seleziona Lingua",
     "changeLanguage": "Cambia Lingua",
-    "signOut": "Esci"
+    "helpSupport": "Aiuto & Supporto",
+    "termsAndConditions": "Termini e Condizioni",
+    "privacyPolicy": "Informativa sulla Privacy",
+    "exitAccount": "Esci dall'Account",
+    "deleteAccount": "Elimina Account",
+    "selectLanguage": "Seleziona Lingua"
   },
   "errors": {
     "generic": "Qualcosa è andato storto",
     "noExercisesFound": "Nessun esercizio trovato",
-    "noExercises": "Nessun esercizio"
+    "noExercises": "Nessun esercizio",
+    "noExercisesGenerated": "Nessun esercizio generato"
   },
   "exercises": {
     "title": "Esercizi",
     "exerciseName": "Nome Esercizio",
     "exercises": "esercizi",
-    "selectSavedExercise": "Seleziona Esercizio Salvato",
+    "selectSavedExercise": "Aggiungi Esercizio",
     "changeSetRep": "Modifica Serie/Ripetizioni",
     "delete": "Elimina",
-    "noExercisesYet": "Nessun esercizio ancora",
-    "createExercise": "Crea Esercizio",
-    "createDescription": "Crea un nuovo esercizio per iniziare ad allenarti con l'IA",
+    "noExercisesYet": "Nessun esercizio salvato",
+    "createExercise": "Scopri Esercizi",
+    "createDescription": "Esplora i nostri esercizi generati",
     "percentage": "%",
     "sets": "Serie",
     "reps": "Ripetizioni"
   },
   "signIn": {
-    "title": "Accedi"
+    "title": "Iniziamo!",
+    "subtitle": "Accedi al tuo account"
   },
   "common": {
     "close": "✕",
@@ -174,12 +200,12 @@
     "confirm": "Conferma"
   },
   "intro": {
-    "title1": "Asana - Il tuo viaggio nello yoga inizia qui",
-    "subTitle1": "Preparati a intraprendere un viaggio trasformativo nello yoga con Asana. Scopri una vasta gamma di yoga, adattati ai tuoi obiettivi.",
-    "title2": "Piano di esercizi personalizzato per le tue esigenze",
-    "subTitle2": "Asana personalizza lo yoga solo per te. Che tu sia un principiante o un appassionato di yoga, la nostra app si adatta alle tue esigenze.",
-    "title3": "Rimani informato sui tuoi progressi nello yoga",
-    "subTitle3": "Mantieni la motivazione e traccia i tuoi progressi senza sforzo. Inizia oggi il tuo viaggio nello yoga e raggiungi i risultati che hai sempre desiderato.",
+    "title1": "Asana - Il Tuo Viaggio Yoga Inizia Qui",
+    "subTitle1": "Preparati a intraprendere un viaggio yoga trasformativo con Asana. Scopri un'ampia gamma di yoga, adattati ai tuoi obiettivi.",
+    "title2": "Piano di Esercizi Personalizzato per le Tue Esigenze",
+    "subTitle2": "Asana personalizza gli yoga solo per te. Che tu sia un principiante o un appassionato di yoga, la nostra app si adatta alle tue esigenze.",
+    "title3": "Rimani Informato sui Tuoi Progressi nello Yoga",
+    "subTitle3": "Mantieni la motivazione e traccia i tuoi progressi senza sforzo. Inizia oggi il tuo viaggio yoga e raggiungi i risultati che hai sempre desiderato.",
     "skip": "Salta",
     "continue": "Continua"
   }

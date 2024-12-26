@@ -1,4 +1,18 @@
 {
+  "support": {
+    "deleteAccount": "Tem certeza que deseja excluir a conta?",
+    "cancel": "Cancelar",
+    "yesDelete": "Sim, Excluir",
+    "successTitle": "Obrigado pelo seu feedback!",
+    "successSubtitle": "Recebemos sua mensagem e responderemos o mais breve possível.",
+    "reportGenerationIssueTitle": "Reportar Problema de Geração",
+    "helpImproveAppTitle": "Ajude-nos a Melhorar",
+    "placeholder": "Descreva o problema aqui...",
+    "sendReport": "Enviar Relatório",
+    "sendFeedback": "Enviar Feedback",
+    "reportGenerationIssue": "Encontrou algo errado nesta geração? Conte-nos o que aconteceu e investigaremos.",
+    "helpImproveApp": "Gostaríamos de ouvir sua opinião! Compartilhe seu feedback, reporte problemas ou sugira novos recursos para nos ajudar a melhorar o aplicativo."
+  },
   "language": {
     "en": "Inglês",
     "es": "Espanhol",
@@ -20,17 +34,17 @@
     "takePhoto": "Tirar Foto",
     "chooseMuscle": "Escolher Músculo",
     "generationInProgress": "Geração em Andamento",
-    "waitMessage": "Aguarde a conclusão da geração atual",
+    "waitMessage": "Por favor, aguarde a conclusão da geração atual",
     "permissions": {
       "gallery": {
         "title": "Permissão da Galeria Necessária",
-        "message": "Ative o acesso à galeria nas configurações do dispositivo",
+        "message": "Por favor, ative o acesso à galeria nas configurações do dispositivo para usar este recurso",
         "needed": "Permissão da Galeria Necessária",
         "explanation": "Precisamos de acesso à galeria para selecionar fotos. Por favor, conceda a permissão quando solicitado"
       },
       "camera": {
         "title": "Permissão da Câmera Necessária",
-        "message": "Ative o acesso à câmera nas configurações do dispositivo",
+        "message": "Por favor, ative o acesso à câmera nas configurações do dispositivo para usar este recurso",
         "needed": "Permissão da Câmera Necessária",
         "explanation": "Precisamos de acesso à câmera para tirar fotos. Por favor, conceda a permissão quando solicitado"
       }
@@ -38,19 +52,24 @@
   },
   "home": {
     "latestGenerations": "Últimas Gerações",
-    "noGenerations": "Nenhuma geração ainda",
+    "noGenerations": "Ainda não há gerações",
     "createFirst": "Crie sua primeira geração com IA e comece a explorar as possibilidades!",
     "createFirstButton": "Criar Primeira Geração",
-    "pending": "Pendente"
+    "pending": "Pendente",
+    "muscleCategories": "Categorias de Músculos",
+    "recommendedExercises": "Exercícios Recomendados",
+    "viewAll": "Ver Todos"
   },
   "splits": {
     "title": "Lista de Treinos",
-    "noSplits": "Nenhum treino ainda",
+    "noSplits": "Ainda não há treinos",
+    "splitName": "Nome do Treino",
+    "exerciseSettings": "Configurações de Exercício",
     "createSplit": "Criar Treino",
     "createDescription": "Crie um novo treino para começar a treinar com IA",
-    "splitName": "Nome do Treino",
     "selectWeekday": "Selecionar Dia da Semana",
-    "selectSavedExercise": "Selecionar Exercício Salvo",
+    "selectSavedExercise": "Adicionar Exercício",
+    "updatingExercises": "Atualizando exercícios...",
     "days": {
       "monday": "Segunda-feira",
       "tuesday": "Terça-feira",
@@ -66,6 +85,7 @@
       "reps": "Repetições"
     },
     "errors": {
+      "error": "Erro",
       "createError": "Erro ao criar treino",
       "nameRequired": "Nome do treino é obrigatório",
       "nameEmpty": "O nome não pode estar vazio"
@@ -84,17 +104,17 @@
       "shoulders": "Ombros",
       "legs": "Pernas"
     },
-    "upper_abs": "Abdominais Superiores",
-    "lower_abs": "Abdominais Inferiores",
-    "side_abs": "Abdominais Laterais",
+    "upper_abs": "Abdômen Superior",
+    "lower_abs": "Abdômen Inferior",
+    "side_abs": "Abdômen Lateral",
     "abs": "Abdominais",
-    "upper_back": "Costas Superiores",
-    "middle_back": "Costas Médias",
+    "upper_back": "Costas Superior",
+    "middle_back": "Costas Média",
     "lower_back": "Lombar",
     "biceps": "Bíceps",
     "triceps": "Tríceps",
-    "wrist_extensors": "Extensores do Pulso",
-    "wrist_flexors": "Flexores do Pulso",
+    "wrist_extensors": "Extensores do Punho",
+    "wrist_flexors": "Flexores do Punho",
     "chest": "Peito",
     "rear_shoulder": "Ombro Posterior",
     "front_shoulder": "Ombro Frontal",
@@ -103,8 +123,8 @@
     "hamstrings": "Posteriores da Coxa",
     "calves": "Panturrilhas",
     "glutes": "Glúteos",
-    "inner_thighs": "Parte Interna da Coxa",
-    "outer_thighs": "Parte Externa da Coxa"
+    "inner_thighs": "Parte Interna das Coxas",
+    "outer_thighs": "Parte Externa das Coxas"
   },
   "auth": {
     "continueWith": {
@@ -116,13 +136,13 @@
   "permissions": {
     "gallery": {
       "title": "Permissão da Galeria Necessária",
-      "message": "Ative o acesso à galeria nas configurações do dispositivo",
+      "message": "Por favor, ative o acesso à galeria nas configurações do dispositivo para usar este recurso",
       "needed": "Permissão da Galeria Necessária",
       "explanation": "Precisamos de acesso à galeria para selecionar fotos. Por favor, conceda a permissão quando solicitado"
     },
     "camera": {
       "title": "Permissão da Câmera Necessária",
-      "message": "Ative o acesso à câmera nas configurações do dispositivo",
+      "message": "Por favor, ative o acesso à câmera nas configurações do dispositivo para usar este recurso",
       "needed": "Permissão da Câmera Necessária",
       "explanation": "Precisamos de acesso à câmera para tirar fotos. Por favor, conceda a permissão quando solicitado"
     }
@@ -133,36 +153,42 @@
     "openSettings": "Abrir Configurações"
   },
   "settings": {
-    "selectLanguage": "Selecionar Idioma",
-    "changeLanguage": "Mudar Idioma",
-    "signOut": "Sair"
+    "changeLanguage": "Alterar Idioma",
+    "helpSupport": "Ajuda & Suporte",
+    "termsAndConditions": "Termos e Condições",
+    "privacyPolicy": "Política de Privacidade",
+    "exitAccount": "Sair da Conta",
+    "deleteAccount": "Excluir Conta",
+    "selectLanguage": "Selecionar Idioma"
   },
   "errors": {
     "generic": "Algo deu errado",
     "noExercisesFound": "Nenhum exercício encontrado",
-    "noExercises": "Nenhum exercício"
+    "noExercises": "Sem exercícios",
+    "noExercisesGenerated": "Nenhum exercício gerado"
   },
   "exercises": {
     "title": "Exercícios",
     "exerciseName": "Nome do Exercício",
     "exercises": "exercícios",
-    "selectSavedExercise": "Selecionar Exercício Salvo",
+    "selectSavedExercise": "Adicionar Exercício",
     "changeSetRep": "Alterar Séries/Repetições",
     "delete": "Excluir",
-    "noExercisesYet": "Nenhum exercício ainda",
-    "createExercise": "Criar Exercício",
-    "createDescription": "Crie um novo exercício para começar a treinar com IA",
+    "noExercisesYet": "Ainda não há exercícios salvos",
+    "createExercise": "Descobrir Exercícios",
+    "createDescription": "Explore nossos exercícios gerados",
     "percentage": "%",
     "sets": "Séries",
     "reps": "Repetições"
   },
   "signIn": {
-    "title": "Entrar"
+    "title": "Vamos Começar!",
+    "subtitle": "Entre na sua conta"
   },
   "common": {
     "close": "✕",
     "loading": "Carregando...",
-    "search": "Pesquisar",
+    "search": "Buscar",
     "filter": "Filtrar",
     "clearFilter": "Limpar Filtro",
     "back": "Voltar",
@@ -174,12 +200,12 @@
     "confirm": "Confirmar"
   },
   "intro": {
-    "title1": "Asana - Sua jornada de yoga começa aqui",
+    "title1": "Asana - Sua Jornada de Yoga Começa Aqui",
     "subTitle1": "Prepare-se para embarcar em uma jornada transformadora de yoga com Asana. Descubra uma ampla gama de yogas, adaptados aos seus objetivos.",
-    "title2": "Plano de exercícios personalizado para suas necessidades",
+    "title2": "Plano de Exercícios Personalizado para suas Necessidades",
     "subTitle2": "Asana personaliza os yogas só para você. Seja você iniciante ou entusiasta do yoga, nosso aplicativo se adapta às suas necessidades.",
-    "title3": "Mantenha-se informado sobre seu progresso no yoga",
-    "subTitle3": "Mantenha-se motivado e acompanhe seu progresso sem esforço. Comece sua jornada de yoga hoje e alcance os resultados que você sempre desejou.",
+    "title3": "Mantenha-se Informado sobre seu Progresso no Yoga",
+    "subTitle3": "Mantenha a motivação e acompanhe seu progresso sem esforço. Comece sua jornada de yoga hoje e alcance os resultados que sempre desejou.",
     "skip": "Pular",
     "continue": "Continuar"
   }

@@ -1,4 +1,18 @@
 {
+  "support": {
+    "deleteAccount": "¿Estás seguro de que quieres eliminar la cuenta?",
+    "cancel": "Cancelar",
+    "yesDelete": "Sí, Eliminar",
+    "successTitle": "¡Gracias por tus comentarios!",
+    "successSubtitle": "Hemos recibido tu mensaje y te responderemos lo antes posible.",
+    "reportGenerationIssueTitle": "Reportar Problema de Generación",
+    "helpImproveAppTitle": "Ayúdanos a Mejorar",
+    "placeholder": "Describe el problema aquí...",
+    "sendReport": "Enviar Reporte",
+    "sendFeedback": "Enviar Comentarios",
+    "reportGenerationIssue": "¿Encontraste algo mal en esta generación? Cuéntanos qué sucedió y lo investigaremos.",
+    "helpImproveApp": "¡Nos encantaría escuchar tu opinión! Comparte tus comentarios, reporta problemas o sugiere nuevas funciones para ayudarnos a mejorar la aplicación."
+  },
   "language": {
     "en": "Inglés",
     "es": "Español",
@@ -19,38 +33,43 @@
     "gallery": "Galería",
     "takePhoto": "Tomar Foto",
     "chooseMuscle": "Elegir Músculo",
-    "generationInProgress": "Generación en Progreso",
-    "waitMessage": "Por favor, espere a que se complete la generación actual",
+    "generationInProgress": "Generación en Proceso",
+    "waitMessage": "Por favor, espera a que se complete la generación actual",
     "permissions": {
       "gallery": {
         "title": "Permiso de Galería Requerido",
-        "message": "Por favor, habilite el acceso a la galería en la configuración de su dispositivo para usar esta función",
-        "needed": "Se Necesita Permiso de Galería",
-        "explanation": "Necesitamos acceso a la galería para seleccionar fotos. Por favor, conceda el permiso cuando se le solicite"
+        "message": "Por favor, habilita el acceso a la galería en los ajustes de tu dispositivo para usar esta función",
+        "needed": "Permiso de Galería Necesario",
+        "explanation": "Necesitamos acceso a la galería para seleccionar fotos. Por favor, concede el permiso cuando se te solicite"
       },
       "camera": {
         "title": "Permiso de Cámara Requerido",
-        "message": "Por favor, habilite el acceso a la cámara en la configuración de su dispositivo para usar esta función",
-        "needed": "Se Necesita Permiso de Cámara",
-        "explanation": "Necesitamos acceso a la cámara para tomar fotos. Por favor, conceda el permiso cuando se le solicite"
+        "message": "Por favor, habilita el acceso a la cámara en los ajustes de tu dispositivo para usar esta función",
+        "needed": "Permiso de Cámara Necesario",
+        "explanation": "Necesitamos acceso a la cámara para tomar fotos. Por favor, concede el permiso cuando se te solicite"
       }
     }
   },
   "home": {
     "latestGenerations": "Últimas Generaciones",
-    "noGenerations": "No hay generaciones aún",
+    "noGenerations": "Aún no hay generaciones",
     "createFirst": "¡Crea tu primera generación con IA y comienza a explorar las posibilidades!",
     "createFirstButton": "Crear Primera Generación",
-    "pending": "Pendiente"
+    "pending": "Pendiente",
+    "muscleCategories": "Categorías de Músculos",
+    "recommendedExercises": "Ejercicios Recomendados",
+    "viewAll": "Ver todo"
   },
   "splits": {
     "title": "Lista de Rutinas",
-    "noSplits": "No hay rutinas aún",
+    "noSplits": "Aún no hay rutinas",
+    "splitName": "Nombre de la Rutina",
+    "exerciseSettings": "Ajustes de Ejercicio",
     "createSplit": "Crear Rutina",
     "createDescription": "Crea una nueva rutina para empezar a entrenar con IA",
-    "splitName": "Nombre de la Rutina",
     "selectWeekday": "Seleccionar Día",
-    "selectSavedExercise": "Seleccionar Ejercicio Guardado",
+    "selectSavedExercise": "Añadir Ejercicio",
+    "updatingExercises": "Actualizando ejercicios...",
     "days": {
       "monday": "Lunes",
       "tuesday": "Martes",
@@ -61,13 +80,14 @@
       "sunday": "Domingo"
     },
     "repsAndSets": {
-      "title": "Seleccionar Series y Repeticiones",
+      "title": "Seleccionar Repeticiones y Series",
       "sets": "Series",
       "reps": "Repeticiones"
     },
     "errors": {
-      "createError": "Error al crear la rutina",
-      "nameRequired": "Se requiere un nombre para la rutina",
+      "error": "Error",
+      "createError": "Error al crear rutina",
+      "nameRequired": "El nombre de la rutina es obligatorio",
       "nameEmpty": "El nombre no puede estar vacío"
     }
   },
@@ -116,48 +136,54 @@
   "permissions": {
     "gallery": {
       "title": "Permiso de Galería Requerido",
-      "message": "Por favor, habilite el acceso a la galería en la configuración de su dispositivo para usar esta función",
-      "needed": "Se Necesita Permiso de Galería",
-      "explanation": "Necesitamos acceso a la galería para seleccionar fotos. Por favor, conceda el permiso cuando se le solicite"
+      "message": "Por favor, habilita el acceso a la galería en los ajustes de tu dispositivo para usar esta función",
+      "needed": "Permiso de Galería Necesario",
+      "explanation": "Necesitamos acceso a la galería para seleccionar fotos. Por favor, concede el permiso cuando se te solicite"
     },
     "camera": {
       "title": "Permiso de Cámara Requerido",
-      "message": "Por favor, habilite el acceso a la cámara en la configuración de su dispositivo para usar esta función",
-      "needed": "Se Necesita Permiso de Cámara",
-      "explanation": "Necesitamos acceso a la cámara para tomar fotos. Por favor, conceda el permiso cuando se le solicite"
+      "message": "Por favor, habilita el acceso a la cámara en los ajustes de tu dispositivo para usar esta función",
+      "needed": "Permiso de Cámara Necesario",
+      "explanation": "Necesitamos acceso a la cámara para tomar fotos. Por favor, concede el permiso cuando se te solicite"
     }
   },
   "buttons": {
     "cancel": "Cancelar",
-    "ok": "OK",
+    "ok": "Aceptar",
     "openSettings": "Abrir Ajustes"
   },
   "settings": {
-    "selectLanguage": "Seleccionar Idioma",
     "changeLanguage": "Cambiar Idioma",
-    "signOut": "Cerrar Sesión"
+    "helpSupport": "Ayuda y Soporte",
+    "termsAndConditions": "Términos y Condiciones",
+    "privacyPolicy": "Política de Privacidad",
+    "exitAccount": "Salir de la Cuenta",
+    "deleteAccount": "Eliminar Cuenta",
+    "selectLanguage": "Seleccionar Idioma"
   },
   "errors": {
     "generic": "Algo salió mal",
     "noExercisesFound": "No se encontraron ejercicios",
-    "noExercises": "No hay ejercicios"
+    "noExercises": "No hay ejercicios",
+    "noExercisesGenerated": "No se han generado ejercicios"
   },
   "exercises": {
     "title": "Ejercicios",
     "exerciseName": "Nombre del Ejercicio",
     "exercises": "ejercicios",
-    "selectSavedExercise": "Seleccionar Ejercicio Guardado",
+    "selectSavedExercise": "Añadir Ejercicio",
     "changeSetRep": "Cambiar Series/Repeticiones",
     "delete": "Eliminar",
-    "noExercisesYet": "No hay ejercicios aún",
-    "createExercise": "Crear Ejercicio",
-    "createDescription": "Crea un nuevo ejercicio para empezar a entrenar con IA",
+    "noExercisesYet": "No hay ejercicios guardados",
+    "createExercise": "Descubrir Ejercicios",
+    "createDescription": "Explora nuestros ejercicios generados",
     "percentage": "%",
     "sets": "Series",
     "reps": "Repeticiones"
   },
   "signIn": {
-    "title": "Iniciar Sesión"
+    "title": "¡Empecemos!",
+    "subtitle": "Ingresa a tu cuenta"
   },
   "common": {
     "close": "✕",
@@ -174,12 +200,12 @@
     "confirm": "Confirmar"
   },
   "intro": {
-    "title1": "Asana - Tu viaje de yoga comienza aquí",
-    "subTitle1": "Prepárate para embarcarte en un viaje transformador de yoga con Asana. Descubre una amplia gama de yogas, adaptados a tus objetivos.",
-    "title2": "Plan de ejercicios personalizado para tus necesidades",
+    "title1": "Asana - Tu Viaje de Yoga Comienza Aquí",
+    "subTitle1": "Prep��rate para embarcarte en un viaje transformador de yoga con Asana. Descubre una amplia gama de yogas, adaptados a tus objetivos.",
+    "title2": "Plan de Ejercicios Personalizado para tus Necesidades",
     "subTitle2": "Asana personaliza los yogas solo para ti. Ya seas principiante o entusiasta del yoga, nuestra aplicación se adapta a tus necesidades.",
-    "title3": "Mantente informado sobre tu progreso en yoga",
-    "subTitle3": "Mantén la motivación y sigue tu progreso sin esfuerzo. Comienza tu viaje de yoga hoy y logra los resultados que siempre has deseado.",
+    "title3": "Mantente Informado sobre tu Progreso en Yoga",
+    "subTitle3": "Mantén la motivación y sigue tu progreso sin esfuerzo. Comienza tu viaje de yoga hoy y logra los resultados que siempre has querido.",
     "skip": "Saltar",
     "continue": "Continuar"
   }

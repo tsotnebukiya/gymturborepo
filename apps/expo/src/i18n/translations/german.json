@@ -1,4 +1,18 @@
 {
+  "support": {
+    "deleteAccount": "Sind Sie sicher, dass Sie Ihr Konto löschen möchten?",
+    "cancel": "Abbrechen",
+    "yesDelete": "Ja, Löschen",
+    "successTitle": "Vielen Dank für Ihr Feedback!",
+    "successSubtitle": "Wir haben Ihre Nachricht erhalten und werden uns so schnell wie möglich bei Ihnen melden.",
+    "reportGenerationIssueTitle": "Generierungsproblem Melden",
+    "helpImproveAppTitle": "Helfen Sie uns zu Verbessern",
+    "placeholder": "Beschreiben Sie das Problem hier...",
+    "sendReport": "Bericht Senden",
+    "sendFeedback": "Feedback Senden",
+    "reportGenerationIssue": "Haben Sie ein Problem mit dieser Generierung gefunden? Sagen Sie uns, was passiert ist, und wir werden es untersuchen.",
+    "helpImproveApp": "Wir würden gerne Ihre Meinung hören! Teilen Sie Ihr Feedback, melden Sie Probleme oder schlagen Sie neue Funktionen vor, um uns zu helfen, die App zu verbessern."
+  },
   "language": {
     "en": "Englisch",
     "es": "Spanisch",
@@ -13,25 +27,25 @@
     "home": "Start",
     "bookmarks": "Gespeichert",
     "settings": "Einstellungen",
-    "splits": "Trainingsplan"
+    "splits": "Trainingspläne"
   },
   "wizard": {
     "gallery": "Galerie",
-    "takePhoto": "Foto aufnehmen",
-    "chooseMuscle": "Muskel auswählen",
-    "generationInProgress": "Generierung läuft",
+    "takePhoto": "Foto Aufnehmen",
+    "chooseMuscle": "Muskel Auswählen",
+    "generationInProgress": "Generierung Läuft",
     "waitMessage": "Bitte warten Sie, bis die aktuelle Generierung abgeschlossen ist",
     "permissions": {
       "gallery": {
-        "title": "Galerie-Berechtigung erforderlich",
+        "title": "Galerie-Berechtigung Erforderlich",
         "message": "Bitte aktivieren Sie den Galerie-Zugriff in Ihren Geräteeinstellungen, um diese Funktion zu nutzen",
-        "needed": "Galerie-Berechtigung benötigt",
+        "needed": "Galerie-Berechtigung Benötigt",
         "explanation": "Wir benötigen Zugriff auf die Galerie, um Fotos auszuwählen. Bitte gewähren Sie die Berechtigung, wenn Sie dazu aufgefordert werden"
       },
       "camera": {
-        "title": "Kamera-Berechtigung erforderlich",
+        "title": "Kamera-Berechtigung Erforderlich",
         "message": "Bitte aktivieren Sie den Kamera-Zugriff in Ihren Geräteeinstellungen, um diese Funktion zu nutzen",
-        "needed": "Kamera-Berechtigung benötigt",
+        "needed": "Kamera-Berechtigung Benötigt",
         "explanation": "Wir benötigen Zugriff auf die Kamera, um Fotos aufzunehmen. Bitte gewähren Sie die Berechtigung, wenn Sie dazu aufgefordert werden"
       }
     }
@@ -40,17 +54,22 @@
     "latestGenerations": "Neueste Generierungen",
     "noGenerations": "Noch keine Generierungen",
     "createFirst": "Erstellen Sie Ihre erste KI-Generierung und beginnen Sie die Möglichkeiten zu erkunden!",
-    "createFirstButton": "Erste Generierung erstellen",
-    "pending": "Ausstehend"
+    "createFirstButton": "Erste Generierung Erstellen",
+    "pending": "Ausstehend",
+    "muscleCategories": "Muskelkategorien",
+    "recommendedExercises": "Empfohlene Übungen",
+    "viewAll": "Alle Anzeigen"
   },
   "splits": {
-    "title": "Trainingspläne",
+    "title": "Trainingspläne Liste",
     "noSplits": "Noch keine Trainingspläne",
-    "createSplit": "Trainingsplan erstellen",
+    "splitName": "Trainingsplan Name",
+    "exerciseSettings": "Übungseinstellungen",
+    "createSplit": "Trainingsplan Erstellen",
     "createDescription": "Erstellen Sie einen neuen Trainingsplan, um mit KI zu trainieren",
-    "splitName": "Name des Trainingsplans",
-    "selectWeekday": "Wochentag auswählen",
-    "selectSavedExercise": "Gespeicherte Übung auswählen",
+    "selectWeekday": "Wochentag Auswählen",
+    "selectSavedExercise": "Übung Hinzufügen",
+    "updatingExercises": "Übungen werden aktualisiert...",
     "days": {
       "monday": "Montag",
       "tuesday": "Dienstag",
@@ -61,23 +80,24 @@
       "sunday": "Sonntag"
     },
     "repsAndSets": {
-      "title": "Sätze und Wiederholungen auswählen",
+      "title": "Wiederholungen & Sätze Auswählen",
       "sets": "Sätze",
       "reps": "Wiederholungen"
     },
     "errors": {
+      "error": "Fehler",
       "createError": "Fehler beim Erstellen des Trainingsplans",
-      "nameRequired": "Name des Trainingsplans ist erforderlich",
+      "nameRequired": "Trainingsplan-Name ist erforderlich",
       "nameEmpty": "Name darf nicht leer sein"
     }
   },
   "categories": {
     "title": "Kategorien",
-    "exerciseName": "Name der Übung"
+    "exerciseName": "Übungsname"
   },
   "muscles": {
     "categories": {
-      "core": "Core",
+      "core": "Rumpf",
       "back": "Rücken",
       "arms": "Arme",
       "chest": "Brust",
@@ -100,7 +120,7 @@
     "front_shoulder": "Vordere Schulter",
     "side_shoulder": "Seitliche Schulter",
     "quadriceps": "Quadrizeps",
-    "hamstrings": "Oberschenkelbizeps",
+    "hamstrings": "Oberschenkelrückseite",
     "calves": "Waden",
     "glutes": "Gesäßmuskeln",
     "inner_thighs": "Innere Oberschenkel",
@@ -115,56 +135,62 @@
   },
   "permissions": {
     "gallery": {
-      "title": "Galerie-Berechtigung erforderlich",
+      "title": "Galerie-Berechtigung Erforderlich",
       "message": "Bitte aktivieren Sie den Galerie-Zugriff in Ihren Geräteeinstellungen, um diese Funktion zu nutzen",
-      "needed": "Galerie-Berechtigung benötigt",
+      "needed": "Galerie-Berechtigung Benötigt",
       "explanation": "Wir benötigen Zugriff auf die Galerie, um Fotos auszuwählen. Bitte gewähren Sie die Berechtigung, wenn Sie dazu aufgefordert werden"
     },
     "camera": {
-      "title": "Kamera-Berechtigung erforderlich",
+      "title": "Kamera-Berechtigung Erforderlich",
       "message": "Bitte aktivieren Sie den Kamera-Zugriff in Ihren Geräteeinstellungen, um diese Funktion zu nutzen",
-      "needed": "Kamera-Berechtigung benötigt",
+      "needed": "Kamera-Berechtigung Benötigt",
       "explanation": "Wir benötigen Zugriff auf die Kamera, um Fotos aufzunehmen. Bitte gewähren Sie die Berechtigung, wenn Sie dazu aufgefordert werden"
     }
   },
   "buttons": {
     "cancel": "Abbrechen",
     "ok": "OK",
-    "openSettings": "Einstellungen öffnen"
+    "openSettings": "Einstellungen Öffnen"
   },
   "settings": {
-    "selectLanguage": "Sprache auswählen",
-    "changeLanguage": "Sprache ändern",
-    "signOut": "Abmelden"
+    "changeLanguage": "Sprache Ändern",
+    "helpSupport": "Hilfe & Support",
+    "termsAndConditions": "Allgemeine Geschäftsbedingungen",
+    "privacyPolicy": "Datenschutzerklärung",
+    "exitAccount": "Konto Verlassen",
+    "deleteAccount": "Konto Löschen",
+    "selectLanguage": "Sprache Auswählen"
   },
   "errors": {
     "generic": "Etwas ist schiefgelaufen",
     "noExercisesFound": "Keine Übungen gefunden",
-    "noExercises": "Keine Übungen"
+    "noExercises": "Keine Übungen",
+    "noExercisesGenerated": "Keine Übungen generiert"
   },
   "exercises": {
     "title": "Übungen",
-    "exerciseName": "Name der Übung",
+    "exerciseName": "Übungsname",
     "exercises": "Übungen",
-    "selectSavedExercise": "Gespeicherte Übung auswählen",
-    "changeSetRep": "Sätze/Wiederholungen ändern",
+    "selectSavedExercise": "Übung Hinzufügen",
+    "changeSetRep": "Sätze/Wiederholungen Ändern",
     "delete": "Löschen",
-    "noExercisesYet": "Noch keine Übungen",
-    "createExercise": "Übung erstellen",
-    "createDescription": "Erstellen Sie eine neue Übung, um mit KI zu trainieren",
+    "noExercisesYet": "Noch keine gespeicherten Übungen",
+    "createExercise": "Übungen Entdecken",
+    "createDescription": "Entdecken Sie unsere generierten Übungen",
     "percentage": "%",
     "sets": "Sätze",
     "reps": "Wiederholungen"
   },
   "signIn": {
-    "title": "Anmelden"
+    "title": "Lass uns beginnen!",
+    "subtitle": "Melden Sie sich in Ihrem Konto an"
   },
   "common": {
     "close": "✕",
     "loading": "Lädt...",
     "search": "Suchen",
     "filter": "Filter",
-    "clearFilter": "Filter löschen",
+    "clearFilter": "Filter Löschen",
     "back": "Zurück",
     "save": "Speichern",
     "edit": "Bearbeiten",
@@ -174,12 +200,12 @@
     "confirm": "Bestätigen"
   },
   "intro": {
-    "title1": "Asana - Ihre Yoga-Reise beginnt hier",
-    "subTitle1": "Machen Sie sich bereit für eine transformative Yoga-Reise mit Asana. Entdecken Sie eine breite Palette von Yoga-Übungen, die auf Ihre Ziele zugeschnitten sind.",
+    "title1": "Asana - Ihre Yoga-Reise Beginnt Hier",
+    "subTitle1": "Machen Sie sich bereit für eine transformative Yoga-Reise mit Asana. Entdecken Sie eine breite Palette von Yogas, abgestimmt auf Ihre Ziele.",
     "title2": "Maßgeschneiderter Übungsplan für Ihre Bedürfnisse",
-    "subTitle2": "Asana personalisiert Yoga speziell für Sie. Ob Anfänger oder Yoga-Enthusiast, unsere App passt sich Ihren Bedürfnissen an.",
-    "title3": "Bleiben Sie über Ihren Yoga-Fortschritt informiert",
-    "subTitle3": "Bleiben Sie motiviert und verfolgen Sie Ihre Fortschritte mühelos. Beginnen Sie heute Ihre Yoga-Reise und erreichen Sie die Ergebnisse, die Sie sich immer gewünscht haben.",
+    "subTitle2": "Asana personalisiert Yogas speziell für Sie. Ob Anfänger oder Yoga-Enthusiast, unsere App passt sich Ihren Bedürfnissen an.",
+    "title3": "Bleiben Sie über Ihren Yoga-Fortschritt Informiert",
+    "subTitle3": "Bleiben Sie motiviert und verfolgen Sie Ihren Fortschritt mühelos. Beginnen Sie heute Ihre Yoga-Reise und erreichen Sie die Ergebnisse, die Sie sich immer gewünscht haben.",
     "skip": "Überspringen",
     "continue": "Weiter"
   }

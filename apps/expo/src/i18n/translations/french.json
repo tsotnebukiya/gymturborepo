@@ -1,4 +1,18 @@
 {
+  "support": {
+    "deleteAccount": "Êtes-vous sûr de vouloir supprimer le compte ?",
+    "cancel": "Annuler",
+    "yesDelete": "Oui, Supprimer",
+    "successTitle": "Merci pour vos commentaires !",
+    "successSubtitle": "Nous avons reçu votre message et vous répondrons dès que possible.",
+    "reportGenerationIssueTitle": "Signaler un Problème de Génération",
+    "helpImproveAppTitle": "Aidez-nous à Améliorer",
+    "placeholder": "Décrivez le problème ici...",
+    "sendReport": "Envoyer le Rapport",
+    "sendFeedback": "Envoyer un Commentaire",
+    "reportGenerationIssue": "Vous avez trouvé un problème avec cette génération ? Dites-nous ce qui s'est passé et nous l'examinerons.",
+    "helpImproveApp": "Nous aimerions avoir votre avis ! Partagez vos commentaires, signalez des problèmes ou suggérez de nouvelles fonctionnalités pour nous aider à améliorer l'application."
+  },
   "language": {
     "en": "Anglais",
     "es": "Espagnol",
@@ -13,12 +27,12 @@
     "home": "Accueil",
     "bookmarks": "Sauvegardés",
     "settings": "Paramètres",
-    "splits": "Routines"
+    "splits": "Programmes"
   },
   "wizard": {
     "gallery": "Galerie",
     "takePhoto": "Prendre une Photo",
-    "chooseMuscle": "Choisir un Muscle",
+    "chooseMuscle": "Choisir le Muscle",
     "generationInProgress": "Génération en Cours",
     "waitMessage": "Veuillez attendre que la génération actuelle soit terminée",
     "permissions": {
@@ -40,17 +54,22 @@
     "latestGenerations": "Dernières Générations",
     "noGenerations": "Pas encore de générations",
     "createFirst": "Créez votre première génération IA et commencez à explorer les possibilités !",
-    "createFirstButton": "Créer la Première Génération",
-    "pending": "En attente"
+    "createFirstButton": "Créer Première Génération",
+    "pending": "En attente",
+    "muscleCategories": "Catégories de Muscles",
+    "recommendedExercises": "Exercices Recommandés",
+    "viewAll": "Voir tout"
   },
   "splits": {
-    "title": "Liste des Routines",
-    "noSplits": "Pas encore de routines",
-    "createSplit": "Créer une Routine",
-    "createDescription": "Créez une nouvelle routine pour commencer à vous entraîner avec l'IA",
-    "splitName": "Nom de la Routine",
+    "title": "Liste des Programmes",
+    "noSplits": "Pas encore de programmes",
+    "splitName": "Nom du Programme",
+    "exerciseSettings": "Paramètres d'Exercice",
+    "createSplit": "Créer Programme",
+    "createDescription": "Créez un nouveau programme pour commencer à vous entraîner avec l'IA",
     "selectWeekday": "Sélectionner le Jour",
-    "selectSavedExercise": "Sélectionner un Exercice Sauvegardé",
+    "selectSavedExercise": "Ajouter Exercice",
+    "updatingExercises": "Mise à jour des exercices...",
     "days": {
       "monday": "Lundi",
       "tuesday": "Mardi",
@@ -61,13 +80,14 @@
       "sunday": "Dimanche"
     },
     "repsAndSets": {
-      "title": "Sélectionner Séries et Répétitions",
+      "title": "Sélectionner Répétitions et Séries",
       "sets": "Séries",
       "reps": "Répétitions"
     },
     "errors": {
-      "createError": "Échec de la création de la routine",
-      "nameRequired": "Le nom de la routine est requis",
+      "error": "Erreur",
+      "createError": "Échec de la création du programme",
+      "nameRequired": "Le nom du programme est requis",
       "nameEmpty": "Le nom ne peut pas être vide"
     }
   },
@@ -77,7 +97,7 @@
   },
   "muscles": {
     "categories": {
-      "core": "Core",
+      "core": "Gainage",
       "back": "Dos",
       "arms": "Bras",
       "chest": "Poitrine",
@@ -103,8 +123,8 @@
     "hamstrings": "Ischio-jambiers",
     "calves": "Mollets",
     "glutes": "Fessiers",
-    "inner_thighs": "Cuisses Intérieures",
-    "outer_thighs": "Cuisses Extérieures"
+    "inner_thighs": "Cuisses Internes",
+    "outer_thighs": "Cuisses Externes"
   },
   "auth": {
     "continueWith": {
@@ -133,31 +153,37 @@
     "openSettings": "Ouvrir les Paramètres"
   },
   "settings": {
-    "selectLanguage": "Sélectionner la Langue",
-    "changeLanguage": "Changer la Langue",
-    "signOut": "Se Déconnecter"
+    "changeLanguage": "Changer de Langue",
+    "helpSupport": "Aide & Support",
+    "termsAndConditions": "Conditions Générales",
+    "privacyPolicy": "Politique de Confidentialité",
+    "exitAccount": "Quitter le Compte",
+    "deleteAccount": "Supprimer le Compte",
+    "selectLanguage": "Sélectionner la Langue"
   },
   "errors": {
-    "generic": "Une erreur est survenue",
+    "generic": "Quelque chose s'est mal passé",
     "noExercisesFound": "Aucun exercice trouvé",
-    "noExercises": "Pas d'exercices"
+    "noExercises": "Pas d'exercices",
+    "noExercisesGenerated": "Aucun exercice généré"
   },
   "exercises": {
     "title": "Exercices",
     "exerciseName": "Nom de l'Exercice",
     "exercises": "exercices",
-    "selectSavedExercise": "Sélectionner un Exercice Sauvegardé",
+    "selectSavedExercise": "Ajouter Exercice",
     "changeSetRep": "Modifier Séries/Répétitions",
     "delete": "Supprimer",
-    "noExercisesYet": "Pas encore d'exercices",
-    "createExercise": "Créer un Exercice",
-    "createDescription": "Créez un nouvel exercice pour commencer à vous entraîner avec l'IA",
+    "noExercisesYet": "Pas encore d'exercices sauvegardés",
+    "createExercise": "Découvrir les Exercices",
+    "createDescription": "Découvrez nos exercices générés",
     "percentage": "%",
     "sets": "Séries",
     "reps": "Répétitions"
   },
   "signIn": {
-    "title": "Se Connecter"
+    "title": "Commençons !",
+    "subtitle": "Connectez-vous à votre compte"
   },
   "common": {
     "close": "✕",
@@ -166,7 +192,7 @@
     "filter": "Filtrer",
     "clearFilter": "Effacer le Filtre",
     "back": "Retour",
-    "save": "Sauvegarder",
+    "save": "Enregistrer",
     "edit": "Modifier",
     "delete": "Supprimer",
     "add": "Ajouter",
@@ -174,12 +200,12 @@
     "confirm": "Confirmer"
   },
   "intro": {
-    "title1": "Asana - Votre voyage yoga commence ici",
+    "title1": "Asana - Votre Voyage Yoga Commence Ici",
     "subTitle1": "Préparez-vous à embarquer pour un voyage yoga transformateur avec Asana. Découvrez une large gamme de yogas, adaptés à vos objectifs.",
-    "title2": "Plan d'exercices personnalisé selon vos besoins",
+    "title2": "Plan d'Exercices Personnalisé pour vos Besoins",
     "subTitle2": "Asana personnalise les yogas rien que pour vous. Que vous soyez débutant ou passionné de yoga, notre application s'adapte à vos besoins.",
-    "title3": "Restez informé de vos progrès en yoga",
-    "subTitle3": "Restez motivé et suivez vos progrès sans effort. Commencez votre voyage yoga aujourd'hui et atteignez les résultats que vous avez toujours souhaités.",
+    "title3": "Restez Informé de vos Progrès en Yoga",
+    "subTitle3": "Restez motivé et suivez vos progrès sans effort. Commencez votre voyage yoga aujourd'hui et atteignez les résultats que vous avez toujours voulus.",
     "skip": "Passer",
     "continue": "Continuer"
   }

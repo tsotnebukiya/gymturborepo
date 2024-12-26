@@ -1,4 +1,18 @@
 {
+  "support": {
+    "deleteAccount": "您确定要删除账户吗？",
+    "cancel": "取消",
+    "yesDelete": "是的，删除",
+    "successTitle": "感谢您的反馈！",
+    "successSubtitle": "我们已收到您的消息，将尽快回复。",
+    "reportGenerationIssueTitle": "报告生成问题",
+    "helpImproveAppTitle": "帮助我们改进",
+    "placeholder": "在此描述问题...",
+    "sendReport": "发送报告",
+    "sendFeedback": "发送反馈",
+    "reportGenerationIssue": "发现此生成内容有问题？告诉我们发生了什么，我们会进行调查。",
+    "helpImproveApp": "我们很想听听您的想法！分享您的反馈、报告问题或建议新功能，帮助我们改进应用。"
+  },
   "language": {
     "en": "英语",
     "es": "西班牙语",
@@ -13,44 +27,49 @@
     "home": "首页",
     "bookmarks": "收藏",
     "settings": "设置",
-    "splits": "训练"
+    "splits": "训练计��"
   },
   "wizard": {
     "gallery": "相册",
     "takePhoto": "拍照",
     "chooseMuscle": "选择肌肉",
-    "generationInProgress": "生成中",
+    "generationInProgress": "正在生成",
     "waitMessage": "请等待当前生成完成",
     "permissions": {
       "gallery": {
         "title": "需要相册权限",
-        "message": "请在设备设置中启用相册访问权限",
+        "message": "请在设备设置中启用相册访问权限以使用此功能",
         "needed": "需要相册权限",
-        "explanation": "我们需要访问相册来选择照片，请授予权限"
+        "explanation": "我们需要访问相册来选择照片。请在提示时授予权限"
       },
       "camera": {
         "title": "需要相机权限",
-        "message": "请在设备设置中启用相机访问权限",
+        "message": "请在设备设置中启用相机访问权限以使用此功能",
         "needed": "需要相机权限",
-        "explanation": "我们需要访问相机来拍照，请授予权限"
+        "explanation": "我们需要访问相机来拍照。请在提示时授予权限"
       }
     }
   },
   "home": {
     "latestGenerations": "最新生成",
-    "noGenerations": "暂无生成",
-    "createFirst": "创建你的第一个AI生成，开始探索可能性！",
+    "noGenerations": "暂无生成内容",
+    "createFirst": "创建您的第一个AI生成内容，开始探索可能性！",
     "createFirstButton": "创建第一个生成",
-    "pending": "等待中"
+    "pending": "待处理",
+    "muscleCategories": "肌肉类别",
+    "recommendedExercises": "推荐运动",
+    "viewAll": "查看全部"
   },
   "splits": {
-    "title": "训练列表",
-    "noSplits": "暂无训练",
-    "createSplit": "创建训练",
+    "title": "训练计划列表",
+    "noSplits": "暂无训练计划",
+    "splitName": "训练计划名称",
+    "exerciseSettings": "运动设置",
+    "createSplit": "创建训练计划",
     "createDescription": "创建新的训练计划，开始AI训练",
-    "splitName": "训练名称",
     "selectWeekday": "选择星期",
-    "selectSavedExercise": "选择已保存的运动",
+    "selectSavedExercise": "添加运动",
+    "updatingExercises": "更新运动中...",
     "days": {
       "monday": "星期一",
       "tuesday": "星期二",
@@ -61,23 +80,24 @@
       "sunday": "星期日"
     },
     "repsAndSets": {
-      "title": "选择组数和次数",
+      "title": "选择重复次数和组数",
       "sets": "组数",
-      "reps": "次数"
+      "reps": "重复次数"
     },
     "errors": {
-      "createError": "创建训练失败",
-      "nameRequired": "训练名称必填",
+      "error": "错误",
+      "createError": "创建训练计划失败",
+      "nameRequired": "训练计划名称为必填项",
       "nameEmpty": "名称不能为空"
     }
   },
   "categories": {
-    "title": "分类",
+    "title": "类别",
     "exerciseName": "运动名称"
   },
   "muscles": {
     "categories": {
-      "core": "���心",
+      "core": "核心",
       "back": "背部",
       "arms": "手臂",
       "chest": "胸部",
@@ -96,13 +116,13 @@
     "wrist_extensors": "手腕伸肌",
     "wrist_flexors": "手腕屈肌",
     "chest": "胸部",
-    "rear_shoulder": "后三角肌",
-    "front_shoulder": "前三角肌",
-    "side_shoulder": "中三角肌",
+    "rear_shoulder": "后肩",
+    "front_shoulder": "前肩",
+    "side_shoulder": "侧肩",
     "quadriceps": "股四头肌",
     "hamstrings": "腘绳肌",
     "calves": "小腿肌",
-    "glutes": "臀部肌群",
+    "glutes": "臀部",
     "inner_thighs": "大腿内侧",
     "outer_thighs": "大腿外侧"
   },
@@ -116,15 +136,15 @@
   "permissions": {
     "gallery": {
       "title": "需要相册权限",
-      "message": "请在设备设置中启用相册访问权限",
+      "message": "请在设备设置中启用相册访问权限以使用此功能",
       "needed": "需要相册权限",
-      "explanation": "我们需要访问相册来选择照片，请授予权限"
+      "explanation": "我们需要访问相册来选择照片。请在提示时授予权限"
     },
     "camera": {
       "title": "需要相机权限",
-      "message": "请在设备设置中启用相机访问权限",
+      "message": "请在设备设置中启用相机访问权限以使用此功能",
       "needed": "需要相机权限",
-      "explanation": "我们需要访问相机来拍照，请授予权限"
+      "explanation": "我们需要访问相机来拍照。请在提示时授予权限"
     }
   },
   "buttons": {
@@ -133,31 +153,37 @@
     "openSettings": "打开设置"
   },
   "settings": {
-    "selectLanguage": "选择语言",
     "changeLanguage": "更改语言",
-    "signOut": "退出登录"
+    "helpSupport": "帮助与支持",
+    "termsAndConditions": "条款和条件",
+    "privacyPolicy": "隐私政策",
+    "exitAccount": "退出账户",
+    "deleteAccount": "删除账户",
+    "selectLanguage": "选择语言"
   },
   "errors": {
     "generic": "出现错误",
     "noExercisesFound": "未找到运动",
-    "noExercises": "暂无运动"
+    "noExercises": "暂无运动",
+    "noExercisesGenerated": "未生成运动"
   },
   "exercises": {
     "title": "运动",
     "exerciseName": "运动名称",
-    "exercises": "个运动",
-    "selectSavedExercise": "选择已保存的运动",
-    "changeSetRep": "修改组数/次数",
+    "exercises": "运动",
+    "selectSavedExercise": "添加运动",
+    "changeSetRep": "更改组数/重复次数",
     "delete": "删除",
-    "noExercisesYet": "暂无运动",
-    "createExercise": "创建运动",
-    "createDescription": "创建新的运动，开始AI训练",
+    "noExercisesYet": "暂无保存的运动",
+    "createExercise": "发现运动",
+    "createDescription": "探索我们生成的运动",
     "percentage": "%",
     "sets": "组数",
-    "reps": "次数"
+    "reps": "重复次数"
   },
   "signIn": {
-    "title": "登录"
+    "title": "让我们开始！",
+    "subtitle": "登录您的账户"
   },
   "common": {
     "close": "✕",
@@ -175,11 +201,11 @@
   },
   "intro": {
     "title1": "Asana - 您的瑜伽之旅从这里开始",
-    "subTitle1": "准备好与Asana一起开启转变性的瑜伽之旅。探索各种适合您目标的瑜伽。",
-    "title2": "为您量身定制的运动计划",
-    "subTitle2": "Asana为您个性化定制瑜伽。无论您是初学者还是瑜伽爱好者，我们的应用都能适应您的需求。",
-    "title3": "随时了解您的瑜伽进展",
-    "subTitle3": "轻松保持动力并追踪您的进度。今天就开始您的瑜伽之旅，实现您一直想要的结果。",
+    "subTitle1": "准备好与Asana一起开始转变性的瑜伽之旅。探索各种适合您目标的瑜伽。",
+    "title2": "为您的需求定制的运动计划",
+    "subTitle2": "Asana为您量身定制瑜伽。无论您是初学者还是瑜伽爱好者，我们的应用都能适应您的需求。",
+    "title3": "了解您的瑜伽进展",
+    "subTitle3": "保持动力并轻松跟踪您的进展。今天就开始您的瑜伽之旅，实现您一直想要的结果。",
     "skip": "跳过",
     "continue": "继续"
   }
