@@ -88,7 +88,9 @@
       "error": "Fehler",
       "createError": "Fehler beim Erstellen des Trainingsplans",
       "nameRequired": "Trainingsplan-Name ist erforderlich",
-      "nameEmpty": "Name darf nicht leer sein"
+      "nameEmpty": "Name darf nicht leer sein",
+      "monthlyLimitReached": "Monatliche Generierungslimit erreicht",
+      "monthlyLimitReachedExplanation": "Sie haben Ihr monatliches Limit von 100 Generierungen erreicht."
     }
   },
   "categories": {

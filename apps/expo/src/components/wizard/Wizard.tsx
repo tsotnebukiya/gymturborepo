@@ -44,6 +44,12 @@ export default function WizardComponent() {
       return { previousData };
     },
     onError: (err, newTodo, context) => {
+      if (err.data?.code === 'TOO_MANY_REQUESTS') {
+        Alert.alert(
+          t('splits.errors.monthlyLimitReached'),
+          t('splits.errors.monthlyLimitReachedExplanation')
+        );
+      }
       const duration = startTime ? Date.now() - startTime : 0;
       console.log(`Error after ${duration}ms:`, err);
       utils.generation.getAll.setData({ language }, context?.previousData);

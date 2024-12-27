@@ -1,7 +1,11 @@
-import type { TRPCRouterRecord } from '@trpc/server';
+import { TRPCError, type TRPCRouterRecord } from '@trpc/server';
 import { protectedProcedure } from '../trpc';
 import { createGenerationSchema } from '../../functions/schemas';
-import { uploadImageToBlob } from '../../functions/utils';
+import {
+  checkAndUpdateGenerationLimit,
+  MAX_MONTHLY_GENERATIONS,
+  uploadImageToBlob,
+} from '../../functions/utils';
 import { generateGymResponse } from '../../functions/openai';
 import { log } from 'next-axiom';
 import { z } from 'zod';
@@ -11,6 +15,23 @@ export const generationRouter = {
   create: protectedProcedure
     .input(createGenerationSchema)
     .mutation(async ({ ctx: { db, session }, input }) => {
+      const user = await db.user.findUniqueOrThrow({
+        where: {
+          id: session.userId,
+        },
+        select: {
+          monthlyGenerations: true,
+          lastGenerationReset: true,
+          id: true,
+        },
+      });
+      const canGenerate = await checkAndUpdateGenerationLimit({ user });
+      if (!canGenerate) {
+        throw new TRPCError({
+          code: 'TOO_MANY_REQUESTS',
+          message: `You've reached your monthly limit of ${MAX_MONTHLY_GENERATIONS} generations.`,
+        });
+      }
       const timings: Record<string, number> = {};
       const userId = session.userId;
       const startParallel = performance.now();

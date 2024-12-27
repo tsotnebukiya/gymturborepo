@@ -88,7 +88,9 @@
       "error": "Erro",
       "createError": "Erro ao criar treino",
       "nameRequired": "Nome do treino é obrigatório",
-      "nameEmpty": "O nome não pode estar vazio"
+      "nameEmpty": "O nome não pode estar vazio",
+      "monthlyLimitReached": "Limite de geração mensal atingido",
+      "monthlyLimitReachedExplanation": "Você atingiu seu limite de 100 gerações mensais."
     }
   },
   "categories": {

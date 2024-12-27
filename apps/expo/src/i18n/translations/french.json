@@ -88,7 +88,9 @@
       "error": "Erreur",
       "createError": "Échec de la création du programme",
       "nameRequired": "Le nom du programme est requis",
-      "nameEmpty": "Le nom ne peut pas être vide"
+      "nameEmpty": "Le nom ne peut pas être vide",
+      "monthlyLimitReached": "Limite de génération mensuelle atteinte",
+      "monthlyLimitReachedExplanation": "Vous avez atteint votre limite de 100 générations mensuelle."
     }
   },
   "categories": {

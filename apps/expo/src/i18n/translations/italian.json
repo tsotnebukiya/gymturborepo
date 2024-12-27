@@ -88,7 +88,9 @@
       "error": "Errore",
       "createError": "Errore nella creazione della scheda",
       "nameRequired": "Il nome della scheda è obbligatorio",
-      "nameEmpty": "Il nome non può essere vuoto"
+      "nameEmpty": "Il nome non può essere vuoto",
+      "monthlyLimitReached": "Limite di generazione mensile raggiunto",
+      "monthlyLimitReachedExplanation": "Hai raggiunto il tuo limite di 100 generazioni mensili."
     }
   },
   "categories": {

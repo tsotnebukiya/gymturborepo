@@ -89,7 +89,9 @@
       "error": "Error",
       "createError": "Failed to create split",
       "nameRequired": "Split name is required",
-      "nameEmpty": "Name cannot be empty"
+      "nameEmpty": "Name cannot be empty",
+      "monthlyLimitReached": "Monthly generation limit reached",
+      "monthlyLimitReachedExplanation": "You've reached your monthly limit of 100 generations."
     }
   },
   "categories": {

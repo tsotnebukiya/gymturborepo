@@ -87,17 +87,19 @@ enum Language {
 }
 
 model User {
-    id                 String             @unique
-    name               String?
-    lastName           String?
-    email              String             @unique
-    subscriptionStatus SubscriptionStatus @default(INACTIVE)
-    createdAt          DateTime           @default(now())
-    updatedAt          DateTime           @updatedAt
-    generation         Generation[]
-    splitDay           SplitDay[]
-    splitExercise      SplitExercise[]
-    savedExercise      SavedExercise[]
+    id                  String             @unique
+    name                String?
+    lastName            String?
+    email               String             @unique
+    subscriptionStatus  SubscriptionStatus @default(INACTIVE)
+    createdAt           DateTime           @default(now())
+    updatedAt           DateTime           @updatedAt
+    generation          Generation[]
+    splitDay            SplitDay[]
+    splitExercise       SplitExercise[]
+    savedExercise       SavedExercise[]
+    monthlyGenerations  Int                @default(0)
+    lastGenerationReset DateTime           @default(now())
 
     @@index([name])
 }

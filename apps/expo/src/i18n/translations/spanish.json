@@ -88,7 +88,9 @@
       "error": "Error",
       "createError": "Error al crear rutina",
       "nameRequired": "El nombre de la rutina es obligatorio",
-      "nameEmpty": "El nombre no puede estar vacío"
+      "nameEmpty": "El nombre no puede estar vacío",
+      "monthlyLimitReached": "Limite de generación mensual alcanzado",
+      "monthlyLimitReachedExplanation": "Has alcanzado tu límite de 100 generaciones mensuales."
     }
   },
   "categories": {

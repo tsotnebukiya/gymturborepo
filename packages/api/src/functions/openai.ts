@@ -35,7 +35,7 @@ const exerciseDetailsValidator = z.object({
     })
   ),
 });
-// 85-95 ukve gaketda, shemdegi gaakete
+
 export async function generateExercisesDetails() {
   const data = exercisesDummyData.slice(105, 113);
 
@@ -109,7 +109,7 @@ ${JSON.stringify(availableExercises)}
 Provide:
 1. For each language (${Object.values(Language).join(', ')}):
    - The name of the equipment in that language
-   - A detailed description of the equipment in that language
+   -A brief description of the equipment (maximum 100 characters) in that language
 2. The IDs of all exercises from the provided list that can be performed on this equipment
 
 If no gym equipment is clearly visible in the image, respond with null.`,
@@ -118,7 +118,7 @@ If no gym equipment is clearly visible in the image, respond with null.`,
             type: 'image_url',
             image_url: {
               url: `data:image/jpeg;base64,${base64Image}`,
-              detail: 'high',
+              detail: 'low',
             },
           },
         ],
@@ -127,6 +127,5 @@ If no gym equipment is clearly visible in the image, respond with null.`,
     response_format: zodResponseFormat(gymEquipmentValidator, 'equipment'),
     max_tokens: 4096,
   });
-
   return response.choices[0]?.message.parsed?.equipment;
 }

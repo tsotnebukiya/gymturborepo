@@ -88,7 +88,9 @@
       "error": "错误",
       "createError": "创建训练计划失败",
       "nameRequired": "训练计划名称为必填项",
-      "nameEmpty": "名称不能为空"
+      "nameEmpty": "名称不能为空",
+      "monthlyLimitReached": "每月生成限制已达到",
+      "monthlyLimitReachedExplanation": "您已达到每月100次生成的限制。"
     }
   },
   "categories": {
