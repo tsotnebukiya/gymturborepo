@@ -1,4 +1,4 @@
-import { Image, Modal, Pressable, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Modal, View } from 'react-native';
 import colors from '~/lib/utils/colors';
 import { Card, Text } from 'react-native-paper';
 import { useAppContext } from '~/lib/contexts/AppContext';
@@ -25,7 +25,8 @@ export default function WizardModal({
       visible={wizardVisible}
       transparent
       statusBarTranslucent
-      animationType="fade"
+      // animationType="fade"
+      animated={false}
       presentationStyle="overFullScreen"
       onRequestClose={hideModal}
       onDismiss={onDismiss}

@@ -84,7 +84,7 @@ export function useMusclesConstants() {
       category: 'SHOULDERS',
     },
     SIDE_SHOULDER: {
-      icon: require('~/assets/muscles/placeholder.png'),
+      icon: require('~/assets/muscles/sideshoulder.png'),
       label: t('muscles.side_shoulder'),
       category: 'SHOULDERS',
     },
