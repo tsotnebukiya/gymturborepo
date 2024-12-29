@@ -28,9 +28,6 @@ export default function VideoPlayer({
     }
   }, []);
 
-  // const handlePlay = () => {
-  //   setPlaying((prev) => !prev);
-  // };
   return (
     <View>
       <View style={[styles.videoContainer, { height: videoHeight }]}>
@@ -42,6 +39,7 @@ export default function VideoPlayer({
           initialPlayerParams={{ start: startSeconds, end: endSeconds }}
           play={playing}
           onChangeState={onStateChange}
+          volume={0}
         />
       </View>
     </View>

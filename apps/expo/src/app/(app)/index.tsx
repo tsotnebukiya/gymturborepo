@@ -91,7 +91,14 @@ export default function IntroScreen() {
         <Image
           source={carouselData[currentIndex]?.image}
           resizeMode="contain"
-          style={{ width: '80%', height: '80%' }}
+          style={
+            {
+              // flex: 1,
+              // width: '100%',
+              // height: '100%',
+              // backgroundColor: 'red',
+            }
+          }
         />
       </View>
 
@@ -149,6 +156,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   content: {
     position: 'absolute',
