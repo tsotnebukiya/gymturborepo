@@ -109,13 +109,13 @@ model MusclePercentage {
     category    Category
     subcategory Subcategory
     percentage  String
-    exercise    Exercise    @relation(fields: [exerciseId], references: [id])
+    exercise    Exercise    @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
     exerciseId  Int
 }
 
 model ExerciseTranslation {
     id          Int      @id @default(autoincrement())
-    exercise    Exercise @relation(fields: [exerciseId], references: [id])
+    exercise    Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
     exerciseId  Int
     language    Language @default(ENGLISH)
     name        String

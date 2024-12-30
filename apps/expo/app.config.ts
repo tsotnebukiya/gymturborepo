@@ -45,15 +45,16 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'expo-splash-screen',
       {
-        backgroundColor: '#232323',
-        image: './src/assets/splash-bg.png',
-        dark: {
-          image: './src/assets/splash-bg.png',
-          backgroundColor: '#000000',
+        android: {
+          image: './src/assets/splash-icon.png',
+          backgroundColor: '#232323',
+          imageWidth: 200,
         },
-        imageWidth: 200,
-        resizeMode: 'contain',
-        splashScreenAnimation: 'fade',
+        ios: {
+          image: './src/assets/splash.png',
+          enableFullScreenImage_legacy: true,
+          backgroundColor: '#232323',
+        },
       },
     ],
   ],

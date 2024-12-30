@@ -27,7 +27,7 @@ export default function RecommendedExercises({ isLoading, data }: Props) {
         <ViewAllButton onPress={onPress} />
       </View>
       {isLoading ? (
-        <ExerciseListSkeleton />
+        <ExerciseListSkeleton count={3} />
       ) : (
         <View style={styles.exercisesContainer}>
           {data?.map((exercise, index) => (

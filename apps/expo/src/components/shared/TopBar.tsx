@@ -54,10 +54,7 @@ const TopBar = ({
         ]}
       >
         {logo && (
-          <Image
-            style={styles.logo}
-            source={require('~/assets/logo-black.png')}
-          />
+          <Image style={styles.logo} source={require('~/assets/logo.png')} />
         )}
         {backAction && (
           <IconButton
@@ -110,7 +107,7 @@ const styles = StyleSheet.create({
     height: 56,
     paddingHorizontal: 12,
   },
-  logo: { width: 24, height: 32.3 },
+  logo: { width: 38, height: 38 },
   barBorder: {
     borderBottomWidth: 1,
     borderBottomColor: colors.border.light,

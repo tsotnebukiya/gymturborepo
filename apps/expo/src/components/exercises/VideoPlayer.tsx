@@ -40,6 +40,7 @@ export default function VideoPlayer({
           play={playing}
           onChangeState={onStateChange}
           volume={0}
+          mute={true}
         />
       </View>
     </View>

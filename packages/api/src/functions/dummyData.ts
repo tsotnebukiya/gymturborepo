@@ -1,7 +1,3 @@
-import { zodResponseFormat } from 'openai/helpers/zod.mjs';
-import { z } from 'zod';
-import { openai } from './openai';
-
 interface ExerciseDummyData {
   name: string;
   videoId: string;
@@ -17,13 +13,13 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 6,
   },
   {
-    name: 'flat Dumbbell Bench Press',
+    name: 'Flat Dumbbell Bench Press',
     videoId: 'YQ2s_Y7g5Qk',
     videoStart: 0,
     videoEnd: 5,
   },
   {
-    name: 'INCINE DUMBBELL PRESS',
+    name: 'Incline Dumbbell Press',
     videoId: '0G2_XV7slIg',
     videoStart: 222,
     videoEnd: 230,
@@ -35,7 +31,7 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 9,
   },
   {
-    name: 'Flat DUMBBELL FLY',
+    name: 'Flat Dumbbell Fly',
     videoId: 'QENKPHhQVi4',
     videoStart: 229,
     videoEnd: 236,
@@ -47,13 +43,7 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 5,
   },
   {
-    name: 'Machine Flye',
-    videoId: 'FDay9wFe5uE',
-    videoStart: 0,
-    videoEnd: 5,
-  },
-  {
-    name: 'Inner Chest-Close Dumbbell Hammer Press',
+    name: 'Inner Chest Close Dumbbell Hammer Press',
     videoId: 'WCAIi9xvNR8',
     videoStart: 50,
     videoEnd: 58,
@@ -65,7 +55,7 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 42,
   },
   {
-    name: 'Triceps dips',
+    name: 'Triceps Dips',
     videoId: 'wjUmnZH528Y',
     videoStart: 140,
     videoEnd: 148,
@@ -119,7 +109,7 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 9,
   },
   {
-    name: 'Cable Tricep Kickback - Single-arm',
+    name: 'Cable Tricep Kickback Single Arm',
     videoId: 'DYsQWSbj7UM',
     videoStart: 0,
     videoEnd: 8,
@@ -131,19 +121,13 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 40,
   },
   {
-    name: 'ROPE CABLE TRICEP EXTENSION',
-    videoId: 'JDEDaZTEzGE',
-    videoStart: 38,
-    videoEnd: 46,
-  },
-  {
     name: 'Rope Twist Curl',
     videoId: '2CDKTFFp5fA',
     videoStart: 4,
     videoEnd: 11,
   },
   {
-    name: 'Cable EZ Bar Curl',
+    name: 'Cable Ez Bar Curl',
     videoId: 'opFVuRi_3b8',
     videoStart: 0,
     videoEnd: 10,
@@ -179,12 +163,6 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 12,
   },
   {
-    name: 'SEATED CABLE FLY',
-    videoId: 'CT7vDnPJZ9w',
-    videoStart: 47,
-    videoEnd: 55,
-  },
-  {
     name: 'Cable Lateral Raise',
     videoId: 'lq7eLC30b9w',
     videoStart: 1,
@@ -209,7 +187,7 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 9,
   },
   {
-    name: 'MAG grip lat pulldown',
+    name: 'Mag Grip Lat Pulldown',
     videoId: '0qhRLjAZpzI',
     videoStart: 32,
     videoEnd: 42,
@@ -233,7 +211,7 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 12,
   },
   {
-    name: 'seated cable row narrow grip',
+    name: 'Seated Cable Row Narrow Grip',
     videoId: 'lJoozxC0Rns',
     videoStart: 0,
     videoEnd: 9,
@@ -281,22 +259,16 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 16,
   },
   {
-    name: 'Smith Machine Shoulder Press behind the Neck',
+    name: 'Smith Machine Shoulder Press Behind The Neck',
     videoId: 'MWV_2cOVfs8',
     videoStart: 22,
     videoEnd: 31,
   },
   {
-    name: 'BEHIND THE BACK SMITH MACHINE SHRUG',
+    name: 'Behind The Back Smith Machine Shrug',
     videoId: 'keNpoJVJCNk',
     videoStart: 6,
     videoEnd: 12,
-  },
-  {
-    name: 'Smith Machine Incline Press',
-    videoId: '8urE8Z8AMQ4',
-    videoStart: 0,
-    videoEnd: 9,
   },
   {
     name: 'Smith Machine Bench Press',
@@ -305,22 +277,10 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 8,
   },
   {
-    name: 'Smith Machine Hax Press',
-    videoId: 'IRiiuK_B8Lo',
-    videoStart: 2,
-    videoEnd: 9,
-  },
-  {
     name: 'Smith Machine Calves',
     videoId: 'hh5516HCu4k',
     videoStart: 0,
     videoEnd: 8,
-  },
-  {
-    name: 'Smith Machine Romanian DeadLift',
-    videoId: '2N-F1mLwKEo',
-    videoStart: 0,
-    videoEnd: 10,
   },
   {
     name: 'Smith Machine Barbell Shrug',
@@ -341,7 +301,7 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 10,
   },
   {
-    name: 'SCOTT BENCH EZ BAR BICEPS CURL',
+    name: 'Scott Bench Ez Bar Biceps Curl',
     videoId: 'ZiZf-9PIkHY',
     videoStart: 47,
     videoEnd: 51,
@@ -353,7 +313,7 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 10,
   },
   {
-    name: 'Single arm Dumbbell preacher curl',
+    name: 'Single Arm Dumbbell Preacher Curl',
     videoId: 'dCB1pgzrV6w',
     videoStart: 3,
     videoEnd: 8,
@@ -389,7 +349,7 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 10,
   },
   {
-    name: 'MACHINE REVERSE V-SQUAT',
+    name: 'Machine Reverse V Squat',
     videoId: 'k3pE9_L0ARo',
     videoStart: 0,
     videoEnd: 8,
@@ -413,25 +373,25 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 12,
   },
   {
-    name: 'Chin-Up',
+    name: 'Chin Up',
     videoId: 'rigzbHWbllM',
     videoStart: 161,
     videoEnd: 171,
   },
   {
-    name: 'Pull up',
+    name: 'Pull Up',
     videoId: 'eGo4IYlbE5g',
     videoStart: 233,
     videoEnd: 240,
   },
   {
-    name: 'HAMMER PULL UP',
+    name: 'Hammer Pull Up',
     videoId: 'XNFGt0WPASQ',
     videoStart: 37,
     videoEnd: 43,
   },
   {
-    name: 'Hummer Grip Chin Up',
+    name: 'Hammer Grip Chin Up',
     videoId: 'dBB6HZC8E7Y',
     videoStart: 3,
     videoEnd: 12,
@@ -467,7 +427,7 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 8,
   },
   {
-    name: 'FLAT CHEST PRESS MACHINE',
+    name: 'Flat Chest Press Machine',
     videoId: 'sreMgnjczh4',
     videoStart: 0,
     videoEnd: 8,
@@ -497,13 +457,13 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 10,
   },
   {
-    name: 'EZ Bar Underhand Front Raise',
+    name: 'Ez Bar Underhand Front Raise',
     videoId: '87pZAbYjXc4',
     videoStart: 0,
     videoEnd: 8,
   },
   {
-    name: 'hyperextension 45 Degree Back Raise',
+    name: 'Hyperextension 45 Degree Back Raise',
     videoId: '5_ejbGfdAQE',
     videoStart: 0,
     videoEnd: 10,
@@ -521,19 +481,13 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 47,
   },
   {
-    name: 'Hammer strength upper back row',
-    videoId: 'gWXUlUIuGVM',
-    videoStart: 0,
-    videoEnd: 10,
-  },
-  {
-    name: 'Low Back Extension Machine workout',
+    name: 'Low Back Extension Machine',
     videoId: 'bADOg7F5dKI',
     videoStart: 23,
     videoEnd: 29,
   },
   {
-    name: 'low Row Machine workout',
+    name: 'Low Row Machine',
     videoId: '4R0Izs5X3BY',
     videoStart: 12,
     videoEnd: 22,
@@ -599,13 +553,13 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoEnd: 11,
   },
   {
-    name: 'Ring Chin-Up',
+    name: 'Ring Chin Up',
     videoId: 'jBcL5h_r9Ts',
     videoStart: 3,
     videoEnd: 9,
   },
   {
-    name: 'Incline Dumbell Curl',
+    name: 'Incline Dumbbell Curl',
     videoId: 'aTYlqC_JacQ',
     videoStart: 0,
     videoEnd: 8,
@@ -688,81 +642,196 @@ export const exercisesDummyData: ExerciseDummyData[] = [
     videoStart: 4,
     videoEnd: 12,
   },
+  {
+    name: 'Hanging Straight Leg Raise',
+    videoId: '7FwGZ8qY5OU',
+    videoStart: 0,
+    videoEnd: 8,
+  },
+  {
+    name: 'Hanging Knee Tucks',
+    videoId: 'RD_A-Z15ER4',
+    videoStart: 0,
+    videoEnd: 8,
+  },
+  {
+    name: 'Decline Bench Reverse Crunch',
+    videoId: '6w30ZwGS7uI',
+    videoStart: 27,
+    videoEnd: 37,
+  },
+  {
+    name: 'Roman Chair Leg Raises',
+    videoId: 'OuMtE88zerI',
+    videoStart: 14,
+    videoEnd: 22,
+  },
+  {
+    name: 'Slant Board Situp',
+    videoId: 'DAnTf16NcT0',
+    videoStart: 0,
+    videoEnd: 9,
+  },
+  {
+    name: 'Dumbbell Weighted Sit Ups',
+    videoId: '4YOoMXPnOu4',
+    videoStart: 0,
+    videoEnd: 10,
+  },
+  {
+    name: 'Swiss Ball Crunches',
+    videoId: 'O4d3kd1ZLyc',
+    videoStart: 0,
+    videoEnd: 11,
+  },
+  {
+    name: 'Roman Chair Sit Up',
+    videoId: 'frvYcrMRCRE',
+    videoStart: 27,
+    videoEnd: 36,
+  },
+  {
+    name: 'V Up',
+    videoId: 'BIOM5eSsJ_8',
+    videoStart: 0,
+    videoEnd: 8,
+  },
+  {
+    name: 'Bosu Ball Crunches',
+    videoId: 'yYI7Fu17wxM',
+    videoStart: 10,
+    videoEnd: 22,
+  },
+  {
+    name: 'Cable Woodchopper',
+    videoId: 'iWxTGXIViro',
+    videoStart: 0,
+    videoEnd: 9,
+  },
+  {
+    name: 'Russian Twist',
+    videoId: 'Tau0hsW8iR0',
+    videoStart: 0,
+    videoEnd: 8,
+  },
+  {
+    name: 'Hanging Oblique Raises',
+    videoId: 'sqDdHFC1KYk',
+    videoStart: 0,
+    videoEnd: 10,
+  },
+  {
+    name: 'Plate Side Bends',
+    videoId: 'jdjG1koBgo8',
+    videoStart: 0,
+    videoEnd: 8,
+  },
+  {
+    name: 'Landmine Oblique Twist',
+    videoId: '4dGj7rES9pY',
+    videoStart: 0,
+    videoEnd: 7,
+  },
+  {
+    name: 'Decline Bench Twisting Sit Ups',
+    videoId: 'GLBfPHJWaKw',
+    videoStart: 0,
+    videoEnd: 11,
+  },
+  {
+    name: 'Barbell Glute Bridge',
+    videoId: '6EhYj5eSngY',
+    videoStart: 0,
+    videoEnd: 10,
+  },
+  {
+    name: 'Front Squat',
+    videoId: 'HHxNbhP16UE',
+    videoStart: 0,
+    videoEnd: 8,
+  },
+  {
+    name: 'Dumbbell Step Up',
+    videoId: 'DxUNi119Qzs',
+    videoStart: 0,
+    videoEnd: 10,
+  },
+  {
+    name: 'Seated Adductor Machine',
+    videoId: 'CjAVezAggkI',
+    videoStart: 0,
+    videoEnd: 13,
+  },
+  {
+    name: 'Sumo Deadlift',
+    videoId: 'pfSMst14EFk',
+    videoStart: 0,
+    videoEnd: 10,
+  },
+  {
+    name: 'Narrow Stance Squat',
+    videoId: '1IIPcUCKxcE',
+    videoStart: 0,
+    videoEnd: 10,
+  },
+  {
+    name: 'Dumbbell Sumo Squat',
+    videoId: 'vBA3vyOxJv0',
+    videoStart: 3,
+    videoEnd: 10,
+  },
+  {
+    name: 'Cable Hip Adduction',
+    videoId: 'SIQrpq6YnT8',
+    videoStart: 15,
+    videoEnd: 22,
+  },
+  {
+    name: 'Dumbbell Side Lunges',
+    videoId: '7I3iH0us1UU',
+    videoStart: 1,
+    videoEnd: 14,
+  },
+  {
+    name: 'Seated Calf Raise Machine',
+    videoId: '2Q-HQ3mnePg',
+    videoStart: 0,
+    videoEnd: 8,
+  },
+  {
+    name: 'Standing Calf Raise Machine',
+    videoId: 'g_E7_q1z2bo',
+    videoStart: 7,
+    videoEnd: 16,
+  },
+  {
+    name: 'Leg Press Calves',
+    videoId: 'KxEYX_cuesM',
+    videoStart: 1,
+    videoEnd: 12,
+  },
+  {
+    name: 'Seated Barbell Calf Raises',
+    videoId: 'PMYBu2wyczo',
+    videoStart: 0,
+    videoEnd: 8,
+  },
+  {
+    name: 'Barbell Standing Calf Raises',
+    videoId: '3UWi44yN-wM',
+    videoStart: 41,
+    videoEnd: 50,
+  },
+  {
+    name: 'Standing Dumbbell Calf Raises',
+    videoId: 'GyWw_Q_aIbE',
+    videoStart: 1,
+    videoEnd: 10,
+  },
+  {
+    name: 'Box Jumps',
+    videoId: 'TZEUjkWRW38',
+    videoStart: 0,
+    videoEnd: 10,
+  },
 ];
-
-const exerciseDummyValidator = z.object({
-  exercises: z.array(
-    z.object({
-      name: z.string(),
-      videoId: z.string(),
-      videoStart: z.number(),
-      videoEnd: z.number(),
-    })
-  ),
-});
-export async function generateDummyList() {
-  // const data = exercisesDummyData;
-  const response = await openai.beta.chat.completions.parse({
-    model: 'gpt-4o',
-    messages: [
-      {
-        role: 'system',
-        content:
-          'You are a professional fitness expert and translator. Analyze exercises and provide details.',
-      },
-      {
-        role: 'user',
-        content: `
-    UPPER_ABS
-    LOWER_ABS
-    SIDE_ABS
-    ABDOMINALS
-
-    UPPER_BACK
-    MIDDLE_BACK
-    LOWER_BACK
-
-    BICEPS
-    TRICEPS
-    WRIST_EXTENSORS
-    WRIST_FLEXORS
-
-    CHEST
-
-    REAR_SHOULDER
-    FRONT_SHOULDER
-    SIDE_SHOULDER
-
-    QUADRICEPS
-    HAMSTRINGS
-    CALVES
-    GLUTES
-    INNER_THIGHS
-    OUTER_THIGHS
-
-Give me 5 exercises for each of these subcategories. These exercises must be with gym equipment. So in total 5 multiplied by 21 subcategories = 105 exercises.
-
-In following format
-
-[
-{
-name:'Exercise Name',
-videoId:'izIh2pgGLvY' //static,
-videoStart: 10, / static
-videoEnd: 50, /static
-}
-]`,
-      },
-    ],
-    response_format: zodResponseFormat(
-      exerciseDummyValidator,
-      'exercisesDummy'
-    ),
-    max_completion_tokens: 16384,
-  });
-
-  return {
-    array: response.choices[0]?.message.parsed?.exercises || [],
-    usage: response.usage,
-  };
-}

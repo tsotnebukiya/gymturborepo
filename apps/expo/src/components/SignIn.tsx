@@ -44,8 +44,8 @@ export default function SignInComponent({
       />
       <View style={styles.container}>
         <Image
-          source={require('~/assets/logo-black.png')}
-          style={{ height: 100, width: 74.33 }}
+          source={require('~/assets/logobig.png')}
+          style={{ height: 100, width: 100 }}
         />
         <View style={styles.textContainer}>
           <Text style={styles.title}>{t('signIn.title')}</Text>
