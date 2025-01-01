@@ -48,7 +48,6 @@ export default function ExerciseView({ data }: Props) {
       <Gradient />
       <TopBar
         inset={false}
-        title={`${data.name}`}
         barBorder={true}
         backAction={{
           icon: 'arrow-left',
@@ -64,6 +63,7 @@ export default function ExerciseView({ data }: Props) {
       />
       <ScrollView>
         <View style={styles.contentContainer}>
+          <Text style={styles.exerciseTitle}>{data.name}</Text>
           <View style={styles.rowContainer}>
             <View style={styles.infoContainer}>
               <Text style={styles.description}>{data.description}</Text>
@@ -119,6 +119,13 @@ const styles = StyleSheet.create({
   },
   infoContainer: {
     flex: 1,
+  },
+  exerciseTitle: {
+    fontSize: typography.h5.fontSize,
+    lineHeight: typography.h5.lineHeight,
+    fontFamily: fontFamilies.bold,
+    color: colors.text.general.light,
+    textAlign: 'center',
   },
   description: {
     fontSize: typography.large.fontSize,
