@@ -1,4 +1,4 @@
-import { Modal, Pressable, StyleSheet, View } from 'react-native';
+import { Modal, Platform, Pressable, StyleSheet, View } from 'react-native';
 import { Divider, Text } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
@@ -42,7 +42,7 @@ export default function LanguageModal({ visible, onClose }: Props) {
           style={styles.modalContent}
           onStartShouldSetResponder={() => true}
         >
-          <Gradient />
+          {Platform.OS !== 'android' && <Gradient />}
           <View style={styles.header}>
             <Text style={styles.headerText}>
               {t('settings.selectLanguage')}
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     color: colors.text.general.light,
   },
   modalContent: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     borderRadius: 16,
     paddingVertical: 16,
     paddingHorizontal: 24,

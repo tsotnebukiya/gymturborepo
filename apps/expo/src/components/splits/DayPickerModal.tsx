@@ -1,4 +1,4 @@
-import { Modal, Pressable, StyleSheet, View } from 'react-native';
+import { Modal, Platform, Pressable, StyleSheet, View } from 'react-native';
 import { Divider, Text } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import { useSplitDayConstants, type SplitDayKey } from '~/lib/utils/constants';
@@ -55,8 +55,7 @@ export default function DayPickerModal({
           style={styles.modalContent}
           onStartShouldSetResponder={() => true}
         >
-          <Gradient />
-
+          {Platform.OS !== 'android' && <Gradient />}
           <View style={styles.header}>
             <Text style={styles.headerText}>{t('splits.selectWeekday')}</Text>
           </View>
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContent: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     borderRadius: 16,
     paddingVertical: 16,
     paddingHorizontal: 24,

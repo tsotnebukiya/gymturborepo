@@ -3,6 +3,7 @@ import {
   ScrollView as ScrollViewNative,
   StyleSheet,
   RefreshControl,
+  Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -23,7 +24,7 @@ export default function ScrollView({
     await onRefresh();
     setRefreshing(false);
   };
-
+  console.log(insets, Platform.OS);
   return (
     <ScrollViewNative
       refreshControl={

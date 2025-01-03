@@ -1,8 +1,9 @@
-import { Modal, Pressable, StyleSheet, View } from 'react-native';
+import { Modal, Platform, Pressable, StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Gradient from '../ui/Gradient';
 
 interface Props {
   visible: boolean;
@@ -48,6 +49,7 @@ export default function RepsSetsModal({
           style={styles.modalContent}
           onStartShouldSetResponder={() => true}
         >
+          {Platform.OS !== 'android' && <Gradient />}
           <View style={styles.header}>
             <Text variant="titleMedium">{t('splits.repsAndSets.title')}</Text>
             <Pressable onPress={onClose} hitSlop={8}>

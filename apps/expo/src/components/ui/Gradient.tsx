@@ -18,5 +18,6 @@ export default function Gradient() {
 const styles = StyleSheet.create({
   gradientContainer: {
     ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'red',
   },
 });

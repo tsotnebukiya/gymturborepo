@@ -2,7 +2,11 @@ import { TabBarIcon, TabBarLabel } from '~/components/ui/TabBar';
 import WizardComponent from '~/components/wizard/Wizard';
 import { Tabs } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import {
+  TouchableOpacity,
+  type TouchableOpacityProps,
+  View,
+} from 'react-native';
 import TabBarSVG from '~/components/ui/TabBarSVG';
 import colors from '~/lib/utils/colors';
 
@@ -13,7 +17,6 @@ export default function DashboardLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
-
           tabBarStyle: {
             position: 'absolute',
             height: 107,
@@ -37,6 +40,13 @@ export default function DashboardLayout() {
             tabBarActiveTintColor: colors.menuBarIcon.active,
             tabBarInactiveTintColor: colors.menuBarIcon.inactive,
 
+            tabBarButton: (props) => (
+              <TouchableOpacity
+                {...(props as TouchableOpacityProps)}
+                activeOpacity={1}
+              />
+            ),
+
             tabBarLabel: ({ focused }) => (
               <TabBarLabel label={t('tabs.home')} active={focused} />
             ),
@@ -56,6 +66,12 @@ export default function DashboardLayout() {
             tabBarItemStyle: {
               marginRight: 25,
             },
+            tabBarButton: (props) => (
+              <TouchableOpacity
+                {...(props as TouchableOpacityProps)}
+                activeOpacity={1}
+              />
+            ),
             tabBarLabel: ({ focused }) => (
               <TabBarLabel label={t('tabs.bookmarks')} active={focused} />
             ),
@@ -75,6 +91,12 @@ export default function DashboardLayout() {
             tabBarItemStyle: {
               marginLeft: 25,
             },
+            tabBarButton: (props) => (
+              <TouchableOpacity
+                {...(props as TouchableOpacityProps)}
+                activeOpacity={1}
+              />
+            ),
             tabBarLabel: ({ focused }) => (
               <TabBarLabel label={t('tabs.splits')} active={focused} />
             ),
@@ -91,6 +113,12 @@ export default function DashboardLayout() {
           options={{
             tabBarActiveTintColor: colors.menuBarIcon.active,
             tabBarInactiveTintColor: colors.menuBarIcon.inactive,
+            tabBarButton: (props) => (
+              <TouchableOpacity
+                {...(props as TouchableOpacityProps)}
+                activeOpacity={1}
+              />
+            ),
             tabBarLabel: ({ focused }) => (
               <TabBarLabel label={t('tabs.settings')} active={focused} />
             ),

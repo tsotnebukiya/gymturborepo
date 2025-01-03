@@ -20,6 +20,7 @@ import {
 } from 'react-native-reanimated';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import theme from '~/lib/utils/theme';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 configureReanimatedLogger({
   level: ReanimatedLogLevel.warn,
@@ -51,19 +52,21 @@ function InitialLayout() {
 
 export default function RootLayoutNav() {
   return (
-    <ClerkProvider
-      publishableKey={CLERK_PUBLISHABLE_KEY!}
-      tokenCache={tokenCache}
-    >
-      <TRPCProvider>
-        <PaperProvider theme={theme}>
-          <GestureHandlerRootView style={{ flex: 1 }}>
-            <BottomSheetModalProvider>
-              <InitialLayout />
-            </BottomSheetModalProvider>
-          </GestureHandlerRootView>
-        </PaperProvider>
-      </TRPCProvider>
-    </ClerkProvider>
+    <SafeAreaProvider>
+      <ClerkProvider
+        publishableKey={CLERK_PUBLISHABLE_KEY!}
+        tokenCache={tokenCache}
+      >
+        <TRPCProvider>
+          <PaperProvider theme={theme}>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <BottomSheetModalProvider>
+                <InitialLayout />
+              </BottomSheetModalProvider>
+            </GestureHandlerRootView>
+          </PaperProvider>
+        </TRPCProvider>
+      </ClerkProvider>
+    </SafeAreaProvider>
   );
 }

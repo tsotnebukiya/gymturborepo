@@ -2,7 +2,7 @@ import type { ConfigContext, ExpoConfig } from 'expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: 'gymapp',
+  name: 'GymLead AI',
   slug: 'gymapp',
   scheme: 'gymapp',
   version: '0.1.0',
@@ -25,7 +25,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     package: 'com.slai.gymapp',
     adaptiveIcon: {
-      foregroundImage: './src/assets/icon.png',
+      foregroundImage: './src/assets/foreground.png',
+      backgroundImage: './src/assets/background.png',
     },
   },
   extra: {

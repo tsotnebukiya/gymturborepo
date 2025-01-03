@@ -32,6 +32,7 @@ export default function Button({
   icon,
   iconPosition = 'left',
 }: ButtonProps) {
+  console.log(children);
   return (
     <Pressable
       onPress={onPress}
@@ -116,6 +117,10 @@ const styles = StyleSheet.create({
     fontSize: typography.large.fontSize,
     lineHeight: typography.large.lineHeight,
     fontFamily: fontFamilies.bold,
+    flexShrink: 1,
+    // backgroundColor: 'red',
+    flex: 1,
+    textAlign: 'center',
   },
   textPrimary: {
     color: 'white',
