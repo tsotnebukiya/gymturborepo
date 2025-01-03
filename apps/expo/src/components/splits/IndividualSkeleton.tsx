@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   },
   content: {
     gap: 16,
+    paddingHorizontal: 12,
   },
   daySelector: {
     flexDirection: 'row',

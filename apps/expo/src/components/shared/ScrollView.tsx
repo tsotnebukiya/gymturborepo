@@ -24,7 +24,6 @@ export default function ScrollView({
     await onRefresh();
     setRefreshing(false);
   };
-  console.log(insets, Platform.OS);
   return (
     <ScrollViewNative
       overScrollMode="never"
@@ -35,7 +34,9 @@ export default function ScrollView({
       }
       showsVerticalScrollIndicator={false}
       contentContainerStyle={
-        tabBarPadding ? styles.paddingBottom : { paddingBottom: insets.bottom }
+        tabBarPadding
+          ? styles.paddingBottom
+          : { paddingBottom: Platform.OS === 'ios' ? insets.bottom : 34 }
       }
       style={styles.container}
     >
