@@ -27,6 +27,7 @@ export default function ScrollView({
   console.log(insets, Platform.OS);
   return (
     <ScrollViewNative
+      overScrollMode="never"
       refreshControl={
         onRefresh ? (
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
