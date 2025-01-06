@@ -167,7 +167,8 @@
     "generic": "Qualcosa è andato storto",
     "noExercisesFound": "Nessun esercizio trovato",
     "noExercises": "Nessun esercizio",
-    "noExercisesGenerated": "Nessun esercizio generato"
+    "noExercisesGenerated": "Nessun esercizio generato",
+    "noGymEquipmentIdentified": "Nessun equipaggiamento di fitness identificato"
   },
   "exercises": {
     "title": "Esercizi",

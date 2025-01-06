@@ -168,7 +168,8 @@
     "generic": "Something went wrong",
     "noExercisesFound": "No exercises found",
     "noExercises": "No exercises",
-    "noExercisesGenerated": "No exercises generated"
+    "noExercisesGenerated": "No exercises generated",
+    "noGymEquipmentIdentified": "No gym equipment identified"
   },
   "exercises": {
     "title": "Exercises",

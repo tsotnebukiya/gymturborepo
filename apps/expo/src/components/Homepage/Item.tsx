@@ -7,12 +7,14 @@ import { useRouter } from 'expo-router';
 import { useCurrentLanguage } from '~/i18n';
 import colors from '~/lib/utils/colors';
 import { fontFamilies, typography } from '~/lib/utils/typography';
+import { useTranslation } from 'react-i18next';
 
 export default function GenerationItem({
   data,
 }: {
   data: RouterOutputs['generation']['getAll'][number];
 }) {
+  const { t } = useTranslation();
   const router = useRouter();
   const { language } = useCurrentLanguage();
   const completed = data.status === 'COMPLETED' || data.status === 'FAILED';
@@ -61,7 +63,7 @@ export default function GenerationItem({
         ) : null}
         {data.status === 'FAILED' ? (
           <Text variant="titleLarge" style={styles.errorTitle}>
-            Invalid Image
+            {t('errors.noGymEquipmentIdentified')}
           </Text>
         ) : null}
         {data.status === 'COMPLETED' ? (

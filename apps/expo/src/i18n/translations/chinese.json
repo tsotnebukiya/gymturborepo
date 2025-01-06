@@ -167,7 +167,8 @@
     "generic": "出现错误",
     "noExercisesFound": "未找到运动",
     "noExercises": "暂无运动",
-    "noExercisesGenerated": "未生成运动"
+    "noExercisesGenerated": "未生成运动",
+    "noGymEquipmentIdentified": "未识别到健身器材"
   },
   "exercises": {
     "title": "运动",

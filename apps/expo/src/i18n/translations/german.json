@@ -167,7 +167,8 @@
     "generic": "Etwas ist schiefgelaufen",
     "noExercisesFound": "Keine Übungen gefunden",
     "noExercises": "Keine Übungen",
-    "noExercisesGenerated": "Keine Übungen generiert"
+    "noExercisesGenerated": "Keine Übungen generiert",
+    "noGymEquipmentIdentified": "Kein Fitnessgerät identifiziert"
   },
   "exercises": {
     "title": "Übungen",

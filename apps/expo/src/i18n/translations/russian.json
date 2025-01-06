@@ -167,7 +167,8 @@
     "generic": "Что-то пошло не так",
     "noExercisesFound": "Упражнения не найдены",
     "noExercises": "Нет упражнений",
-    "noExercisesGenerated": "Упражнения не сгенерированы"
+    "noExercisesGenerated": "Упражнения не сгенерированы",
+    "noGymEquipmentIdentified": "Не найдено оборудования для тренировок"
   },
   "exercises": {
     "title": "Упражнения",
