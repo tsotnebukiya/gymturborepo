@@ -17,20 +17,21 @@ WebBrowser.maybeCompleteAuthSession();
 
 export default function SignInScreen() {
   useWarmUpBrowser();
+  const redirectUrl = Linking.createURL('home');
   const [loadingProvider, setLoadingProvider] = useState<
     'google' | 'apple' | 'facebook' | null
   >(null);
   const { startOAuthFlow: googleFlow } = useOAuth({
     strategy: 'oauth_google',
-    redirectUrl: Linking.createURL('/home'),
+    redirectUrl,
   });
   const { startOAuthFlow: appleFlow } = useOAuth({
     strategy: 'oauth_apple',
-    redirectUrl: Linking.createURL('/home'),
+    redirectUrl,
   });
   const { startOAuthFlow: facebookFlow } = useOAuth({
     strategy: 'oauth_facebook',
-    redirectUrl: Linking.createURL('/home'),
+    redirectUrl,
   });
   const onPress = useCallback(
     async (provider: string) => {

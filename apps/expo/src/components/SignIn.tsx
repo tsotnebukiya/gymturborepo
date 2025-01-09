@@ -1,4 +1,4 @@
-import { View, StyleSheet, StatusBar, Image } from 'react-native';
+import { View, StyleSheet, StatusBar, Image, Platform } from 'react-native';
 import TopBar from '~/components/shared/TopBar';
 import { useRouter } from 'expo-router';
 import SocialIcon from '~/components/ui/SocialButton';
@@ -60,13 +60,15 @@ export default function SignInComponent({
             onPress={onGooglePress}
             disabled={disabled}
           />
-          <SocialIcon
-            text={t('auth.continueWith.apple')}
-            icon="apple"
-            loading={loading.apple}
-            onPress={onApplePress}
-            disabled={disabled}
-          />
+          {Platform.OS === 'ios' && (
+            <SocialIcon
+              text={t('auth.continueWith.apple')}
+              icon="apple"
+              loading={loading.apple}
+              onPress={onApplePress}
+              disabled={disabled}
+            />
+          )}
           <SocialIcon
             text={t('auth.continueWith.facebook')}
             icon="facebook"
