@@ -96,21 +96,28 @@ export async function generateGymResponse(
       {
         role: 'system',
         content:
-          'You are a professional fitness expert and translator. Analyze gym equipment images and identify which exercises from the provided list can be performed on this equipment.',
+          'You are a professional fitness expert specializing in gym equipment. Your task is to identify gym equipment and ONLY match exercises that are specifically designed to be performed on this exact piece of equipment. Do not include exercises that could theoretically be performed but are not the primary intended use of the equipment.',
       },
       {
         role: 'user',
         content: [
           {
             type: 'text',
-            text: `Analyze this gym equipment image and identify which exercises from this list can be performed on it:
+            text: `Analyze this gym equipment image and identify ONLY the exercises from the provided list that are specifically designed to be performed on this exact equipment. Be strict and conservative in your matching - only include exercises if this is the primary/intended equipment for that exercise.
+
+Available exercises:
 ${JSON.stringify(availableExercises)}
 
 Provide:
 1. For each language (${Object.values(Language).join(', ')}):
-   - The name of the equipment in that language
-   -A brief description of the equipment (maximum 100 characters) in that language
-2. The IDs of all exercises from the provided list that can be performed on this equipment
+   - The equipment's name in that language
+   - A brief description of the equipment (maximum 100 characters) in that language
+2. ONLY include exercise IDs where this specific equipment is the primary/intended equipment for that exercise
+
+Important:
+- Do NOT include exercises that could theoretically be performed but aren't specifically designed for this equipment
+- Do NOT include exercises that merely use this equipment as a support or in a modified way
+- If uncertain about an exercise-equipment match, err on the side of exclusion
 
 If no gym equipment is clearly visible in the image, respond with null.`,
           },
@@ -118,7 +125,7 @@ If no gym equipment is clearly visible in the image, respond with null.`,
             type: 'image_url',
             image_url: {
               url: `data:image/jpeg;base64,${base64Image}`,
-              detail: 'low',
+              detail: 'high',
             },
           },
         ],
