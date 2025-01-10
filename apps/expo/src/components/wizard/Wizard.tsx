@@ -20,10 +20,8 @@ export default function WizardComponent() {
   const router = useRouter();
   const [image, setImage] = useState<string>();
   const utils = api.useUtils();
-  const [startTime, setStartTime] = useState<number>();
   const { mutate, isPending } = api.generation.create.useMutation({
     onMutate: async () => {
-      setStartTime(Date.now());
       await utils.generation.getAll.cancel();
       const previousData = utils.generation.getAll.getData();
       utils.generation.getAll.setData(
@@ -50,13 +48,7 @@ export default function WizardComponent() {
           t('splits.errors.monthlyLimitReachedExplanation')
         );
       }
-      const duration = startTime ? Date.now() - startTime : 0;
-      console.log(`Error after ${duration}ms:`, err);
       utils.generation.getAll.setData({ language }, context?.previousData);
-    },
-    onSuccess: () => {
-      const duration = startTime ? Date.now() - startTime : 0;
-      console.log(`Success after ${duration}ms`);
     },
     onSettled: () => {
       void utils.generation.getAll.invalidate();
@@ -68,9 +60,6 @@ export default function WizardComponent() {
     ImagePicker.useMediaLibraryPermissions();
   const cameraPermissionGranted = cameraPermission?.granted;
   const libraryPermissionedGranted = permissionLibrary?.granted;
-  const [pendingAction, setPendingAction] = useState<
-    'gallery' | 'camera' | null
-  >(null);
 
   const openAppSettings = () => {
     void Linking.openSettings();
@@ -97,33 +86,10 @@ export default function WizardComponent() {
     const imageBase64 = manipulatedImage.base64;
 
     if (!imageBase64) return;
-    const sizeInBytes = (imageBase64.length * 3) / 4;
-    const sizeInMB = sizeInBytes / (1024 * 1024);
-    console.log(`Compressed image size: ${sizeInMB.toFixed(2)} MB`);
     mutate({ image: imageBase64, imageType: 'image/jpeg' });
     router.push('/(auth)/(dashboard)/home');
   };
 
-  const handleModalDismiss = async () => {
-    if (pendingAction === 'gallery') {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ['images'],
-        allowsEditing: false,
-        quality: 1,
-      });
-      await handleImagePicked(result);
-    } else if (pendingAction === 'camera') {
-      const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: false,
-        quality: 1,
-        presentationStyle:
-          ImagePicker.UIImagePickerPresentationStyle.FORM_SHEET,
-      });
-      await handleImagePicked(result);
-    }
-    setPendingAction(null);
-  };
   const handleGallery = async () => {
     if (!libraryPermissionedGranted) {
       const { granted, canAskAgain } = await requestPermissionLibrary();
@@ -147,7 +113,12 @@ export default function WizardComponent() {
         return;
       }
     }
-    setPendingAction('gallery');
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: false,
+      quality: 1,
+    });
+    await handleImagePicked(result);
     hideModal();
   };
   const handleCamera = async () => {
@@ -173,18 +144,29 @@ export default function WizardComponent() {
         return;
       }
     }
-    setPendingAction('camera');
+
+    try {
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: false,
+        quality: 1,
+        presentationStyle:
+          ImagePicker.UIImagePickerPresentationStyle.FORM_SHEET,
+      });
+      await handleImagePicked(result);
+    } catch (error) {
+      console.error('Camera error:', error);
+      Alert.alert('Camera Error', 'Failed to open camera. Please try again.', [
+        { text: 'OK' },
+      ]);
+    }
     hideModal();
   };
 
   return (
     <>
       <WizardButton isPending={isPending} />
-      <WizardModal
-        handleCamera={handleCamera}
-        handleGallery={handleGallery}
-        onDismiss={handleModalDismiss}
-      />
+      <WizardModal handleCamera={handleCamera} handleGallery={handleGallery} />
     </>
   );
 }

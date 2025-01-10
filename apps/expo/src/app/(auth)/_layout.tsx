@@ -1,12 +1,45 @@
 import { useAuth } from '@clerk/clerk-expo';
-import { Redirect, Stack } from 'expo-router';
+import { Redirect, Stack, useRouter } from 'expo-router';
+import { useState } from 'react';
 import { StatusBar } from 'react-native';
+import { PAYWALL_RESULT } from 'react-native-purchases-ui';
+import RevenueCatUI from 'react-native-purchases-ui';
 import { AppContextProvider } from '~/lib/contexts/AppContext';
 
 export default function AuthLayout() {
-  const { isSignedIn } = useAuth();
+  const { isSignedIn, signOut } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const router = useRouter();
   if (!isSignedIn) {
     return <Redirect href="/sign-in" />;
+  }
+
+  const presentPaywall = async () => {
+    try {
+      const paywallResult = await RevenueCatUI.presentPaywallIfNeeded({
+        requiredEntitlementIdentifier: 'proaccess',
+      });
+
+      switch (paywallResult) {
+        case PAYWALL_RESULT.ERROR:
+        case PAYWALL_RESULT.NOT_PRESENTED:
+        case PAYWALL_RESULT.CANCELLED:
+          setIsLoading(true);
+          await signOut();
+          router.replace('/sign-in');
+          return;
+        case PAYWALL_RESULT.PURCHASED:
+        case PAYWALL_RESULT.RESTORED:
+          break;
+      }
+    } catch (error) {
+      console.error('Error presenting paywall:', error);
+    }
+  };
+  void presentPaywall();
+  if (isLoading) {
+    return null;
   }
   return (
     <AppContextProvider>
