@@ -3,6 +3,7 @@ import { Redirect, Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'react-native';
 import { PAYWALL_RESULT } from 'react-native-purchases-ui';
 import RevenueCatUI from 'react-native-purchases-ui';
+
 import { AppContextProvider } from '~/lib/contexts/AppContext';
 
 export default function AuthLayout() {
@@ -16,16 +17,15 @@ export default function AuthLayout() {
   const presentPaywall = async () => {
     try {
       const paywallResult = await RevenueCatUI.presentPaywallIfNeeded({
-        requiredEntitlementIdentifier: 'proaccess',
+        requiredEntitlementIdentifier: 'pro',
       });
-
       switch (paywallResult) {
         case PAYWALL_RESULT.ERROR:
-        case PAYWALL_RESULT.NOT_PRESENTED:
         case PAYWALL_RESULT.CANCELLED:
           await signOut();
           router.replace('/sign-in');
           return;
+        case PAYWALL_RESULT.NOT_PRESENTED:
         case PAYWALL_RESULT.PURCHASED:
         case PAYWALL_RESULT.RESTORED:
           break;

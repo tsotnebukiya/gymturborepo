@@ -32,7 +32,6 @@ export default function Button({
   icon,
   iconPosition = 'left',
 }: ButtonProps) {
-  console.log(children);
   return (
     <Pressable
       onPress={onPress}

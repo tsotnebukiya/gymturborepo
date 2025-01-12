@@ -58,5 +58,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         },
       },
     ],
+    [
+      '@sentry/react-native/expo',
+      {
+        organization: 'smart-life-apps-llc',
+        project: 'gymleadai',
+        url: 'https://sentry.io/',
+      },
+    ],
   ],
 });

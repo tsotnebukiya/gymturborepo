@@ -1,11 +1,11 @@
 // Learn more: https://docs.expo.dev/guides/monorepos/
-const { getDefaultConfig } = require('expo/metro-config');
 const { FileStore } = require('metro-cache');
+const { getSentryExpoConfig } = require('@sentry/react-native/metro');
 
 const path = require('path');
 
 const config = withTurborepoManagedCache(
-  withMonorepoPaths(getDefaultConfig(__dirname))
+  withMonorepoPaths(getSentryExpoConfig(__dirname))
 );
 
 // XXX: Resolve our exports in workspace packages
