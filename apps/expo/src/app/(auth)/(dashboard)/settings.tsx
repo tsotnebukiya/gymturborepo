@@ -39,10 +39,10 @@ export default function SettingsScreen() {
     router.push('/support');
   };
   const handleTerms = async () => {
-    await WebBrowser.openBrowserAsync('https://www.slai.app/terms');
+    await WebBrowser.openBrowserAsync('https://www.gymleadai.app/terms');
   };
   const handlePrivacy = async () => {
-    await WebBrowser.openBrowserAsync('https://www.slai.app/privacy');
+    await WebBrowser.openBrowserAsync('https://www.gymleadai.app/privacy');
   };
   const handleDeleteAccount = () => {
     mutate();
