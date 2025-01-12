@@ -89,7 +89,9 @@ export default function GenerationItem({
             iconColor={colors.text.general.light}
             style={styles.icon}
           />
-        ) : null}
+        ) : (
+          <View style={styles.emptyLeftSpace} />
+        )}
       </View>
     </Pressable>
   );
@@ -148,6 +150,9 @@ const styles = StyleSheet.create({
     lineHeight: typography.medium.lineHeight,
     fontFamily: fontFamilies.regular,
     color: colors.text.general.greyscale,
+  },
+  emptyLeftSpace: {
+    width: 24,
   },
   errorTitle: {
     fontSize: typography.h5.fontSize,

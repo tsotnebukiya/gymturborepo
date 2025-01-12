@@ -1,6 +1,5 @@
 import { useAuth } from '@clerk/clerk-expo';
 import { Redirect, Stack, useRouter } from 'expo-router';
-import { useState } from 'react';
 import { StatusBar } from 'react-native';
 import { PAYWALL_RESULT } from 'react-native-purchases-ui';
 import RevenueCatUI from 'react-native-purchases-ui';
@@ -8,7 +7,6 @@ import { AppContextProvider } from '~/lib/contexts/AppContext';
 
 export default function AuthLayout() {
   const { isSignedIn, signOut } = useAuth();
-  const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
   if (!isSignedIn) {
@@ -25,7 +23,6 @@ export default function AuthLayout() {
         case PAYWALL_RESULT.ERROR:
         case PAYWALL_RESULT.NOT_PRESENTED:
         case PAYWALL_RESULT.CANCELLED:
-          setIsLoading(true);
           await signOut();
           router.replace('/sign-in');
           return;
@@ -38,9 +35,7 @@ export default function AuthLayout() {
     }
   };
   void presentPaywall();
-  if (isLoading) {
-    return null;
-  }
+
   return (
     <AppContextProvider>
       <StatusBar backgroundColor={'transparent'} />
