@@ -6,6 +6,7 @@ import {
   Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { ANDROID_BOTTOM_PADDING } from '~/lib/utils/constants';
 
 export default function ScrollView({
   children,
@@ -36,7 +37,10 @@ export default function ScrollView({
       contentContainerStyle={
         tabBarPadding
           ? styles.paddingBottom
-          : { paddingBottom: Platform.OS === 'ios' ? insets.bottom : 34 }
+          : {
+              paddingBottom:
+                Platform.OS === 'ios' ? insets.bottom : ANDROID_BOTTOM_PADDING,
+            }
       }
       style={styles.container}
     >

@@ -38,7 +38,7 @@ export default function AuthLayout() {
 
   return (
     <AppContextProvider>
-      <StatusBar backgroundColor={'transparent'} />
+      <StatusBar backgroundColor={'white'} />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(dashboard)" />
         <Stack.Screen

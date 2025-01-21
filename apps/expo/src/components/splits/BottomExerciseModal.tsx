@@ -7,12 +7,13 @@ import {
   BottomSheetModal,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fontFamilies, typography } from '~/lib/utils/typography';
 import colors from '~/lib/utils/colors';
 import Button from '../ui/Button';
+import { ANDROID_BOTTOM_PADDING } from '~/lib/utils/constants';
 
 export default function ExerciseBottomSheet({
   sheetRef,
@@ -43,7 +44,13 @@ export default function ExerciseBottomSheet({
       enableDynamicSizing={true}
     >
       <BottomSheetView
-        style={[styles.container, { paddingBottom: insets.bottom }]}
+        style={[
+          styles.container,
+          {
+            paddingBottom:
+              Platform.OS === 'ios' ? insets.bottom : ANDROID_BOTTOM_PADDING,
+          },
+        ]}
       >
         <Text style={styles.title}>{t('splits.exerciseSettings')}</Text>
         <Divider style={styles.divider} />

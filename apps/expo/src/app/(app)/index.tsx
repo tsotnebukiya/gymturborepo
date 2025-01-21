@@ -1,22 +1,12 @@
 import {
-  Animated,
-  FlatList,
-  Image,
   type ImageSourcePropType,
   StatusBar,
   StyleSheet,
   View,
 } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTranslation } from 'react-i18next';
-import colors from '~/lib/utils/colors';
-import Button from '~/components/ui/Button';
-import { useRef, useState } from 'react';
-import IntroItem from '~/components/intro/Item';
-import Paginator from '~/components/intro/Paginator';
 import { useRouter } from 'expo-router';
-import Gradient from '~/components/ui/Gradient';
-import TopBar from '~/components/shared/TopBar';
+import { useVideoPlayer, type VideoSource, VideoView } from 'expo-video';
+import Button from '~/components/ui/Button';
 
 export interface CarouselData {
   id: number;
@@ -26,137 +16,60 @@ export interface CarouselData {
 }
 
 export default function IntroScreen() {
-  const { t } = useTranslation();
-  const insets = useSafeAreaInsets();
-  const carouselData: CarouselData[] = [
-    {
-      id: 1,
-      image: require('~/assets/adscreen1.png'),
-      title: t('intro.title1'),
-      subtitle: t('intro.subTitle1'),
-    },
-    {
-      id: 2,
-      image: require('~/assets/adscreen2.png'),
-      title: t('intro.title2'),
-      subtitle: t('intro.subTitle2'),
-    },
-    {
-      id: 3,
-      image: require('~/assets/adscreen3.png'),
-      title: t('intro.title3'),
-      subtitle: t('intro.subTitle3'),
-    },
-  ];
   const router = useRouter();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollX = useRef(new Animated.Value(0)).current;
-  const viewableItemsChanged = useRef(
-    ({
-      viewableItems,
-    }: {
-      viewableItems: {
-        item: CarouselData;
-        key: string;
-        index: number | null;
-        isViewable: boolean;
-      }[];
-    }) => {
-      if (viewableItems[0]) {
-        setCurrentIndex(viewableItems[0].item.id - 1);
-      }
-    }
-  ).current;
-  const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
-  const flatListRef = useRef<FlatList>(null);
-
-  const scrollToIndex = (index: number) => {
-    if (index < carouselData.length) {
-      flatListRef.current?.scrollToIndex({
-        index,
-        animated: true,
-      });
-    }
-  };
 
   const routeToSignIn = () => {
     router.navigate('/sign-in');
   };
 
+  const player = useVideoPlayer(
+    require('~/assets/video.mp4') as VideoSource,
+    (player) => {
+      player.loop = true;
+      player.play();
+    }
+  );
+
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <TopBar languageButton={true} />
-      <View style={styles.imageContainer}>
-        <Image
-          source={carouselData[currentIndex]?.image}
-          resizeMode="contain"
-          style={
-            {
-              // flex: 1,
-              // width: '100%',
-              // height: '100%',
-              // backgroundColor: 'red',
-            }
-          }
-        />
-      </View>
-
-      <View style={[styles.content, { paddingBottom: insets.bottom }]}>
-        <Gradient />
-        <View style={styles.carouselContainer}>
-          <FlatList
-            ref={flatListRef}
-            data={carouselData}
-            renderItem={({ item }) => <IntroItem item={item} />}
-            bounces={false}
-            pagingEnabled
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-              {
-                useNativeDriver: false,
-              }
-            )}
-            onViewableItemsChanged={viewableItemsChanged}
-            viewabilityConfig={viewConfig}
-          />
-          <Paginator data={carouselData} scrollX={scrollX} />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button type="secondary" onPress={routeToSignIn} flex={true}>
-            {t('intro.skip')}
-          </Button>
-          <Button
-            flex={true}
-            onPress={() => {
-              if (currentIndex === carouselData.length - 1) {
-                routeToSignIn();
-              } else {
-                const nextIndex = currentIndex + 1;
-                scrollToIndex(nextIndex);
-              }
-            }}
-          >
-            {t('intro.continue')}
-          </Button>
-        </View>
-      </View>
+      <StatusBar barStyle="dark-content" backgroundColor={'white'} />
+      <VideoView
+        style={styles.video}
+        player={player}
+        allowsFullscreen
+        allowsPictureInPicture
+        pointerEvents="none"
+        nativeControls={false}
+      />
+      <Button type="primary" style={styles.button} onPress={routeToSignIn}>
+        START
+      </Button>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  button: {
+    position: 'absolute',
+    bottom: 20,
+    left: 16,
+    right: 16,
+    borderRadius: 100,
+  },
   container: {
     flex: 1,
-    backgroundColor: colors.primary[900],
+    backgroundColor: 'white',
   },
   imageContainer: {
     width: '100%',
     height: '100%',
     alignItems: 'center',
     justifyContent: 'flex-start',
+  },
+  video: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
   },
   content: {
     position: 'absolute',

@@ -1,6 +1,8 @@
 import { type PrismaTypes } from '@acme/api';
 import { useTranslation } from 'react-i18next';
 
+export const ANDROID_BOTTOM_PADDING = 34;
+
 export function useMusclesConstants() {
   const { t } = useTranslation();
   return {

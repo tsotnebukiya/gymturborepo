@@ -31,7 +31,7 @@ export default function SignInComponent({
   return (
     <View style={styles.outerContainer}>
       <Gradient />
-      <StatusBar barStyle="dark-content" backgroundColor={'transparent'} />
+      <StatusBar barStyle="dark-content" backgroundColor={'white'} />
       <TopBar
         backAction={{
           icon: 'close',

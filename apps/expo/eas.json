@@ -18,34 +18,27 @@
       "extends": "base",
       "developmentClient": true,
       "distribution": "internal",
+      "environment": "development",
       "android": {
         "buildType": "app-bundle"
-      },
-      "env": {
-        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsuZ3ltbGVhZGFpLmFwcCQ",
-        "EXPO_PUBLIC_REVENUE_APPLE_API_KEY": "appl_VpADMwWwqXbdWDcpwXMGiupNzva",
-        "EXPO_PUBLIC_REVENUE_ANDROID_API_KEY": "appl_VpADMwWwqXbdWDcpwXMGiupNzva"
       }
     },
     "preview": {
       "extends": "base",
       "distribution": "internal",
+      "environment": "preview",
       "ios": {
         "simulator": true
-      },
-      "env": {
-        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsuZ3ltbGVhZGFpLmFwcCQ",
-        "EXPO_PUBLIC_REVENUE_APPLE_API_KEY": "appl_VpADMwWwqXbdWDcpwXMGiupNzva",
-        "EXPO_PUBLIC_REVENUE_ANDROID_API_KEY": "appl_VpADMwWwqXbdWDcpwXMGiupNzva"
       }
     },
     "production": {
       "extends": "base",
       "autoIncrement": true,
+      "environment": "production",
       "env": {
         "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsuZ3ltbGVhZGFpLmFwcCQ",
         "EXPO_PUBLIC_REVENUE_APPLE_API_KEY": "appl_VpADMwWwqXbdWDcpwXMGiupNzva",
-        "EXPO_PUBLIC_REVENUE_ANDROID_API_KEY": "appl_VpADMwWwqXbdWDcpwXMGiupNzva"
+        "EXPO_PUBLIC_REVENUE_ANDROID_API_KEY": "goog_VIIYXfNBThYgGJGlgmgzLNGhQLP"
       }
     }
   },
