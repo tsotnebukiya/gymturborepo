@@ -50,8 +50,6 @@ export async function checkAndUpdateGenerationLimit({
         },
       },
     });
-    console.log(user.monthlyGenerations);
-    console.log('Generation limit updated');
     return true;
   }
 

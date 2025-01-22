@@ -62,7 +62,7 @@ export async function GET() {
             subcategory: exercise.subcategory,
           };
         } catch (error) {
-          console.log(error);
+          console.error(error);
           return {
             videoId: exercise.videoId,
             thumbnailExists: false,

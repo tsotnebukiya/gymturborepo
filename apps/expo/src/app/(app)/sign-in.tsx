@@ -60,7 +60,6 @@ export default function SignInScreen() {
           //
         }
       } catch (err) {
-        console.log(JSON.stringify(err, null, 2));
         console.error(`${provider} OAuth error`, err);
       } finally {
         setLoadingProvider(null);
