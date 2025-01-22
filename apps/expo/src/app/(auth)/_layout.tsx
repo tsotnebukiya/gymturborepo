@@ -1,5 +1,6 @@
 import { useAuth } from '@clerk/clerk-expo';
 import { Redirect, Stack, useRouter } from 'expo-router';
+import { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import Purchases from 'react-native-purchases';
 import { PAYWALL_RESULT } from 'react-native-purchases-ui';
@@ -11,34 +12,38 @@ export default function AuthLayout() {
   const { isSignedIn, signOut } = useAuth();
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (!isSignedIn) {
+      return;
+    }
+    const presentPaywall = async () => {
+      try {
+        const offerings = await Purchases.getOfferings();
+        const paywallResult = await RevenueCatUI.presentPaywallIfNeeded({
+          requiredEntitlementIdentifier: 'pro',
+          offering: offerings.current!,
+        });
+        switch (paywallResult) {
+          case PAYWALL_RESULT.ERROR:
+          case PAYWALL_RESULT.CANCELLED:
+            await signOut();
+            router.replace('/sign-in');
+            return;
+          case PAYWALL_RESULT.NOT_PRESENTED:
+          case PAYWALL_RESULT.PURCHASED:
+          case PAYWALL_RESULT.RESTORED:
+            break;
+        }
+      } catch (error) {
+        console.error('Error presenting paywall:', error);
+      }
+    };
+    void presentPaywall();
+  });
   if (!isSignedIn) {
     return <Redirect href="/sign-in" />;
   }
-
-  const presentPaywall = async () => {
-    try {
-      const offerings = await Purchases.getOfferings();
-      const paywallResult = await RevenueCatUI.presentPaywallIfNeeded({
-        requiredEntitlementIdentifier: 'pro',
-        offering: offerings.current!,
-      });
-      switch (paywallResult) {
-        case PAYWALL_RESULT.ERROR:
-        case PAYWALL_RESULT.CANCELLED:
-          await signOut();
-          router.replace('/sign-in');
-          return;
-        case PAYWALL_RESULT.NOT_PRESENTED:
-        case PAYWALL_RESULT.PURCHASED:
-        case PAYWALL_RESULT.RESTORED:
-          break;
-      }
-    } catch (error) {
-      console.error('Error presenting paywall:', error);
-    }
-  };
-  void presentPaywall();
-
   return (
     <AppContextProvider>
       <StatusBar backgroundColor={'white'} />
