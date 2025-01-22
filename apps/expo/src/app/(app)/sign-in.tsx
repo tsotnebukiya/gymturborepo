@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { useOAuth } from '@clerk/clerk-expo';
 import * as Linking from 'expo-linking';
+import * as Sentry from '@sentry/react-native';
 import SignInComponent from '~/components/SignIn';
 
 export const useWarmUpBrowser = () => {
@@ -60,6 +61,9 @@ export default function SignInScreen() {
           //
         }
       } catch (err) {
+        const clerkError = err as ClerkError;
+        const message = clerkError.errors[0]?.longMessage ?? 'Unknown error';
+        Sentry.captureException(message);
         console.error(`${provider} OAuth error`, err);
       } finally {
         setLoadingProvider(null);
