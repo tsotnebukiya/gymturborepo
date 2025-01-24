@@ -7,6 +7,7 @@ import {
 import { useRouter } from 'expo-router';
 import { useVideoPlayer, type VideoSource, VideoView } from 'expo-video';
 import Button from '~/components/ui/Button';
+import { useCallback, useState } from 'react';
 
 export interface CarouselData {
   id: number;
@@ -17,30 +18,35 @@ export interface CarouselData {
 
 export default function IntroScreen() {
   const router = useRouter();
-
-  const routeToSignIn = () => {
-    router.navigate('/sign-in');
-  };
+  const [isReady, setIsReady] = useState(false);
 
   const player = useVideoPlayer(
     require('~/assets/video.mp4') as VideoSource,
     (player) => {
       player.loop = true;
       player.play();
+      setIsReady(true);
     }
   );
+
+  const routeToSignIn = useCallback(() => {
+    player.pause();
+    router.navigate('/sign-in');
+  }, [player, router]);
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={'white'} />
-      <VideoView
-        style={styles.video}
-        player={player}
-        allowsFullscreen
-        allowsPictureInPicture
-        pointerEvents="none"
-        nativeControls={false}
-      />
+      {isReady && (
+        <VideoView
+          style={styles.video}
+          player={player}
+          allowsFullscreen={false}
+          allowsPictureInPicture={false}
+          pointerEvents="none"
+          nativeControls={false}
+        />
+      )}
       <Button type="primary" style={styles.button} onPress={routeToSignIn}>
         START
       </Button>
