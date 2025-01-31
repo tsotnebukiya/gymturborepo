@@ -20,14 +20,20 @@ export default function WizardButton({ isPending }: { isPending: boolean }) {
 
   return (
     <View style={styles.container}>
-      <Pressable
-        onPress={handleFAB}
-        style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-      >
-        <Image
-          style={styles.image}
-          source={require('~/assets/icons/wizard.png')}
-        />
+      <Pressable onPress={handleFAB} style={styles.button}>
+        {({ pressed }) => {
+          return pressed ? (
+            <Image
+              style={styles.image}
+              source={require('~/assets/icons/wizardPressed.png')}
+            />
+          ) : (
+            <Image
+              style={styles.image}
+              source={require('~/assets/icons/wizard.png')}
+            />
+          );
+        }}
       </Pressable>
     </View>
   );
@@ -54,11 +60,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  pressed: {
-    opacity: 0.9,
-  },
   image: {
-    width: 30,
-    height: 25,
+    width: 40,
+    height: 40,
   },
 });
