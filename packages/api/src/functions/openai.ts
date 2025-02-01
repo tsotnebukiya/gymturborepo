@@ -115,6 +115,7 @@ Provide:
 2. ONLY include exercise IDs where this specific equipment is the primary/intended equipment for that exercise
 
 Important:
+- If gym equipment is not Smith Machine, do not include any exercises that have Smith Machine in their name.
 - Do NOT include exercises that could theoretically be performed but aren't specifically designed for this equipment
 - Do NOT include exercises that merely use this equipment as a support or in a modified way
 - If uncertain about an exercise-equipment match, err on the side of exclusion
