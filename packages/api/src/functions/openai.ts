@@ -96,14 +96,16 @@ export async function generateGymResponse(
       {
         role: 'system',
         content:
-          'You are a professional fitness expert specializing in gym equipment. Your task is to identify gym equipment and ONLY match exercises that are specifically designed to be performed on this exact piece of equipment. Do not include exercises that could theoretically be performed but are not the primary intended use of the equipment.',
+          'You are a professional fitness expert specializing in gym equipment. First identify the equipment in the image, then if it matches a known equipment type, use the standard exercise mappings for that equipment.',
       },
       {
         role: 'user',
         content: [
           {
             type: 'text',
-            text: `Analyze this gym equipment image and identify ONLY the exercises from the provided list that are specifically designed to be performed on this exact equipment. Be strict and conservative in your matching - only include exercises if this is the primary/intended equipment for that exercise.
+            text: `First, identify what this gym equipment is. Then, if it's a standard piece of equipment (like Power Rack, Smith Machine, etc.), match ALL exercises from the provided list that are standardly performed on this type of equipment.
+
+For example, if you identify a Power Rack, include ALL exercises from the available list that are standard Power Rack exercises, regardless of the specific model or features visible in the image.
 
 Available exercises:
 ${JSON.stringify(availableExercises)}
@@ -112,13 +114,7 @@ Provide:
 1. For each language (${Object.values(Language).join(', ')}):
    - The equipment's name in that language
    - A brief description of the equipment (maximum 100 characters) in that language
-2. ONLY include exercise IDs where this specific equipment is the primary/intended equipment for that exercise
-
-Important:
-- If gym equipment is not Smith Machine, do not include any exercises that have Smith Machine in their name.
-- Do NOT include exercises that could theoretically be performed but aren't specifically designed for this equipment
-- Do NOT include exercises that merely use this equipment as a support or in a modified way
-- If uncertain about an exercise-equipment match, err on the side of exclusion
+2. Include exercise IDs based on the standard equipment type identified, not the specific features visible in the image
 
 If no gym equipment is clearly visible in the image, respond with null.`,
           },
@@ -136,4 +132,62 @@ If no gym equipment is clearly visible in the image, respond with null.`,
     max_tokens: 4096,
   });
   return response.choices[0]?.message.parsed?.equipment;
+}
+
+const exerciseEquipmentValidator = z.object({
+  mappings: z.array(
+    z.object({
+      exerciseId: z.number(),
+      exerciseName: z.string(),
+      equipment: z.array(z.string()),
+    })
+  ),
+});
+
+export async function generateExerciseEquipmentMappings(
+  availableExercises: { id: number; name: string }[]
+) {
+  const response = await openai.beta.chat.completions.parse({
+    model: 'gpt-4o',
+    messages: [
+      {
+        role: 'system',
+        content:
+          'You are a professional fitness expert specializing in exercise equipment relationships. Your task is to identify which gym equipments can be used for each exercise.',
+      },
+      {
+        role: 'user',
+        content: `For each exercise, list all gym equipment that can be used to perform it properly and safely.
+
+Available exercises:
+${JSON.stringify(availableExercises)}
+
+Important guidelines:
+- Use clear, common equipment names
+- Be comprehensive but realistic - only include equipment that can safely support the exercise
+- Consider bodyweight alternatives where applicable
+- For barbell exercises, assume "Barbell" and appropriate weight plates are available
+
+Format as JSON matching the validator schema, where each exercise has:
+- exerciseId: number
+- equipment: array of equipment names
+
+
+Example response format:
+{
+  "mappings": [
+    {
+      "exerciseId": 1,
+      "exerciseName": "Bench Press",
+      "equipment": ["Power Rack", "Smith Machine"],
+    }
+  ]
+}`,
+      },
+    ],
+    response_format: zodResponseFormat(exerciseEquipmentValidator, 'mappings'),
+    max_tokens: 16000,
+  });
+  console.log(response.usage);
+  return response.choices[0]?.message.parsed?.mappings || [];
 }
