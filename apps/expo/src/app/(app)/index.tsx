@@ -7,7 +7,7 @@ import {
 import { useRouter } from 'expo-router';
 import { useVideoPlayer, type VideoSource, VideoView } from 'expo-video';
 import Button from '~/components/ui/Button';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 
 export interface CarouselData {
   id: number;
@@ -18,22 +18,12 @@ export interface CarouselData {
 
 export default function IntroScreen() {
   const router = useRouter();
-  const [isReady, setIsReady] = useState(false);
 
   const player = useVideoPlayer(
     require('~/assets/video.mp4') as VideoSource,
     (player) => {
-      player.bufferOptions = {
-        minBufferForPlayback: 2, // 2 seconds initial buffer
-        preferredForwardBufferDuration: 10, // 10 seconds forward buffer
-        maxBufferBytes: 5 * 1024 * 1024, // 5MB max buffer
-        prioritizeTimeOverSizeThreshold: true,
-        waitsToMinimizeStalling: true,
-      };
-
       player.loop = true;
       player.play();
-      setIsReady(true);
     }
   );
 
@@ -42,25 +32,17 @@ export default function IntroScreen() {
     router.navigate('/sign-in');
   }, [player, router]);
 
-  useEffect(() => {
-    return () => {
-      player.release();
-    };
-  }, [player]);
-
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={'white'} />
-      {isReady && (
-        <VideoView
-          style={styles.video}
-          player={player}
-          allowsFullscreen={false}
-          allowsPictureInPicture={false}
-          pointerEvents="none"
-          nativeControls={false}
-        />
-      )}
+      <VideoView
+        style={styles.video}
+        player={player}
+        allowsFullscreen={false}
+        allowsPictureInPicture={false}
+        pointerEvents="none"
+        nativeControls={false}
+      />
       <Button type="primary" style={styles.button} onPress={routeToSignIn}>
         START
       </Button>
@@ -118,5 +100,11 @@ const styles = StyleSheet.create({
     gap: 16,
     borderTopWidth: 1,
     borderTopColor: '#F5F5F5',
+  },
+  hidden: {
+    opacity: 0,
+  },
+  placeholder: {
+    backgroundColor: 'white',
   },
 });
