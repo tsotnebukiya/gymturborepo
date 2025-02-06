@@ -16,14 +16,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   assetBundlePatterns: ['**/*'],
   ios: {
-    bundleIdentifier: 'com.slai.gymapp',
+    bundleIdentifier: 'com.sla.gymappai',
     supportsTablet: true,
   },
   runtimeVersion: {
     policy: 'appVersion',
   },
   android: {
-    package: 'com.slai.gymapp',
+    package: 'com.sla.gymappai',
     adaptiveIcon: {
       foregroundImage: './src/assets/foreground.png',
       backgroundImage: './src/assets/background.png',
