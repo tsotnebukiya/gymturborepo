@@ -5,10 +5,12 @@ import {
   View,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useVideoPlayer, type VideoSource, VideoView } from 'expo-video';
 import Button from '~/components/ui/Button';
-import { useCallback } from 'react';
+import { useVideoPlayer, VideoView } from 'expo-video';
+import { useEvent } from 'expo';
 
+const videoSource =
+  'https://res.cloudinary.com/dpuroyzfh/video/upload/v1738878036/azqpb8pznxl3xuptlbn2.mp4';
 export interface CarouselData {
   id: number;
   image: ImageSourcePropType;
@@ -19,30 +21,34 @@ export interface CarouselData {
 export default function IntroScreen() {
   const router = useRouter();
 
-  const player = useVideoPlayer(
-    require('~/assets/video.mp4') as VideoSource,
-    (player) => {
-      player.loop = true;
-      player.play();
-    }
-  );
+  const player = useVideoPlayer(videoSource, (player) => {
+    player.loop = true;
+    player.play();
+  });
 
-  const routeToSignIn = useCallback(() => {
-    player.pause();
+  const { status } = useEvent(player, 'statusChange', {
+    status: player.status,
+  });
+  const isReady = status === 'readyToPlay';
+
+  const routeToSignIn = () => {
     router.navigate('/sign-in');
-  }, [player, router]);
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={'white'} />
-      <VideoView
-        style={styles.video}
-        player={player}
-        allowsFullscreen={false}
-        allowsPictureInPicture={false}
-        pointerEvents="none"
-        nativeControls={false}
-      />
+      {isReady && (
+        <VideoView
+          style={[styles.video]}
+          player={player}
+          allowsFullscreen={false}
+          allowsPictureInPicture={false}
+          pointerEvents="none"
+          nativeControls={false}
+        />
+      )}
+
       <Button type="primary" style={styles.button} onPress={routeToSignIn}>
         START
       </Button>
