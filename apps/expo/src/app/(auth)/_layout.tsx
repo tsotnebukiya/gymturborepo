@@ -2,6 +2,7 @@ import { useAuth } from '@clerk/clerk-expo';
 import { Redirect, Stack, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StatusBar, View, ActivityIndicator } from 'react-native';
+import Purchases from 'react-native-purchases';
 import { PAYWALL_RESULT } from 'react-native-purchases-ui';
 import RevenueCatUI from 'react-native-purchases-ui';
 
@@ -19,10 +20,11 @@ export default function AuthLayout() {
     const presentPaywall = async () => {
       try {
         setIsPresentingPaywall(true);
+        const offerings = await Purchases.getOfferings();
         const paywallResult = await RevenueCatUI.presentPaywallIfNeeded({
           requiredEntitlementIdentifier: 'pro',
+          offering: offerings.current!,
         });
-        console.log(paywallResult);
         switch (paywallResult) {
           case PAYWALL_RESULT.ERROR:
           case PAYWALL_RESULT.CANCELLED:
