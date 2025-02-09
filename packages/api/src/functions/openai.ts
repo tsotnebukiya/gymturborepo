@@ -91,7 +91,7 @@ export async function generateGymResponse(
   availableExercises: { id: number; name: string }[]
 ) {
   const response = await openai.beta.chat.completions.parse({
-    model: 'gpt-4o',
+    model: 'gpt-4o-mini',
     messages: [
       {
         role: 'system',
@@ -116,6 +116,7 @@ Provide:
    - A brief description of the equipment (maximum 100 characters) in that language
 2. Include exercise IDs based on the standard equipment type identified, not the specific features visible in the image
 
+
 If no gym equipment is clearly visible in the image, respond with null.`,
           },
           {
@@ -131,6 +132,7 @@ If no gym equipment is clearly visible in the image, respond with null.`,
     response_format: zodResponseFormat(gymEquipmentValidator, 'equipment'),
     max_tokens: 4096,
   });
+  console.log(response.usage);
   return response.choices[0]?.message.parsed?.equipment;
 }
 
@@ -148,7 +150,7 @@ export async function generateExerciseEquipmentMappings(
   availableExercises: { id: number; name: string }[]
 ) {
   const response = await openai.beta.chat.completions.parse({
-    model: 'gpt-4o',
+    model: 'gpt-4o-mini',
     messages: [
       {
         role: 'system',

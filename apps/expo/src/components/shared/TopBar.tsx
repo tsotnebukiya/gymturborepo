@@ -64,6 +64,7 @@ const TopBar = ({
             iconColor={colors.menuBarIcon.active}
             style={[styles.iconButton, styles.noBorder]}
             mode={backAction.mode || 'outlined'}
+            hitSlop={{ top: 4, bottom: 4 }}
           />
         )}
         {emptyLeft ? <View style={styles.width40} /> : null}

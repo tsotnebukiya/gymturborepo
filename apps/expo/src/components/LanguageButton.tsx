@@ -25,6 +25,7 @@ export default function LanguageButton({
       ]}
       onPress={handleLanguagePress}
       activeOpacity={0.8}
+      hitSlop={{ top: 6, bottom: 6 }}
     >
       <Image source={icon} />
       <Text style={styles.text}>{code}</Text>
