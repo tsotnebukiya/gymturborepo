@@ -30,6 +30,7 @@
     "splits": "Rutinas"
   },
   "wizard": {
+    "guide": "Toma una foto en ángulo para mostrar tanto el frente como el lado de la máquina",
     "gallery": "Galería",
     "takePhoto": "Tomar Foto",
     "chooseMuscle": "Elegir Músculo",

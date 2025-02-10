@@ -30,6 +30,7 @@
     "splits": "Treinos"
   },
   "wizard": {
+    "guide": "Tire uma foto em ângulo para mostrar tanto a frente quanto o lado da máquina",
     "gallery": "Galeria",
     "takePhoto": "Tirar Foto",
     "chooseMuscle": "Escolher Músculo",

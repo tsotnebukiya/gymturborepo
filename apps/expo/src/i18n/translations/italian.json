@@ -30,6 +30,7 @@
     "splits": "Schede"
   },
   "wizard": {
+    "guide": "Scatta una foto ad angolazione per mostrare sia il fronte che il lato della macchina",
     "gallery": "Galleria",
     "takePhoto": "Scatta Foto",
     "chooseMuscle": "Scegli Muscolo",

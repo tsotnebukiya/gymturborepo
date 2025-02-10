@@ -30,6 +30,7 @@
     "splits": "Trainingspläne"
   },
   "wizard": {
+    "guide": "Machen Sie ein Foto in einem Winkel, der sowohl die Vorder- als auch die Seitenseite der Maschine zeigt",
     "gallery": "Galerie",
     "takePhoto": "Foto Aufnehmen",
     "chooseMuscle": "Muskel Auswählen",

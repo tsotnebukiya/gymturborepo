@@ -30,6 +30,7 @@
     "splits": "训练计��"
   },
   "wizard": {
+    "guide": "请以一个角度拍摄，以同时显示机器的正面和侧面",
     "gallery": "相册",
     "takePhoto": "拍照",
     "chooseMuscle": "选择肌肉",

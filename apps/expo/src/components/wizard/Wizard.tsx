@@ -9,6 +9,7 @@ import { useCurrentLanguage } from '~/i18n';
 import { useTranslation } from 'react-i18next';
 import WizardButton from './Button';
 import WizardModal from './Modal';
+import React from 'react';
 
 type PreviousData = RouterOutputs['generation']['getAll'];
 

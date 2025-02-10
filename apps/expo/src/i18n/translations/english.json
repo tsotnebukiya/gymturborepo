@@ -31,6 +31,7 @@
     "splits": "Splits"
   },
   "wizard": {
+    "guide": "Take a photo at an angle to show both front and side of the machine",
     "gallery": "Gallery",
     "takePhoto": "Take Photo",
     "chooseMuscle": "Choose Muscle",

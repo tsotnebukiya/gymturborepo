@@ -30,6 +30,7 @@
     "splits": "Programmes"
   },
   "wizard": {
+    "guide": "Prenez une photo en angle pour montrer à la fois l'avant et le côté de la machine",
     "gallery": "Galerie",
     "takePhoto": "Prendre une Photo",
     "chooseMuscle": "Choisir le Muscle",
