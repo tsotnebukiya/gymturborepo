@@ -66,12 +66,5 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         url: 'https://sentry.io/',
       },
     ],
-    [
-      'expo-video',
-      {
-        supportsBackgroundPlayback: false,
-        supportsPictureInPicture: false,
-      },
-    ],
   ],
 });
