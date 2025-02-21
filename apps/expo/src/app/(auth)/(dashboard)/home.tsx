@@ -5,10 +5,10 @@ import { useCurrentLanguage } from '~/i18n';
 import { api } from '~/lib/utils/api';
 import { useAppContext } from '~/lib/contexts/AppContext';
 import TopBar from '~/components/shared/TopBar';
-import LatestGenerations from '~/components/homepage/LatestGenerations';
-import MuscleCategories from '~/components/homepage/MuscleCategories';
+import LatestGenerations from '~/components/Homepage/LatestGenerations';
+import MuscleCategories from '~/components/Homepage/MuscleCategories';
 import { StyleSheet, View } from 'react-native';
-import RecommendedExercises from '~/components/homepage/RecommendedEx';
+import RecommendedExercises from '~/components/Homepage/RecommendedEx';
 import { router } from 'expo-router';
 
 export default function HomeScreen() {

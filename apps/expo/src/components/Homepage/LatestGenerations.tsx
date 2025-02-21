@@ -1,8 +1,8 @@
 import { StyleSheet, View } from 'react-native';
-import GenerationItem from '~/components/homepage/Item';
+import GenerationItem from '~/components/Homepage/Item';
 import { Text } from 'react-native-paper';
 import CTABox from '~/components/shared/CTABox';
-import GenerationSkeleton from '~/components/homepage/Skeleton';
+import GenerationSkeleton from '~/components/Homepage/Skeleton';
 import { useTranslation } from 'react-i18next';
 import { fontFamilies, typography } from '~/lib/utils/typography';
 import colors from '~/lib/utils/colors';
