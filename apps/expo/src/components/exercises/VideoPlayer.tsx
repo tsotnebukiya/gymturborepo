@@ -1,8 +1,8 @@
 import { StyleSheet, View, Dimensions } from 'react-native';
 import YoutubePlayer from 'react-native-youtube-iframe';
-import { useCallback, useState } from 'react';
-
-const horizontalPadding = 32; // 16px on each side
+import { useCallback, useEffect, useState } from 'react';
+import { AppState } from 'react-native';
+const horizontalPadding = 32;
 const containerWidth = Dimensions.get('window').width - horizontalPadding;
 const videoHeight = (containerWidth / 16) * 9;
 
@@ -19,7 +19,6 @@ export default function VideoPlayer({
 }: Props) {
   const [playing, setPlaying] = useState(false);
   const [key, setKey] = useState(0);
-
   const onStateChange = useCallback((state: string) => {
     if (state === 'ended') {
       setPlaying(false);
@@ -27,7 +26,18 @@ export default function VideoPlayer({
       setPlaying(true);
     }
   }, []);
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (nextAppState) => {
+      console.log('AppState changed to:', nextAppState);
+      if (nextAppState !== 'active') {
+        setPlaying(false);
+      }
+    });
 
+    return () => {
+      subscription.remove();
+    };
+  }, []);
   return (
     <View>
       <View style={[styles.videoContainer, { height: videoHeight }]}>
@@ -48,9 +58,5 @@ export default function VideoPlayer({
 }
 
 const styles = StyleSheet.create({
-  videoContainer: {
-    borderRadius: 16,
-    overflow: 'hidden',
-    backgroundColor: '#000',
-  },
+  videoContainer: {},
 });
