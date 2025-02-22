@@ -18,6 +18,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     bundleIdentifier: 'com.sla.gymappai',
     supportsTablet: true,
+    config: {
+      usesNonExemptEncryption: false,
+    },
   },
   runtimeVersion: {
     policy: 'appVersion',
