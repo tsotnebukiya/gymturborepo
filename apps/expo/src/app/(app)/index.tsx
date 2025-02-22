@@ -1,5 +1,6 @@
 import {
   type ImageSourcePropType,
+  Platform,
   StatusBar,
   StyleSheet,
   View,
@@ -10,7 +11,9 @@ import { useVideoPlayer, VideoView } from 'expo-video';
 import { useEvent } from 'expo';
 
 const videoSource =
-  'https://res.cloudinary.com/dpuroyzfh/video/upload/v1738878036/azqpb8pznxl3xuptlbn2.mp4';
+  Platform.OS === 'android'
+    ? 'https://res.cloudinary.com/dpuroyzfh/video/upload/v1738878036/azqpb8pznxl3xuptlbn2.mp4'
+    : (require('~/assets/video.mp4') as string);
 export interface CarouselData {
   id: number;
   image: ImageSourcePropType;

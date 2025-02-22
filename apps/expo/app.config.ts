@@ -31,6 +31,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       foregroundImage: './src/assets/foreground.png',
       backgroundImage: './src/assets/background.png',
     },
+    permissions: ['android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK'],
   },
   extra: {
     eas: {
