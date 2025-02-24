@@ -70,5 +70,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         url: 'https://sentry.io/',
       },
     ],
+    [
+      'expo-image-picker',
+      {
+        photosPermission:
+          'The app accesses your photo library to identify exercise equipment and related workouts.',
+        cameraPermission:
+          'The app takes pictures to identify gym equipment and related workouts.',
+      },
+    ],
   ],
 });
