@@ -1,5 +1,6 @@
 import { useAuth } from '@clerk/clerk-expo';
 import { Redirect, Stack, useRouter } from 'expo-router';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { StatusBar, View, ActivityIndicator } from 'react-native';
 import Purchases from 'react-native-purchases';
@@ -31,9 +32,11 @@ export default function AuthLayout() {
             await signOut();
             router.replace('/sign-in');
             return;
+          case PAYWALL_RESULT.RESTORED:
+            router.replace('/(auth)/(dashboard)/home');
+            return;
           case PAYWALL_RESULT.NOT_PRESENTED:
           case PAYWALL_RESULT.PURCHASED:
-          case PAYWALL_RESULT.RESTORED:
             break;
         }
       } catch (error) {
