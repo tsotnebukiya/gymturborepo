@@ -181,11 +181,11 @@ importers:
         specifier: ^5.12.5
         version: 5.12.5(react-native-safe-area-context@4.12.0(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1))(react-native-vector-icons@10.2.0)(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
       react-native-purchases:
-        specifier: ^8.6.1
-        version: 8.6.1(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
+        specifier: ^8.7.0
+        version: 8.7.0(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
       react-native-purchases-ui:
-        specifier: ^8.6.1
-        version: 8.6.1(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
+        specifier: ^8.7.0
+        version: 8.7.0(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
       react-native-reanimated:
         specifier: 3.16.1
         version: 3.16.1(@babel/core@7.26.0)(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
@@ -1948,8 +1948,8 @@ packages:
   '@remix-run/web-stream@1.1.0':
     resolution: {integrity: sha512-KRJtwrjRV5Bb+pM7zxcTJkhIqWWSy+MYsIxHK+0m5atcznsf15YwUBWHWulZerV2+vvHH1Lp1DD7pw6qKW8SgA==}
 
-  '@revenuecat/purchases-typescript-internal@13.18.1':
-    resolution: {integrity: sha512-yzmYBkUYOcm/3jI/a+U/OUN4L+Cpxm54/tE4PIv2Vgl3Af9Cc/Xf9XAnYM96r0/7cZx/KrBcIteeTLD/RRc4uQ==}
+  '@revenuecat/purchases-typescript-internal@13.21.0':
+    resolution: {integrity: sha512-4pJa3OkCL+o7EGHm2dNzMwqPMh9mfTjDapq8hKC6kkIDa8cmgs9kMHxDZfi0mMKY4a+E3mfMX0f+5KR2NjuG9w==}
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -5734,14 +5734,14 @@ packages:
       react-native-safe-area-context: '*'
       react-native-vector-icons: '*'
 
-  react-native-purchases-ui@8.6.1:
-    resolution: {integrity: sha512-+IvxzGndCO8P2B1ExslZTzEbAqikVKdcXPp+Umd6pk6UUrxsHkzSCYUryAHEW6Y/81rF9fa0mB65Iw1sMmHREQ==}
+  react-native-purchases-ui@8.7.0:
+    resolution: {integrity: sha512-4qPs2OJ9TGWwatYjf2KoP3C/p93cRQmMfBgRRdBuhKpYllqUfkLskj6dRDK8W3wl3vhZW8Qpe9GFIAI62Sj5uQ==}
     peerDependencies:
       react: '*'
       react-native: '*'
 
-  react-native-purchases@8.6.1:
-    resolution: {integrity: sha512-lOCcP1v53dGWxG0CNyF0owgdXA5syIKaFABZu7kXktNzm7AScVtgJVkK6v9B0oa/IZ0Jtx5Q0rDrM9ji4oHueA==}
+  react-native-purchases@8.7.0:
+    resolution: {integrity: sha512-aw2XPtpSISiKn6JNo9MeEjPeN4ArzneZVfmXOxy7bVH2RdMhRiCm2S7LgixModdxSpVaMAXZaXU7aLFffMtTZw==}
     peerDependencies:
       react: '>= 16.6.3'
       react-native: '*'
@@ -9233,7 +9233,7 @@ snapshots:
     dependencies:
       web-streams-polyfill: 3.3.3
 
-  '@revenuecat/purchases-typescript-internal@13.18.1': {}
+  '@revenuecat/purchases-typescript-internal@13.21.0': {}
 
   '@rtsao/scc@1.1.0': {}
 
@@ -13839,16 +13839,16 @@ snapshots:
       react-native-vector-icons: 10.2.0
       use-latest-callback: 0.2.1(react@18.3.1)
 
-  react-native-purchases-ui@8.6.1(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1):
+  react-native-purchases-ui@8.7.0(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@revenuecat/purchases-typescript-internal': 13.18.1
+      '@revenuecat/purchases-typescript-internal': 13.21.0
       react: 18.3.1
       react-native: 0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1)
-      react-native-purchases: 8.6.1(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
+      react-native-purchases: 8.7.0(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1)
 
-  react-native-purchases@8.6.1(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1):
+  react-native-purchases@8.7.0(react-native@0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@revenuecat/purchases-typescript-internal': 13.18.1
+      '@revenuecat/purchases-typescript-internal': 13.21.0
       react: 18.3.1
       react-native: 0.76.2(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@13.6.9)(@types/react@18.3.12)(react@18.3.1)
 

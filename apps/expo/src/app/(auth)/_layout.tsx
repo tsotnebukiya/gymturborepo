@@ -1,56 +1,56 @@
 import { useAuth } from '@clerk/clerk-expo';
-import { Redirect, Stack, useRouter } from 'expo-router';
-import React from 'react';
-import { useEffect, useState } from 'react';
+import { Redirect, Stack } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { StatusBar, View, ActivityIndicator } from 'react-native';
 import Purchases from 'react-native-purchases';
-import { PAYWALL_RESULT } from 'react-native-purchases-ui';
-import RevenueCatUI from 'react-native-purchases-ui';
 
 import { AppContextProvider } from '~/lib/contexts/AppContext';
+import Paywall from '~/components/Paywall';
 
 export default function AuthLayout() {
-  const { isSignedIn, signOut } = useAuth();
+  const { isSignedIn } = useAuth();
   const [isPresentingPaywall, setIsPresentingPaywall] = useState(false);
-  const router = useRouter();
+  const [showPaywall, setShowPaywall] = useState(false);
 
   useEffect(() => {
-    if (!isSignedIn) {
-      return;
-    }
-    const presentPaywall = async () => {
+    setIsPresentingPaywall(true);
+    const checkAccessAndShowPaywall = async () => {
       try {
-        setIsPresentingPaywall(true);
-        const offerings = await Purchases.getOfferings();
-        const paywallResult = await RevenueCatUI.presentPaywallIfNeeded({
-          requiredEntitlementIdentifier: 'pro',
-          offering: offerings.current!,
-        });
-        switch (paywallResult) {
-          case PAYWALL_RESULT.ERROR:
-          case PAYWALL_RESULT.CANCELLED:
-            await signOut();
-            router.replace('/sign-in');
-            return;
-          case PAYWALL_RESULT.RESTORED:
-            router.replace('/(auth)/(dashboard)/home');
-            return;
-          case PAYWALL_RESULT.NOT_PRESENTED:
-          case PAYWALL_RESULT.PURCHASED:
-            break;
+        const customerInfo = await Purchases.getCustomerInfo();
+        const hasProAccess = customerInfo.entitlements.active.pro !== undefined;
+
+        if (!hasProAccess) {
+          await Purchases.getOfferings();
+          setShowPaywall(true);
+        } else {
+          setShowPaywall(false);
         }
       } catch (error) {
-        console.error('Error presenting paywall:', error);
+        console.error('[DEBUG-AUTH] Error checking access:', error);
+        setShowPaywall(true);
       } finally {
         setIsPresentingPaywall(false);
       }
     };
-    void presentPaywall();
+
+    void checkAccessAndShowPaywall();
   }, [isSignedIn]);
 
+  console.log(
+    `[DEBUG-AUTH] AuthLayout render - isSignedIn=${isSignedIn}, showPaywall=${showPaywall}, isPresentingPaywall=${isPresentingPaywall}`
+  );
+
   if (!isSignedIn) {
+    console.log('[DEBUG-AUTH] Not signed in, redirecting to sign-in');
     return <Redirect href="/sign-in" />;
   }
+
+  if (showPaywall) {
+    console.log('[DEBUG-AUTH] Showing paywall');
+    return <Paywall />;
+  }
+
+  console.log('[DEBUG-AUTH] Showing main app content');
   return (
     <AppContextProvider>
       {isPresentingPaywall ? (

@@ -63,6 +63,7 @@ export default function SignInScreen() {
       } catch (err) {
         const clerkError = err as ClerkError;
         const message = clerkError.errors[0]?.longMessage ?? 'Unknown error';
+        console.log('message', message);
         Sentry.captureException(message);
         console.error(`${provider} OAuth error`, err);
       } finally {
