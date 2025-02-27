@@ -5,7 +5,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   name: 'GymLead AI',
   slug: 'gymapp',
   scheme: 'gymapp',
-  version: '0.1.0',
+  version: '0.1.1',
   orientation: 'portrait',
   icon: './src/assets/icon.png',
   userInterfaceStyle: 'automatic',
