@@ -116,6 +116,8 @@ Provide:
    - A brief description of the equipment (maximum 100 characters) in that language
 2. Include exercise IDs based on the standard equipment type identified, not the specific features visible in the image
 
+IMPORTANT: Exercises that specifically mention "Smith Machine" in their name should ONLY be included when the equipment is actually a Smith Machine.
+
 
 If no gym equipment is clearly visible in the image, respond with null.`,
           },
