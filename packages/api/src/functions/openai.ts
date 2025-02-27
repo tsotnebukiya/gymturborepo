@@ -91,7 +91,7 @@ export async function generateGymResponse(
   availableExercises: { id: number; name: string }[]
 ) {
   const response = await openai.beta.chat.completions.parse({
-    model: 'gpt-4o-mini',
+    model: 'gpt-4o',
     messages: [
       {
         role: 'system',
