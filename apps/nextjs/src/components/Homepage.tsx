@@ -18,7 +18,11 @@ export default function HomepageComponent() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 mt-8">
-              <Link href="#" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://apps.apple.com/ge/app/gymleadai-smarter-workouts/id6742331757"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Image
                   src="/apple.svg"
                   alt="Download on the App Store"
